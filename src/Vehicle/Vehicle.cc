@@ -722,9 +722,11 @@ void Vehicle::_mavlinkMessageReceived(LinkInterface* link, mavlink_message_t mes
     case MAVLINK_MSG_ID_VFR_HUD:
         _handleVfrHud(message);
         break;
+#if False
     case MAVLINK_MSG_ID_RANGEFINDER:
         _handleRangefinder(message);
         break;
+#endif
     case MAVLINK_MSG_ID_NAV_CONTROLLER_OUTPUT:
         _handleNavControllerOutput(message);
         break;
@@ -1000,9 +1002,11 @@ void Vehicle::_handleVfrHud(mavlink_message_t& message)
 
 void Vehicle::_handleRangefinder(mavlink_message_t& message)
 {
+#if FALSE
     mavlink_rangefinder_t rangefinder;
     mavlink_msg_rangefinder_decode(&message, &rangefinder);
     _rangeFinderDistFact.setRawValue(qIsNaN(rangefinder.distance) ? 0 : rangefinder.distance);
+#endif
 }
 
 
