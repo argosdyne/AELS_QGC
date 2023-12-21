@@ -207,6 +207,16 @@ Item {
         }
     }
 
+//    Loader {
+//        id:                     camControlLoader
+//        visible:                true //!mainIsMap && _cameraPresent && _camera.paramComplete
+//        source:                 visible ? "qrc:/qml/QGroundControl/FlightDisplay/CustomCameraControl.qml" : ""
+//        anchors.right:          parent.right
+//        anchors.rightMargin:    ScreenTools.defaultFontPixelWidth
+//        anchors.bottom:         attitudeIndicator.top
+//        anchors.bottomMargin:   ScreenTools.defaultFontPixelHeight
+//    }
+
     Rectangle {
         id:                     attitudeIndicator
         anchors.bottomMargin:   _toolsMargin
