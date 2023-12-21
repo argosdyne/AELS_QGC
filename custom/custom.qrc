@@ -1,5 +1,5 @@
 <RCC>
-    <qresource prefix="custom/img">
+    <qresource prefix="/custom/img">
         <file alias="altitude.svg">res/Images/altitude.svg</file>
         <file alias="attitude_crosshair.svg">res/Images/attitude_crosshair.svg</file>
         <file alias="attitude_dial.svg">res/Images/attitude_dial.svg</file>
@@ -12,12 +12,45 @@
         <file alias="microSD.svg">res/Images/microSD.svg</file>
         <file alias="odometer.svg">res/Images/odometer.svg</file>
         <file alias="vertical_speed.svg">res/Images/vertical_speed.svg</file>
-        <file alias="CustomAppIcon.png">res/Images/CustomAppIcon.png</file>
+        <file alias="CustomAppIcon_d.png">res/Images/CustomAppIcon.png</file>
+        <file alias="CustomAppIcon.png">res/Images/argosdyneLogoWithTextV1_bg.png</file>
+        <file>res/Images/argosdyneLogo.ico</file>
+        <file>res/Images/argosdyneLogo_bg.jpg</file>
+        <file>res/Images/argosdyneLogoWithText_bg.png</file>
+        <file>res/Images/argosdyneLogoWithTextV1_bg1.png</file>
+        <file alias="camera_photo.svg">res/Images/camera_photo.svg</file>
+        <file alias="camera_settings.svg">res/Images/camera_settings.svg</file>
+        <file alias="camera_video.">res/Images/camera_video.svg</file>
+        <file alias="coach.svg">res/Images/coach.svg</file>
+        <file alias="CodevLogo.svg">res/Images/CodevLogo.svg</file>
+        <file alias="CustomVehicleIcon.svg">res/Images/CustomVehicleIcon.svg</file>
+        <file alias="gimbal_icon.svg">res/Images/gimbal_icon.svg</file>
+        <file alias="gimbal_pitch.svg">res/Images/gimbal_pitch.svg</file>
+        <file alias="gimbal_pitch_indoors.svg">res/Images/gimbal_pitch_indoors.svg</file>
+        <file alias="gimbal_pitch_outdoors.svg">res/Images/gimbal_pitch_outdoors.svg</file>
+        <file alias="gimbal_position.svg">res/Images/gimbal_position.svg</file>
+        <file alias="no.svg">res/Images/no.svg</file>
+        <file alias="PairingButton.svg">res/Images/PairingButton.svg</file>
+        <file alias="PairingConnected.svg">res/Images/PairingConnected.svg</file>
+        <file alias="PairingError.svg">res/Images/PairingError.svg</file>
+        <file alias="PairingIcon.svg">res/Images/PairingIcon.svg</file>
+        <file alias="PairingIconLight.svg">res/Images/PairingIconLight.svg</file>
+        <file alias="thermal-brightness.svg">res/Images/thermal-brightness.svg</file>
+        <file alias="thermal-palette.svg">res/Images/thermal-palette.svg</file>
+        <file alias="thermal-pip.svg">res/Images/thermal-pip.svg</file>
+        <file alias="thermal-standard.svg">res/Images/thermal-standard.svg</file>
+        <file alias="toolBar_GPSCount0.svg">res/Images/toolBar_GPSCount0.svg</file>
+        <file alias="toolBar_GPSFactor0.svg">res/Images/toolBar_GPSFactor0.svg</file>
+        <file alias="toolBar_GPSType0.svg">res/Images/toolBar_GPSType0.svg</file>
+        <file alias="toolBar_GPSUnuse.svg">res/Images/toolBar_GPSUnuse.svg</file>
+        <file alias="track.svg">res/Images/track.svg</file>
+        <file alias="void.png">res/Images/void.png</file>
+        <file alias="yes.svg">res/Images/yes.svg</file>
     </qresource>
     <qresource prefix="/qmlimages">
-	<file alias="PaperPlane.svg">res/Images/CustomVehicleIcon.svg</file>
+        <file alias="PaperPlane.svg">res/Images/CustomVehicleIcon.svg</file>
     </qresource>
-    <qresource prefix="Custom/Widgets">
+    <qresource prefix="/Custom/Widgets">
         <file alias="Custom/Widgets/CustomArtificialHorizon.qml">res/Custom/Widgets/CustomArtificialHorizon.qml</file>
         <file alias="Custom/Widgets/CustomAttitudeWidget.qml">res/Custom/Widgets/CustomAttitudeWidget.qml</file>
         <file alias="Custom/Widgets/CustomIconButton.qml">res/Custom/Widgets/CustomIconButton.qml</file>
@@ -30,5 +63,43 @@
     </qresource>
     <qresource prefix="/qml">
         <file alias="QGroundControl/FlightDisplay/FlyViewCustomLayer.qml">res/CustomFlyViewOverlay.qml</file>
+        <file alias="QGroundControl/Controls/MainToolBar.qml">res/CustomMainToolBar.qml</file>
+        <file alias="QGroundControl/FlightDisplay/CustomCameraControl.qml">CustomCameraControl.qml</file>
+        <file alias="QGroundControl/FlightDisplay/FlyViewVideo.qml">CustomFlyViewVideo.qml</file>
+        <file alias="QGroundControl/FlightDisplay/FlyViewVideoSiYiController.qml">FlyViewVideoSiYiController.qml</file>
+    </qresource>
+    <qresource prefix="/res">
+        <file alias="QGCLogoFull">res/Images/res/argosdyneLogo.png</file>
+    </qresource>
+    <qresource prefix="/resources/SiYi">
+        <file alias="BeadSight.svg">res/Images/SiYi/BeadSight.svg</file>
+        <file alias="data.svg">res/Images/SiYi/data.svg</file>
+        <file alias="Down.svg">res/Images/SiYi/Down.svg</file>
+        <file alias="Emiter.svg">res/Images/SiYi/Emiter.svg</file>
+        <file alias="empty.png">res/Images/SiYi/empty.png</file>
+        <file alias="far.png">res/Images/SiYi/far.png</file>
+        <file alias="far.svg">res/Images/SiYi/far.svg</file>
+        <file alias="farGreen.svg">res/Images/SiYi/farGreen.svg</file>
+        <file alias="Left.svg">res/Images/SiYi/Left.svg</file>
+        <file alias="neer.png">res/Images/SiYi/neer.png</file>
+        <file alias="neer.svg">res/Images/SiYi/neer.svg</file>
+        <file alias="neerGreen.svg">res/Images/SiYi/neerGreen.svg</file>
+        <file alias="Photo.png">res/Images/SiYi/Photo.png</file>
+        <file alias="Photo.svg">res/Images/SiYi/Photo.svg</file>
+        <file alias="PhotoGreen.svg">res/Images/SiYi/PhotoGreen.svg</file>
+        <file alias="Reset.png">res/Images/SiYi/Reset.png</file>
+        <file alias="Reset.svg">res/Images/SiYi/Reset.svg</file>
+        <file alias="ResetGreen.svg">res/Images/SiYi/ResetGreen.svg</file>
+        <file alias="Right.svg">res/Images/SiYi/Right.svg</file>
+        <file alias="Stop.svg">res/Images/SiYi/Stop.svg</file>
+        <file alias="Video.png">res/Images/SiYi/Video.png</file>
+        <file alias="Video.svg">res/Images/SiYi/Video.svg</file>
+        <file alias="VideoGreen.svg">res/Images/SiYi/VideoGreen.svg</file>
+        <file alias="ZoomIn.png">res/Images/SiYi/ZoomIn.png</file>
+        <file alias="ZoomIn.svg">res/Images/SiYi/ZoomIn.svg</file>
+        <file alias="ZoomInGreen.svg">res/Images/SiYi/ZoomInGreen.svg</file>
+        <file alias="ZoomOut.png">res/Images/SiYi/ZoomOut.png</file>
+        <file alias="ZoomOut.svg">res/Images/SiYi/ZoomOut.svg</file>
+        <file alias="ZoomOutGreen.svg">res/Images/SiYi/ZoomOutGreen.svg</file>
     </qresource>
 </RCC>
