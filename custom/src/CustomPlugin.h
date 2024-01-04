@@ -15,12 +15,13 @@
 #include "QGCOptions.h"
 #include "QGCLoggingCategory.h"
 #include "SettingsManager.h"
-
+#include "SiYiManager.h"
 #include <QTranslator>
 
 class CustomOptions;
 class CustomPlugin;
 class CustomSettings;
+class SiYiManager;
 
 Q_DECLARE_LOGGING_CATEGORY(CustomLog)
 
@@ -52,6 +53,9 @@ class CustomPlugin : public QGCCorePlugin
 {
     Q_OBJECT
 public:
+    Q_PROPERTY(SiYiManager* siyiManager READ siyiManager CONSTANT)
+
+
     CustomPlugin(QGCApplication* app, QGCToolbox *toolbox);
     ~CustomPlugin();
 
@@ -64,7 +68,7 @@ public:
     bool                    adjustSettingMetaData           (const QString& settingsGroup, FactMetaData& metaData) final;
     void                    paletteOverride                 (QString colorName, QGCPalette::PaletteColorInfo_t& colorInfo) final;
     QQmlApplicationEngine*  createQmlApplicationEngine      (QObject* parent) final;
-
+    SiYiManager* siyiManager(){return _siyiManager;};
     // Overrides from QGCTool
     void                    setToolbox                      (QGCToolbox* toolbox);
 
@@ -75,6 +79,7 @@ private:
     void _addSettingsEntry(const QString& title, const char* qmlFile, const char* iconFile = nullptr);
 
 private:
+    SiYiManager* _siyiManager = nullptr;
     CustomOptions*  _options = nullptr;
     QVariantList    _customSettingsList; // Not to be mixed up with QGCCorePlugin implementation
 };

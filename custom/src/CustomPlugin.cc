@@ -75,6 +75,7 @@ CustomPlugin::CustomPlugin(QGCApplication *app, QGCToolbox* toolbox)
     : QGCCorePlugin(app, toolbox)
 {
     _options = new CustomOptions(this, this);
+    _siyiManager = new SiYiManager(app,toolbox);
     _showAdvancedUI = false;
 }
 
@@ -85,6 +86,7 @@ CustomPlugin::~CustomPlugin()
 void CustomPlugin::setToolbox(QGCToolbox* toolbox)
 {
     QGCCorePlugin::setToolbox(toolbox);
+    _siyiManager->setToolbox(toolbox);
 
     // Allows us to be notified when the user goes in/out out advanced mode
     connect(qgcApp()->toolbox()->corePlugin(), &QGCCorePlugin::showAdvancedUIChanged, this, &CustomPlugin::_advancedChanged);
