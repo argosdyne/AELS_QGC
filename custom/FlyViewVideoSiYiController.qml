@@ -20,7 +20,7 @@ import QGroundControl.Palette           1.0
 import QGroundControl.Vehicle           1.0
 import QGroundControl.Controllers       1.0
 
-//import SiYi.Object 1.0 # THANH TODO
+import SiYi.Object 1.0
 import QtGraphicalEffects 1.12
 import "qrc:/qml/QGroundControl/Controls"
 
@@ -30,15 +30,15 @@ Rectangle {
     anchors.fill: parent
     color: "#00000000"
 
-//    property var siyi: SiYi
-//    property SiYiCamera camera: siyi.camera
-//    property SiYiTransmitter transmitter: siyi.transmitter
+    property var siyi: QGroundControl.corePlugin.siyiManager
+    property SiYiCamera camera: siyi.camera
+    property SiYiTransmitter transmitter: siyi.transmitter
 //    property bool isRecording: camera.isRecording
 
-    property var siyi:({})
-    property var camera: ({isConnected:true,enableZoom:true,enableControl:true,enablePhoto:true,enableFocus:true,enableVideo:true})
-    property var transmitter: ({})
-    property bool isRecording: true
+//    property var siyi:({})
+//    property var camera: ({isConnected:true,enableZoom:true,enableControl:true,enablePhoto:true,enableFocus:true,enableVideo:true})
+//    property var transmitter: ({})
+//    property bool isRecording: true
 
     property int minDelta: 5
 
@@ -215,7 +215,7 @@ Rectangle {
 //                }
 //            }
 
-            Image { // 放大
+            Image { // zoom In
                 id: zoomInImage
                 sourceSize.width: btText.width
                 sourceSize.height: btText.width
@@ -260,7 +260,7 @@ Rectangle {
                 }
             }
 
-            Image { // 缩小
+            Image { // zoom out
                 id: zoomOut
                 sourceSize.width: btText.width
                 sourceSize.height: btText.width
@@ -303,7 +303,7 @@ Rectangle {
                 }
             }
 
-            Image { // 回中
+            Image { // Return to center
                 id: reset
                 sourceSize.width: btText.width
                 sourceSize.height: btText.width
@@ -325,7 +325,7 @@ Rectangle {
 //                }
             }
 
-            Image { // 拍照
+            Image { // Photograph
                 id: photo
                 sourceSize.width: btText.width
                 sourceSize.height: btText.width
@@ -350,7 +350,7 @@ Rectangle {
 //                }
             }
 
-            Image { // 录像
+            Image { // Video
                 id: video
                 //sourceSize.width: btText.width
                 //sourceSize.height: btText.width
@@ -417,7 +417,7 @@ Rectangle {
                 }
             }
 
-            Image { // 远景
+            Image { //vision
                 id: far
                 sourceSize.width: btText.width
                 sourceSize.height: btText.width
@@ -456,7 +456,7 @@ Rectangle {
                 }
             }
 
-            Image { // 近景
+            Image { // close shot
                 id: neer
                 sourceSize.width: btText.width
                 sourceSize.height: btText.width
