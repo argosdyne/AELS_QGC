@@ -18,6 +18,9 @@ import QGroundControl.Palette               1.0
 import QGroundControl.MultiVehicleManager   1.0
 import QGroundControl.ScreenTools           1.0
 import QGroundControl.Controllers           1.0
+import QtGraphicalEffects 1.12
+
+import SiYi.Object 1.0
 
 Rectangle {
     id:     _root
@@ -32,6 +35,12 @@ Rectangle {
     property var    _activeVehicle:     QGroundControl.multiVehicleManager.activeVehicle
     property bool   _communicationLost: _activeVehicle ? _activeVehicle.vehicleLinkManager.communicationLost : false
     property color  _mainStatusBGColor: qgcPal.brandingPurple
+
+    // SiYi
+    property  var siyi: QGroundControl.corePlugin.siyiManager
+    property SiYiCamera camera: siyi.camera
+    property SiYiTransmitter transmitter: siyi.transmitter
+
 
     QGCPalette { id: qgcPal }
 
@@ -109,9 +118,55 @@ Rectangle {
         }
     }
 
+    Row {
+        spacing: 10
+        anchors.right: parent.right
+        anchors.rightMargin: ScreenTools.defaultFontPixelHeight*2
+        anchors.verticalCenter: parent.verticalCenter
+        visible: false
+        Image {
+            id: emiterImage
+            source: "qrc:/resources/SiYi/Emiter.svg"
+            width: ScreenTools.defaultFontPixelHeight
+            height: ScreenTools.defaultFontPixelHeight
+            anchors.verticalCenter: parent.verticalCenter
+            ColorOverlay {
+                anchors.fill: emiterImage
+                source: emiterImage
+                color: siyi.isAndroid ? "green" : "white"
+            }
+        }
+        QGCLabel {
+            id: transmitterStateText
+            text: transmitter.isConnected ? qsTr("connected") :  qsTr("not connected")
+            color: siyi.isAndroid ? "green" : "white"
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        Image {
+            id: photoImage
+            source: "qrc:/resources/SiYi/Photo.svg"
+            width: ScreenTools.defaultFontPixelHeight
+            height: ScreenTools.defaultFontPixelHeight
+            anchors.verticalCenter: parent.verticalCenter
+            ColorOverlay {
+                anchors.fill: photoImage
+                source: photoImage
+                color: siyi.isAndroid ? "green" : "white"
+            }
+        }
+        QGCLabel {
+            text: camera.isConnected ? qsTr("connected") :  qsTr("not connected")
+            color: siyi.isAndroid ? "green" : "white"
+            anchors.verticalCenter: parent.verticalCenter
+        }
+    }
+
+
+
     //-------------------------------------------------------------------------
     //-- Branding Logo
     Image {
+        id: brandingLogo
         anchors.right:          parent.right
         anchors.top:            parent.top
         anchors.bottom:         parent.bottom
@@ -162,6 +217,53 @@ Rectangle {
             }
         }
     }
+    Column {
+        anchors.right: brandingLogo.source ? brandingLogo.left : parent.right
+        anchors.rightMargin: ScreenTools.defaultFontPixelHeight*2
+        anchors.verticalCenter: parent.verticalCenter
+        visible: true// transmitter.isConnected
+        Row {
+            spacing: 10
+            Image {
+                id: emiterImg2
+                source: "qrc:/resources/SiYi/Emiter.svg"
+                sourceSize.width: ScreenTools.defaultFontPixelHeight
+                sourceSize.height: width
+                anchors.verticalCenter: parent.verticalCenter
+                ColorOverlay {
+                    anchors.fill: emiterImg2
+                    source: emiterImg2
+                    color: siyi.isAndroid ? "black" : "white"
+                }
+            }
+            QGCLabel {
+                text: transmitter.isConnected ? transmitter.rssi + "dbm" : "--"
+                color: siyi.isAndroid ? "black" : "white"
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
+        Row {
+            spacing: 10
+            Image {
+                id: photoImage2
+                source: "qrc:/resources/SiYi/data.svg"
+                sourceSize.width: ScreenTools.defaultFontPixelHeight
+                sourceSize.height: width
+                anchors.verticalCenter: parent.verticalCenter
+                ColorOverlay {
+                    anchors.fill: photoImage2
+                    source: photoImage2
+                    color: siyi.isAndroid ? "black" : "white"
+                }
+            }
+            QGCLabel {
+                text: transmitter.isConnected ? (transmitter.downStream/1024).toFixed(1) + "KB" : "--"
+                color: siyi.isAndroid ? "black" : "white"
+                anchors.verticalCenter: parent.verticalCenter
+            }
+        }
+    }
+
 
     // Small parameter download progress bar
     Rectangle {
