@@ -59,12 +59,23 @@ QML_IMPORT_PATH += \
 # Our own, custom sources
 SOURCES += \
     $$PWD/src/CustomPlugin.cc \
+    $$PWD/src/SiYi/SiYiCamera.cc \
+    $$PWD/src/SiYi/SiYiCrcApi.cc \
+    $$PWD/src/SiYi/SiYiManager.cc \
+    $$PWD/src/SiYi/SiYiTcpClient.cc \
+    $$PWD/src/SiYi/SiYiTransmitter.cc
 
 HEADERS += \
     $$PWD/src/CustomPlugin.h \
+    $$PWD/src/SiYi/SiYiCamera.h \
+    $$PWD/src/SiYi/SiYiCrcApi.h \
+    $$PWD/src/SiYi/SiYiManager.h \
+    $$PWD/src/SiYi/SiYiTcpClient.h \
+    $$PWD/src/SiYi/SiYiTransmitter.h
 
 INCLUDEPATH += \
     $$PWD/src \
+    $$PWD/src/SiYi/ \
 
 #-------------------------------------------------------------------------------------
 # Custom Firmware/AutoPilot Plugin
