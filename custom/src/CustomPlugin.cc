@@ -140,7 +140,7 @@ QString CustomPlugin::brandImageIndoor(void) const
 
 QString CustomPlugin::brandImageOutdoor(void) const
 {
-    return QStringLiteral("/custom/img/CustomAppIcon.png");
+    return QStringLiteral("/custom/img/CustomAppIconOutdoor.png");
 }
 
 bool CustomPlugin::overrideSettingsGroupVisibility(QString name)
