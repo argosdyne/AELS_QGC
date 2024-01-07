@@ -33,12 +33,12 @@ Rectangle {
     property var siyi: QGroundControl.corePlugin.siyiManager
     property SiYiCamera camera: siyi.camera
     property SiYiTransmitter transmitter: siyi.transmitter
-//    property bool isRecording: camera.isRecording
+    property bool isRecording: camera.isRecording
 
 //    property var siyi:({})
 //    property var camera: ({isConnected:true,enableZoom:true,enableControl:true,enablePhoto:true,enableFocus:true,enableVideo:true})
 //    property var transmitter: ({})
-//    property bool isRecording: true
+   // property bool isRecording: true
 
     property int minDelta: 5
 
