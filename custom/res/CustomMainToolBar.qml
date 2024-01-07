@@ -118,46 +118,53 @@ Rectangle {
         }
     }
 
-    Row {
-        spacing: 10
+    Column {
+        spacing: 5
         anchors.right: parent.right
-        anchors.rightMargin: ScreenTools.defaultFontPixelHeight*2
+        anchors.rightMargin: ScreenTools.defaultFontPixelHeight*1.5
         anchors.verticalCenter: parent.verticalCenter
-        visible: false
-        Image {
-            id: emiterImage
-            source: "qrc:/resources/SiYi/Emiter.svg"
-            width: ScreenTools.defaultFontPixelHeight
-            height: ScreenTools.defaultFontPixelHeight
-            anchors.verticalCenter: parent.verticalCenter
-            ColorOverlay {
-                anchors.fill: emiterImage
-                source: emiterImage
+        visible: true
+
+        Row {
+            spacing: 10
+            Image {
+                id: emiterImage
+                source: "qrc:/resources/SiYi/Emiter.svg"
+                width: ScreenTools.defaultFontPixelHeight
+                height: ScreenTools.defaultFontPixelHeight
+                anchors.verticalCenter: parent.verticalCenter
+                ColorOverlay {
+                    anchors.fill: emiterImage
+                    source: emiterImage
+                    color: siyi.isAndroid ? "green" : "white"
+                }
+            }
+            QGCLabel {
+                id: transmitterStateText
+                text: transmitter.isConnected ? qsTr("1") :  qsTr("0")
                 color: siyi.isAndroid ? "green" : "white"
+                anchors.verticalCenter: parent.verticalCenter
             }
         }
-        QGCLabel {
-            id: transmitterStateText
-            text: transmitter.isConnected ? qsTr("connected") :  qsTr("not connected")
-            color: siyi.isAndroid ? "green" : "white"
-            anchors.verticalCenter: parent.verticalCenter
-        }
-        Image {
-            id: photoImage
-            source: "qrc:/resources/SiYi/Photo.svg"
-            width: ScreenTools.defaultFontPixelHeight
-            height: ScreenTools.defaultFontPixelHeight
-            anchors.verticalCenter: parent.verticalCenter
-            ColorOverlay {
-                anchors.fill: photoImage
-                source: photoImage
-                color: siyi.isAndroid ? "green" : "white"
+        Row {
+            spacing: 10
+            Image {
+                id: photoImage
+                source: "qrc:/resources/SiYi/Photo.svg"
+                width: ScreenTools.defaultFontPixelHeight
+                height: ScreenTools.defaultFontPixelHeight
+                anchors.verticalCenter: parent.verticalCenter
+                ColorOverlay {
+                    anchors.fill: photoImage
+                    source: photoImage
+                    color: siyi.isAndroid ? "green" : "white"
+                }
             }
-        }
-        QGCLabel {
-            text: camera.isConnected ? qsTr("connected") :  qsTr("not connected")
-            color: siyi.isAndroid ? "green" : "white"
-            anchors.verticalCenter: parent.verticalCenter
+            QGCLabel {
+                text: camera.isConnected ? qsTr("1") :  qsTr("0")
+                color: siyi.isAndroid ? "green" : "white"
+                anchors.verticalCenter: parent.verticalCenter
+            }
         }
     }
 
@@ -170,7 +177,7 @@ Rectangle {
         anchors.right:          parent.right
         anchors.top:            parent.top
         anchors.bottom:         parent.bottom
-        anchors.margins:        ScreenTools.defaultFontPixelHeight * 0.66
+        anchors.margins:        ScreenTools.defaultFontPixelHeight * 0.33
         visible:                currentToolbar !== planViewToolbar && _activeVehicle && !_communicationLost && x > (toolsFlickable.x + toolsFlickable.contentWidth + ScreenTools.defaultFontPixelWidth)
         fillMode:               Image.PreserveAspectFit
         source:                 _outdoorPalette ? _brandImageOutdoor : _brandImageIndoor
@@ -219,11 +226,11 @@ Rectangle {
     }
     Column {
         anchors.right: brandingLogo.source ? brandingLogo.left : parent.right
-        anchors.rightMargin: ScreenTools.defaultFontPixelHeight*2
+        anchors.rightMargin: ScreenTools.defaultFontPixelHeight*1.5
         anchors.verticalCenter: parent.verticalCenter
         visible: true// transmitter.isConnected
         Row {
-            spacing: 10
+            spacing: 5
             Image {
                 id: emiterImg2
                 source: "qrc:/resources/SiYi/Emiter.svg"
@@ -243,7 +250,7 @@ Rectangle {
             }
         }
         Row {
-            spacing: 10
+            spacing: 5
             Image {
                 id: photoImage2
                 source: "qrc:/resources/SiYi/data.svg"
