@@ -25,7 +25,7 @@ CustomFirmwarePluginFactory::CustomFirmwarePluginFactory()
 QList<QGCMAVLink::FirmwareClass_t> CustomFirmwarePluginFactory::supportedFirmwareClasses() const
 {
     QList<QGCMAVLink::FirmwareClass_t> firmwareClasses;
-    firmwareClasses.append(QGCMAVLink::FirmwareClassPX4);
+    firmwareClasses.append(QGCMAVLink::FirmwareClassArduPilot);
     return firmwareClasses;
 }
 

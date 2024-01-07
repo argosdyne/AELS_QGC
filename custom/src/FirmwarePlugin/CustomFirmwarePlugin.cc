@@ -15,16 +15,23 @@
 #include "CustomAutoPilotPlugin.h"
 
 //-----------------------------------------------------------------------------
-CustomFirmwarePlugin::CustomFirmwarePlugin()
+CustomFirmwarePlugin::CustomFirmwarePlugin() : APMFirmwarePlugin()
 {
-    for (int i = 0; i < _flightModeInfoList.count(); i++) {
-        FlightModeInfo_t& info = _flightModeInfoList[i];
-        //-- Narrow the flight mode options to only these
-        if (info.name != _holdFlightMode && info.name != _rtlFlightMode && info.name != _missionFlightMode) {
-            // No other flight modes can be set
-            info.canBeSet = false;
-        }
-    }
+
+    //THANH TODO: Narrow the flight mode support using the function below
+    // void APMFirmwarePlugin::setSupportedModes(QList<APMCustomMode> supportedModes)
+    // {
+    //     _supportedModes = supportedModes;
+    // }
+    // ---- PX4 -----------------------------------------------------------------------------------------
+    // for (int i = 0; i < _flightModeInfoList.count(); i++) {
+    //     FlightModeInfo_t& info = _flightModeInfoList[i];
+    //     //-- Narrow the flight mode options to only these
+    //     if (info.name != _holdFlightMode && info.name != _rtlFlightMode && info.name != _missionFlightMode) {
+    //         // No other flight modes can be set
+    //         info.canBeSet = false;
+    //     }
+    // }
 }
 
 //-----------------------------------------------------------------------------
@@ -41,6 +48,7 @@ const QVariantList& CustomFirmwarePlugin::toolIndicators(const Vehicle* vehicle)
         _toolIndicatorList = FirmwarePlugin::toolIndicators(vehicle);
         // Then specifically remove the RC RSSI indicator.
         _toolIndicatorList.removeOne(QVariant::fromValue(QUrl::fromUserInput("qrc:/toolbar/RCRSSIIndicator.qml")));
+        // THANH: TODO: Remove some unused tool and add some custom tool here
     }
     return _toolIndicatorList;
 }

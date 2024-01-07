@@ -12,10 +12,10 @@
 
 #pragma once
 
-#include "PX4AutoPilotPlugin.h"
+#include "APMAutoPilotPlugin.h"
 #include "Vehicle.h"
 
-class CustomAutoPilotPlugin : public PX4AutoPilotPlugin
+class CustomAutoPilotPlugin : public APMAutoPilotPlugin
 {
     Q_OBJECT
 public:

@@ -14,11 +14,11 @@
 #pragma once
 
 #include "FirmwarePlugin.h"
-#include "PX4FirmwarePlugin.h"
+#include "APMFirmwarePlugin.h"
 
 class CustomCameraManager;
 
-class CustomFirmwarePlugin : public PX4FirmwarePlugin
+class CustomFirmwarePlugin : public APMFirmwarePlugin
 {
     Q_OBJECT
 public:
