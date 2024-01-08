@@ -119,50 +119,51 @@ Rectangle {
     }
 
     Column {
-        spacing: 5
         anchors.right: parent.right
-        anchors.rightMargin: ScreenTools.defaultFontPixelHeight*1.5
+        anchors.rightMargin:  ScreenTools.defaultFontPixelHeight*0.3
         anchors.verticalCenter: parent.verticalCenter
         visible: true
 
         Row {
-            spacing: 10
+            spacing: 5
             Image {
                 id: emiterImage
-                source: "qrc:/resources/SiYi/Emiter.svg"
-                width: ScreenTools.defaultFontPixelHeight
-                height: ScreenTools.defaultFontPixelHeight
+                sourceSize.width: ScreenTools.defaultFontPixelHeight*0.8
+                sourceSize.height: ScreenTools.defaultFontPixelHeight
                 anchors.verticalCenter: parent.verticalCenter
+                source: "qrc:/resources/SiYi/Emiter.svg"
+                mipmap: true
                 ColorOverlay {
                     anchors.fill: emiterImage
                     source: emiterImage
-                    color: siyi.isAndroid ? "green" : "white"
+                    color: siyi.isAndroid ? "black" : "white"
                 }
             }
             QGCLabel {
                 id: transmitterStateText
                 text: transmitter.isConnected ? qsTr("1") :  qsTr("0")
-                color: siyi.isAndroid ? "green" : "white"
+                color: siyi.isAndroid ? "black" : "white"
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
         Row {
-            spacing: 10
+            spacing: 5
             Image {
                 id: photoImage
-                source: "qrc:/resources/SiYi/Photo.svg"
-                width: ScreenTools.defaultFontPixelHeight
-                height: ScreenTools.defaultFontPixelHeight
+                sourceSize.width: ScreenTools.defaultFontPixelHeight*0.8
+                sourceSize.height:  ScreenTools.defaultFontPixelHeight
                 anchors.verticalCenter: parent.verticalCenter
+                source: "qrc:/resources/SiYi/Photo.svg"
+                mipmap: true
                 ColorOverlay {
                     anchors.fill: photoImage
                     source: photoImage
-                    color: siyi.isAndroid ? "green" : "white"
+                    color: siyi.isAndroid ? "black" : "white"
                 }
             }
             QGCLabel {
                 text: camera.isConnected ? qsTr("1") :  qsTr("0")
-                color: siyi.isAndroid ? "green" : "white"
+                color: siyi.isAndroid ? "black" : "white"
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
@@ -177,7 +178,7 @@ Rectangle {
         anchors.right:          parent.right
         anchors.top:            parent.top
         anchors.bottom:         parent.bottom
-        anchors.margins:        ScreenTools.defaultFontPixelHeight * 0.33
+        anchors.margins:        ScreenTools.defaultFontPixelHeight * 0.5
         visible:                currentToolbar !== planViewToolbar && _activeVehicle && !_communicationLost && x > (toolsFlickable.x + toolsFlickable.contentWidth + ScreenTools.defaultFontPixelWidth)
         fillMode:               Image.PreserveAspectFit
         source:                 _outdoorPalette ? _brandImageOutdoor : _brandImageIndoor
@@ -226,7 +227,7 @@ Rectangle {
     }
     Column {
         anchors.right: brandingLogo.source ? brandingLogo.left : parent.right
-        anchors.rightMargin: ScreenTools.defaultFontPixelHeight*1.5
+        anchors.rightMargin: ScreenTools.defaultFontPixelHeight
         anchors.verticalCenter: parent.verticalCenter
         visible: true// transmitter.isConnected
         Row {
@@ -234,7 +235,7 @@ Rectangle {
             Image {
                 id: emiterImg2
                 source: "qrc:/resources/SiYi/Emiter.svg"
-                sourceSize.width: ScreenTools.defaultFontPixelHeight
+                sourceSize.width: ScreenTools.defaultFontPixelHeight*0.8
                 sourceSize.height: width
                 anchors.verticalCenter: parent.verticalCenter
                 ColorOverlay {
@@ -254,7 +255,7 @@ Rectangle {
             Image {
                 id: photoImage2
                 source: "qrc:/resources/SiYi/data.svg"
-                sourceSize.width: ScreenTools.defaultFontPixelHeight
+                sourceSize.width: ScreenTools.defaultFontPixelHeight*0.8
                 sourceSize.height: width
                 anchors.verticalCenter: parent.verticalCenter
                 ColorOverlay {
