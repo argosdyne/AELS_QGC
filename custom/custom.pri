@@ -3,7 +3,7 @@ message("Adding Custom Plugin")
 #-- Version control
 #   Major and minor versions are defined here (manually)
 
-CUSTOM_QGC_VER_MAJOR = 0
+CUSTOM_QGC_VER_MAJOR = 1
 CUSTOM_QGC_VER_MINOR = 0
 CUSTOM_QGC_VER_FIRST_BUILD = 0
 
@@ -35,19 +35,19 @@ CONFIG  += QGC_DISABLE_APM_PLUGIN_FACTORY
 DEFINES += CUSTOMHEADER=\"\\\"CustomPlugin.h\\\"\"
 DEFINES += CUSTOMCLASS=CustomPlugin
 
-TARGET   = CustomQGroundControl
-DEFINES += QGC_APPLICATION_NAME='"\\\"Custom QGroundControl\\\""'
+TARGET   = AlesQGroundControl
+DEFINES += QGC_APPLICATION_NAME='"\\\"Ales QGC\\\""'
 
-DEFINES += QGC_ORG_NAME=\"\\\"qgroundcontrol.org\\\"\"
-DEFINES += QGC_ORG_DOMAIN=\"\\\"org.qgroundcontrol\\\"\"
+DEFINES += QGC_ORG_NAME=\"\\\"argosdyne.org\\\"\"
+DEFINES += QGC_ORG_DOMAIN=\"\\\"org.argosdyne\\\"\"
 
-QGC_APP_NAME        = "Custom QGroundControl"
-QGC_BINARY_NAME     = "CustomQGroundControl"
-QGC_ORG_NAME        = "Custom"
-QGC_ORG_DOMAIN      = "org.custom"
-QGC_ANDROID_PACKAGE = "org.custom.qgroundcontrol"
-QGC_APP_DESCRIPTION = "Custom QGroundControl"
-QGC_APP_COPYRIGHT   = "Copyright (C) 2020 QGroundControl Development Team. All rights reserved."
+QGC_APP_NAME        = "Ales QGC"
+QGC_BINARY_NAME     = "Ales QGC"
+QGC_ORG_NAME        = "Agosdyne"
+QGC_ORG_DOMAIN      = "org.Agosdyne"
+QGC_ANDROID_PACKAGE = "org.Agosdyne.alesqgc"
+QGC_APP_DESCRIPTION = "Ales QGroundControl"
+QGC_APP_COPYRIGHT   = "Copyright (C) 2023 Ales QGroundControl Development Team. All rights reserved."
 
 # Our own, custom resources
 RESOURCES += \
