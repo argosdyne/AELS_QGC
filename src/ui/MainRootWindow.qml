@@ -436,14 +436,23 @@ ApplicationWindow {
                                 anchors.fill:       parent
 
                                 onClicked: {
-                                    if (mouse.modifiers & Qt.ControlModifier) {
-                                        QGroundControl.corePlugin.showTouchAreas = !QGroundControl.corePlugin.showTouchAreas
-                                    } else if (mouse.modifiers & Qt.ShiftModifier) {
+                                    if (ScreenTools.isMobile){
                                         if(!QGroundControl.corePlugin.showAdvancedUI) {
                                             advancedModeConfirmation.open()
                                         } else {
                                             QGroundControl.corePlugin.showAdvancedUI = false
                                         }
+                                    } else {
+                                        if (mouse.modifiers & Qt.ControlModifier) {
+                                            QGroundControl.corePlugin.showTouchAreas = !QGroundControl.corePlugin.showTouchAreas
+                                        } else if (mouse.modifiers & Qt.ShiftModifier) {
+                                            if(!QGroundControl.corePlugin.showAdvancedUI) {
+                                                advancedModeConfirmation.open()
+                                            } else {
+                                                QGroundControl.corePlugin.showAdvancedUI = false
+                                            }
+                                        }
+
                                     }
                                 }
 
