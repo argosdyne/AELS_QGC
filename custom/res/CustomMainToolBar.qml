@@ -119,17 +119,16 @@ Rectangle {
     }
 
     Column {
-        anchors.right: parent.right
+        anchors.right: siyiDeviceInfo.left
         anchors.rightMargin:  ScreenTools.defaultFontPixelHeight*0.3
         anchors.verticalCenter: parent.verticalCenter
         visible: true
-
         Row {
             spacing: 5
             Image {
                 id: emiterImage
                 sourceSize.width: ScreenTools.defaultFontPixelHeight*0.8
-                sourceSize.height: ScreenTools.defaultFontPixelHeight
+                sourceSize.height: ScreenTools.defaultFontPixelHeight*0.8
                 anchors.verticalCenter: parent.verticalCenter
                 source: "qrc:/resources/SiYi/Emiter.svg"
                 mipmap: true
@@ -151,7 +150,7 @@ Rectangle {
             Image {
                 id: photoImage
                 sourceSize.width: ScreenTools.defaultFontPixelHeight*0.8
-                sourceSize.height:  ScreenTools.defaultFontPixelHeight
+                sourceSize.height:  ScreenTools.defaultFontPixelHeight*0.8
                 anchors.verticalCenter: parent.verticalCenter
                 source: "qrc:/resources/SiYi/Photo.svg"
                 mipmap: true
@@ -226,6 +225,7 @@ Rectangle {
         }
     }
     Column {
+        id:siyiDeviceInfo
         anchors.right: brandingLogo.source ? brandingLogo.left : parent.right
         anchors.rightMargin: ScreenTools.defaultFontPixelHeight
         anchors.verticalCenter: parent.verticalCenter
@@ -236,7 +236,7 @@ Rectangle {
                 id: emiterImg2
                 source: "qrc:/resources/SiYi/Emiter.svg"
                 sourceSize.width: ScreenTools.defaultFontPixelHeight*0.8
-                sourceSize.height: width
+                sourceSize.height: ScreenTools.defaultFontPixelHeight*0.8
                 anchors.verticalCenter: parent.verticalCenter
                 ColorOverlay {
                     anchors.fill: emiterImg2
@@ -256,7 +256,7 @@ Rectangle {
                 id: photoImage2
                 source: "qrc:/resources/SiYi/data.svg"
                 sourceSize.width: ScreenTools.defaultFontPixelHeight*0.8
-                sourceSize.height: width
+                sourceSize.height: ScreenTools.defaultFontPixelHeight*0.8
                 anchors.verticalCenter: parent.verticalCenter
                 ColorOverlay {
                     anchors.fill: photoImage2
