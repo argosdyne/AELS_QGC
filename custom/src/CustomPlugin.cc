@@ -23,6 +23,7 @@
 #include "AppMessages.h"
 #include "QmlComponentInfo.h"
 #include "QGCPalette.h"
+#include "CodevRTCMManager.h"
 
 QGC_LOGGING_CATEGORY(CustomLog, "CustomLog")
 
@@ -76,6 +77,7 @@ CustomPlugin::CustomPlugin(QGCApplication *app, QGCToolbox* toolbox)
 {
     _options = new CustomOptions(this, this);
     _siyiManager = new SiYiManager(app,toolbox);
+    _codevRTCMManager = new CodevRTCMManager(app, toolbox);
     _showAdvancedUI = false;
 }
 
@@ -86,7 +88,12 @@ CustomPlugin::~CustomPlugin()
 void CustomPlugin::setToolbox(QGCToolbox* toolbox)
 {
     QGCCorePlugin::setToolbox(toolbox);
+
     _siyiManager->setToolbox(toolbox);
+    if(_codevSettings == nullptr) {
+        _codevSettings = new CodevSettings(this);
+    }
+    _codevRTCMManager->setToolbox(toolbox);
 
     // Allows us to be notified when the user goes in/out out advanced mode
     connect(qgcApp()->toolbox()->corePlugin(), &QGCCorePlugin::showAdvancedUIChanged, this, &CustomPlugin::_advancedChanged);

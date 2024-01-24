@@ -17,11 +17,13 @@
 #include "SettingsManager.h"
 #include "SiYiManager.h"
 #include <QTranslator>
+#include "codevsettings.h"
 
 class CustomOptions;
 class CustomPlugin;
 class CustomSettings;
 class SiYiManager;
+class CodevRTCMManager;
 
 Q_DECLARE_LOGGING_CATEGORY(CustomLog)
 
@@ -53,6 +55,8 @@ class CustomPlugin : public QGCCorePlugin
 {
     Q_OBJECT
 public:
+    Q_PROPERTY(CodevSettings* codevSettings READ codevSettings CONSTANT)
+    Q_PROPERTY(CodevRTCMManager* codevRTCMManager READ codevRTCMManager CONSTANT)
     Q_PROPERTY(SiYiManager* siyiManager READ siyiManager CONSTANT)
 
 
@@ -68,7 +72,12 @@ public:
     bool                    adjustSettingMetaData           (const QString& settingsGroup, FactMetaData& metaData) final;
     void                    paletteOverride                 (QString colorName, QGCPalette::PaletteColorInfo_t& colorInfo) final;
     QQmlApplicationEngine*  createQmlApplicationEngine      (QObject* parent) final;
+
+
     SiYiManager* siyiManager(){return _siyiManager;};
+    CodevSettings* codevSettings() { return _codevSettings; }
+    CodevRTCMManager* codevRTCMManager() { return _codevRTCMManager; }
+
     // Overrides from QGCTool
     void                    setToolbox                      (QGCToolbox* toolbox);
 
@@ -80,6 +89,9 @@ private:
 
 private:
     SiYiManager* _siyiManager = nullptr;
+    CodevSettings*      _codevSettings = nullptr;
+    CodevRTCMManager*   _codevRTCMManager = nullptr;
+
     CustomOptions*  _options = nullptr;
     QVariantList    _customSettingsList; // Not to be mixed up with QGCCorePlugin implementation
 };
