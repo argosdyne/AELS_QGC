@@ -59,23 +59,35 @@ QML_IMPORT_PATH += \
 # Our own, custom sources
 SOURCES += \
     $$PWD/src/CustomPlugin.cc \
+    $$PWD/src/RTCM/CodevRTCMManager.cpp \
+    $$PWD/src/RTCM/NTRIPRTCMSource.cpp \
+    $$PWD/src/RTCM/RTCMBase.cpp \
+    $$PWD/src/RTCM/SerialPortRTCMSource.cpp \
     $$PWD/src/SiYi/SiYiCamera.cc \
     $$PWD/src/SiYi/SiYiCrcApi.cc \
     $$PWD/src/SiYi/SiYiManager.cc \
     $$PWD/src/SiYi/SiYiTcpClient.cc \
-    $$PWD/src/SiYi/SiYiTransmitter.cc
+    $$PWD/src/SiYi/SiYiTransmitter.cc \
+    $$PWD/src/codevsettings.cpp
 
 HEADERS += \
     $$PWD/src/CustomPlugin.h \
+    $$PWD/src/RTCM/CodevRTCMManager.h \
+    $$PWD/src/RTCM/NTRIPRTCMSource.h \
+    $$PWD/src/RTCM/RTCMBase.h \
+    $$PWD/src/RTCM/SerialPortRTCMSource.h \
     $$PWD/src/SiYi/SiYiCamera.h \
     $$PWD/src/SiYi/SiYiCrcApi.h \
     $$PWD/src/SiYi/SiYiManager.h \
     $$PWD/src/SiYi/SiYiTcpClient.h \
-    $$PWD/src/SiYi/SiYiTransmitter.h
+    $$PWD/src/SiYi/SiYiTransmitter.h \
+    $$PWD/src/codevsettings.h \
+    $$PWD/src/lockedqueue.h
 
 INCLUDEPATH += \
     $$PWD/src \
     $$PWD/src/SiYi/ \
+    $$PWD/src/RTCM/ \
 
 #-------------------------------------------------------------------------------------
 # Custom Firmware/AutoPilot Plugin
@@ -94,4 +106,5 @@ SOURCES += \
     $$PWD/src/AutoPilotPlugin/CustomAutoPilotPlugin.cc \
     $$PWD/src/FirmwarePlugin/CustomFirmwarePlugin.cc \
     $$PWD/src/FirmwarePlugin/CustomFirmwarePluginFactory.cc \
+
 

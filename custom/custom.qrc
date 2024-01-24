@@ -101,4 +101,17 @@
         <file alias="ZoomOut.svg">res/Images/SiYi/ZoomOut.svg</file>
         <file alias="ZoomOutGreen.svg">res/Images/SiYi/ZoomOutGreen.svg</file>
     </qresource>
+    <qresource prefix="/custom">
+        <file alias="RTCMSettings.qml">src/RTCM/RTCMSettings.qml</file>
+    </qresource>
+    <qresource prefix="/json">
+        <file alias="Codev.SettingsGroup.json">src/Codev.SettingsGroup.json</file>
+        <file alias="NTRIPRTCM.SettingsGroup.json">src/RTCM/NTRIPRTCM.SettingsGroup.json</file>
+        <file alias="RTCMBase.SettingsGroup.json">src/RTCM/RTCMBase.SettingsGroup.json</file>
+        <file alias="SerialPortRTCM.SettingsGroup.json">src/RTCM/SerialPortRTCM.SettingsGroup.json</file>
+    </qresource>
+    <qresource prefix="/RTCM">
+        <file alias="NTRIPClient.qml">src/RTCM/NTRIPClient.qml</file>
+        <file alias="SerialPortRTCMClient.qml">src/RTCM/SerialPortRTCMClient.qml</file>
+    </qresource>
 </RCC>
