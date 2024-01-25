@@ -25,7 +25,7 @@ signals:
 
 private slots:
     void _setActiveVehicle(Vehicle* vehicle);
-    void _mavlinkReceived(const mavlink_message_t &message, LinkInterface* link);
+    void _mavlinkReceived(const mavlink_message_t &message);
     void _setRTCMSource(QVariant value);
     void _sendMavlinkRTCM(mavlink_gps_rtcm_data_t message);
 

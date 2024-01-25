@@ -41,9 +41,8 @@ void CodevRTCMManager::_setActiveVehicle(Vehicle* vehicle)
     }
 }
 
-void CodevRTCMManager::_mavlinkReceived(const mavlink_message_t &message, LinkInterface* link)
+void CodevRTCMManager::_mavlinkReceived(const mavlink_message_t &message)
 {
-    Q_UNUSED(link)
     if(message.msgid == MAVLINK_MSG_ID_GPS_RAW_INT) {
         emit received_gps_raw_int_status(message);
     }
