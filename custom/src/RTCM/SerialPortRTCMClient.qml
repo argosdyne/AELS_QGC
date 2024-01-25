@@ -44,7 +44,10 @@ Column {
                 }
             }
             Component.onCompleted: {
-                QGroundControl.linkManager.manualRefreshSerialPorts()
+                // In android, only one serial port can be connected at a time so in link manager they don't check serial port periodically.
+                // TODO THANH: check if we need this one
+                // QGroundControl.linkManager.manualRefreshSerialPorts()
+
                 rtcmPort.model.append({text:"/dev/ttysWK0"})
                 var serialPorts = QGroundControl.linkManager.serialPorts
                 for (var i in serialPorts) {
