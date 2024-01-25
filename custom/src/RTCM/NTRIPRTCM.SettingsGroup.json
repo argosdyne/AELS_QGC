@@ -1,3 +1,7 @@
+{
+"version":      1,
+"fileType":  "FactMetaData",
+"QGC.MetaData.Facts":
 [
 {
     "name": "sendMaxRTCMHz",
@@ -60,3 +64,4 @@
     "enumValues": "10000,5000,2000,1000,200"
 }
 ]
+}

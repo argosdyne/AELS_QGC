@@ -1,4 +1,9 @@
+{
+"version":      1,
+"fileType":  "FactMetaData",
+"QGC.MetaData.Facts":
 [
+
 {
     "name": "sendMaxRTCMHz",
     "type": "int32",
@@ -20,3 +25,4 @@
     "shortDescription": "BaudRate"
 }
 ]
+}
