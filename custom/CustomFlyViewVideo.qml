@@ -17,7 +17,7 @@ import QGroundControl.Palette               1.0
 
 Item {
     id:         _root
-    visible:    true //TODO: QGroundControl.videoManager.hasVideo
+    visible:    QGroundControl.videoManager.hasVideo
 
     property Item pipState: videoPipState
     QGCPipState {
