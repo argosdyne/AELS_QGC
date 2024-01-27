@@ -117,56 +117,56 @@ Rectangle {
                                     (currentToolbar == planViewToolbar ? "qrc:/qml/PlanToolBarIndicators.qml" : "")
         }
     }
-
-    Column {
-        anchors.right: siyiDeviceInfo.left
-        anchors.rightMargin:  ScreenTools.defaultFontPixelHeight*0.3
-        anchors.verticalCenter: parent.verticalCenter
-        visible: true
-        Row {
-            spacing: 5
-            Image {
-                id: emiterImage
-                sourceSize.width: ScreenTools.defaultFontPixelHeight*0.8
-                sourceSize.height: ScreenTools.defaultFontPixelHeight*0.8
-                anchors.verticalCenter: parent.verticalCenter
-                source: "qrc:/resources/SiYi/Emiter.svg"
-                mipmap: true
-                ColorOverlay {
-                    anchors.fill: emiterImage
-                    source: emiterImage
-                    color: siyi.isAndroid ? "black" : "white"
-                }
-            }
-            QGCLabel {
-                id: transmitterStateText
-                text: transmitter.isConnected ? qsTr("1") :  qsTr("0")
-                color: siyi.isAndroid ? "black" : "white"
-                anchors.verticalCenter: parent.verticalCenter
-            }
-        }
-        Row {
-            spacing: 5
-            Image {
-                id: photoImage
-                sourceSize.width: ScreenTools.defaultFontPixelHeight*0.8
-                sourceSize.height:  ScreenTools.defaultFontPixelHeight*0.8
-                anchors.verticalCenter: parent.verticalCenter
-                source: "qrc:/resources/SiYi/Photo.svg"
-                mipmap: true
-                ColorOverlay {
-                    anchors.fill: photoImage
-                    source: photoImage
-                    color: siyi.isAndroid ? "black" : "white"
-                }
-            }
-            QGCLabel {
-                text: camera.isConnected ? qsTr("1") :  qsTr("0")
-                color: siyi.isAndroid ? "black" : "white"
-                anchors.verticalCenter: parent.verticalCenter
-            }
-        }
-    }
+    // For debuging only
+    // Column {
+    //     anchors.right: siyiDeviceInfo.left
+    //     anchors.rightMargin:  ScreenTools.defaultFontPixelHeight*0.3
+    //     anchors.verticalCenter: parent.verticalCenter
+    //     visible: true
+    //     Row {
+    //         spacing: 5
+    //         Image {
+    //             id: emiterImage
+    //             sourceSize.width: ScreenTools.defaultFontPixelHeight*0.8
+    //             sourceSize.height: ScreenTools.defaultFontPixelHeight*0.8
+    //             anchors.verticalCenter: parent.verticalCenter
+    //             source: "qrc:/resources/SiYi/Emiter.svg"
+    //             mipmap: true
+    //             ColorOverlay {
+    //                 anchors.fill: emiterImage
+    //                 source: emiterImage
+    //                 color: siyi.isAndroid ? "black" : "white"
+    //             }
+    //         }
+    //         QGCLabel {
+    //             id: transmitterStateText
+    //             text: transmitter.isConnected ? qsTr("1") :  qsTr("0")
+    //             color: siyi.isAndroid ? "black" : "white"
+    //             anchors.verticalCenter: parent.verticalCenter
+    //         }
+    //     }
+    //     Row {
+    //         spacing: 5
+    //         Image {
+    //             id: photoImage
+    //             sourceSize.width: ScreenTools.defaultFontPixelHeight*0.8
+    //             sourceSize.height:  ScreenTools.defaultFontPixelHeight*0.8
+    //             anchors.verticalCenter: parent.verticalCenter
+    //             source: "qrc:/resources/SiYi/Photo.svg"
+    //             mipmap: true
+    //             ColorOverlay {
+    //                 anchors.fill: photoImage
+    //                 source: photoImage
+    //                 color: siyi.isAndroid ? "black" : "white"
+    //             }
+    //         }
+    //         QGCLabel {
+    //             text: camera.isConnected ? qsTr("1") :  qsTr("0")
+    //             color: siyi.isAndroid ? "black" : "white"
+    //             anchors.verticalCenter: parent.verticalCenter
+    //         }
+    //     }
+    // }
 
 
 
