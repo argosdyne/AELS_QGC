@@ -6,7 +6,13 @@ SerialPortRTCMSource::SerialPortRTCMSource(QObject* parent)
     , _serial(new QSerialPort(this))
 {
     connect(_serial, &QSerialPort::readyRead, this, &SerialPortRTCMSource::_onSerialPortReplied);
+
+#ifdef __android__
+    // connect(_serial, &QSerialPort::error, this, &SerialPortRTCMSource::_serialError);
+#else
     connect(_serial, &QSerialPort::errorOccurred, this, &SerialPortRTCMSource::_serialError);
+#endif
+
     connect(this, &SerialPortRTCMSource::updatePortAndBaud, this, &SerialPortRTCMSource::_openSerial);
 
     connect(&_timer, &QTimer::timeout, this, &SerialPortRTCMSource::_updateSerialPortConnection);
