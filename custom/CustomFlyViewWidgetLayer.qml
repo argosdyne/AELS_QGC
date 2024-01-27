@@ -22,7 +22,6 @@ import QGroundControl.Controls      1.0
 import QGroundControl.Airspace      1.0
 import QGroundControl.Airmap        1.0
 import QGroundControl.Controllers   1.0
-import QGroundControl.Controls      1.0
 import QGroundControl.FactSystem    1.0
 import QGroundControl.FlightDisplay 1.0
 import QGroundControl.FlightMap     1.0
