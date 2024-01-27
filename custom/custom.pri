@@ -5,7 +5,7 @@ message("Adding Custom Plugin")
 
 CUSTOM_QGC_VER_MAJOR = 1
 CUSTOM_QGC_VER_MINOR = 0
-CUSTOM_QGC_VER_FIRST_BUILD = 0
+CUSTOM_QGC_VER_FIRST_BUILD = 1
 
 # Build number is automatic
 # Uses the current branch. This way it works on any branch including build-server's PR branches
@@ -15,7 +15,9 @@ win32 {
 } else {
     CUSTOM_QGC_VER_BUILD = $$system("echo $(($$CUSTOM_QGC_VER_BUILD - $$CUSTOM_QGC_VER_FIRST_BUILD))")
 }
-CUSTOM_QGC_VERSION = $${CUSTOM_QGC_VER_MAJOR}.$${CUSTOM_QGC_VER_MINOR}.$${CUSTOM_QGC_VER_BUILD}
+# CUSTOM_QGC_VERSION = $${CUSTOM_QGC_VER_MAJOR}.$${CUSTOM_QGC_VER_MINOR}.$${CUSTOM_QGC_VER_BUILD}
+CUSTOM_QGC_VERSION = $${CUSTOM_QGC_VER_MAJOR}.$${CUSTOM_QGC_VER_MINOR}.1
+
 
 DEFINES -= APP_VERSION_STR=\"\\\"$$APP_VERSION_STR\\\"\"
 DEFINES += APP_VERSION_STR=\"\\\"$$CUSTOM_QGC_VERSION\\\"\"
