@@ -28,14 +28,14 @@ Item {
 
     function getIcon() {
         if (percent < 20)
-            return "/custom/img/menu_signal_0.svg"
+            return "qrc:/qmlimages/Signal0.svg"
         if (percent < 40)
-            return "/custom/img/menu_signal_25.svg"
+            return "qrc:/qmlimages/Signal40.svg"
         if (percent < 60)
-            return "/custom/img/menu_signal_50.svg"
-        if (percent < 90)
-            return "/custom/img/menu_signal_75.svg"
-        return "/custom/img/menu_signal_100.svg"
+            return "qrc:/qmlimages/Signal60.svg"
+        if (percent < 80)
+            return "qrc:/qmlimages/Signal80.svg"
+        return "qrc:/qmlimages/Signal100.svg"
     }
 
     QGCColoredImage {
