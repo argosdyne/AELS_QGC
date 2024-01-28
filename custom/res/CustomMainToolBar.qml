@@ -229,7 +229,7 @@ Rectangle {
         anchors.right: brandingLogo.source ? brandingLogo.left : parent.right
         anchors.rightMargin: ScreenTools.defaultFontPixelHeight
         anchors.verticalCenter: parent.verticalCenter
-        visible: true// transmitter.isConnected
+        visible: (currentToolbar === flyViewToolbar) && transmitter.isConnected
         Row {
             spacing: 5
             Image {
