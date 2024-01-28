@@ -115,4 +115,7 @@
         <file alias="NTRIPClient.qml">src/RTCM/NTRIPClient.qml</file>
         <file alias="SerialPortRTCMClient.qml">src/RTCM/SerialPortRTCMClient.qml</file>
     </qresource>
+    <qresource prefix="/toolbar">
+        <file alias="GPSIndicator.qml">CustomGPSIndicator.qml</file>
+    </qresource>
 </RCC>

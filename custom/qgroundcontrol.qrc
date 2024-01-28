@@ -5,7 +5,6 @@
 	<qresource prefix="/toolbar">
 		<file alias="ArmedIndicator.qml">../src/ui/toolbar/ArmedIndicator.qml</file>
 		<file alias="BatteryIndicator.qml">../src/ui/toolbar/BatteryIndicator.qml</file>
-		<file alias="GPSIndicator.qml">../src/ui/toolbar/GPSIndicator.qml</file>
 		<file alias="GPSRTKIndicator.qml">../src/ui/toolbar/GPSRTKIndicator.qml</file>
 		<file alias="JoystickIndicator.qml">../src/ui/toolbar/JoystickIndicator.qml</file>
 		<file alias="LinkIndicator.qml">../src/ui/toolbar/LinkIndicator.qml</file>
@@ -211,7 +210,6 @@
 		<file alias="QGroundControl/FlightDisplay/FlyViewPreFlightChecklistPopup.qml">../src/FlightDisplay/FlyViewPreFlightChecklistPopup.qml</file>
 		<file alias="QGroundControl/FlightDisplay/FlyViewToolStrip.qml">../src/FlightDisplay/FlyViewToolStrip.qml</file>
 		<file alias="QGroundControl/FlightDisplay/FlyViewToolStripActionList.qml">../src/FlightDisplay/FlyViewToolStripActionList.qml</file>
-		<file alias="QGroundControl/FlightDisplay/FlyViewWidgetLayer.qml">../src/FlightDisplay/FlyViewWidgetLayer.qml</file>
 		<file alias="QGroundControl/FlightDisplay/GuidedActionActionList.qml">../src/FlightDisplay/GuidedActionActionList.qml</file>
 		<file alias="QGroundControl/FlightDisplay/GuidedActionConfirm.qml">../src/FlightDisplay/GuidedActionConfirm.qml</file>
 		<file alias="QGroundControl/FlightDisplay/GuidedActionsController.qml">../src/FlightDisplay/GuidedActionsController.qml</file>
