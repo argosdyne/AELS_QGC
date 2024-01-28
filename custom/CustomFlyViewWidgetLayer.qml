@@ -162,7 +162,7 @@ Item {
         radius: 5
         QGCLabel {
             id: zoomMultipleLabel
-            text: (zoomMultipleLabel.zoomMultiple/10).toFixed(1)
+            text: "Zoom "+ (zoomMultipleLabel.zoomMultiple/10).toFixed(1)
             anchors.centerIn: parent
             color: "black"
             font.pixelSize: 48
