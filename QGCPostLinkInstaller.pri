@@ -49,7 +49,12 @@ installer {
     }
     AndroidBuild {
         _ANDROID_KEYSTORE_PASSWORD = $$(ANDROID_KEYSTORE_PASSWORD)
-        QMAKE_POST_LINK += && if not exist package mkdir package
+        win32 {
+            QMAKE_POST_LINK += && if not exist package mkdir package
+        } else {
+            QMAKE_POST_LINK += && mkdir -p package
+        }
+
         isEmpty(_ANDROID_KEYSTORE_PASSWORD) {
             message(Skipping androiddeployqt since keystore password is not available)
             message(Keystore password not available - not signing package)
