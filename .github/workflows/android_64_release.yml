@@ -3,6 +3,8 @@ name: Android 64-bit Release
 
 on:
   push:
+    branches:
+      - 'fix_flickering'
     tags:
       - 'v*'
   workflow_dispatch:
