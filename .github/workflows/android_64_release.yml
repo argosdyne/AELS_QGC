@@ -7,7 +7,6 @@ on:
       - 'fix_flickering'
     tags:
       - 'v*'
-  workflow_dispatch:
     
 defaults:
   run:
@@ -17,7 +16,7 @@ env:
   SOURCE_DIR:   ${{ github.workspace }}
   QT_VERSION:   5.15.2
   ARTIFACT:     QGroundControl64.apk
-  BUILD_TYPE:   ${{ fromJSON('["DailyBuild", "StableBuild"]')[ github.ref_type == 'tag' || contains(github.ref, 'Stable_' ) ] }}
+  BUILD_TYPE:   StableBuild
 
 jobs:
   build:
