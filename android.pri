@@ -9,10 +9,11 @@ ANDROID_PACKAGE_CUSTOM_SOURCE_DIR   = $$PWD/custom/android                  # Or
 
 # We always move the package files to the ANDROID_PACKAGE_SOURCE_DIR build dir so we can modify the manifest as needed
 
-android_source_dir_target.target = android_source_dir
+
 
 contains(QMAKE_HOST.os, Windows){
     message("Win32: Prepairing android build folder")
+    android_source_dir_target.target = android_source_dir
     DIR_EXISTS_CMD = if not exist %1 echo Initializing package source...
     manifest_path = $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml
     manifest_tmp_path = $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml.sed
@@ -26,10 +27,10 @@ contains(QMAKE_HOST.os, Windows){
     QMAKE_EXTRA_TARGETS += android_source_dir_target
 } else {
     message("Unix: Prepairing android build folder")
-    DIR_EXISTS_CMD = test -d %1 && exit 0; echo "Initializing package source..."
-
+    # DIR_EXISTS_CMD = test -d %1 && exit 0; echo "Initializing package source..."
+    android_source_dir_target.target = $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml
     android_source_dir_target.commands = \
-        $$sprintf($$DIR_EXISTS_CMD, $$system_path($$ANDROID_PACKAGE_SOURCE_DIR)) && \
+        # $$sprintf($$DIR_EXISTS_CMD, $$system_path($$ANDROID_PACKAGE_SOURCE_DIR)) && \
         $$QMAKE_MKDIR $$ANDROID_PACKAGE_SOURCE_DIR && \
         $$QMAKE_COPY_DIR $$ANDROID_PACKAGE_QGC_SOURCE_DIR/* $$ANDROID_PACKAGE_SOURCE_DIR
     PRE_TARGETDEPS += $$android_source_dir_target.target
