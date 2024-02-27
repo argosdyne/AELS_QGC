@@ -88,6 +88,11 @@ jobs:
               qmake -r ${{ env.SOURCE_DIR }}\qgroundcontrol.pro CONFIG+=installer CONFIG+=${{ env. BUILD_TYPE }}
               ${{ runner.temp }}\jom\jom -j2
 
+      - name: Wait for build to finish
+        uses: GuillaumeFalourd/wait-sleep-action@v1
+        with:
+          time: '5m' 
+          
       - name: Save installer artifact
         uses: actions/upload-artifact@master
         with:
