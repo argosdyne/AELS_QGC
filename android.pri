@@ -5,7 +5,8 @@ QT += androidextras
 ANDROID_PACKAGE_SOURCE_DIR          = $$OUT_PWD/ANDROID_PACKAGE_SOURCE_DIR  # Tells Qt location of package files for build
 ANDROID_PACKAGE_QGC_SOURCE_DIR      = $$PWD/android                         # Original location of QGC package files
 ANDROID_PACKAGE_CUSTOM_SOURCE_DIR   = $$PWD/custom/android                  # Original location for custom build override package files
-
+ANDROID_PACKAGE_SETTING_FILE         = $$OUT_PWD/android-AlesQGroundControl-deployment-settings.json
+ANDROID_PACKAGE_SETTING_FILE_TMP     = $$OUT_PWD/android-AlesQGroundControl-deployment-settings-tmp.json
 
 # We always move the package files to the ANDROID_PACKAGE_SOURCE_DIR build dir so we can modify the manifest as needed
 
@@ -52,13 +53,17 @@ exists($$ANDROID_PACKAGE_CUSTOM_SOURCE_DIR) {
             $$QMAKE_COPY_DIR $$system_path($$PWD/custom/android/*) $$system_path($$OUT_PWD/ANDROID_PACKAGE_SOURCE_DIR) && \
             $$QMAKE_STREAM_EDITOR -e \"s/package=\\\"org.mavlink.qgroundcontrol\\\"/package=\\\"$$QGC_ANDROID_PACKAGE\\\"/g\" \
                 $$system_path($$manifest_path) > $$system_path($$manifest_tmp_path) && \
-            $$QMAKE_MOVE $$system_path($$manifest_tmp_path) $$system_path($$manifest_path)
+            $$QMAKE_MOVE $$system_path($$manifest_tmp_path) $$system_path($$manifest_path) &&\
+            $$QMAKE_STREAM_EDITOR -e \"s/android-min-sdk-version\\\": \\\".*\\\"/android-min-sdk-version\\\": \\\"28\\\"/g\" \
+                $$system_path($$ANDROID_PACKAGE_SETTING_FILE) > $$system_path($$ANDROID_PACKAGE_SETTING_FILE_TMP) && \
+            $$QMAKE_MOVE $$system_path($$ANDROID_PACKAGE_SETTING_FILE_TMP) $$system_path($$ANDROID_PACKAGE_SETTING_FILE)
     } else {
         message("Unix: Merging$$ $$ANDROID_PACKAGE_QGC_SOURCE_DIR and $$ANDROID_PACKAGE_CUSTOM_SOURCE_DIR to $$ANDROID_PACKAGE_SOURCE_DIR")
 
         android_source_dir_target.commands = $$android_source_dir_target.commands && \
                   $$QMAKE_COPY_DIR $$ANDROID_PACKAGE_CUSTOM_SOURCE_DIR/* $$ANDROID_PACKAGE_SOURCE_DIR && \
-                  $$QMAKE_STREAM_EDITOR -i \"s/package=\\\"org.mavlink.qgroundcontrol\\\"/package=\\\"$$QGC_ANDROID_PACKAGE\\\"/\" $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml
+                  $$QMAKE_STREAM_EDITOR -i \"s/package=\\\"org.mavlink.qgroundcontrol\\\"/package=\\\"$$QGC_ANDROID_PACKAGE\\\"/\" $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml && \
+                  $$QMAKE_STREAM_EDITOR -i \"s/android-min-sdk-version\\\": \\\".*\\\"/android-min-sdk-version\\\": \\\"28\\\"/\" $$ANDROID_PACKAGE_SETTING_FILE
     }
 }
 # exists($$PWD/custom/android) {
