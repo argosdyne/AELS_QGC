@@ -29,6 +29,8 @@ contains(QMAKE_HOST.os, Windows){
 } else {
     message("Unix: Prepairing android build folder")
     DIR_EXISTS_CMD = test -d %1 && exit 0; echo "Initializing package source..."
+    manifest_path = $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml
+    manifest_tmp_path = $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml.sed
     android_source_dir_target.target = android_source_dir
     android_source_dir_target.commands = \
         $$sprintf($$DIR_EXISTS_CMD, $$system_path($$ANDROID_PACKAGE_SOURCE_DIR)) && \
