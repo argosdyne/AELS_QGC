@@ -4,7 +4,7 @@ name: Android 64-bit Release
 on:
   push:
     branches:
-      - 'fix_flickering'
+      - 'fix_action_android'
     tags:
       - 'v*'
     

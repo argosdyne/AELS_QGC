@@ -14,7 +14,7 @@ ANDROID_PACKAGE_SETTING_FILE_TMP     = $$OUT_PWD/android-AlesQGroundControl-depl
 
 contains(QMAKE_HOST.os, Windows){
     message("Win32: Prepairing android build folder")
-    android_source_dir_target.target = android_source_dir
+    android_source_dir_target.target = $$system_path($$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml)
     DIR_EXISTS_CMD = if not exist %1 echo Initializing package source...
     manifest_path = $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml
     manifest_tmp_path = $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml.sed
@@ -28,23 +28,21 @@ contains(QMAKE_HOST.os, Windows){
     QMAKE_EXTRA_TARGETS += android_source_dir_target
 } else {
     message("Unix: Prepairing android build folder")
-    DIR_EXISTS_CMD = test -d %1 && exit 0; echo "Initializing package source..."
     manifest_path = $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml
     manifest_tmp_path = $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml.sed
-    android_source_dir_target.target = android_source_dir
+    android_source_dir_target.target = $$system_path($$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml)
     android_source_dir_target.commands = \
-        $$sprintf($$DIR_EXISTS_CMD, $$system_path($$ANDROID_PACKAGE_SOURCE_DIR)) && \
-        $$QMAKE_MKDIR $$ANDROID_PACKAGE_SOURCE_DIR && \
-        $$QMAKE_COPY_DIR $$ANDROID_PACKAGE_QGC_SOURCE_DIR/* $$ANDROID_PACKAGE_SOURCE_DIR
+        $$QMAKE_MKDIR $$system_path($$ANDROID_PACKAGE_SOURCE_DIR) && \
+        $$QMAKE_COPY_DIR $$system_path($$ANDROID_PACKAGE_QGC_SOURCE_DIR/*) $$system_path($$ANDROID_PACKAGE_SOURCE_DIR)
     PRE_TARGETDEPS += $$android_source_dir_target.target
     QMAKE_EXTRA_TARGETS += android_source_dir_target
 }
 
 
 exists($$ANDROID_PACKAGE_CUSTOM_SOURCE_DIR/AndroidManifest.xml) {
-    android_source_dir_target.depends = $$ANDROID_PACKAGE_CUSTOM_SOURCE_DIR/AndroidManifest.xml
+    android_source_dir_target.depends = $$system_path($$ANDROID_PACKAGE_CUSTOM_SOURCE_DIR/AndroidManifest.xml)
 } else {
-    android_source_dir_target.depends = $$ANDROID_PACKAGE_QGC_SOURCE_DIR/AndroidManifest.xml
+    android_source_dir_target.depends = $$system_path($$ANDROID_PACKAGE_QGC_SOURCE_DIR/AndroidManifest.xml)
 }
 
 # Custom builds can override android package file
