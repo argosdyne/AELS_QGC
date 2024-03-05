@@ -28,10 +28,10 @@ contains(QMAKE_HOST.os, Windows){
     QMAKE_EXTRA_TARGETS += android_source_dir_target
 } else {
     message("Unix: Prepairing android build folder")
-    # DIR_EXISTS_CMD = test -d %1 && exit 0; echo "Initializing package source..."
-    android_source_dir_target.target = $$ANDROID_PACKAGE_SOURCE_DIR/AndroidManifest.xml
+    DIR_EXISTS_CMD = test -d %1 && exit 0; echo "Initializing package source..."
+    android_source_dir_target.target = android_source_dir
     android_source_dir_target.commands = \
-        # $$sprintf($$DIR_EXISTS_CMD, $$system_path($$ANDROID_PACKAGE_SOURCE_DIR)) && \
+        $$sprintf($$DIR_EXISTS_CMD, $$system_path($$ANDROID_PACKAGE_SOURCE_DIR)) && \
         $$QMAKE_MKDIR $$ANDROID_PACKAGE_SOURCE_DIR && \
         $$QMAKE_COPY_DIR $$ANDROID_PACKAGE_QGC_SOURCE_DIR/* $$ANDROID_PACKAGE_SOURCE_DIR
     PRE_TARGETDEPS += $$android_source_dir_target.target
