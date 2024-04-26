@@ -44,8 +44,8 @@ NTRIPRTCMSource::~NTRIPRTCMSource()
 
 }
 
-//Ntrip caster Source Code
-
+//Ntrip caster Source Code 
+#if true
 size_t writeData(void* ptr, size_t size, size_t nmemb, FILE* stream) {
     return fwrite(ptr, size, nmemb, stream);
 }
@@ -94,7 +94,7 @@ void NTRIPRTCMSource::get_caster_xml() {
 
     reply->deleteLater();
 }
-
+#endif
 
 void NTRIPRTCMSource::_handle_send_gpgga_time_out()
 {
