@@ -35,6 +35,9 @@ public:
     Q_INVOKABLE void logOut();
     Q_INVOKABLE void getFromVehicle();
 
+    //Ntrip caster
+    Q_INVOKABLE void get_caster_xml();
+
     DEFINE_SETTINGFACT(host)
     DEFINE_SETTINGFACT(port)
     DEFINE_SETTINGFACT(user)

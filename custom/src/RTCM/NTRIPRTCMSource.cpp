@@ -1,6 +1,9 @@
 #include "NTRIPRTCMSource.h"
 QGC_LOGGING_CATEGORY(NTRIPRTCMSourceLog, "NTRIPRTCMSourceLog")
-
+#include <iostream>
+#include <fstream>
+#include <QtNetwork>
+#include <QStandardPaths>
 NTRIPRTCMSource::NTRIPRTCMSource(QObject* parent)
     : RTCMBase ("NTRIPRTCM", parent)
     , _tcpSocket(new QTcpSocket(this))
@@ -40,6 +43,58 @@ NTRIPRTCMSource::~NTRIPRTCMSource()
 {
 
 }
+
+//Ntrip caster Source Code
+
+size_t writeData(void* ptr, size_t size, size_t nmemb, FILE* stream) {
+    return fwrite(ptr, size, nmemb, stream);
+}
+QString getExternalStoragePath() {
+    // Get the directory for storing external files.
+    return QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
+}
+void NTRIPRTCMSource::get_caster_xml() {
+#ifdef Q_OS_ANDROID
+	// 안드로이드 환경에서 실행될 코드
+	QString filePath = getExternalStoragePath() + "/rtk_data.xml";
+	qCDebug(NTRIPRTCMSourceLog) << "Android File Path : " << filePath;
+#else
+	// 윈도우 환경에서 실행될 코드
+	QString filePath = "rtk_data.xml";
+#endif
+
+	QUrl url("http://igs-ip.net:2101/");
+	qCDebug(NTRIPRTCMSourceLog) << "get caster xml : " << url;
+	QNetworkAccessManager manager;
+    QNetworkRequest request(url);
+    request.setRawHeader("Authorization", "Basic " + QByteArray("MP16804:746zew").toBase64());
+    QNetworkReply* reply = manager.get(request);
+
+    QEventLoop loop;
+    QObject::connect(reply, &QNetworkReply::finished, &loop, &QEventLoop::quit);
+    loop.exec();
+
+    if (reply->error() != QNetworkReply::NoError) {
+        std::cerr << "Failed to retrieve RTK data. Error: " << reply->errorString().toStdString() << std::endl;
+        qCDebug(NTRIPRTCMSourceLog) << "Failed to retrieve RTK data. Error";
+    }
+    else {
+        QFile file(filePath);
+        if (file.open(QIODevice::WriteOnly)) {
+            file.write(reply->readAll());
+            file.close();
+            std::cout << "RTK data received and saved to: " << filePath.toStdString() << std::endl;
+            qCDebug(NTRIPRTCMSourceLog) << "RTK data received and saved to: ";
+        }
+        else {
+            std::cerr << "Failed to open file for writing: " << filePath.toStdString() << std::endl;
+            qCDebug(NTRIPRTCMSourceLog) << "Failed to open file for writing: ";
+        }
+    }
+
+    reply->deleteLater();
+}
+
 
 void NTRIPRTCMSource::_handle_send_gpgga_time_out()
 {

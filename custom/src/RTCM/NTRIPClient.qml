@@ -77,6 +77,7 @@ Column {
                          _ntripSource.passwd.valueString !== "" &&
                          !_ntripSource.isLogIning
                 onClicked: {
+                    _ntripSource.get_caster_xml()
                     if(!_ntripSource.isLogIn)
                         _ntripSource.logIn()
                     else _ntripSource.logOut()
