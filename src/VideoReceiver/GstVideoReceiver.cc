@@ -404,7 +404,6 @@ _makeGstSourceString (const QString &uri) {
     bool isUdp265   = uri.contains("udp265://", Qt::CaseInsensitive);
     bool isTcpMPEGTS= uri.contains("tcp://",    Qt::CaseInsensitive);
     bool isUdpMPEGTS= uri.contains("mpegts://", Qt::CaseInsensitive);
-
     QUrl url(uri);
 
     QString gstSourceString = "";
@@ -455,8 +454,15 @@ GstVideoReceiver::startDecoding(void* sink)
     GError *err = NULL;
 
     QString pipestr = _makeGstSourceString(_uri);
+    _isSHARE6100x = _uri.contains("rtsp://192.168.144.55",   Qt::CaseInsensitive);
 
-    pipestr = pipestr + " ! decodebin3 ! glupload ! glcolorconvert ! qmlglsink name=mysink sync=false";
+    if(_isSHARE6100x){
+        pipestr = "rtspsrc location=" + _uri +  " ! rtpjitterbuffer ! rtph264depay ! h264parse ! avdec_h264 ! glupload ! glcolorconvert ! qmlglsink name=mysink sync=false";
+        // pipestr = "rtspsrc location=" + _uri +  " latency=0 ! queue  max-size-bytes=5485760 ! decodebin ! glupload ! glcolorconvert ! qmlglsink name=mysink sync=false";
+        //pipestr = pipestr + " ! decodebin3 ! glupload ! glcolorconvert ! qmlglsink name=mysink sync=true";
+    } else {
+        pipestr = pipestr + " ! decodebin3 ! glupload ! glcolorconvert ! qmlglsink name=mysink sync=false";
+    }
 
     qCDebug(VideoReceiverLog) << "Gstreamer Pipeline: " << pipestr;
 
@@ -485,72 +491,72 @@ GstVideoReceiver::startDecoding(void* sink)
     return; 
     // End of todo
 
-    if (_pipeline == nullptr) {
-        if (_videoSink != nullptr) {
-            gst_object_unref(_videoSink);
-            _videoSink = nullptr;
-        }
-        qCDebug(VideoReceiverLog) << "Source not ready. Start first." << _uri;
-        _dispatchSignal([this](){
-            emit onStartDecodingComplete(STATUS_INVALID_STATE);
-        });
-        return;
-    }
+    // if (_pipeline == nullptr) {
+    //     if (_videoSink != nullptr) {
+    //         gst_object_unref(_videoSink);
+    //         _videoSink = nullptr;
+    //     }
+    //     qCDebug(VideoReceiverLog) << "Source not ready. Start first." << _uri;
+    //     _dispatchSignal([this](){
+    //         emit onStartDecodingComplete(STATUS_INVALID_STATE);
+    //     });
+    //     return;
+    // }
 
-    GstElement* videoSink = GST_ELEMENT(sink);
+    // GstElement* videoSink = GST_ELEMENT(sink);
 
-    if(_videoSink != nullptr || _decoding) {
-        qCDebug(VideoReceiverLog) << "Already decoding!" << _uri;
-        _dispatchSignal([this](){
-            emit onStartDecodingComplete(STATUS_INVALID_STATE);
-        });
-        return;
-    }
+    // if(_videoSink != nullptr || _decoding) {
+    //     qCDebug(VideoReceiverLog) << "Already decoding!" << _uri;
+    //     _dispatchSignal([this](){
+    //         emit onStartDecodingComplete(STATUS_INVALID_STATE);
+    //     });
+    //     return;
+    // }
 
-    GstPad* pad;
+    // GstPad* pad;
 
-    if ((pad = gst_element_get_static_pad(videoSink, "sink")) == nullptr) {
-        qCCritical(VideoReceiverLog) << "Unable to find sink pad of video sink" << _uri;
-        _dispatchSignal([this](){
-            emit onStartDecodingComplete(STATUS_FAIL);
-        });
-        return;
-    }
+    // if ((pad = gst_element_get_static_pad(videoSink, "sink")) == nullptr) {
+    //     qCCritical(VideoReceiverLog) << "Unable to find sink pad of video sink" << _uri;
+    //     _dispatchSignal([this](){
+    //         emit onStartDecodingComplete(STATUS_FAIL);
+    //     });
+    //     return;
+    // }
 
-    _lastVideoFrameTime = 0;
-    _resetVideoSink = true;
+    // _lastVideoFrameTime = 0;
+    // _resetVideoSink = true;
 
-    _videoSinkProbeId = gst_pad_add_probe(pad, GST_PAD_PROBE_TYPE_BUFFER, _videoSinkProbe, this, nullptr);
-    gst_object_unref(pad);
-    pad = nullptr;
+    // _videoSinkProbeId = gst_pad_add_probe(pad, GST_PAD_PROBE_TYPE_BUFFER, _videoSinkProbe, this, nullptr);
+    // gst_object_unref(pad);
+    // pad = nullptr;
 
-    _videoSink = videoSink;
-    gst_object_ref(_videoSink);
+    // _videoSink = videoSink;
+    // gst_object_ref(_videoSink);
 
-    _removingDecoder = false;
+    // _removingDecoder = false;
 
-    if (!_streaming) {
-        _dispatchSignal([this](){
-            emit onStartDecodingComplete(STATUS_OK);
-        });
-        return;
-    }
+    // if (!_streaming) {
+    //     _dispatchSignal([this](){
+    //         emit onStartDecodingComplete(STATUS_OK);
+    //     });
+    //     return;
+    // }
 
-    if (!_addDecoder(_decoderValve)) {
-        qCCritical(VideoReceiverLog) << "_addDecoder() failed" << _uri;
-        _dispatchSignal([this](){
-            emit onStartDecodingComplete(STATUS_FAIL);
-        });
-        return;
-    }
+    // if (!_addDecoder(_decoderValve)) {
+    //     qCCritical(VideoReceiverLog) << "_addDecoder() failed" << _uri;
+    //     _dispatchSignal([this](){
+    //         emit onStartDecodingComplete(STATUS_FAIL);
+    //     });
+    //     return;
+    // }
 
-    g_object_set(_decoderValve, "drop", FALSE, nullptr);
+    // g_object_set(_decoderValve, "drop", FALSE, nullptr);
 
-    qCDebug(VideoReceiverLog) << "Decoding started" << _uri;
+    // qCDebug(VideoReceiverLog) << "Decoding started" << _uri;
 
-    _dispatchSignal([this](){
-        emit onStartDecodingComplete(STATUS_OK);
-    });
+    // _dispatchSignal([this](){
+    //     emit onStartDecodingComplete(STATUS_OK);
+    // });
 }
 
 void

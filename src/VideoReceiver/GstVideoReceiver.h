@@ -168,6 +168,7 @@ protected:
     uint32_t            _signalDepth;
 
     bool                _endOfStream;
+    bool                _isSHARE6100x = false;
 
     static const char*  _kFileMux[FILE_FORMAT_MAX - FILE_FORMAT_MIN];
 };
