@@ -37,11 +37,20 @@ NTRIPRTCMSource::NTRIPRTCMSource(QObject* parent)
             _sendGPGGATimer.start();
         }
     });
+
+    get_caster_xml(); // 불러오면 해당 코드에서 호출해서 사용함
+
+
 }
 
 NTRIPRTCMSource::~NTRIPRTCMSource()
 {
 
+}
+QStringList contentList;
+
+QStringList NTRIPRTCMSource::get_contentList(){
+    return contentList;
 }
 
 //Ntrip caster Source Code 
@@ -81,7 +90,18 @@ void NTRIPRTCMSource::get_caster_xml() {
     else {
         QFile file(filePath);
         if (file.open(QIODevice::WriteOnly)) {
-            file.write(reply->readAll());
+            while (!reply->atEnd()) {
+                QByteArray line = reply->readLine();
+                QString strLine(line);
+
+                QStringList parts = strLine.split(';');
+                QString target = parts.value(1);
+                contentList.append(target);
+
+                file.write(line);
+            }
+
+             //file.write(reply->readAll());
             file.close();
             std::cout << "RTK data received and saved to: " << filePath.toStdString() << std::endl;
             qCDebug(NTRIPRTCMSourceLog) << "RTK data received and saved to: ";

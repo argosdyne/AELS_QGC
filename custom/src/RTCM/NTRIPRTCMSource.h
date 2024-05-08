@@ -1,4 +1,4 @@
-#ifndef NTRIPRTCMSOURCE_H
+﻿#ifndef NTRIPRTCMSOURCE_H
 #define NTRIPRTCMSOURCE_H
 #include "RTCMBase.h"
 #include <QTcpSocket>
@@ -37,6 +37,7 @@ public:
 
     //Ntrip caster
     Q_INVOKABLE void get_caster_xml();
+    Q_INVOKABLE QStringList get_contentList();    
 
     DEFINE_SETTINGFACT(host)
     DEFINE_SETTINGFACT(port)
@@ -62,7 +63,7 @@ private:
     QTimer _sendGPGGATimer;
     QTcpSocket* _tcpSocket{nullptr};
     bool _isLogIn{false};
-    bool _isLogIning{false};
+    bool _isLogIning{false}; 
 };
 
 #endif // NTRIPRTCMSOURCE_H

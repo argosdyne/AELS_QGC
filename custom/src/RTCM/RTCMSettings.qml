@@ -1,4 +1,4 @@
-import QtGraphicalEffects       1.0
+﻿import QtGraphicalEffects       1.0
 import QtMultimedia             5.5
 import QtQuick                  2.3
 import QtQuick.Controls         1.2

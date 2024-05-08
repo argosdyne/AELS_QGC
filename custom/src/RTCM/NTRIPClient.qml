@@ -1,4 +1,4 @@
-import QtQuick          2.3
+﻿import QtQuick          2.3
 import QtQuick.Controls 2.4
 import QtQuick.Layouts  1.11
 import QtQuick.Dialogs  1.3
@@ -47,9 +47,25 @@ Column {
             text:           qsTr("Mountpoint:")
             Layout.minimumWidth: _labelWidth
         }
-        FactTextField {
-            fact:           _ntripSource.mountpoint
-            Layout.minimumWidth: _valueWidth
+//        FactTextField {
+//            fact:           _ntripSource.mountpoint
+//            Layout.minimumWidth: _valueWidth
+//        }
+
+        //QGCCombobox Test
+        QGCComboBox {
+            id: cbMountPoint
+            Layout.minimumWidth: _labelWidth
+            model : _ntripSource.get_contentList()
+
+            //When Selected Item changed call this function
+            onActivated: {
+                    if (index !== -1) {
+                        var selectedItem = model[index]; // 선택된 아이템 가져오기
+                        // C++로 선택된 아이템 보내기
+                        _ntripSource.mountpoint.value = selectedItem;
+                    }
+                }
         }
         QGCLabel {
             text:           qsTr("User:")
@@ -76,8 +92,7 @@ Column {
                          _ntripSource.user.valueString !== "" &&
                          _ntripSource.passwd.valueString !== "" &&
                          !_ntripSource.isLogIning
-                onClicked: {
-                    _ntripSource.get_caster_xml()
+                onClicked: {                    
                     if(!_ntripSource.isLogIn)
                         _ntripSource.logIn()
                     else _ntripSource.logOut()
