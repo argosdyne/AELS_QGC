@@ -113,3 +113,6 @@ ToolStripHoverButton                    1.0 ToolStripHoverButton.qml
 VehicleRotationCal                      1.0 VehicleRotationCal.qml
 VehicleSummaryRow                       1.0 VehicleSummaryRow.qml
 MAVLinkChart                            1.0 MAVLinkChart.qml
+
+CameraDescriptionWindow_One_line        1.0 CameraDescriptionWindow_One_line.qml
+CameraDescriptionWindow_Two_line        1.0 CameraDescriptionWindow_Two_line.qml

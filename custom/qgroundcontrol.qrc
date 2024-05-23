@@ -279,6 +279,10 @@
 		<file alias="VibrationPage.qml">../src/AnalyzeView/VibrationPage.qml</file>
 		<file alias="VirtualJoystick.qml">../src/FlightDisplay/VirtualJoystick.qml</file>
 		<file alias="VTOLLandingPatternEditor.qml">../src/PlanView/VTOLLandingPatternEditor.qml</file>
+
+		<file alias="QGroundControl/Controls/CameraDescriptionWindow_One_line.qml">../src/QmlControls/CameraDescriptionWindow_One_line.qml</file>
+		<file alias="QGroundControl/Controls/CameraDescriptionWindow_Two_line.qml">../src/QmlControls/CameraDescriptionWindow_Two_line.qml</file>
+
 	</qresource>
 	<qresource prefix="/FirstRunPromptDialogs">
 		<file alias="UnitsFirstRunPrompt.qml">../src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>
