@@ -1,0 +1,411 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+<file>./content/ales_icons/Camera/Camera Setting_Center Point_Circle(With).png</file>
+<file>./content/ales_icons/Camera/Camera Setting_Center Point_Circle(With).svg</file>
+<file>./content/ales_icons/Camera/Camera Setting_Center Point_Circle(Without).png</file>
+<file>./content/ales_icons/Camera/Camera Setting_Center Point_Circle(Without).svg</file>
+<file>./content/ales_icons/Camera/Camera Setting_Center Point_Cross.png</file>
+<file>./content/ales_icons/Camera/Camera Setting_Center Point_Cross.svg</file>
+<file>./content/ales_icons/Camera/Camera Setting_Center Point_Square(With).png</file>
+<file>./content/ales_icons/Camera/Camera Setting_Center Point_Square(With).svg</file>
+<file>./content/ales_icons/Camera/Camera Setting_Center Point_Square(Without).png</file>
+<file>./content/ales_icons/Camera/Camera Setting_Center Point_Square(Without).svg</file>
+<file>./content/ales_icons/Camera/Camera Setting_Grid+Line.png</file>
+<file>./content/ales_icons/Camera/Camera Setting_Grid+Line.svg</file>
+<file>./content/ales_icons/Camera/Camera Setting_Grid.png</file>
+<file>./content/ales_icons/Camera/Camera Setting_Grid.svg</file>
+<file>./content/ales_icons/Camera/Camera Setting_NONE.png</file>
+<file>./content/ales_icons/Camera/Camera Setting_NONE.svg</file>
+<file>./content/ales_icons/Camera/Camera Setting_Style LAND.png</file>
+<file>./content/ales_icons/Camera/Camera Setting_Style LAND.svg</file>
+<file>./content/ales_icons/Camera/Camera Setting_Style NEUT.png</file>
+<file>./content/ales_icons/Camera/Camera Setting_Style NEUT.svg</file>
+<file>./content/ales_icons/Camera/Camera Setting_Style STD.svg</file>
+<file>./content/ales_icons/Camera/Camera Setting_StyleSTD.png</file>
+<file>./content/ales_icons/Camera/Camera Setting_WB.png</file>
+<file>./content/ales_icons/Camera/Camera Setting_WB.svg</file>
+<file>./content/ales_icons/Camera/Camera-Command Stick.png</file>
+<file>./content/ales_icons/Camera/Camera-Command Stick.svg</file>
+<file>./content/ales_icons/Camera/Camera_Adjust the camera gauge at the bottom angle.png</file>
+<file>./content/ales_icons/Camera/Camera_Adjust the camera gauge at the bottom angle.svg</file>
+<file>./content/ales_icons/Camera/Camera_battery Volt.png</file>
+<file>./content/ales_icons/Camera/Camera_battery Volt.svg</file>
+<file>./content/ales_icons/Camera/Camera_battery0.png</file>
+<file>./content/ales_icons/Camera/Camera_battery0.svg</file>
+<file>./content/ales_icons/Camera/Camera_battery1.png</file>
+<file>./content/ales_icons/Camera/Camera_battery1.svg</file>
+<file>./content/ales_icons/Camera/Camera_battery2.png</file>
+<file>./content/ales_icons/Camera/Camera_battery2.svg</file>
+<file>./content/ales_icons/Camera/Camera_battery3.png</file>
+<file>./content/ales_icons/Camera/Camera_battery3.svg</file>
+<file>./content/ales_icons/Camera/Camera_battery4.png</file>
+<file>./content/ales_icons/Camera/Camera_battery4.svg</file>
+<file>./content/ales_icons/Camera/Camera_bottom camera setting.png</file>
+<file>./content/ales_icons/Camera/Camera_bottom camera setting.svg</file>
+<file>./content/ales_icons/Camera/Camera_Camera Angle Front.png</file>
+<file>./content/ales_icons/Camera/Camera_Camera Angle Front.svg</file>
+<file>./content/ales_icons/Camera/Camera_Camera Angle Under.png</file>
+<file>./content/ales_icons/Camera/Camera_Camera Angle Under.svg</file>
+<file>./content/ales_icons/Camera/Camera_Camera Gauge at the bottom angle.svg</file>
+<file>./content/ales_icons/Camera/Camera_Camera Gauge at the bottom angle.svg.png</file>
+<file>./content/ales_icons/Camera/Camera_Camera-Video.png</file>
+<file>./content/ales_icons/Camera/Camera_Camera-Video.svg</file>
+<file>./content/ales_icons/Camera/Camera_Combination Left.png</file>
+<file>./content/ales_icons/Camera/Camera_Combination Left.svg</file>
+<file>./content/ales_icons/Camera/Camera_Combination Right.png</file>
+<file>./content/ales_icons/Camera/Camera_Combination Right.svg</file>
+<file>./content/ales_icons/Camera/Camera_directional meter.png</file>
+<file>./content/ales_icons/Camera/Camera_directional meter.svg</file>
+<file>./content/ales_icons/Camera/Camera_Drone closeup.png</file>
+<file>./content/ales_icons/Camera/Camera_Drone closeup.svg</file>
+<file>./content/ales_icons/Camera/Camera_Drone Prop Circle.png</file>
+<file>./content/ales_icons/Camera/Camera_Drone Prop Circle.svg</file>
+<file>./content/ales_icons/Camera/Camera_Hyperlapse notification.png</file>
+<file>./content/ales_icons/Camera/Camera_Hyperlapse notification.svg</file>
+<file>./content/ales_icons/Camera/Camera_Hyperlapse.png</file>
+<file>./content/ales_icons/Camera/Camera_Hyperlapse.svg</file>
+<file>./content/ales_icons/Camera/Camera_Off Satellite0.png</file>
+<file>./content/ales_icons/Camera/Camera_Off Satellite0.svg</file>
+<file>./content/ales_icons/Camera/Camera_Off Satellite1.png</file>
+<file>./content/ales_icons/Camera/Camera_Off Satellite1.svg</file>
+<file>./content/ales_icons/Camera/Camera_Off Satellite2.png</file>
+<file>./content/ales_icons/Camera/Camera_Off Satellite2.svg</file>
+<file>./content/ales_icons/Camera/Camera_Off Satellite3.png</file>
+<file>./content/ales_icons/Camera/Camera_Off Satellite3.svg</file>
+<file>./content/ales_icons/Camera/Camera_Off Satellite4.png</file>
+<file>./content/ales_icons/Camera/Camera_Off Satellite4.svg</file>
+<file>./content/ales_icons/Camera/Camera_Off Satellite5.png</file>
+<file>./content/ales_icons/Camera/Camera_Off Satellite5.svg</file>
+<file>./content/ales_icons/Camera/Camera_On Camera connection0.png</file>
+<file>./content/ales_icons/Camera/Camera_On Camera connection0.svg</file>
+<file>./content/ales_icons/Camera/Camera_On Camera connection1.png</file>
+<file>./content/ales_icons/Camera/Camera_On Camera connection1.svg</file>
+<file>./content/ales_icons/Camera/Camera_On Camera connection2.png</file>
+<file>./content/ales_icons/Camera/Camera_On Camera connection2.svg</file>
+<file>./content/ales_icons/Camera/Camera_On Camera connection3.png</file>
+<file>./content/ales_icons/Camera/Camera_On Camera connection3.svg</file>
+<file>./content/ales_icons/Camera/Camera_On Camera connection4.png</file>
+<file>./content/ales_icons/Camera/Camera_On Camera connection4.svg</file>
+<file>./content/ales_icons/Camera/Camera_On Camera connection5.png</file>
+<file>./content/ales_icons/Camera/Camera_On Camera connection5.svg</file>
+<file>./content/ales_icons/Camera/Camera_On Controller0.png</file>
+<file>./content/ales_icons/Camera/Camera_On Controller0.svg</file>
+<file>./content/ales_icons/Camera/Camera_On Controller1.png</file>
+<file>./content/ales_icons/Camera/Camera_On Controller1.svg</file>
+<file>./content/ales_icons/Camera/Camera_On Controller2.png</file>
+<file>./content/ales_icons/Camera/Camera_On Controller2.svg</file>
+<file>./content/ales_icons/Camera/Camera_On Controller3.png</file>
+<file>./content/ales_icons/Camera/Camera_On Controller3.svg</file>
+<file>./content/ales_icons/Camera/Camera_On Controller4.png</file>
+<file>./content/ales_icons/Camera/Camera_On Controller4.svg</file>
+<file>./content/ales_icons/Camera/Camera_On Controller5.png</file>
+<file>./content/ales_icons/Camera/Camera_On Controller5.svg</file>
+<file>./content/ales_icons/Camera/Camera_Panorama.png</file>
+<file>./content/ales_icons/Camera/Camera_Panorama.svg</file>
+<file>./content/ales_icons/Camera/gallery_Delete Successful.png</file>
+<file>./content/ales_icons/Camera/gallery_Delete Successful.svg</file>
+<file>./content/ales_icons/Camera/gallery_SDcard Check Circle.png</file>
+<file>./content/ales_icons/Camera/gallery_SDcard Check Circle.svg</file>
+<file>./content/ales_icons/Camera/gallery_SDcard Download(Off).png</file>
+<file>./content/ales_icons/Camera/gallery_SDcard Download(Off).svg</file>
+<file>./content/ales_icons/Camera/gallery_SDcard Download.png</file>
+<file>./content/ales_icons/Camera/gallery_SDcard Download.svg</file>
+<file>./content/ales_icons/Camera/gallery_SDcard HD Video.png</file>
+<file>./content/ales_icons/Camera/gallery_SDcard HD Video.svg</file>
+<file>./content/ales_icons/Camera/gallery_SDcard Picture.png</file>
+<file>./content/ales_icons/Camera/gallery_SDcard Picture.svg</file>
+<file>./content/ales_icons/Camera/gallery_SDcard Recycle Bin(Off).png</file>
+<file>./content/ales_icons/Camera/gallery_SDcard Recycle Bin(Off).svg</file>
+<file>./content/ales_icons/Camera/gallery_SDcard Upload(Off).png</file>
+<file>./content/ales_icons/Camera/gallery_SDcard Upload(Off).svg</file>
+<file>./content/ales_icons/Camera/gallery_SDcard Upload.png</file>
+<file>./content/ales_icons/Camera/gallery_SDcard Upload.svg</file>
+<file>./content/ales_icons/Camera/gallery_SDcard VIDEO.png</file>
+<file>./content/ales_icons/Camera/gallery_SDcard VIDEO.svg</file>
+<file>./content/ales_icons/Camera/PanoramaMode_Landscape length.png</file>
+<file>./content/ales_icons/Camera/PanoramaMode_Landscape length.svg</file>
+<file>./content/ales_icons/Camera/PanoramaMode_Landscape Transverse.png</file>
+<file>./content/ales_icons/Camera/PanoramaMode_Landscape Transverse.svg</file>
+<file>./content/ales_icons/Camera/PanoramaMode_Spherical.png</file>
+<file>./content/ales_icons/Camera/PanoramaMode_Spherical.svg</file>
+<file>./content/ales_icons/Camera/PanoramaMode_Wide Angle.png</file>
+<file>./content/ales_icons/Camera/PanoramaMode_Wide Angle.svg</file>
+<file>./content/ales_icons/Camera/Video_lying down SDcard.png</file>
+<file>./content/ales_icons/Camera/Video_lying downSDcard.svg</file>
+<file>./content/ales_icons/common/Common_'X'.png</file>
+<file>./content/ales_icons/common/Common_'X'.svg</file>
+<file>./content/ales_icons/common/common_Altitude.png</file>
+<file>./content/ales_icons/common/common_Altitude.svg</file>
+<file>./content/ales_icons/common/Common_Battery0.png</file>
+<file>./content/ales_icons/common/Common_Battery0.svg</file>
+<file>./content/ales_icons/common/Common_Battery1.png</file>
+<file>./content/ales_icons/common/Common_Battery1.svg</file>
+<file>./content/ales_icons/common/Common_Battery2.png</file>
+<file>./content/ales_icons/common/Common_Battery2.svg</file>
+<file>./content/ales_icons/common/Common_Battery3.png</file>
+<file>./content/ales_icons/common/Common_Battery3.svg</file>
+<file>./content/ales_icons/common/Common_Battery4.png</file>
+<file>./content/ales_icons/common/Common_Battery4.svg</file>
+<file>./content/ales_icons/common/Common_BlueCheck.png</file>
+<file>./content/ales_icons/common/Common_BlueCheck.svg</file>
+<file>./content/ales_icons/common/Common_Gallery.png</file>
+<file>./content/ales_icons/common/Common_Gallery.svg</file>
+<file>./content/ales_icons/common/Common_garbage can.png</file>
+<file>./content/ales_icons/common/Common_garbage can.svg</file>
+<file>./content/ales_icons/common/common_GPS Off.png</file>
+<file>./content/ales_icons/common/common_GPS Off.svg</file>
+<file>./content/ales_icons/common/common_GPS ON.png</file>
+<file>./content/ales_icons/common/common_GPS ON.svg</file>
+<file>./content/ales_icons/common/Common_GreyCheck.png</file>
+<file>./content/ales_icons/common/Common_GreyCheck.svg</file>
+<file>./content/ales_icons/common/common_km-h.png</file>
+<file>./content/ales_icons/common/common_km-h.svg</file>
+<file>./content/ales_icons/common/Common_Live.png</file>
+<file>./content/ales_icons/common/Common_Live.svg</file>
+<file>./content/ales_icons/common/common_Logo.png</file>
+<file>./content/ales_icons/common/common_Logo.svg</file>
+<file>./content/ales_icons/common/Common_Magnifier.png</file>
+<file>./content/ales_icons/common/Common_Magnifier.svg</file>
+<file>./content/ales_icons/common/Common_Manual Flight.png</file>
+<file>./content/ales_icons/common/Common_Manual Flight.svg</file>
+<file>./content/ales_icons/common/Common_map gps.png</file>
+<file>./content/ales_icons/common/Common_map gps.svg</file>
+<file>./content/ales_icons/common/Common_map hybrid.png</file>
+<file>./content/ales_icons/common/Common_map hybrid.svg</file>
+<file>./content/ales_icons/common/Common_map normal.png</file>
+<file>./content/ales_icons/common/Common_no SDcard.png</file>
+<file>./content/ales_icons/common/Common_no SDcard.svg</file>
+<file>./content/ales_icons/common/Common_Pencil.png</file>
+<file>./content/ales_icons/common/Common_Pencil.svg</file>
+<file>./content/ales_icons/common/Common_Question mark.png</file>
+<file>./content/ales_icons/common/Common_Question mark.svg</file>
+<file>./content/ales_icons/common/common_Setting.png</file>
+<file>./content/ales_icons/common/common_Setting.svg</file>
+<file>./content/ales_icons/common/common_Speed.png</file>
+<file>./content/ales_icons/common/common_Speed.svg</file>
+<file>./content/ales_icons/common/Common_Warning.png</file>
+<file>./content/ales_icons/common/Common_Warning.svg</file>
+<file>./content/ales_icons/common/Common_X Circle.png</file>
+<file>./content/ales_icons/common/Common_X Circle.svg</file>
+<file>./content/ales_icons/Corridor/Corridor.png</file>
+<file>./content/ales_icons/Corridor/Corridor.svg</file>
+<file>./content/ales_icons/Corridor/Dronedistance.png</file>
+<file>./content/ales_icons/Corridor/Dronedistance.svg</file>
+<file>./content/ales_icons/Corridor/MissionControl.png</file>
+<file>./content/ales_icons/Corridor/MissionControl.svg</file>
+<file>./content/ales_icons/HippingPOI/altitude.png</file>
+<file>./content/ales_icons/HippingPOI/altitude.svg</file>
+<file>./content/ales_icons/HippingPOI/altitudecheck.png</file>
+<file>./content/ales_icons/HippingPOI/altitudecheck.svg</file>
+<file>./content/ales_icons/HippingPOI/Back.svg</file>
+<file>./content/ales_icons/HippingPOI/radius range.svg</file>
+<file>./content/ales_icons/HippingPOI/Radius.png</file>
+<file>./content/ales_icons/HippingPOI/Radius.svg</file>
+<file>./content/ales_icons/HippingPOI/radiusrange.png</file>
+<file>./content/ales_icons/POI/addButton.png</file>
+<file>./content/ales_icons/POI/addButton.svg</file>
+<file>./content/ales_icons/POI/centerIn.svg</file>
+<file>./content/ales_icons/POI/exampleMap.png</file>
+<file>./content/ales_icons/POI/exampleMap.svg</file>
+<file>./content/ales_icons/POI/mapType.svg</file>
+<file>./content/ales_icons/Rectangular/Arrow.png</file>
+<file>./content/ales_icons/Rectangular/Arrow.svg</file>
+<file>./content/ales_icons/Rectangular/CrossCenter.png</file>
+<file>./content/ales_icons/Rectangular/CrossCenter.svg</file>
+<file>./content/ales_icons/Rectangular/extent.png</file>
+<file>./content/ales_icons/Rectangular/extent.svg</file>
+<file>./content/ales_icons/Rectangular/Location.png</file>
+<file>./content/ales_icons/Rectangular/Location.svg</file>
+<file>./content/ales_icons/Rectangular/Route.png</file>
+<file>./content/ales_icons/Rectangular/Route.svg</file>
+<file>./content/ales_icons/Rectangular/Time.png</file>
+<file>./content/ales_icons/Rectangular/Time.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Bookmark.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Bookmark.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Camera.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Camera.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Distance.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Distance.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Drone take-off.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Drone take-off.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/garbage can.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/garbage can.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/GPS.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/GPS.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Location menubar.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Location menubar.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Location.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Location.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Maps.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Maps.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/New Mission.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/New Mission.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Picture.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Picture.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Rename.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Rename.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/S-E change.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/S-E change.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Save.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Save.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Time.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Time.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Waypoint distance.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Waypoint distance.svg</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Zoom.png</file>
+<file>./content/ales_icons/waypoint/BasicSetting/Zoom.svg</file>
+<file>./content/ales_icons/waypoint/DroneWarningStatus/CurrentWarningMessage.png</file>
+<file>./content/ales_icons/waypoint/DroneWarningStatus/CurrentWarningMessage.svg</file>
+<file>./content/ales_icons/waypoint/DroneWarningStatus/DroneStatus.png</file>
+<file>./content/ales_icons/waypoint/DroneWarningStatus/DroneStatus.svg</file>
+<file>./content/ales_icons/waypoint/DroneWarningStatus/FlightLog.png</file>
+<file>./content/ales_icons/waypoint/DroneWarningStatus/FlightLog.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/ArgosdyneLoginlogo.png</file>
+<file>./content/ales_icons/waypoint/MainPage/ArgosdyneLoginlogo.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/Argosdynelogo.png</file>
+<file>./content/ales_icons/waypoint/MainPage/Argosdynelogo.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/aviator.png</file>
+<file>./content/ales_icons/waypoint/MainPage/aviator.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/Blue Check.png</file>
+<file>./content/ales_icons/waypoint/MainPage/Blue Check.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/Camera.png</file>
+<file>./content/ales_icons/waypoint/MainPage/Camera.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/Connect.png</file>
+<file>./content/ales_icons/waypoint/MainPage/Connect.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/Connected.png</file>
+<file>./content/ales_icons/waypoint/MainPage/Connected.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/Copy.png</file>
+<file>./content/ales_icons/waypoint/MainPage/Copy.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/Corridor.png</file>
+<file>./content/ales_icons/waypoint/MainPage/Corridor.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/entire.png</file>
+<file>./content/ales_icons/waypoint/MainPage/entire.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/folder.png</file>
+<file>./content/ales_icons/waypoint/MainPage/folder.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/HoppingPOI.png</file>
+<file>./content/ales_icons/waypoint/MainPage/HoppingPOI.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/Information.png</file>
+<file>./content/ales_icons/waypoint/MainPage/Information.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/Mission.png</file>
+<file>./content/ales_icons/waypoint/MainPage/Mission.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/openafolder.png</file>
+<file>./content/ales_icons/waypoint/MainPage/openafolder.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/POI.png</file>
+<file>./content/ales_icons/waypoint/MainPage/POI.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/Polygon.png</file>
+<file>./content/ales_icons/waypoint/MainPage/Polygon.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/Rectangular.png</file>
+<file>./content/ales_icons/waypoint/MainPage/Rectangular.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/Search.png</file>
+<file>./content/ales_icons/waypoint/MainPage/Search.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/User.png</file>
+<file>./content/ales_icons/waypoint/MainPage/User.svg</file>
+<file>./content/ales_icons/waypoint/MainPage/Waypoint.png</file>
+<file>./content/ales_icons/waypoint/MainPage/Waypoint.svg</file>
+<file>./content/ales_icons/waypoint/MissionCreateProject/GPS select Drone.png</file>
+<file>./content/ales_icons/waypoint/MissionCreateProject/GPS select Drone.svg</file>
+<file>./content/ales_icons/waypoint/MissionCreateProject/GPS select Me.png</file>
+<file>./content/ales_icons/waypoint/MissionCreateProject/GPS select Me.svg</file>
+<file>./content/ales_icons/waypoint/MissionCreateProject/GPS select.png</file>
+<file>./content/ales_icons/waypoint/MissionCreateProject/GPS select.svg</file>
+<file>./content/ales_icons/waypoint/MissionCreateProject/map normal.svg</file>
+<file>./content/ales_icons/waypoint/MissionCreateProject/maps select.png</file>
+<file>./content/ales_icons/waypoint/MissionCreateProject/maps select.svg</file>
+<file>./content/ales_icons/waypoint/MIssionsetting/Add.png</file>
+<file>./content/ales_icons/waypoint/MIssionsetting/Add.svg</file>
+<file>./content/ales_icons/waypoint/MIssionsetting/Circle Delete.png</file>
+<file>./content/ales_icons/waypoint/MIssionsetting/Circle Delete.svg</file>
+<file>./content/ales_icons/waypoint/MIssionsetting/Circle plus.png</file>
+<file>./content/ales_icons/waypoint/MIssionsetting/Circle plus.svg</file>
+<file>./content/ales_icons/waypoint/MIssionsetting/Delete.png</file>
+<file>./content/ales_icons/waypoint/MIssionsetting/Delete.svg</file>
+<file>./content/ales_icons/waypoint/MIssionsetting/Star.png</file>
+<file>./content/ales_icons/waypoint/MIssionsetting/Star.svg</file>
+<file>./content/ales_icons/waypoint/MIssionsetting/X.png</file>
+<file>./content/ales_icons/waypoint/MIssionsetting/X.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Accurate Landing.png</file>
+<file>./content/ales_icons/waypoint/Setting/Accurate Landing.svg</file>
+<file>./content/ales_icons/waypoint/Setting/AQ2 Front.png</file>
+<file>./content/ales_icons/waypoint/Setting/AQ2 Front.svg</file>
+<file>./content/ales_icons/waypoint/Setting/AVIATOR2.png</file>
+<file>./content/ales_icons/waypoint/Setting/AVIATOR2.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Calibration.png</file>
+<file>./content/ales_icons/waypoint/Setting/Calibration.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Compass Calibration.png</file>
+<file>./content/ales_icons/waypoint/Setting/Compass Calibration.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Drone Battery.png</file>
+<file>./content/ales_icons/waypoint/Setting/Drone Battery.svg</file>
+<file>./content/ales_icons/waypoint/Setting/EXP frame.png</file>
+<file>./content/ales_icons/waypoint/Setting/EXP frame.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Expansion.png</file>
+<file>./content/ales_icons/waypoint/Setting/Expansion.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Flight Control.png</file>
+<file>./content/ales_icons/waypoint/Setting/Flight Control.svg</file>
+<file>./content/ales_icons/waypoint/Setting/floor plan Model(Blue).png</file>
+<file>./content/ales_icons/waypoint/Setting/floor plan Model(Blue).svg</file>
+<file>./content/ales_icons/waypoint/Setting/Forward.png</file>
+<file>./content/ales_icons/waypoint/Setting/Forward.svg</file>
+<file>./content/ales_icons/waypoint/Setting/front view Model(Blue).png</file>
+<file>./content/ales_icons/waypoint/Setting/front view Model(Blue).svg</file>
+<file>./content/ales_icons/waypoint/Setting/front view Model.png</file>
+<file>./content/ales_icons/waypoint/Setting/front view Model.svg</file>
+<file>./content/ales_icons/waypoint/Setting/frontal angle.png</file>
+<file>./content/ales_icons/waypoint/Setting/frontal angle.svg</file>
+<file>./content/ales_icons/waypoint/Setting/General.png</file>
+<file>./content/ales_icons/waypoint/Setting/General.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Gimbal.png</file>
+<file>./content/ales_icons/waypoint/Setting/Gimbal.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Image Transmission.png</file>
+<file>./content/ales_icons/waypoint/Setting/Image Transmission.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Landing Protection.png</file>
+<file>./content/ales_icons/waypoint/Setting/Landing Protection.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Landscape.png</file>
+<file>./content/ales_icons/waypoint/Setting/Landscape.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Left angle.png</file>
+<file>./content/ales_icons/waypoint/Setting/Left angle.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Logo.png</file>
+<file>./content/ales_icons/waypoint/Setting/Logo.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Model.png</file>
+<file>./content/ales_icons/waypoint/Setting/Model.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Portrait.png</file>
+<file>./content/ales_icons/waypoint/Setting/Portrait.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Power.png</file>
+<file>./content/ales_icons/waypoint/Setting/Power.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Remote Control.png</file>
+<file>./content/ales_icons/waypoint/Setting/Remote Control.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Rotate Right.png</file>
+<file>./content/ales_icons/waypoint/Setting/Rotate Right.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Rotation.png</file>
+<file>./content/ales_icons/waypoint/Setting/Rotation.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Rotation2.png</file>
+<file>./content/ales_icons/waypoint/Setting/Rotation2.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Security.png</file>
+<file>./content/ales_icons/waypoint/Setting/Security.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Show Radar Map.png</file>
+<file>./content/ales_icons/waypoint/Setting/Show Radar Map.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Throttle UP.png</file>
+<file>./content/ales_icons/waypoint/Setting/Throttle UP.svg</file>
+<file>./content/ales_icons/waypoint/Setting/throttle Up2.png</file>
+<file>./content/ales_icons/waypoint/Setting/throttle Up2.svg</file>
+<file>./content/ales_icons/waypoint/Setting/Visual Navigation.png</file>
+<file>./content/ales_icons/waypoint/Setting/Visual Navigation.svg</file>
+<file>./content/App.qml</file>
+<file>./content/BigButton.qml</file>
+<file>./content/BigButtonForm.ui.qml</file>
+<file>./content/ImageButton.qml</file>
+<file>./content/ImageButtonForm.ui.qml</file>
+<file>./content/images/login/ArgosdyneLoginlogo.svg</file>
+<file>./content/MissionSelection.qml</file>
+<file>./content/MissionSelectionForm.ui.qml</file>
+<file>./content/POI.ui.qml</file>
+<file>./content/ScreenLogin.qml</file>
+<file>./content/ScreenLoginForm.ui.qml</file>
+<file>./Flydynamics2uidesigner.qmlproject</file>
+<file>./imports/Flydynamics2uidesigner/Constants.qml</file>
+<file>./imports/Flydynamics2uidesigner/DirectoryFontLoader.qml</file>
+<file>./imports/Flydynamics2uidesigner/EventListModel.qml</file>
+<file>./imports/Flydynamics2uidesigner/EventListSimulator.qml</file>
+<file>./imports/Flydynamics2uidesigner/qmldir</file>
+<file>./qtquickcontrols2.conf</file>
+</qresource>
+</RCC>

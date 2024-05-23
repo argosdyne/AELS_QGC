@@ -1,0 +1,12 @@
+<svg width="73" height="59" viewBox="0 0 73 59" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M31.963 1L29.637 4.36213H26V16.3164H45.4257V4.36213H42.2679L39.4626 1H35.7128H31.963Z" stroke="#474141" stroke-width="2" stroke-linecap="round"/>
+<circle cx="36.1992" cy="9.57471" r="4.22999" stroke="#474141" stroke-width="2"/>
+<ellipse cx="42.8478" cy="6.51402" rx="1.1232" ry="0.612655" fill="#474141"/>
+<mask id="path-4-inside-1_574_2061" fill="white">
+<rect x="19.3125" y="40" width="25.9417" height="18.8667" rx="1"/>
+</mask>
+<rect x="19.3125" y="40" width="25.9417" height="18.8667" rx="1" stroke="#474141" stroke-width="6" mask="url(#path-4-inside-1_574_2061)"/>
+<path d="M54.6872 42.3584L45.2539 49.4334L54.6872 54.1501V42.3584Z" stroke="#474141" stroke-width="3"/>
+<path d="M17 11L7 5.2265V16.7735L17 11ZM17 51H9V53H17V51ZM2 44V19H0V44H2ZM2 19C2 15.134 5.13401 12 9 12V10C4.02944 10 0 14.0294 0 19H2ZM9 51C5.13401 51 2 47.866 2 44H0C0 48.9706 4.02944 53 9 53V51Z" fill="#474141"/>
+<path d="M57 50L67 55.7735L67 44.2265L57 50ZM57 10L64 10L64 8L57 8L57 10ZM71 17L71 42L73 42L73 17L71 17ZM71 42C71 45.866 67.866 49 64 49L64 51C68.9706 51 73 46.9706 73 42L71 42ZM64 10C67.866 10 71 13.134 71 17L73 17C73 12.0294 68.9706 8 64 8L64 10Z" fill="#474141"/>
+</svg>
