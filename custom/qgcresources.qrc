@@ -52,6 +52,12 @@
 		<file alias="XDeleteBlack.svg">../resources/XDeleteBlack.svg</file>
 		<file alias="waypoint.svg">../resources/waypoint.svg</file>
 		<file>../resources/icons/qgroundcontrol.ico</file>
+
+		<file alias="GalleryButton.svg"         >../resources/GalleryButton.svg</file>
+		<file alias="LiveButton.svg"            >../resources/LiveButton.svg</file>
+		<file alias="Shoot_Record_Switch.svg"   >../resources/Shoot_Record_Switch.svg</file>
+		<file alias="Record.svg"                >../resources/Record.svg</file>
+		<file alias="NoSDcard(Red).svg"         >../resources/NoSDcard(Red).svg</file>
 	</qresource>
 	<qresource prefix="/res/firmware">
 		<file alias="3drradio.png">../resources/firmware/3drradio.png</file>
