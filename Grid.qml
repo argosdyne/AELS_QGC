@@ -3,10 +3,13 @@ import QtQuick.Controls 2.14
 import QtPositioning 5.14
 
 Rectangle {
-    width: parent ? parent.width * 0.3 : 590
-    height: parent ? parent.height * 0.99 : 1070
+    id: _root
     color: '#000000'   // blacks
-    anchors.right: parent ? parent.right : undefined
+    property var rootWidth: null;
+    property var rootHeight: null;
+
+    width: rootWidth / 3.24
+    height: rootHeight / 1
 
     Text {
         id: text1
