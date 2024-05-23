@@ -52,6 +52,13 @@
 		<file alias="XDeleteBlack.svg">../resources/XDeleteBlack.svg</file>
 		<file alias="waypoint.svg">../resources/waypoint.svg</file>
 		<file>../resources/icons/qgroundcontrol.ico</file>
+
+		<file alias ="TopMenu_battery_power.svg">../resources/TopMenu_battery_power.svg</file>
+		<file alias ="TopMenu_battery2.svg">../resources/TopMenu_battery2.svg</file>
+		<file alias ="TopMenu_gps_status.svg">../resources/TopMenu_gps_status.svg</file>
+		<file alias ="TopMenu_Image_transfer_status.svg">../resources/TopMenu_Image_transfer_status.svg</file>
+		<file alias ="TopMenu_Remote_controller_connection_status.svg">../resources/TopMenu_Remote_controller_connection_status.svg</file>
+		<file alias ="TopMenu_signalLevel.svg">../resources/TopMenu_signalLevel.svg</file>
 	</qresource>
 	<qresource prefix="/res/firmware">
 		<file alias="3drradio.png">../resources/firmware/3drradio.png</file>
