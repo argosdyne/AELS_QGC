@@ -13,7 +13,7 @@ Rectangle {
     height: rootHeight / 1
 
     Text {
-        id: text1
+        id: cameraSettingsText
         color: "#FFFFFF"    // white
         text: qsTr("Camera Settings")
         font.pixelSize: 25
