@@ -3,7 +3,7 @@ import QtQuick.Controls 2.14
 import QtPositioning 5.14
 
 Rectangle {
-    id: _root
+    id: root
     color: '#000000'   // black
 
     property var rootWidth: null;
