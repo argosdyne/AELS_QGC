@@ -52,7 +52,6 @@ Rectangle {
         }
 
         ToolSeparator {
-            id: toolSeparator1
             width: parent.width
             height: 13
             orientation: Qt.Horizontal
@@ -75,7 +74,6 @@ Rectangle {
         }
 
         ToolSeparator {
-            id: toolSeparator2
             width: parent.width
             height: 13
             orientation: Qt.Horizontal
@@ -97,7 +95,6 @@ Rectangle {
         }
 
         ToolSeparator {
-            id: toolSeparator3
             width: parent.width
             height: 13
             orientation: Qt.Horizontal
@@ -119,7 +116,6 @@ Rectangle {
         }
 
         ToolSeparator {
-            id: toolSeparator4
             width: parent.width
             height: 13
             orientation: Qt.Horizontal
@@ -141,7 +137,6 @@ Rectangle {
         }
 
         ToolSeparator {
-            id: toolSeparator5
             width: parent.width
             height: 13
             orientation: Qt.Horizontal
@@ -163,7 +158,6 @@ Rectangle {
         }
 
         ToolSeparator {
-            id: toolSeparator6
             width: parent.width
             height: 13
             orientation: Qt.Horizontal
@@ -185,7 +179,6 @@ Rectangle {
         }
 
         ToolSeparator {
-            id: toolSeparator7
             width: parent.width
             height: 13
             orientation: Qt.Horizontal
@@ -207,7 +200,6 @@ Rectangle {
         }
 
         ToolSeparator {
-            id: toolSeparator8
             width: parent.width
             height: 13
             orientation: Qt.Horizontal
@@ -229,7 +221,6 @@ Rectangle {
         }
 
         ToolSeparator {
-            id: toolSeparator9
             width: parent.width
             height: 13
             orientation: Qt.Horizontal
@@ -251,7 +242,6 @@ Rectangle {
         }
 
         ToolSeparator {
-            id: toolSeparator10
             width: parent.width
             height: 13
             orientation: Qt.Horizontal
@@ -272,7 +262,6 @@ Rectangle {
         }
 
         ToolSeparator {
-            id: toolSeparator11
             width: parent.width
             height: 13
             orientation: Qt.Horizontal
@@ -293,7 +282,6 @@ Rectangle {
         }
 
         ToolSeparator {
-            id: toolSeparator12
             width: parent.width
             height: 13
             orientation: Qt.Horizontal
@@ -314,7 +302,6 @@ Rectangle {
         }
 
         ToolSeparator {
-            id: toolSeparator13
             width: parent.width
             height: 13
             orientation: Qt.Horizontal
