@@ -8,13 +8,10 @@ Rectangle {
     id: root
     color: black
 
-    property int rootWidth: Screen.width
-    property int rootHeight: Screen.height
+    implicitWidth: Screen.width / 3.24
+    implicitHeight: Screen.height
     property string white: '#ffffff'
     property string black: '#000000'
-
-    width: rootWidth / 3.24
-    height: rootHeight / 1
 
     Text {
         id: cameraSettingsText
