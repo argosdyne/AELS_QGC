@@ -12,7 +12,7 @@ import QGroundControl.Controllers           1.0
 import QtGraphicalEffects                   1.12
 
 Rectangle {
-    id: _root
+    id: root
     color: "#222020"
     z: 3
 
@@ -25,20 +25,20 @@ Rectangle {
 
     Rectangle {
         width: parent.width
-        height: 2 // 분리선의 두께
+        height: 2 
         color: "#848282"
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
-        anchors.topMargin: parent.height / 4.7 // 분리선의 위치
+        anchors.topMargin: parent.height / 4.7
     }
 
     Rectangle {
         width: parent.width
-        height: 2 // 분리선의 두께
+        height: 2 
         color: "#848282"
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: parent.height / 5.3 // 분리선의 위치
+        anchors.bottomMargin: parent.height / 5.3 
     }
 
     //Left button
@@ -85,7 +85,7 @@ Rectangle {
 
         onClicked: {
             console.log("Right btn Click");
-            _root.visible = false //테스트용
+            _root.visible = false 
         }
     }
 
@@ -99,8 +99,6 @@ Rectangle {
         anchors.bottom: parent.bottom
     }
 
-
-    // 위쪽 부분 영역
     Rectangle {
         width: parent.width
         height: parent.height / 4.7
@@ -108,7 +106,6 @@ Rectangle {
         color: "transparent"
         id: topRect
 
-        //내부 사각형
         Rectangle {
             anchors.centerIn: parent
             color: "transparent"
