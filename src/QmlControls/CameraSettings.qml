@@ -16,7 +16,7 @@ Rectangle {
         id: cameraSettingsText
         color: "#FFFFFF"    // white
         text: qsTr("Camera Settings")
-        font.pixelSize: 25
+        //font.pixelSize: 25
         ScreenTools.defaultFontPixelWidth*2.5
         font.bold: true
         font.family: 'Arial'
@@ -71,7 +71,7 @@ Rectangle {
                 anchors.leftMargin: 15
                 color: "#ffffff"
                 text: qsTr("Center Point")
-                font.pixelSize: 20
+                ScreenTools.defaultFontPixelWidth*2
             }
         }
 
