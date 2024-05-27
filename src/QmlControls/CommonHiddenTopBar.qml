@@ -13,8 +13,20 @@ import QtGraphicalEffects                   1.12
 
 Rectangle {
     id: root
-    color: Qt.rgba(0, 0, 0, 0.6)
+    color: defaultBackGroundColor
     z: 3
+
+    //Color Property
+    property color defaultTextColor: "white"
+    property color transparent: "transparent"
+    property color blue: "#3d71d7"
+    property color defaultBackGroundColor: Qt.rgba(0, 0, 0, 0.6)
+
+    //Size Property
+    property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
+
+    implicitWidth: Screen.width
+    implicitHeight: defaultFontSize * 5.8
 
     Row {
         id:                     viewButtonRow
@@ -27,23 +39,23 @@ Rectangle {
             width: viewButtonRow.width
             height: parent.height
             background: Rectangle {
-                color: "transparent"
+                color: transparent
                 Row {
                     Rectangle {
-                        height: parent.height - 20
+                        height: parent.height - defaultFontSize * 2
                         anchors.verticalCenter: parent.verticalCenter
                         Row {
                             anchors.fill: parent
-                            anchors.leftMargin: viewButtonRow.width / 6 - 80
-                            spacing: 10
+                            anchors.leftMargin: viewButtonRow.width / 6 - defaultFontSize * 8
+                            spacing: defaultFontSize
                             Image {
-                                source: "/res/TopMenu_gps_status.svg"
-                                height: 40
+                                source: "/res/TopMenuGpsStatus.svg"
+                                height: defaultFontSize * 4
                                 width: height
                             }
                             Image {
-                                source: "/res/TopMenu_signalLevel.svg"
-                                height: 40
+                                source: "/res/TopMenuSignalLevel.svg"
+                                height: defaultFontSize * 4
                                 width: height
                             }
                             anchors.bottom: parent.bottom
@@ -51,98 +63,98 @@ Rectangle {
                     }
 
                     Rectangle {
-                        height: parent.height - 20
+                        height: parent.height - defaultFontSize * 2
                         anchors.verticalCenter: parent.verticalCenter
                         Row {
                             anchors.fill: parent
-                            anchors.leftMargin: viewButtonRow.width / 6 * 2 - 80
-                            spacing: 10
+                            anchors.leftMargin: viewButtonRow.width / 6 * 2 - defaultFontSize * 8
+                            spacing: defaultFontSize
                             Image {
-                                source: "/res/TopMenu_Remote_controller_connection_status.svg"
-                                height: 40
+                                source: "/res/TopMenuRemoteControllerConnectionStatus.svg"
+                                height: defaultFontSize * 4
                                 width: height
                             }
                             Image {
-                                source: "/res/TopMenu_signalLevel.svg"
-                                height: 40
+                                source: "/res/TopMenuSignalLevel.svg"
+                                height: defaultFontSize * 4
                                 width: height
                             }
                             anchors.bottom: parent.bottom
                         }
                     }
                     Rectangle {
-                        height: parent.height - 20
+                        height: parent.height - defaultFontSize * 2
                         anchors.verticalCenter: parent.verticalCenter
                         Row {
                             anchors.fill: parent
-                            anchors.leftMargin: viewButtonRow.width / 6 * 3 - 80
-                            spacing: 10
+                            anchors.leftMargin: viewButtonRow.width / 6 * 3 - defaultFontSize * 8
+                            spacing: defaultFontSize
                             Image {
-                                source: "/res/TopMenu_Image_transfer_status.svg"
-                                height: 40
+                                source: "/res/TopMenuImageTransferStatus.svg"
+                                height: defaultFontSize * 4
                                 width: height
                             }
                             Image {
-                                source: "/res/TopMenu_signalLevel.svg"
-                                height: 40
+                                source: "/res/TopMenuSignalLevel.svg"
+                                height: defaultFontSize * 4
                                 width: height
                             }
                             anchors.bottom: parent.bottom
                         }
                     }
                     Rectangle {
-                        height: parent.height - 20
+                        height: parent.height - defaultFontSize * 2
                         anchors.verticalCenter: parent.verticalCenter
                         Row {
                             anchors.fill: parent
-                            anchors.leftMargin: viewButtonRow.width / 6 * 4 - 80
-                            spacing: 10
+                            anchors.leftMargin: viewButtonRow.width / 6 * 4 - defaultFontSize * 8
+                            spacing: defaultFontSize
                             Image {
-                                source: "/res/TopMenu_battery2.svg"
-                                height: 40
+                                source: "/res/TopMenuBattery2.svg"
+                                height: defaultFontSize * 4
                                 width: height
                             }
                             Text {
-                                height: parent.height - 24                                
+                                height: parent.height - defaultFontSize * 2.4                                
                                 font.pixelsize: ScreenTools.defaultFontPixelHeight * 4.1
                                 text: qsTr("N/A")
-                                color: "white"
+                                color: defaultTextColor
                             }
                             anchors.bottom: parent.bottom
                         }
                     }
 
                     Rectangle {
-                        height: parent.height - 20
+                        height: parent.height - defaultFontSize * 2
                         anchors.verticalCenter: parent.verticalCenter
                         Row {
                             anchors.fill: parent
-                            anchors.leftMargin: viewButtonRow.width / 6 * 5 - 80
-                            spacing: 10
+                            anchors.leftMargin: viewButtonRow.width / 6 * 5 - defaultFontSize * 8 
+                            spacing: defaultFontSize
                             Image {
-                                source: "/res/TopMenu_battery_power.svg"
-                                height: 40
+                                source: "/res/TopMenuBatteryPower.svg"
+                                height: defaultFontSize * 4
                                 width: height
                             }
                             Text {
-                                height: parent.height - 24                                
+                                height: parent.height - defaultFontSize * 2.4                               
                                 font.pixelsize: ScreenTools.defaultFontPixelHeight * 4.1
                                 text: qsTr("N/A")
-                                color: "white"
+                                color: defaultTextColor
                             }
                             anchors.bottom: parent.bottom
                         }
                     }
 
                     Rectangle {
-                        height : parent.height - 20
+                        height : parent.height - defaultFontSize * 2
                         anchors.verticalCenter: parent.verticalCenter
                         Row {
-                            anchors.leftMargin: viewButtonRow.width - 100
+                            anchors.leftMargin: viewButtonRow.width - defaultFontSize * 10
                             anchors.fill: parent
                             Image {
-                                source: "/res/TopMenu_Up.svg"
-                                height: 40
+                                source: "/res/TopMenuUp.svg"
+                                height: defaultFontSize * 4
                                 width: height
                             }
                               anchors.bottom: parent.bottom
@@ -151,13 +163,8 @@ Rectangle {
                 }
             }
             onClicked: {
-                console.log("btn Click");
-                toggleVisibility()
+                console.log("btn Click");                
             }
         }
-    }
-
-    function toggleVisibility(){
-        _root.visible = !_root.visible
     }
 }
