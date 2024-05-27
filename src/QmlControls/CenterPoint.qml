@@ -56,7 +56,7 @@ Rectangle {
             height: 52
 
             Image {
-                source: "qrc:/qmlimages/None_box.svg"
+                source: "qrc:/qmlimages/NoneBox.svg"
                 anchors.left: parent.left
                 anchors.leftMargin: 15
                 anchors.verticalCenter: parent.verticalCenter
@@ -98,7 +98,7 @@ Rectangle {
             height: 52
 
             Image {
-                source: "qrc:/qmlimages/CenterPoint_Square.svg"
+                source: "qrc:/qmlimages/CenterPointWithSquare.svg"
                 anchors.left: parent.left
                 anchors.leftMargin: 20
                 anchors.verticalCenter: parent.verticalCenter
@@ -141,7 +141,7 @@ Rectangle {
             height: 52
 
             Image {
-                source: "qrc:/qmlimages/Circle_WC.svg"
+                source: "qrc:/qmlimages/CircleWithoutCenterPoint.svg"
                 anchors.left: parent.left
                 anchors.leftMargin: 20
                 anchors.verticalCenter: parent.verticalCenter
@@ -162,7 +162,7 @@ Rectangle {
             height: 52
 
             Image {
-                source: "qrc:/qmlimages/Circle_WithCenter.svg"
+                source: "qrc:/qmlimages/CircleWithCenterPoint.svg"
                 anchors.left: parent.left
                 anchors.leftMargin: 20
                 anchors.verticalCenter: parent.verticalCenter
