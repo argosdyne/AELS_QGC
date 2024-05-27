@@ -8,14 +8,11 @@ Rectangle {
     id: root
     color: black
 
-    property int rootWidth: Screen.width
-    property int rootHeight: Screen.height
+    implicitWidth: Screen.width / 3.24
+    implicitHeight: Screen.height / 1
     property string white: '#ffffff'
     property string black: '#000000'
     property string blue: '#3D71D7'
-
-    width: rootWidth / 3.24
-    height: rootHeight / 1
 
     Text {
         id: gridText
