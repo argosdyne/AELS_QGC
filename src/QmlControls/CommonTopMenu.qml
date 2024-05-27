@@ -2,6 +2,7 @@
 import QtQuick.Controls 2.4
 import QtQuick.Layouts  1.11
 import QtQuick.Dialogs  1.3
+import QtQuick.Window 2.0
 
 import QGroundControl                       1.0
 import QGroundControl.Controls              1.0
@@ -13,13 +14,20 @@ import QtGraphicalEffects                   1.12
 
 Rectangle {
     id:     root
-    color: Qt.rgba(0, 0, 0, 0.4)
+    color: defaultBackGroundColor
     z : 3    
 
-    property string defaultTextColor: "white"
+    //Color Property
+    property color defaultTextColor: "white"
+    property color transparent: "transparent"
+    property color blue: "#3d71d7"
+    property color defaultBackGroundColor: Qt.rgba(0, 0, 0, 0.4)
 
-    property var rootWidth: null;
-    property var rootHeight: null;
+    //Size Property
+    property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
+
+    implicitWidth: Screen.width
+    implicitHeight: defaultFontSize * 9
 
     Row {
         id:                     viewButtonRow
@@ -33,12 +41,12 @@ Rectangle {
             width: viewButtonRow.width * 0.115
             height: parent.height
             background: Rectangle {
-                color: "transparent"
+                color: transparent
                 Image {
                     source: "/res/TopMenu_homebutton.svg"
                     anchors.centerIn: parent
-                    width: 80
-                    height: parent.height - 10
+                    width: defaultFontSize * 8
+                    height: parent.height - defaultFontSize
                 }
             }
             onClicked: {
@@ -51,35 +59,35 @@ Rectangle {
             height: parent.height
             clip: true
             background: Rectangle {
-                color: "#3d71d7"
+                color: blue
                 Row {
-                    anchors.fill: parent
-                    Rectangle {
-                        height: parent.height - 32
+                anchors.fill: parent
+                Rectangle {
+                        height: parent.height - defaultFontSize * 3.2
                         anchors.verticalCenter: parent.verticalCenter
                         Row {
                             anchors.fill: parent
-                            anchors.leftMargin: 28
-                            spacing: 15
-                            Image {
-                                source: "/res/TopMenu_ManualFlight.svg"
-                                height: parent.height
-                                width: height
-                            }
+                            anchors.leftMargin: defaultFontSize * 2.8
+                            spacing: defaultFontSize * 1.5
+                    Image {
+                        source: "/res/TopMenu_ManualFlight.svg"
+                        height: parent.height
+                        width: height
+                    }
                             Column {
-                                spacing: 10
-                                Text {                                    
-                                    font.pixelSize: ScreenTools.defaultFontPixelHeight * 1.8
-                                    text: qsTr("Intelligent Photo")
-                                    color: defaultTextColor
-                                    opacity: 0.8
-                                }
-                                Text {                                    
-                                    font.pixelSize: ScreenTools.defaultFontPixelHeight * 2.5
-                                    text: qsTr("Manual Flight")
-                                    font.bold: true
-                                    color: defaultTextColor
-                                }
+                            spacing: defaultFontSize
+                            Text {
+                                font.pixelSize: defaultFontSize * 1.8
+                                text: qsTr("Intelligent Photo")
+                                color: defaultTextColor
+                                opacity: 0.8
+                            }
+                            Text {
+                                font.pixelSize: defaultFontSize * 2.5
+                                text: qsTr("Manual Flight")
+                                font.bold: true
+                                color: defaultTextColor
+                            }
                             }
                             anchors.bottom: parent.bottom
                         }
@@ -95,23 +103,23 @@ Rectangle {
             width: viewButtonRow.width * 0.5
             height: parent.height
             background: Rectangle {
-                color: "transparent"
+                color: transparent
                 Row {
                     Rectangle {
-                        height: parent.height - 48
+                        height: parent.height - defaultFontSize * 4.8
                         anchors.verticalCenter: parent.verticalCenter
                         Row {
                             anchors.fill: parent
-                            anchors.leftMargin: 50
-                            spacing: 10
+                            anchors.leftMargin: defaultFontSize * 5
+                            spacing: defaultFontSize
                             Image {
                                 source: "/res/TopMenu_battery.svg"
-                                height: 40
+                                height: defaultFontSize * 4
                                 width: height
                             }
                             Text {
-                                height: parent.height - 24                                
-                                font.pixelSize: ScreenTools.defaultFontPixelHeight * 4.1
+                                height: parent.height - defaultFontSize * 2.4
+                                font.pixelSize: defaultFontSize * 4.1
                                 text: qsTr("N/A")
                                 color: defaultTextColor
                             }
@@ -120,20 +128,20 @@ Rectangle {
                     }
 
                     Rectangle {
-                        height: parent.height - 48
+                        height: parent.height - defaultFontSize * 4.8
                         anchors.verticalCenter: parent.verticalCenter
                         Row {
                             anchors.fill: parent
-                            anchors.leftMargin: 260
-                            spacing: 10
+                            anchors.leftMargin: defaultFontSize * 26
+                            spacing: defaultFontSize
                             Image {
                                 source: "/res/TopMenu_Altitude.svg"
-                                height: 40
+                                height: defaultFontSize * 4
                                 width: height
                             }
                             Text {
-                                height: parent.height - 24                                
-                                font.pixelSize: ScreenTools.defaultFontPixelHeight * 4.1
+                                height: parent.height - defaultFontSize * 2.4
+                                font.pixelSize: defaultFontSize * 4.1
                                 text: qsTr("N/A")
                                 color: defaultTextColor
                             }
@@ -142,20 +150,20 @@ Rectangle {
                     }
 
                     Rectangle {
-                        height: parent.height - 48
+                        height: parent.height - defaultFontSize * 4.8
                         anchors.verticalCenter: parent.verticalCenter
                         Row {
                             anchors.fill: parent
-                            anchors.leftMargin: 460
-                            spacing: 10
+                            anchors.leftMargin: defaultFontSize * 46
+                            spacing: defaultFontSize
                             Image {
                                 source: "/res/TopMenu_distance.svg"
-                                height: 40
+                                height: defaultFontSize * 4
                                 width: height
                             }
                             Text {
-                                height: parent.height - 24                                
-                                font.pixelSize: ScreenTools.defaultFontPixelHeight * 4.1
+                                height: parent.height - defaultFontSize * 2.4
+                                font.pixelSize: defaultFontSize * 4.1
                                 text: qsTr("N/A")
                                 color: defaultTextColor
                             }
@@ -163,20 +171,20 @@ Rectangle {
                         }
                     }
                     Rectangle {
-                        height: parent.height - 48
+                        height: parent.height - defaultFontSize * 4.8
                         anchors.verticalCenter: parent.verticalCenter
                         Row {
                             anchors.fill: parent
-                            anchors.leftMargin: 660
-                            spacing: 10
+                            anchors.leftMargin: defaultFontSize * 66
+                            spacing: defaultFontSize
                             Image {
                                 source: "/res/TopMenu_speed.svg"
-                                height: 40
+                                height: defaultFontSize * 4
                                 width: height
                             }
                             Text {
-                                height: parent.height - 24                                
-                                font.pixelSize: ScreenTools.defaultFontPixelHeight * 4.1
+                                height: parent.height - defaultFontSize * 2.4
+                                font.pixelSize: defaultFontSize * 4.1
                                 text: qsTr("N/A")
                                 color: defaultTextColor
                             }
@@ -187,7 +195,6 @@ Rectangle {
             }
             onClicked: {
                 console.log("Drone Status btn Click");
-                cameraTopBarClicked()
             }
         }
         // Obstacle Status Icon
@@ -195,7 +202,7 @@ Rectangle {
             width: viewButtonRow.width * 0.062
             height: parent.height
             background: Rectangle {
-                color: "transparent"
+                color: transparent
                 Image {
                     source: "/res/TopMenu_obstacle_sensor(off).svg"
                     anchors.centerIn: parent
@@ -210,7 +217,7 @@ Rectangle {
             width: viewButtonRow.width * 0.062
             height: parent.height
             background: Rectangle {
-                color: "transparent"
+                color: transparent
                 Image {
                     source: "/res/TopMenu_maptool.svg"
                     anchors.centerIn: parent
@@ -225,7 +232,7 @@ Rectangle {
             width: viewButtonRow.width * 0.07
             height: parent.height
             background: Rectangle {
-                color: "transparent"
+                color: transparent
                 Image {
                     source: "/res/TopMenu_setting.png"
                     anchors.centerIn: parent
