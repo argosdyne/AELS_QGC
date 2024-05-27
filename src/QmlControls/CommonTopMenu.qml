@@ -12,7 +12,7 @@ import QGroundControl.Controllers           1.0
 import QtGraphicalEffects                   1.12
 
 Rectangle {
-    id:     _root
+    id:     root
     color: Qt.rgba(0, 0, 0, 0.4)
     z : 3
     property int currentToolbar: flyViewToolbar
@@ -70,19 +70,19 @@ Rectangle {
                             spacing: 15
                             Image {
                                 source: "/res/TopMenu_Manual Flight.svg"
-                                height: parent.height //
+                                height: parent.height
                                 width: height
                             }
                             Column {
                                 spacing: 10
-                                Text {
-                                    font.pixelSize:18
+                                Text {                                    
+                                    font.pixelSize: ScreenTools.defaultFontPixelHeight * 1.8
                                     text: qsTr("Intelligent Photo")
                                     color: "white"
                                     opacity: 0.8
                                 }
-                                Text {
-                                    font.pixelSize:25
+                                Text {                                    
+                                    font.pixelSize: ScreenTools.defaultFontPixelHeight * 2.5
                                     text: qsTr("Manual Flight")
                                     font.bold: true
                                     color: "white"
@@ -117,8 +117,8 @@ Rectangle {
                                 width: height
                             }
                             Text {
-                                height: parent.height - 24
-                                font.pixelSize: 41
+                                height: parent.height - 24                                
+                                font.pixelSize: ScreenTools.defaultFontPixelHeight * 4.1
                                 text: qsTr("N/A")
                                 color: "white"
                             }
@@ -139,8 +139,8 @@ Rectangle {
                                 width: height
                             }
                             Text {
-                                height: parent.height - 24
-                                font.pixelSize: 41
+                                height: parent.height - 24                                
+                                font.pixelSize: ScreenTools.defaultFontPixelHeight * 4.1
                                 text: qsTr("N/A")
                                 color: "white"
                             }
@@ -161,8 +161,8 @@ Rectangle {
                                 width: height
                             }
                             Text {
-                                height: parent.height - 24
-                                font.pixelSize: 41
+                                height: parent.height - 24                                
+                                font.pixelSize: ScreenTools.defaultFontPixelHeight * 4.1
                                 text: qsTr("N/A")
                                 color: "white"
                             }
@@ -182,8 +182,8 @@ Rectangle {
                                 width: height
                             }
                             Text {
-                                height: parent.height - 24
-                                font.pixelSize: 41
+                                height: parent.height - 24                                
+                                font.pixelSize: ScreenTools.defaultFontPixelHeight * 4.1
                                 text: qsTr("N/A")
                                 color: "white"
                             }
