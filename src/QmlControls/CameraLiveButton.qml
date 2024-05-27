@@ -12,7 +12,7 @@ import QGroundControl.Controllers           1.0
 import QtGraphicalEffects                   1.12
 
 Button {
-    id:     _root
+    id:     root
     z : 3
     property var rootWidth: null;
     property var rootHeight: null;
