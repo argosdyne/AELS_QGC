@@ -3,7 +3,7 @@ import QtQuick.Controls 2.14
 import QtPositioning 5.14
 
 Rectangle {
-    id: _root
+    id: root
     color: '#000000'   // blacks
     property var rootWidth: null;
     property var rootHeight: null;
@@ -12,10 +12,11 @@ Rectangle {
     height: rootHeight / 1
 
     Text {
-        id: text1
+        id: gridText
         color: "#FFFFFF"    // white
         text: qsTr("Grid")
-        font.pixelSize: 25
+        //font.pixelSize: 25
+        font.pixelSize: ScreenTools.defaultFontPixelHeight * 2.5
         font.bold: true
         font.family: 'Arial'
         anchors.top: parent.top
@@ -25,10 +26,10 @@ Rectangle {
     }
 
     Text{
-        id: text2
+        id: backtext
         text: qsTr('Back')
         color: '#3D71D7'
-        font.pixelSize: 20
+        font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
         font.family: 'Arial'
         anchors.top: parent.top
         anchors.right: parent.right
@@ -38,7 +39,7 @@ Rectangle {
 
     Column {
         id: column1
-        anchors.top: text1.bottom
+        anchors.top: gridText.bottom
         anchors.topMargin: 20 // Editable margin between text1 and column1
         anchors.left: parent.left
         anchors.right: parent.right
@@ -52,7 +53,6 @@ Rectangle {
             height: 52
 
             Image {
-                id: name
                 source: "qrc:/qmlimages/None_box.svg"
                 anchors.left: parent.left
                 anchors.leftMargin: 15
@@ -63,7 +63,7 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.leftMargin: 90
                 text: 'None'
-                font.pixelSize: 20
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
                 color: "#FFFFFF"
                 anchors.verticalCenter: parent.verticalCenter
             }
@@ -73,11 +73,8 @@ Rectangle {
             id: itemDelegate1
             width: parent.width
             height: 52
-            enabled: true
-            hoverEnabled: true
 
             Image {
-                id: name1
                 source: "qrc:/qmlimages/Grid.svg"
                 anchors.left: parent.left
                 anchors.leftMargin: 20
@@ -89,7 +86,7 @@ Rectangle {
                 anchors.leftMargin: 80
                 color: "#ffffff"
                 text: qsTr("Grid")
-                font.pixelSize: 20
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
@@ -98,10 +95,8 @@ Rectangle {
             id: itemDelegate2
             width: parent.width
             height: 52
-            text: qsTr(" ")
 
             Image {
-                id: name2
                 source: "qrc:/qmlimages/grid+line.svg"
                 anchors.left: parent.left
                 anchors.leftMargin: 20
@@ -113,7 +108,7 @@ Rectangle {
                 anchors.leftMargin: 80
                 color: "#ffffff"
                 text: qsTr("Grid + Line")
-                font.pixelSize: 20
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
