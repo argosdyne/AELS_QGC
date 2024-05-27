@@ -1,6 +1,7 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.14
 import QtPositioning 5.14
+import QGroundControl.ScreenTools 1.0
 
 Rectangle {
     id: root
