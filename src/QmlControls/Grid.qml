@@ -1,22 +1,27 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.14
 import QtPositioning 5.14
+import QtQuick.Window 2.10
+import QGroundControl.ScreenTools 1.0
 
 Rectangle {
     id: root
-    color: '#000000'   // blacks
-    property var rootWidth: null;
-    property var rootHeight: null;
+    color: black
+
+    property int rootWidth: Screen.width
+    property int rootHeight: Screen.height
+    property string white: '#ffffff'
+    property string black: '#000000'
+    property string blue: '#3D71D7'
 
     width: rootWidth / 3.24
     height: rootHeight / 1
 
     Text {
         id: gridText
-        color: "#FFFFFF"    // white
+        color: white
         text: qsTr("Grid")
-        //font.pixelSize: 25
-        font.pixelSize: ScreenTools.defaultFontPixelHeight * 2.5
+        font.pixelSize: ScreenTools.mediumFontPointSize * 2
         font.bold: true
         font.family: 'Arial'
         anchors.top: parent.top
@@ -28,7 +33,7 @@ Rectangle {
     Text{
         id: backtext
         text: qsTr('Back')
-        color: '#3D71D7'
+        color: blue
         font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
         font.family: 'Arial'
         anchors.top: parent.top
@@ -38,7 +43,6 @@ Rectangle {
     }
 
     Column {
-        id: column1
         anchors.top: gridText.bottom
         anchors.topMargin: 20 // Editable margin between text1 and column1
         anchors.left: parent.left
@@ -48,7 +52,6 @@ Rectangle {
         spacing: 5
 
         ItemDelegate {
-            id: itemDelegate
             width: parent.width
             height: 52
 
@@ -63,14 +66,13 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.leftMargin: 90
                 text: 'None'
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
-                color: "#FFFFFF"
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2
+                color: white
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
 
         ItemDelegate {
-            id: itemDelegate1
             width: parent.width
             height: 52
 
@@ -84,15 +86,14 @@ Rectangle {
             Text {
                 anchors.left: parent.left
                 anchors.leftMargin: 80
-                color: "#ffffff"
+                color: white
                 text: qsTr("Grid")
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
 
         ItemDelegate {
-            id: itemDelegate2
             width: parent.width
             height: 52
 
@@ -106,9 +107,9 @@ Rectangle {
             Text {
                 anchors.left: parent.left
                 anchors.leftMargin: 80
-                color: "#ffffff"
+                color: white
                 text: qsTr("Grid + Line")
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
