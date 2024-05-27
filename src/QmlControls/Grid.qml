@@ -9,7 +9,7 @@ Rectangle {
     color: black
 
     implicitWidth: Screen.width / 3.24
-    implicitHeight: Screen.height / 1
+    implicitHeight: Screen.height
     property string white: '#ffffff'
     property string black: '#000000'
     property string blue: '#3D71D7'
