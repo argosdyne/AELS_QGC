@@ -14,16 +14,9 @@ import QtGraphicalEffects                   1.12
 Rectangle {
     id:     root
     color: Qt.rgba(0, 0, 0, 0.4)
-    z : 3
-    property int currentToolbar: flyViewToolbar
+    z : 3    
 
-    readonly property int flyViewToolbar:   0
-    readonly property int planViewToolbar:  1
-    readonly property int simpleToolbar:    2
-
-    property var    _activeVehicle:     QGroundControl.multiVehicleManager.activeVehicle
-    property bool   _communicationLost: _activeVehicle ? _activeVehicle.vehicleLinkManager.communicationLost : false
-    property color  _mainStatusBGColor: qgcPal.brandingPurple
+    property string defaultTextColor: "white"
 
     property var rootWidth: null;
     property var rootHeight: null;
@@ -69,7 +62,7 @@ Rectangle {
                             anchors.leftMargin: 28
                             spacing: 15
                             Image {
-                                source: "/res/TopMenu_Manual Flight.svg"
+                                source: "/res/TopMenu_ManualFlight.svg"
                                 height: parent.height
                                 width: height
                             }
@@ -78,14 +71,14 @@ Rectangle {
                                 Text {                                    
                                     font.pixelSize: ScreenTools.defaultFontPixelHeight * 1.8
                                     text: qsTr("Intelligent Photo")
-                                    color: "white"
+                                    color: defaultTextColor
                                     opacity: 0.8
                                 }
                                 Text {                                    
                                     font.pixelSize: ScreenTools.defaultFontPixelHeight * 2.5
                                     text: qsTr("Manual Flight")
                                     font.bold: true
-                                    color: "white"
+                                    color: defaultTextColor
                                 }
                             }
                             anchors.bottom: parent.bottom
@@ -120,7 +113,7 @@ Rectangle {
                                 height: parent.height - 24                                
                                 font.pixelSize: ScreenTools.defaultFontPixelHeight * 4.1
                                 text: qsTr("N/A")
-                                color: "white"
+                                color: defaultTextColor
                             }
                             anchors.bottom: parent.bottom
                         }
@@ -142,7 +135,7 @@ Rectangle {
                                 height: parent.height - 24                                
                                 font.pixelSize: ScreenTools.defaultFontPixelHeight * 4.1
                                 text: qsTr("N/A")
-                                color: "white"
+                                color: defaultTextColor
                             }
                             anchors.bottom: parent.bottom
                         }
@@ -164,7 +157,7 @@ Rectangle {
                                 height: parent.height - 24                                
                                 font.pixelSize: ScreenTools.defaultFontPixelHeight * 4.1
                                 text: qsTr("N/A")
-                                color: "white"
+                                color: defaultTextColor
                             }
                             anchors.bottom: parent.bottom
                         }
@@ -185,7 +178,7 @@ Rectangle {
                                 height: parent.height - 24                                
                                 font.pixelSize: ScreenTools.defaultFontPixelHeight * 4.1
                                 text: qsTr("N/A")
-                                color: "white"
+                                color: defaultTextColor
                             }
                             anchors.bottom: parent.bottom
                         }
