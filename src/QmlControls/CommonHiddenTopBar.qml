@@ -12,7 +12,7 @@ import QGroundControl.Controllers           1.0
 import QtGraphicalEffects                   1.12
 
 Rectangle {
-    id: _root
+    id: root
     color: Qt.rgba(0, 0, 0, 0.6)
     z: 3
 
@@ -103,8 +103,8 @@ Rectangle {
                                 width: height
                             }
                             Text {
-                                height: parent.height - 24
-                                font.pixelSize: 41
+                                height: parent.height - 24                                
+                                font.pixelsize: ScreenTools.defaultFontPixelHeight * 4.1
                                 text: qsTr("N/A")
                                 color: "white"
                             }
@@ -125,8 +125,8 @@ Rectangle {
                                 width: height
                             }
                             Text {
-                                height: parent.height - 24
-                                font.pixelSize: 41
+                                height: parent.height - 24                                
+                                font.pixelsize: ScreenTools.defaultFontPixelHeight * 4.1
                                 text: qsTr("N/A")
                                 color: "white"
                             }
