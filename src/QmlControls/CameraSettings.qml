@@ -1,24 +1,26 @@
 import QtQuick 2.15
 import QtQuick.Controls 2.14
 import QtPositioning 5.14
+import QtQuick.Window 2.10
 import QGroundControl.ScreenTools 1.0 
 
 Rectangle {
     id: root
-    color: '#000000'   // black
+    color: black
 
-    property var rootWidth: null;
-    property var rootHeight: null;
+    property int rootWidth: Screen.width
+    property int rootHeight: Screen.height
+    property string white: '#ffffff'
+    property string black: '#000000'
 
     width: rootWidth / 3.24
     height: rootHeight / 1
 
     Text {
         id: cameraSettingsText
-        color: "#FFFFFF"    // white
+        color: white
         text: qsTr("Camera Settings")
-        //font.pixelSize: 25
-        font.pixelSize: ScreenTools.defaultFontPixelHeight * 2.5
+        font.pixelSize: ScreenTools.mediumFontPointSize * 2
         font.bold: true
         font.family: 'Arial'
         anchors.top: parent.top
@@ -28,8 +30,7 @@ Rectangle {
     }
 
     Column {
-        id: column1
-        anchors.top: text1.bottom
+        anchors.top: cameraSettingsText.bottom
         anchors.topMargin: 15 // Editable margin between text1 and column1
         anchors.left: parent.left
         anchors.right: parent.right
@@ -37,9 +38,7 @@ Rectangle {
 
         spacing: 4
 
-
         ItemDelegate {
-            id: itemDelegate
             width: parent.width
             height: 40
 
@@ -47,10 +46,8 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.leftMargin: 15
                 text: 'Grid'
-                //font.pixelSize: 20
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
-                color: "#FFFFFF"
-                // verticalAlignment: Text.AlignVCenter
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2
+                color: white
             }
         }
 
@@ -61,18 +58,15 @@ Rectangle {
         }
 
         ItemDelegate {
-            id: itemDelegate1
             width: parent.width
             height: 40
-            enabled: true
-            hoverEnabled: true
 
             Text {
                 anchors.left: parent.left
                 anchors.leftMargin: 15
-                color: "#ffffff"
+                color: white
                 text: qsTr("Center Point")
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2
             }
         }
 
@@ -83,7 +77,6 @@ Rectangle {
         }
 
         SwitchDelegate {
-            id: switchDelegate
             width: parent.width
             height: 52
             text: qsTr(" ")
@@ -91,9 +84,9 @@ Rectangle {
             Text {
                 anchors.left: parent.left
                 anchors.leftMargin: 15
-                color: "#ffffff"
+                color: white
                 text: qsTr("Histogram")
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2
             }
         }
 
@@ -104,7 +97,6 @@ Rectangle {
         }
 
         SwitchDelegate {
-            id: switchDelegate0
             width: parent.width
             height: 52
             text: qsTr(" ")
@@ -112,9 +104,9 @@ Rectangle {
             Text {
                 anchors.left: parent.left
                 anchors.leftMargin: 15
-                color: "#ffffff"
+                color: white
                 text: qsTr("Lock Gimbal While Shooting")
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2
             }
         }
 
@@ -125,7 +117,6 @@ Rectangle {
         }
 
         SwitchDelegate {
-            id: switchDelegate1
             width: parent.width
             height: 52
             text: qsTr(" ")
@@ -133,9 +124,9 @@ Rectangle {
             Text {
                 anchors.left: parent.left
                 anchors.leftMargin: 15
-                color: "#ffffff"
+                color: white
                 text: qsTr("DeFog")
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2
             }
         }
 
@@ -146,7 +137,6 @@ Rectangle {
         }
 
         SwitchDelegate {
-            id: switchDelegate2
             width: parent.width
             height: 52
             text: qsTr(" ")
@@ -154,9 +144,9 @@ Rectangle {
             Text {
                 anchors.left: parent.left
                 anchors.leftMargin: 15
-                color: "#ffffff"
+                color: white
                 text: qsTr("ROI")
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2
             }
         }
 
@@ -167,7 +157,6 @@ Rectangle {
         }
 
         SwitchDelegate {
-            id: switchDelegate3
             width: parent.width
             height: 52
             text: qsTr(" ")
@@ -175,9 +164,9 @@ Rectangle {
             Text {
                 anchors.left: parent.left
                 anchors.leftMargin: 15
-                color: "#ffffff"
+                color: white
                 text: qsTr("Over Exposure Warning")
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2
             }
         }
 
@@ -188,17 +177,16 @@ Rectangle {
         }
 
         SwitchDelegate {
-            id: switchDelegate4
             width: parent.width
             height: 52
             text: qsTr(" ")
 
             Text {
                 anchors.left: parent.left
-                color: "#ffffff"
+                color: white
                 anchors.leftMargin: 15
                 text: qsTr("Subtitle.ASS File")
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2
             }
         }
 
@@ -209,17 +197,16 @@ Rectangle {
         }
 
         SwitchDelegate {
-            id: switchDelegate5
             width: parent.width
             height: 52
             text: qsTr(" ")
 
             Text {
                 anchors.left: parent.left
-                color: "#ffffff"
+                color: white
                 anchors.leftMargin: 15
                 text: qsTr("Auto Syne HD Photo")
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2
             }
         }
 
@@ -230,17 +217,16 @@ Rectangle {
         }
 
         SwitchDelegate {
-            id: switchDelegate6
             width: parent.width
             height: 52
             text: qsTr(" ")
 
             Text {
                 anchors.left: parent.left
-                color: "#ffffff"
+                color: white
                 anchors.leftMargin: 15
                 text: qsTr("Pre-record Photo")
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2
             }
         }
 
@@ -251,16 +237,15 @@ Rectangle {
         }
 
         ItemDelegate {
-            id: itemDelegate3
             width: parent.width
             height: 40
 
             Text {
                 anchors.left: parent.left
-                color: "#ffffff"
+                color: white
                 anchors.leftMargin: 15
                 text: qsTr("Video Encoding Format")
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2
             }
         }
 
@@ -271,16 +256,15 @@ Rectangle {
         }
 
         ItemDelegate {
-            id: itemDelegate4
             width: parent.width
             height: 40
 
             Text {
                 anchors.left: parent.left
-                color: "#ffffff"
+                color: white
                 anchors.leftMargin: 15
                 text: qsTr("Anti-Flicker")
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2
             }
         }
 
@@ -291,7 +275,6 @@ Rectangle {
         }
 
         ItemDelegate {
-            id: itemDelegate5
             width: parent.width
             height: 40
 
@@ -300,7 +283,7 @@ Rectangle {
                 anchors.rightMargin: 20
                 color: "blue"
                 text: qsTr("Reset Camera")
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2.1
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2.1
             }
         }
 
@@ -311,16 +294,15 @@ Rectangle {
         }
 
         ItemDelegate {
-            id: itemDelegate6
             width: parent.width
             height: 40
 
             Text {
                 anchors.left: parent.left
-                color: "#ffffff"
+                color: white
                 anchors.leftMargin: 15
                 text: qsTr("Save Location")
-                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+                font.pixelSize: ScreenTools.mediumFontPointSize * 2
             }
         }
     }
