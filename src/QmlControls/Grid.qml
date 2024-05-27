@@ -56,7 +56,7 @@ Rectangle {
             height: 52
 
             Image {
-                source: "qrc:/qmlimages/None_box.svg"
+                source: "qrc:/qmlimages/NoneBox.svg"
                 anchors.left: parent.left
                 anchors.leftMargin: 15
                 anchors.verticalCenter: parent.verticalCenter
@@ -98,7 +98,7 @@ Rectangle {
             height: 52
 
             Image {
-                source: "qrc:/qmlimages/grid+line.svg"
+                source: "qrc:/qmlimages/gridLine.svg"
                 anchors.left: parent.left
                 anchors.leftMargin: 20
                 anchors.verticalCenter: parent.verticalCenter
