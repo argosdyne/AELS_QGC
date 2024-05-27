@@ -3,7 +3,7 @@ import QtQuick.Controls 2.14
 import QtPositioning 5.14
 
 Rectangle {
-    id: _root
+    id: root
     color: '#000000'   // black
 
     property var rootWidth: null;
@@ -12,10 +12,10 @@ Rectangle {
     width: rootWidth / 3.24
     height: rootHeight / 1
     Text {
-        id: text1
+        id: centerPointText
         color: "#FFFFFF"    // white
         text: qsTr("Center Point")
-        font.pixelSize: 25
+        font.pixelSize: ScreenTools.defaultFontPixelHeight * 2.5
         font.bold: true
         font.family: 'Arial'
         anchors.top: parent.top
@@ -25,10 +25,10 @@ Rectangle {
     }
 
     Text{
-        id: text2
+        id: backText
         text: qsTr('Back')
         color: '#3D71D7'
-        font.pixelSize: 20
+        font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
         font.family: 'Arial'
         anchors.top: parent.top
         anchors.right: parent.right
@@ -38,7 +38,7 @@ Rectangle {
 
     Column {
         id: column1
-        anchors.top: text1.bottom
+        anchors.top: centerPointText.bottom
         anchors.topMargin: 20 // Editable margin between text1 and column1
         anchors.left: parent.left
         anchors.right: parent.right
@@ -52,7 +52,6 @@ Rectangle {
             height: 52
 
             Image {
-                id: name
                 source: "qrc:/qmlimages/None_box.svg"
                 anchors.left: parent.left
                 anchors.leftMargin: 15
@@ -63,7 +62,7 @@ Rectangle {
                 anchors.left: parent.left
                 anchors.leftMargin: 90
                 text: 'None'
-                font.pixelSize: 20
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
                 color: "#FFFFFF"
                 anchors.verticalCenter: parent.verticalCenter
                 // verticalAlignment: Text.AlignVCenter
@@ -74,11 +73,8 @@ Rectangle {
             id: itemDelegate1
             width: parent.width
             height: 52
-            enabled: true
-            hoverEnabled: true
 
             Image {
-                id: name1
                 source: "qrc:/qmlimages/Square.svg"
                 anchors.left: parent.left
                 anchors.leftMargin: 20
@@ -90,7 +86,7 @@ Rectangle {
                 anchors.leftMargin: 80
                 color: "#ffffff"
                 text: qsTr("Square(Without Center Point)")
-                font.pixelSize: 20
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
@@ -99,10 +95,8 @@ Rectangle {
             id: itemDelegate2
             width: parent.width
             height: 52
-            text: qsTr(" ")
 
             Image {
-                id: name2
                 source: "qrc:/qmlimages/CenterPoint_Square.svg"
                 anchors.left: parent.left
                 anchors.leftMargin: 20
@@ -114,7 +108,7 @@ Rectangle {
                 anchors.leftMargin: 80
                 color: "#ffffff"
                 text: qsTr("Square(With Center Point)")
-                font.pixelSize: 20
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
@@ -123,10 +117,8 @@ Rectangle {
             id: itemDelegate3
             width: parent.width
             height: 52
-            text: qsTr(" ")
 
             Image {
-                id: name3
                 source: "qrc:/qmlimages/Cross.svg"
                 anchors.left: parent.left
                 anchors.leftMargin: 20
@@ -138,7 +130,7 @@ Rectangle {
                 anchors.leftMargin: 80
                 color: "#ffffff"
                 text: qsTr("Cross")
-                font.pixelSize: 20
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
@@ -147,10 +139,8 @@ Rectangle {
             id: itemDelegate4
             width: parent.width
             height: 52
-            text: qsTr(" ")
 
             Image {
-                id: name4
                 source: "qrc:/qmlimages/Circle_WC.svg"
                 anchors.left: parent.left
                 anchors.leftMargin: 20
@@ -162,7 +152,7 @@ Rectangle {
                 anchors.leftMargin: 80
                 color: "#ffffff"
                 text: qsTr("Circle(Without Center Point)")
-                font.pixelSize: 20
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
@@ -171,10 +161,8 @@ Rectangle {
             id: itemDelegate5
             width: parent.width
             height: 52
-            text: qsTr(" ")
 
             Image {
-                id: name5
                 source: "qrc:/qmlimages/Circle_WithCenter.svg"
                 anchors.left: parent.left
                 anchors.leftMargin: 20
@@ -184,7 +172,7 @@ Rectangle {
             Text {
                 text: qsTr("Circle(With Center Point)")
                 color: "#ffffff"
-                font.pixelSize: 20
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
                 anchors.left: parent.left
                 anchors.leftMargin: 80
                 anchors.verticalCenter: parent.verticalCenter
