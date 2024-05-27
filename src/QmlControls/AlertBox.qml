@@ -12,7 +12,7 @@ import QGroundControl.Controllers           1.0
 import QtGraphicalEffects                   1.12
 
 Rectangle {
-    id:     _root
+    id:     root
     color: isRed ? "#DF3712" : "#FCA600"
     z : 3  
     property var rootWidth: null;
