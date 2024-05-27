@@ -17,7 +17,7 @@ Rectangle {
         color: "#FFFFFF"    // white
         text: qsTr("Camera Settings")
         //font.pixelSize: 25
-        ScreenTools.defaultFontPixelWidth*2.5
+        font.pixelSize: ScreenTools.defaultFontPixelHeight * 2.5
         font.bold: true
         font.family: 'Arial'
         anchors.top: parent.top
@@ -47,7 +47,7 @@ Rectangle {
                 anchors.leftMargin: 15
                 text: 'Grid'
                 //font.pixelSize: 20
-                ScreenTools.defaultFontPixelWidth*2
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
                 color: "#FFFFFF"
                 // verticalAlignment: Text.AlignVCenter
             }
@@ -71,7 +71,7 @@ Rectangle {
                 anchors.leftMargin: 15
                 color: "#ffffff"
                 text: qsTr("Center Point")
-                ScreenTools.defaultFontPixelWidth*2
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
             }
         }
 
@@ -92,7 +92,7 @@ Rectangle {
                 anchors.leftMargin: 15
                 color: "#ffffff"
                 text: qsTr("Histogram")
-                ScreenTools.defaultFontPixelWidth*2
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
             }
         }
 
@@ -113,7 +113,7 @@ Rectangle {
                 anchors.leftMargin: 15
                 color: "#ffffff"
                 text: qsTr("Lock Gimbal While Shooting")
-                ScreenTools.defaultFontPixelWidth*2
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
             }
         }
 
@@ -134,7 +134,7 @@ Rectangle {
                 anchors.leftMargin: 15
                 color: "#ffffff"
                 text: qsTr("DeFog")
-                ScreenTools.defaultFontPixelWidth*2
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
             }
         }
 
@@ -155,7 +155,7 @@ Rectangle {
                 anchors.leftMargin: 15
                 color: "#ffffff"
                 text: qsTr("ROI")
-                ScreenTools.defaultFontPixelWidth*2
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
             }
         }
 
@@ -176,7 +176,7 @@ Rectangle {
                 anchors.leftMargin: 15
                 color: "#ffffff"
                 text: qsTr("Over Exposure Warning")
-                ScreenTools.defaultFontPixelWidth*2
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
             }
         }
 
@@ -197,7 +197,7 @@ Rectangle {
                 color: "#ffffff"
                 anchors.leftMargin: 15
                 text: qsTr("Subtitle.ASS File")
-                ScreenTools.defaultFontPixelWidth*2
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
             }
         }
 
@@ -218,7 +218,7 @@ Rectangle {
                 color: "#ffffff"
                 anchors.leftMargin: 15
                 text: qsTr("Auto Syne HD Photo")
-                ScreenTools.defaultFontPixelWidth*2
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
             }
         }
 
@@ -239,7 +239,7 @@ Rectangle {
                 color: "#ffffff"
                 anchors.leftMargin: 15
                 text: qsTr("Pre-record Photo")
-                ScreenTools.defaultFontPixelWidth*2
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
             }
         }
 
@@ -259,7 +259,7 @@ Rectangle {
                 color: "#ffffff"
                 anchors.leftMargin: 15
                 text: qsTr("Video Encoding Format")
-                ScreenTools.defaultFontPixelWidth*2
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
             }
         }
 
@@ -279,7 +279,7 @@ Rectangle {
                 color: "#ffffff"
                 anchors.leftMargin: 15
                 text: qsTr("Anti-Flicker")
-                ScreenTools.defaultFontPixelWidth*2
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
             }
         }
 
@@ -299,7 +299,7 @@ Rectangle {
                 anchors.rightMargin: 20
                 color: "blue"
                 text: qsTr("Reset Camera")
-                ScreenTools.defaultFontPixelWidth*2.1
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2.1
             }
         }
 
@@ -319,7 +319,7 @@ Rectangle {
                 color: "#ffffff"
                 anchors.leftMargin: 15
                 text: qsTr("Save Location")
-                ScreenTools.defaultFontPixelWidth*2
+                font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
             }
         }
     }
