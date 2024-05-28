@@ -285,6 +285,9 @@
         <file alias="VirtualJoystick.qml">src/FlightDisplay/VirtualJoystick.qml</file>
         <file alias="VTOLLandingPatternEditor.qml">src/PlanView/VTOLLandingPatternEditor.qml</file>
         <file alias="QGroundControl/Controls/Grid.qml">src/QmlControls/Grid.qml</file>
+        <file alias="QGroundControl/Controls/CenterPoint.qml">src/QmlControls/CenterPoint.qml</file>
+		    <file alias="CommonTopMenu.qml">src/QmlControls/CommonTopMenu.qml</file>
+        <file alias="QGroundControl/Controls/CameraSettings.qml">src/QmlControls/CameraSettings.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>
