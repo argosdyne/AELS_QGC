@@ -52,6 +52,18 @@
 		<file alias="XDeleteBlack.svg">../resources/XDeleteBlack.svg</file>
 		<file alias="waypoint.svg">../resources/waypoint.svg</file>
 		<file>../resources/icons/qgroundcontrol.ico</file>
+
+		<file alias ="TopMenuAltitude.svg">../resources/TopMenuAltitude.svg</file>
+		<file alias ="TopMenuBattery.svg">../resources/TopMenuBattery.svg</file>
+		<file alias ="TopMenuDistance.svg">../resources/TopMenuDistance.svg</file>
+		<file alias ="TopMenuHomeButton.svg">../resources/TopMenuHomeButton.png</file>
+		<file alias ="TopMenuMapTool.svg">../resources/TopMenuMapTool.svg</file>
+		<file alias ="TopMenuObstacleSensorOff.svg">../resources/TopMenuObstacleSensorOff.svg</file>
+		<file alias ="TopMenuObstacleSensorOn.svg">../resources/TopMenuObstacleSensorOn.svg</file>
+		<file alias ="TopMenuSetting.png">../resources/TopMenuSetting.png</file>
+		<file alias ="TopMenuSpeed.svg">../resources/TopMenuSpeed.svg</file>
+		<file alias ="TopMenuManualFlight.svg">../resources/TopMenuManualFlight.svg</file>
+
 	</qresource>
 	<qresource prefix="/res/firmware">
 		<file alias="3drradio.png">../resources/firmware/3drradio.png</file>
