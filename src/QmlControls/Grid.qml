@@ -14,7 +14,7 @@ Rectangle {
     property string black: '#000000'
     property string blue: '#3D71D7'
 
-    property int hItemDelegate: 40;
+    property int hItemDelegate: 52;
 
     Text {
         id: gridText
