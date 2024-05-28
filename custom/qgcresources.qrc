@@ -53,16 +53,16 @@
 		<file alias="waypoint.svg">../resources/waypoint.svg</file>
 		<file>../resources/icons/qgroundcontrol.ico</file>
 
-		<file alias ="TopMenu_Altitude.svg">../resources/TopMenu_Altitude.svg</file>
-		<file alias ="TopMenu_battery.svg">../resources/TopMenu_battery.svg</file>
-		<file alias ="TopMenu_distance.svg">../resources/TopMenu_distance.svg</file>
-		<file alias ="TopMenu_homebutton.svg">../resources/TopMenu_homebutton.png</file>
-		<file alias ="TopMenu_maptool.svg">../resources/TopMenu_maptool.svg</file>
-		<file alias ="TopMenu_obstacle_sensor(off).svg">../resources/TopMenu_obstacle_sensor(off).svg</file>
-		<file alias ="TopMenu_obstacle_sensor(on).svg">../resources/TopMenu_obstacle_sensor(on).svg</file>
-		<file alias ="TopMenu_setting.png">../resources/TopMenu_setting.png</file>
-		<file alias ="TopMenu_speed.svg">../resources/TopMenu_speed.svg</file>
-		<file alias ="TopMenu_ManualFlight.svg">../resources/TopMenu_ManualFlight.svg</file>
+		<file alias ="TopMenuAltitude.svg">../resources/TopMenuAltitude.svg</file>
+		<file alias ="TopMenuBattery.svg">../resources/TopMenuBattery.svg</file>
+		<file alias ="TopMenuDistance.svg">../resources/TopMenuDistance.svg</file>
+		<file alias ="TopMenuHomeButton.svg">../resources/TopMenuHomeButton.png</file>
+		<file alias ="TopMenuMapTool.svg">../resources/TopMenuMapTool.svg</file>
+		<file alias ="TopMenuObstacleSensorOff.svg">../resources/TopMenuObstacleSensorOff.svg</file>
+		<file alias ="TopMenuObstacleSensorOn.svg">../resources/TopMenuObstacleSensorOn.svg</file>
+		<file alias ="TopMenuSetting.png">../resources/TopMenuSetting.png</file>
+		<file alias ="TopMenuSpeed.svg">../resources/TopMenuSpeed.svg</file>
+		<file alias ="TopMenuManualFlight.svg">../resources/TopMenuManualFlight.svg</file>
 
 	</qresource>
 	<qresource prefix="/res/firmware">

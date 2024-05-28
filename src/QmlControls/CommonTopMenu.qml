@@ -43,7 +43,7 @@ Rectangle {
             background: Rectangle {
                 color: transparent
                 Image {
-                    source: "/res/TopMenu_homebutton.svg"
+                    source: "/res/TopMenuHomeButton.svg"
                     anchors.centerIn: parent
                     width: defaultFontSize * 8
                     height: parent.height - defaultFontSize
@@ -70,7 +70,7 @@ Rectangle {
                             anchors.leftMargin: defaultFontSize * 2.8
                             spacing: defaultFontSize * 1.5
                     Image {
-                        source: "/res/TopMenu_ManualFlight.svg"
+                        source: "/res/TopMenuManualFlight.svg"
                         height: parent.height
                         width: height
                     }
@@ -113,7 +113,7 @@ Rectangle {
                             anchors.leftMargin: defaultFontSize * 5
                             spacing: defaultFontSize
                             Image {
-                                source: "/res/TopMenu_battery.svg"
+                                source: "/res/TopMenuBattery.svg"
                                 height: defaultFontSize * 4
                                 width: height
                             }
@@ -135,7 +135,7 @@ Rectangle {
                             anchors.leftMargin: defaultFontSize * 26
                             spacing: defaultFontSize
                             Image {
-                                source: "/res/TopMenu_Altitude.svg"
+                                source: "/res/TopMenuAltitude.svg"
                                 height: defaultFontSize * 4
                                 width: height
                             }
@@ -157,7 +157,7 @@ Rectangle {
                             anchors.leftMargin: defaultFontSize * 46
                             spacing: defaultFontSize
                             Image {
-                                source: "/res/TopMenu_distance.svg"
+                                source: "/res/TopMenuDistance.svg"
                                 height: defaultFontSize * 4
                                 width: height
                             }
@@ -178,7 +178,7 @@ Rectangle {
                             anchors.leftMargin: defaultFontSize * 66
                             spacing: defaultFontSize
                             Image {
-                                source: "/res/TopMenu_speed.svg"
+                                source: "/res/TopMenuSpeed.svg"
                                 height: defaultFontSize * 4
                                 width: height
                             }
@@ -204,7 +204,7 @@ Rectangle {
             background: Rectangle {
                 color: transparent
                 Image {
-                    source: "/res/TopMenu_obstacle_sensor(off).svg"
+                    source: "/res/TopMenuObstacleSensorOff.svg"
                     anchors.centerIn: parent
                 }
             }
@@ -219,7 +219,7 @@ Rectangle {
             background: Rectangle {
                 color: transparent
                 Image {
-                    source: "/res/TopMenu_maptool.svg"
+                    source: "/res/TopMenuMapTool.svg"
                     anchors.centerIn: parent
                 }
             }
@@ -234,7 +234,7 @@ Rectangle {
             background: Rectangle {
                 color: transparent
                 Image {
-                    source: "/res/TopMenu_setting.png"
+                    source: "/res/TopMenuSetting.png"
                     anchors.centerIn: parent
                 }
             }
