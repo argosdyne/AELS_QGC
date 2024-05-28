@@ -13,6 +13,7 @@ Rectangle {
     property string white: '#ffffff'
     property string black: '#000000'
     property string blue: '#3D71D7'
+    property int hItemDelegate: 52;
 
     Text {
         id: centerPointText
@@ -50,7 +51,7 @@ Rectangle {
 
         ItemDelegate {
             width: parent.width
-            height: 52
+            height: hItemDelegate
 
             Image {
                 source: "qrc:/qmlimages/NoneBox.svg"
@@ -71,7 +72,7 @@ Rectangle {
 
         ItemDelegate {
             width: parent.width
-            height: 52
+            height: hItemDelegate
 
             Image {
                 source: "qrc:/qmlimages/Square.svg"
@@ -92,7 +93,7 @@ Rectangle {
 
         ItemDelegate {
             width: parent.width
-            height: 52
+            height: hItemDelegate
 
             Image {
                 source: "qrc:/qmlimages/CenterPointWithSquare.svg"
@@ -113,7 +114,7 @@ Rectangle {
 
         ItemDelegate {
             width: parent.width
-            height: 52
+            height: hItemDelegate
 
             Image {
                 source: "qrc:/qmlimages/Cross.svg"
@@ -133,9 +134,8 @@ Rectangle {
         }
 
         ItemDelegate {
-            id: itemDelegate4
             width: parent.width
-            height: 52
+            height: hItemDelegate
 
             Image {
                 source: "qrc:/qmlimages/CircleWithoutCenterPoint.svg"
@@ -156,7 +156,7 @@ Rectangle {
 
         ItemDelegate {
             width: parent.width
-            height: 52
+            height: hItemDelegate
 
             Image {
                 source: "qrc:/qmlimages/CircleWithCenterPoint.svg"
