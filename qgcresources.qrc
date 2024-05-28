@@ -56,8 +56,8 @@
         <file alias="waypoint.svg">resources/waypoint.svg</file>
         <file>resources/icons/qgroundcontrol.ico</file>
 
-		<file alias="Close(lightgray).svg">resources/Close(lightgray).svg</file>
-		<file alias="Close(white).svg">resources/Close(white).svg</file>
+		<file alias="CloseLightgray.svg">resources/CloseLightgray.svg</file>
+		<file alias="CloseWhite.svg">resources/CloseWhite.svg</file>
 	</qresource>
     <qresource prefix="/res/firmware">
         <file alias="3drradio.png">resources/firmware/3drradio.png</file>
