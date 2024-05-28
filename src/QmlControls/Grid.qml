@@ -14,6 +14,8 @@ Rectangle {
     property string black: '#000000'
     property string blue: '#3D71D7'
 
+    property int hItemDelegate: 40;
+
     Text {
         id: gridText
         color: white
@@ -50,7 +52,7 @@ Rectangle {
 
         ItemDelegate {
             width: parent.width
-            height: 52
+            height: hItemDelegate
 
             Image {
                 source: "qrc:/qmlimages/NoneBox.svg"
@@ -71,7 +73,7 @@ Rectangle {
 
         ItemDelegate {
             width: parent.width
-            height: 52
+            height: hItemDelegate
 
             Image {
                 source: "qrc:/qmlimages/Grid.svg"
@@ -92,7 +94,7 @@ Rectangle {
 
         ItemDelegate {
             width: parent.width
-            height: 52
+            height: hItemDelegate
 
             Image {
                 source: "qrc:/qmlimages/gridLine.svg"
