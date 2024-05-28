@@ -35,5 +35,13 @@ add_custom_target(PlanViewQml
 		VTOLLandingPatternEditor.qml
 		VTOLLandingPatternMapVisual.qml
 		AlertBox.qml
+		CameraWarningBox.qml
+		CameraDescriptionWindowOneLine.qml
+		CameraDescriptionWindowTwoLine.qml
+		CameraRecordSwitchButton.qml
+		CameraMenuUnderUpButton.qml 
+		CameraLiveButton.qml  
+		CameraRecordButton.qml      
+		CameraGalleryButton.qml  
 )
 
