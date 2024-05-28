@@ -284,6 +284,8 @@
         <file alias="VibrationPage.qml">src/AnalyzeView/VibrationPage.qml</file>
         <file alias="VirtualJoystick.qml">src/FlightDisplay/VirtualJoystick.qml</file>
         <file alias="VTOLLandingPatternEditor.qml">src/PlanView/VTOLLandingPatternEditor.qml</file>
+        <file alias="CameraDescriptionWindowOneLine.qml">src/QmlControls/CameraDescriptionWindowOneLine.qml</file>
+        <file alias="CameraDescriptionWindowTwoLine.qml">src/QmlControls/CameraDescriptionWindowTwoLine.qml</file>
 		    <file alias="CameraRecordSwitchButton.qml"  >src/QmlControls/CameraRecordSwitchButton.qml</file>
 	  	  <file alias="CameraMenuUnderUpButton.qml"   >src/QmlControls/CameraMenuUnderUpButton.qml</file>
 		    <file alias="CameraLiveButton.qml"          >src/QmlControls/CameraLiveButton.qml</file>
