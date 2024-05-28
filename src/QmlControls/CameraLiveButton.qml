@@ -2,6 +2,7 @@
 import QtQuick.Controls 2.4
 import QtQuick.Layouts  1.11
 import QtQuick.Dialogs  1.3
+import QtQuick.Window 2.0
 
 import QGroundControl                       1.0
 import QGroundControl.Controls              1.0
@@ -14,13 +15,16 @@ import QtGraphicalEffects                   1.12
 Button {
     id:     root
     z : 3
-    property var rootWidth: null;
-    property var rootHeight: null;
+
+    //Color Property
+    property color transparent: "transparent"
+    
     background: Rectangle {
-        color: "transparent"
+        color: transparent
     }
-    width: rootWidth / 19.8
-    height: rootHeight / 13.3
+    
+    implicitWidth: Screen.width / 19.8
+    implicitHeight: Screen.height / 13.3
 
     Image {
         anchors.fill: parent
