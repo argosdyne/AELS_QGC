@@ -113,6 +113,7 @@ ToolStripHoverButton                    1.0 ToolStripHoverButton.qml
 VehicleRotationCal                      1.0 VehicleRotationCal.qml
 VehicleSummaryRow                       1.0 VehicleSummaryRow.qml
 MAVLinkChart                            1.0 MAVLinkChart.qml
+CommonHiddenTopBar						1.0 CommonHiddenTopBar.qml
 AlertBox								1.0 AlertBox.qml
 CameraWarningBox						1.0 CameraWarningBox.qml
 CameraDescriptionWindowOneLine        1.0 CameraDescriptionWindowOneLine.qml
@@ -123,3 +124,4 @@ CameraLiveButton						1.0 CameraLiveButton.qml
 CameraRecordButton						1.0 CameraRecordButton.qml  
 CameraGalleryButton						1.0 CameraGalleryButton.qml 
 CommonTopMenu							1.0 CommonTopMenu.qml
+

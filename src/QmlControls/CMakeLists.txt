@@ -128,6 +128,7 @@ add_custom_target(QmlControlsQml
 		ToolStrip.qml
 		VehicleRotationCal.qml
 		VehicleSummaryRow.qml
+		CommonHiddenTopBar.qml
 		CommonTopMenu.qml
 )
 

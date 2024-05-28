@@ -52,6 +52,12 @@
 		<file alias="XDeleteBlack.svg">../resources/XDeleteBlack.svg</file>
 		<file alias="waypoint.svg">../resources/waypoint.svg</file>
 		<file>../resources/icons/qgroundcontrol.ico</file>
+		<file alias ="TopMenuBatteryPower.svg">../resources/TopMenuBatteryPower.svg</file>
+		<file alias ="TopMenuBattery2.svg">../resources/TopMenuBattery2.svg</file>
+		<file alias ="TopMenuGpsStatus.svg">../resources/TopMenuGpsStatus.svg</file>
+		<file alias ="TopMenuImageTransferStatus.svg">../resources/TopMenuImageTransferStatus.svg</file>
+		<file alias ="TopMenuRemoteControllerConnectionStatus.svg">../resources/TopMenuRemoteControllerConnectionStatus.svg</file>
+		<file alias ="TopMenuSignalLevel.svg">../resources/TopMenuSignalLevel.svg</file>
 		<file alias ="CloseLightgray.svg">../resources/CloseLightgray.svg</file>
 		<file alias ="CloseWhite.svg">../resources/CloseWhite.svg</file>
 		<file alias ="Warning.svg">../resources/Warning.svg</file>
