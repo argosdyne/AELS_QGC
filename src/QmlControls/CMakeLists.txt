@@ -128,6 +128,7 @@ add_custom_target(QmlControlsQml
 		ToolStrip.qml
 		VehicleRotationCal.qml
 		VehicleSummaryRow.qml
+		CommonTopMenu.qml
 )
 
 target_link_libraries(QmlControls

@@ -118,3 +118,4 @@ CameraMenuUnderUpButton					1.0 CameraMenuUnderUpButton.qml
 CameraLiveButton						1.0 CameraLiveButton.qml  
 CameraRecordButton						1.0 CameraRecordButton.qml  
 CameraGalleryButton						1.0 CameraGalleryButton.qml 
+CommonTopMenu							1.0 CommonTopMenu.qml
