@@ -55,6 +55,8 @@
         <file alias="XDeleteBlack.svg">resources/XDeleteBlack.svg</file>
         <file alias="waypoint.svg">resources/waypoint.svg</file>
         <file>resources/icons/qgroundcontrol.ico</file>
+        <file alias="CloseLightgray.svg">resources/CloseLightgray.svg</file>
+        <file alias="CloseWhite.svg">resources/CloseWhite.svg</file>
         <file alias ="Warning.svg">resources/Warning.svg</file>
 		    <file alias="GalleryButton.svg"         >resources/GalleryButton.svg</file>
 	    	<file alias="LiveButton.svg"            >resources/LiveButton.svg</file>

@@ -34,6 +34,7 @@ add_custom_target(PlanViewQml
 		TransectStyleMapVisuals.qml
 		VTOLLandingPatternEditor.qml
 		VTOLLandingPatternMapVisual.qml
+		AlertBox.qml
 		CameraWarningBox.qml
 		CameraDescriptionWindowOneLine.qml
 		CameraDescriptionWindowTwoLine.qml
