@@ -2,6 +2,7 @@
 import QtQuick.Controls 2.4
 import QtQuick.Layouts  1.11
 import QtQuick.Dialogs  1.3
+import QtQuick.Window 2.0
 
 import QGroundControl                       1.0
 import QGroundControl.Controls              1.0
@@ -13,20 +14,27 @@ import QtGraphicalEffects                   1.12
 
 Rectangle {
     id: root
-    color: "#222020"
+    color: black
     z: 3
 
-    radius: 12
-    property var rootWidth: null;
-    property var rootHeight: null;
+    //Color Picker
+    property color black: "#222020"
+    property color gray: "#848282"
+    property color blue: "#276BF0"
+    property color white: "white"
+    property color transparent: "transparent"
 
-    width: rootWidth / 4.1
-    height: rootHeight / 3.4
+    //Size Property
+    property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
+
+    radius: defaultFontSize * 1.2     
+    implicitWidth: Screen.width / 4.1
+    implicitHeight: Screen.height / 3.4
 
     Rectangle {
         width: parent.width
         height: 2 
-        color: "#848282"
+        color: gray
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: parent.height / 4.7
@@ -35,7 +43,7 @@ Rectangle {
     Rectangle {
         width: parent.width
         height: 2 
-        color: "#848282"
+        color: gray
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: parent.height / 5.3 
@@ -48,13 +56,13 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         background: Rectangle{
-            color: "transparent"
+            color: transparent
             anchors.fill: parent
         }
 
         Text {
             text: qsTr("CANCEL")
-            color: "#276BF0"
+            color: blue
             anchors.centerIn: parent
             font.pixelSize: parent.width / 7.7
             font.bold: true
@@ -71,13 +79,13 @@ Rectangle {
         anchors.bottom: parent.bottom
         anchors.right: parent.right
         background: Rectangle{
-            color: "transparent"
+            color: transparent
             anchors.fill: parent
         }
 
         Text {
             text: qsTr("OK")
-            color: "#276BF0"
+            color: blue
             anchors.centerIn: parent
             font.pixelSize: parent.width / 7.7
             font.bold: true
@@ -94,7 +102,7 @@ Rectangle {
     Rectangle {
         width: 2
         height: parent.height / 5.3
-        color: "#848282"        
+        color: gray        
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
     }
@@ -103,12 +111,12 @@ Rectangle {
         width: parent.width
         height: parent.height / 4.7
         anchors.top: parent.top
-        color: "transparent"
+        color: transparent
         id: topRect
 
         Rectangle {
             anchors.centerIn: parent
-            color: "transparent"
+            color: transparent
             width: parent.width / 2.8
             height: parent.height / 1.4
             id: rect
@@ -128,7 +136,7 @@ Rectangle {
                     text: qsTr("Warning")
                     font.pixelSize: rect.width / 5.6
                     anchors.verticalCenter: parent.verticalCenter
-                    color: "white"
+                    color: white
                 }
             }
         }
