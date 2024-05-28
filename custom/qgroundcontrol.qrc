@@ -279,8 +279,17 @@
 		<file alias="VibrationPage.qml">../src/AnalyzeView/VibrationPage.qml</file>
 		<file alias="VirtualJoystick.qml">../src/FlightDisplay/VirtualJoystick.qml</file>
 		<file alias="VTOLLandingPatternEditor.qml">../src/PlanView/VTOLLandingPatternEditor.qml</file>
-
 		<file alias="QGroundControl/Controls/CommonHiddenTopBar.qml">../src/QmlControls/CommonHiddenTopBar.qml</file>
+		<file alias="QGroundControl/Controls/AlertBox.qml">../src/QmlControls/AlertBox.qml</file>
+		<file alias="QGroundControl/Controls/CameraWarningBox.qml">../src/QmlControls/CameraWarningBox.qml</file>
+		<file alias="QGroundControl/Controls/CameraDescriptionWindowOneLine.qml">../src/QmlControls/CameraDescriptionWindowOneLine.qml</file>
+		<file alias="QGroundControl/Controls/CameraDescriptionWindowTwoLine.qml">../src/QmlControls/CameraDescriptionWindowTwoLine.qml</file>
+		<file alias="QGroundControl/Controls/CameraRecordSwitchButton.qml">../src/QmlControls/CameraRecordSwitchButton.qml</file>
+		<file alias="QGroundControl/Controls/CameraMenuUnderUpButton.qml">../src/QmlControls/CameraMenuUnderUpButton.qml</file>
+		<file alias="QGroundControl/Controls/CameraLiveButton.qml">../src/QmlControls/CameraLiveButton.qml</file>
+		<file alias="QGroundControl/Controls/CameraRecordButton.qml">../src/QmlControls/CameraRecordButton.qml</file>
+		<file alias="QGroundControl/Controls/CameraGalleryButton.qml">../src/QmlControls/CameraGalleryButton.qml</file>
+		<file alias="QGroundControl/Controls/CommonTopMenu.qml">../src/QmlControls/CommonTopMenu.qml</file>
 	</qresource>
 	<qresource prefix="/FirstRunPromptDialogs">
 		<file alias="UnitsFirstRunPrompt.qml">../src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>
