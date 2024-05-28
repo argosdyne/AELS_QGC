@@ -285,8 +285,8 @@
         <file alias="VirtualJoystick.qml">src/FlightDisplay/VirtualJoystick.qml</file>
         <file alias="VTOLLandingPatternEditor.qml">src/PlanView/VTOLLandingPatternEditor.qml</file>
 
-		<file alias="CameraDescriptionWindow_One_line.qml">src/QmlControls/CameraDescriptionWindow_One_line.qml</file>
-		<file alias="CameraDescriptionWindow_Two_line.qml">src/QmlControls/CameraDescriptionWindow_Two_line.qml</file>
+		<file alias="CameraDescriptionWindowOneLine.qml">src/QmlControls/CameraDescriptionWindowOneLine.qml</file>
+		<file alias="CameraDescriptionWindowTwoLine.qml">src/QmlControls/CameraDescriptionWindowTwoLine.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>

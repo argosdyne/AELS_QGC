@@ -13,19 +13,22 @@ import QtGraphicalEffects                   1.12
 
 Rectangle {
     id: root
-    color: "#3c3434"
+    color: darkgray
     z: 3
 
-    property var rootWidth: null;
-    property var rootHeight: null;
+    //Color Property
+    property color defaultTextColor: "white"
+    property color transparent: "transparent"
+    property color darkgray: "#3c3434"
+    property color lightgray: "#848282"    
 
-    width: rootWidth / 2.2
-    height: rootHeight / 1.9
+    implicitWidth: Screen.width / 2.2
+    implicitHeight: Screen.height / 1.9    
 
     Rectangle {
         width: parent.width
         height: 2 
-        color: "#848282"
+        color: lightgray
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: parent.height / 7.2
@@ -34,7 +37,7 @@ Rectangle {
     Rectangle {
         width: parent.width
         height: 2
-        color: "#848282"
+        color: lightgray
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
         anchors.bottomMargin: parent.height / 6.4
@@ -44,7 +47,7 @@ Rectangle {
         height: parent.height / 6.4
         anchors.bottom: parent.bottom
         background: Rectangle{
-            color: "transparent"
+            color: transparent
             anchors.fill: parent
         }
         onClicked: {
