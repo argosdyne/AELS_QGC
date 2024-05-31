@@ -23,8 +23,8 @@ Rectangle {
 
     Row {
         id: rowTitle
-        width: 250
-        height: 50
+        width: ScreenTools.defaultFontPixelHeight/16*250
+        height: ScreenTools.defaultFontPixelHeight/16*50
         anchors.top: parent.top
         anchors.topMargin: 20
         anchors.horizontalCenter: parent.horizontalCenter
@@ -58,7 +58,7 @@ Rectangle {
 
         Text {
             id: textArea
-            height: 80
+            height: ScreenTools.defaultFontPixelHeight/16*80
             width: parent.width
             color: txtColor
             text: qsTr("New Mission")
@@ -67,12 +67,12 @@ Rectangle {
 
         SwipeView {
             id: swipeView
-            height: 150
+            height: ScreenTools.defaultFontPixelHeight/16*150
             Layout.fillWidth: true
             antialiasing: true
 
             Rectangle {
-                height: 150
+                height: ScreenTools.defaultFontPixelHeight/16*150
                 width: colLayoutMain.width
                 color: "#00000000"
 
@@ -83,8 +83,8 @@ Rectangle {
 
 
                     Rectangle {
-                        Layout.preferredHeight: 150
-                        Layout.preferredWidth: 200
+                        Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*150
+                        Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*200
                         Layout.fillWidth: true
                         color: "#50C4ED"
                         radius: 10
@@ -117,8 +117,8 @@ Rectangle {
 
                     Rectangle {
                         id: btnPOI
-                        Layout.preferredHeight: 150
-                        Layout.preferredWidth: 200
+                        Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*150
+                        Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*200
 
                         Layout.fillWidth: true
                         color: "#387ADF"
@@ -147,8 +147,8 @@ Rectangle {
 
                     Rectangle {
                         id: btnHoppingPOI
-                        Layout.preferredHeight: 150
-                        Layout.preferredWidth: 200
+                        Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*150
+                        Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*200
                         Layout.fillWidth: true
                         color: "#333A73"
                         radius: 10
@@ -180,18 +180,18 @@ Rectangle {
 
         Row {
             id: missionTool
-            height: 100
+            height: ScreenTools.defaultFontPixelHeight/16*80
             Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
             width: parent.width
             layoutDirection: Qt.RightToLeft
 
             Button {
                 id: btnFullMission
-                height: 100
-                icon.height: height
-                icon.width: height
+                Layout.preferredHeight:ScreenTools.defaultFontPixelHeight/16*80
+                Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*80
+                icon.height: ScreenTools.defaultFontPixelHeight/16*80
+                icon.width: ScreenTools.defaultFontPixelHeight/16*80
                 icon.color: "white"
-                width: 100
                 display: AbstractButton.IconOnly
                 background: Rectangle {
                     color: "black"
@@ -201,11 +201,11 @@ Rectangle {
 
             Button {
                 id: btnOpenFile
-                height: 100
-                icon.height: height
-                icon.width: height
+                Layout.preferredHeight:ScreenTools.defaultFontPixelHeight/16*80
+                Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*80
+                icon.height: ScreenTools.defaultFontPixelHeight/16*80
+                icon.width: ScreenTools.defaultFontPixelHeight/16*80
                 icon.color: "white"
-                width: 100
                 display: AbstractButton.IconOnly
                 background: Rectangle {
                     color: "black"
@@ -215,11 +215,11 @@ Rectangle {
 
             Button {
                 id: btnSearch
-                height: 100
-                icon.height: height
-                icon.width: height
+                Layout.preferredHeight:ScreenTools.defaultFontPixelHeight/16*80
+                Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*80
+                icon.height: ScreenTools.defaultFontPixelHeight/16*80
+                icon.width: ScreenTools.defaultFontPixelHeight/16*80
                 icon.color: "white"
-                width: 100
                 display: AbstractButton.IconOnly
                 background: Rectangle {
                     color: "black"
@@ -230,8 +230,8 @@ Rectangle {
 
         Text {
             id: txtMissionHistory
-            height: 80
-            width: parent.width
+            Layout.preferredHeight:ScreenTools.defaultFontPixelHeight/16*80
+            Layout.preferredWidth: parent.width
             color: txtColor
             text: qsTr("Mission History")
             font.pixelSize: ScreenTools.defaultFontPixelHeight *2

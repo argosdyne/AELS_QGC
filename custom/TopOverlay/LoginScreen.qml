@@ -22,7 +22,9 @@ Item {
     property alias btnCamera: btnCamera
     property alias comboBox: comboBox
 
-
+    Component.onCompleted: {
+        console.log("AAAA"+ ScreenTools.defaultFontPixelHeight)
+    }
 
     QGCMapPalette { id: loginPal }
 
@@ -33,8 +35,8 @@ Item {
 
         Rectangle {
             id: recLogo
-            width: 150
-            height: 150
+            width: ScreenTools.defaultFontPixelHeight*15
+            height: ScreenTools.defaultFontPixelHeight*15
             color: "black"
             anchors.left: parent.left
             anchors.top: parent.top
@@ -58,13 +60,13 @@ Item {
 
         RoundButton {
             id: btnLogin
-            width: 150
-            height: 150
+            width: ScreenTools.defaultFontPixelHeight*15
+            height: ScreenTools.defaultFontPixelHeight*15
             text: ""
             anchors.right: parent.right
             anchors.top: parent.top
-            icon.height: 80
-            icon.width: 80
+            icon.height: ScreenTools.defaultFontPixelHeight*8
+            icon.width: ScreenTools.defaultFontPixelHeight*8
             icon.source: "qrc:/ales/login/User.svg"
             anchors.rightMargin: 10
             anchors.topMargin: 10
@@ -72,8 +74,8 @@ Item {
 
         RowLayout {
             id: btnRow
-            width: 500
-            height: 100
+            width: ScreenTools.defaultFontPixelHeight*50
+            height: ScreenTools.defaultFontPixelHeight*10
             spacing: 100
             anchors.verticalCenter: parent.verticalCenter
             anchors.bottomMargin: 100
@@ -85,9 +87,9 @@ Item {
                 Layout.preferredWidth: btnRow.height * 2
                 text: "Camera"
                 display: AbstractButton.TextBesideIcon
-                icon.height: 60
-                icon.width: 60
-                font.pointSize: 20
+                icon.height: ScreenTools.defaultFontPixelHeight*6
+                icon.width: ScreenTools.defaultFontPixelHeight*6
+                font.pointSize: ScreenTools.defaultFontPixelHeight*2
                 icon.color: "transparent"
                 icon.source: "qrc:/ales/login/Camera.svg"
                 palette.buttonText: "white"
@@ -100,9 +102,9 @@ Item {
                 Layout.preferredWidth: btnRow.height * 2
                 text: "Mission"
                 display: AbstractButton.TextBesideIcon
-                icon.height: 60
-                icon.width: 60
-                font.pointSize: 20
+                icon.height: ScreenTools.defaultFontPixelHeight*6
+                icon.width: ScreenTools.defaultFontPixelHeight*6
+                font.pointSize: ScreenTools.defaultFontPixelHeight*2
                 icon.color: "transparent"
                 icon.source: "qrc:/ales/login/Mission.svg"
                 palette.buttonText: "white"
@@ -111,17 +113,17 @@ Item {
 
         ComboBox {
             id: comboBox
-            width: 365
-            height: 94
+            width: ScreenTools.defaultFontPixelHeight*20
+            height: ScreenTools.defaultFontPixelHeight*8
             anchors.top: parent.top
             model: ["AQUILA 2", "AQUILA 3F", "HUMMER"]
             font.pointSize: ScreenTools.defaultFontPixelHeight * 2
             anchors.topMargin: 30
             anchors.horizontalCenter: parent.horizontalCenter
             palette.buttonText: "gray"
-            // popup.Material.foreground: "gray"
             Material.accent: "black"
             Material.foreground: "white"
+            Material.background: "black"
         }
 
         RowLayout {
