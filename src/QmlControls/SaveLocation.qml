@@ -33,7 +33,7 @@ Rectangle {
         id: backtext
         text: qsTr('Back')
         color: blue
-        font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+        font.pixelSize: ScreenTools.mediumFontPointSize * 2
         font.family: 'Arial'
         anchors.top: parent.top
         anchors.right: parent.right
