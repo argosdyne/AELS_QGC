@@ -124,4 +124,5 @@ CameraLiveButton						1.0 CameraLiveButton.qml
 CameraRecordButton						1.0 CameraRecordButton.qml  
 CameraGalleryButton						1.0 CameraGalleryButton.qml 
 CommonTopMenu							1.0 CommonTopMenu.qml
+CameraBottomMenu						1.0 CameraBottomMenu.qml
 
