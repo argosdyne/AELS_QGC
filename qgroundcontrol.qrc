@@ -299,6 +299,8 @@
 		    <file alias="CommonTopMenu.qml">src/QmlControls/CommonTopMenu.qml</file>
         <file alias="QGroundControl/Controls/CameraSettings.qml">src/QmlControls/CameraSettings.qml</file>
         <file alias="QGroundControl/Controls/AntiFlicker.qml">src/QmlControls/AntiFlicker.qml</file>
+
+		<file alias="QGroundControl/Controls/CameraBottomMenu.qml">src/QmlControls/CameraBottomMenu.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>

@@ -130,6 +130,7 @@ add_custom_target(QmlControlsQml
 		VehicleSummaryRow.qml
 		CommonHiddenTopBar.qml
 		CommonTopMenu.qml
+		CameraBottomMenu.qml
 )
 
 target_link_libraries(QmlControls
