@@ -299,6 +299,7 @@
         <file alias="CommonTopMenu.qml">src/QmlControls/CommonTopMenu.qml</file>
         <file alias="QGroundControl/Controls/CameraSettings.qml">src/QmlControls/CameraSettings.qml</file>
         <file alias="QGroundControl/Controls/AntiFlicker.qml">src/QmlControls/AntiFlicker.qml</file>
+		    <file alias="QGroundControl/Controls/CameraBottomMenu.qml">src/QmlControls/CameraBottomMenu.qml</file>
         <file alias="LearningCenterDialog.qml">src/QmlControls/LearningCenterDialog.qml</file>
         <file alias="PreflightSecurityCheck.qml">src/QmlControls/PrelightSecurityCheck.qml</file>
         <file alias="PreflightSecurityCheckV1.qml">src/QmlControls/PrelightSecurityCheckV1.qml</file>
