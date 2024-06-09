@@ -304,6 +304,7 @@
         <file alias="PreflightSecurityCheckV1.qml">src/QmlControls/PrelightSecurityCheckV1.qml</file>
         <file alias="RemoteControlInstruction.qml">src/QmlControls/RemoteControlInstruction.qml</file>
         <file alias="SdCardDialog.qml">src/QmlControls/SdCardDialog.qml</file>
+        <file alias="MissionHistoryItem.qml">src/QmlControls/MissionHistoryItem.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>
