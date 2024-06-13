@@ -87,6 +87,10 @@
         <file alias ="CameraBottomMenuStyleButton.svg">resources/CameraBottomMenuStyleButton.svg</file>
         <file alias ="CameraBottomMenuWbButton.svg">resources/CameraBottomMenuWbButton.svg</file>
         <file alias ="FrontArrowButton.svg">resources/FrontArrowButton.svg</file>
+
+		<file alias="GalleryShareButton.svg">resources/GalleryShareButton.svg</file>
+		<file alias="GalleryDeleteButton.svg">resources/GalleryDeleteButton.svg</file>
+		<file alias="GalleryDownloadButton.svg">resources/GalleryDownloadButton.svg</file>
     </qresource>
     <qresource prefix="/res/firmware">
         <file alias="3drradio.png">resources/firmware/3drradio.png</file>

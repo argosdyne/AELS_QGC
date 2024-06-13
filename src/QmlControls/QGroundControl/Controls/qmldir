@@ -125,4 +125,5 @@ CameraRecordButton						1.0 CameraRecordButton.qml
 CameraGalleryButton						1.0 CameraGalleryButton.qml 
 CommonTopMenu							1.0 CommonTopMenu.qml
 CameraBottomMenu						1.0 CameraBottomMenu.qml
-MissionHistoryItem								1.0 MissionHistoryItem.qml
+MissionHistoryItem						1.0 MissionHistoryItem.qml
+CameraGallerySelectTopMenu				1.0 CameraGallerySelectTopMenu.qml
