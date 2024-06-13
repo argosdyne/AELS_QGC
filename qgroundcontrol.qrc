@@ -305,9 +305,11 @@
         <file alias="PreflightSecurityCheckV1.qml">src/QmlControls/PrelightSecurityCheckV1.qml</file>
         <file alias="RemoteControlInstruction.qml">src/QmlControls/RemoteControlInstruction.qml</file>
         <file alias="SdCardDialog.qml">src/QmlControls/SdCardDialog.qml</file>
-        <file alias="MissionHistoryItem.qml">src/QmlControls/MissionHistoryItem.qml</file>
+        <file alias="QGroundControl/Controls/MissionHistoryItem.qml">src/QmlControls/MissionHistoryItem.qml</file>
         <file alias="QGroundControl/Controls/VideoEncodingFormat.qml">src/QmlControls/VideoEncodingFormat.qml</file>
         <file alias="QGroundControl/Controls/SaveLocation.qml">src/QmlControls/SaveLocation.qml</file>
+
+		<file alias="QGroundControl/Controls/CameraGalleryTopBar.qml">src/QmlControls/CameraGalleryTopBar.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>
