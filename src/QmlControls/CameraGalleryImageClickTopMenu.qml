@@ -51,7 +51,7 @@ Rectangle {
             }
             Row {
                 spacing: defaultFontSize * 2.7
-                Image { source: "/res/BackArrowButton.svg" }
+                Image { source: "qrc:/res/BackArrowButton.svg" }
 
                 Text {
                     text: "Back"
@@ -94,7 +94,7 @@ Rectangle {
                 background: Rectangle {
                     color: transparent
                 }
-                Image { source: "/res/GalleryShareButtonWhite.svg" }
+                Image { source: "qrc:/res/GalleryShareButtonWhite.svg" }
             }
             Button {
                 width: parent.width /5
@@ -102,7 +102,7 @@ Rectangle {
                 background: Rectangle {
                     color: transparent
                 }
-                Image { source: "/res/GalleryDownloadButtonWhite.svg" }
+                Image { source: "qrc:/res/GalleryDownloadButtonWhite.svg" }
             }
             Button {
                 width: parent.width /5
@@ -110,7 +110,7 @@ Rectangle {
                 background: Rectangle {
                     color: transparent
                 }
-                Image { source: "/res/GalleryDeleteButtonWhite.svg" }
+                Image { source: "qrc:/res/GalleryDeleteButtonWhite.svg" }
             }
         }
     }
