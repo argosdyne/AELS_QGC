@@ -13,8 +13,7 @@ import QGroundControl.Controllers           1.0
 import QtGraphicalEffects                   1.12
 
 Rectangle {
-    id: root
-    z : 3
+    id: root    
     property alias value: control.value
 
     property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
@@ -26,8 +25,7 @@ Rectangle {
 
     color: transparent
     Column {
-        spacing: 0
-        z: 5
+        spacing: 0        
         Button {
             width: control.availableWidth
             height: width
