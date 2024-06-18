@@ -52,7 +52,7 @@ Rectangle {
             }
 
             Image {
-                source: "/res/BackArrowButton.svg"
+                source: "qrc:/res/BackArrowButton.svg"
                 anchors.fill: parent
             }
             onClicked: {
