@@ -133,6 +133,15 @@ add_custom_target(QmlControlsQml
 		CameraBottomMenu.qml
 		CameraGalleryTopMenuBar.qml
 		MissionHistoryItem.qml
+		CameraGimbalSliderBar.qml
+		SdCardDialog.qml		
+		AntiFlicker.qml
+		LearningCenterDialog.qml
+		PreflightSecurityCheck.qml
+		PreflightSecurityCheckV1.qml
+		RemoteControlInstruction.qml
+		VideoEncodingFormat.qml
+		SaveLocation.qml
 )
 
 target_link_libraries(QmlControls

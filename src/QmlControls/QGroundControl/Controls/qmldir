@@ -116,8 +116,8 @@ MAVLinkChart                            1.0 MAVLinkChart.qml
 CommonHiddenTopBar						1.0 CommonHiddenTopBar.qml
 AlertBox								1.0 AlertBox.qml
 CameraWarningBox						1.0 CameraWarningBox.qml
-CameraDescriptionWindowOneLine        1.0 CameraDescriptionWindowOneLine.qml
-CameraDescriptionWindowTwoLine        1.0 CameraDescriptionWindowTwoLine.qml
+CameraDescriptionWindowOneLine			1.0 CameraDescriptionWindowOneLine.qml
+CameraDescriptionWindowTwoLine			1.0 CameraDescriptionWindowTwoLine.qml
 CameraRecordSwitchButton				1.0 CameraRecordSwitchButton.qml		 				   		
 CameraMenuUnderUpButton					1.0 CameraMenuUnderUpButton.qml
 CameraLiveButton						1.0 CameraLiveButton.qml  
@@ -127,3 +127,12 @@ CommonTopMenu							1.0 CommonTopMenu.qml
 CameraBottomMenu						1.0 CameraBottomMenu.qml
 MissionHistoryItem								1.0 MissionHistoryItem.qml
 CameraGalleryTopMenuBar					1.0 CameraGalleryTopMenuBar.qml
+CameraGimbalSliderBar					1.0 CameraGimbalSliderBar.qml
+SdCardDialog							1.0 SdCardDialog.qml
+AntiFlicker								1.0 AntiFlicker.qml
+LearningCenterDialog					1.0 LearningCenterDialog.qml
+PreflightSecurityCheck					1.0 PreflightSecurityCheck.qml
+PreflightSecurityCheckV1				1.0 PreflightSecurityCheckV1.qml
+RemoteControlInstruction				1.0 RemoteControlInstruction.qml
+VideoEncodingFormat						1.0 VideoEncodingFormat.qml
+SaveLocation							1.0 SaveLocation.qml
