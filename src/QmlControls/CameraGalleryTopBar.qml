@@ -14,8 +14,7 @@ import QtGraphicalEffects                   1.12
 
 Rectangle {
     id:     root
-    color: defaultBackGroundColor
-    z : 3    
+    color: defaultBackGroundColor    
 
     //Color Property
     property color defaultTextColor: "white"
@@ -95,9 +94,6 @@ Rectangle {
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
-
-
-
     }
 }
 
