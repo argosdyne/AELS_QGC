@@ -48,18 +48,18 @@ Rectangle {
             spacing: defaultFontSize * 4
 
             Image {
-                source: "/res/GalleryShareButton.svg"
+                source: "qrc:/res/GalleryShareButton.svg"
                 width: defaultFontSize * 3.5
                 height: width
             }
 
             Image {
-                source: "/res/GalleryDownloadButton.svg"
+                source: "qrc:/res/GalleryDownloadButton.svg"
                 width: defaultFontSize * 3.5
                 height: width
             }
             Image {
-                source: "/res/GalleryDeleteButton.svg"
+                source: "qrc:/res/GalleryDeleteButton.svg"
                 width: defaultFontSize * 3.5
                 height: width
             }
