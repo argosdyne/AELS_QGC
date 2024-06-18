@@ -31,7 +31,7 @@ Rectangle {
             height: width
             background: Rectangle { color: transparent }
             Image {
-                source: "/res/CameraGimbal0.svg"
+                source: "qrc:/res/CameraGimbal0.svg"
                 anchors.fill: parent
             }
         }
@@ -58,7 +58,7 @@ Rectangle {
                 y: control.visualPosition * (control.availableHeight - height + defaultFontSize)
 
                 Image {
-                    source: "/res/CameraGimbalControl.svg"
+                    source: "qrc:/res/CameraGimbalControl.svg"
                     anchors.fill: parent
                 }
             }
@@ -70,7 +70,7 @@ Rectangle {
             background: Rectangle { color: transparent }
 
             Image {
-                source: "/res/CameraGimbal90.svg"
+                source: "qrc:/res/CameraGimbal90.svg"
                 anchors.fill: parent
             }
         }
