@@ -14,8 +14,7 @@ import QtGraphicalEffects                   1.12
 
 Rectangle {
     id:     root
-    color: defaultTextColor
-    z : 3
+    color: defaultTextColor   
 
     //Color Property
     property color defaultTextColor: "white"
