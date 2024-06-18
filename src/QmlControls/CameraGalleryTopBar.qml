@@ -69,7 +69,7 @@ Rectangle {
                 color: lightGray
             }
             Image {
-                source: "/res/GalleryVideo.svg"
+                source: "qrc:/res/GalleryVideo.svg"
                 anchors.verticalCenter: parent.verticalCenter
 
             }
@@ -90,7 +90,7 @@ Rectangle {
                 color: lightGray
             }
             Image {
-                source: "/res/GalleryPicture.svg"
+                source: "qrc:/res/GalleryPicture.svg"
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
