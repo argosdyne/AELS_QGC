@@ -65,11 +65,11 @@
         <file alias="CloseLightgray.svg">resources/CloseLightgray.svg</file>
         <file alias="CloseWhite.svg">resources/CloseWhite.svg</file>
         <file alias ="Warning.svg">resources/Warning.svg</file>
-		    <file alias="GalleryButton.svg"         >resources/GalleryButton.svg</file>
-	    	<file alias="LiveButton.svg"            >resources/LiveButton.svg</file>
-	    	<file alias="ShootRecordSwitch.svg"   >resources/ShootRecordSwitch.svg</file>
-        <file alias="Record.svg"                >resources/Record.svg</file>
-        <file alias="NoSdCardRed.svg"         >resources/NoSdCardRed.svg</file>
+		    <file alias="GalleryButton.svg">resources/GalleryButton.svg</file>
+	      <file alias="LiveButton.svg">resources/LiveButton.svg</file>
+	      <file alias="ShootRecordSwitch.svg">resources/ShootRecordSwitch.svg</file>
+        <file alias="Record.svg">resources/Record.svg</file>
+        <file alias="NoSdCardRed.svg">resources/NoSdCardRed.svg</file>
         <file alias ="TopMenuAltitude.svg">resources/TopMenuAltitude.svg</file>
         <file alias ="TopMenuBattery.svg">resources/TopMenuBattery.svg</file>
         <file alias ="TopMenuDistance.svg">resources/TopMenuDistance.svg</file>
@@ -87,10 +87,14 @@
         <file alias ="CameraBottomMenuStyleButton.svg">resources/CameraBottomMenuStyleButton.svg</file>
         <file alias ="CameraBottomMenuWbButton.svg">resources/CameraBottomMenuWbButton.svg</file>
         <file alias ="FrontArrowButton.svg">resources/FrontArrowButton.svg</file>
-
-		<file alias="GalleryShareButton.svg">resources/GalleryShareButton.svg</file>
-		<file alias="GalleryDeleteButton.svg">resources/GalleryDeleteButton.svg</file>
-		<file alias="GalleryDownloadButton.svg">resources/GalleryDownloadButton.svg</file>
+		    <file alias="GalleryShareButton.svg">resources/GalleryShareButton.svg</file>
+		    <file alias="GalleryDeleteButton.svg">resources/GalleryDeleteButton.svg</file>
+		    <file alias="GalleryDownloadButton.svg">resources/GalleryDownloadButton.svg</file>
+        <file alias ="GalleryVideo.svg">resources/GalleryVideo.svg</file>
+        <file alias ="GalleryPicture.svg">resources/GalleryPicture.svg</file>
+        <file alias="CameraGimbal0.svg">resources/CameraGimbal0.svg</file>
+        <file alias="CameraGimbal90.svg">resources/CameraGimbal90.svg</file>
+        <file alias="CameraGimbalControl.svg">resources/CameraGimbalControl.svg</file>
     </qresource>
     <qresource prefix="/res/firmware">
         <file alias="3drradio.png">resources/firmware/3drradio.png</file>
