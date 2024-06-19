@@ -296,7 +296,7 @@
         <file alias="CameraGalleryButton.qml">src/QmlControls/CameraGalleryButton.qml</file>
         <file alias="QGroundControl/Controls/Grid.qml">src/QmlControls/Grid.qml</file>
         <file alias="QGroundControl/Controls/CenterPoint.qml">src/QmlControls/CenterPoint.qml</file>
-        <file alias="CommonTopMenu.qml">src/QmlControls/CommonTopMenu.qml</file>
+        <file alias="QGroundControl/Controls/CommonTopMenu.qml">src/QmlControls/CommonTopMenu.qml</file>
         <file alias="QGroundControl/Controls/CameraSettings.qml">src/QmlControls/CameraSettings.qml</file>
         <file alias="QGroundControl/Controls/AntiFlicker.qml">src/QmlControls/AntiFlicker.qml</file>
 		    <file alias="QGroundControl/Controls/CameraBottomMenu.qml">src/QmlControls/CameraBottomMenu.qml</file>
@@ -308,8 +308,20 @@
         <file alias="QGroundControl/Controls/MissionHistoryItem.qml">src/QmlControls/MissionHistoryItem.qml</file>
         <file alias="QGroundControl/Controls/VideoEncodingFormat.qml">src/QmlControls/VideoEncodingFormat.qml</file>
         <file alias="QGroundControl/Controls/SaveLocation.qml">src/QmlControls/SaveLocation.qml</file>
-
-		<file alias="QGroundControl/Controls/CameraGalleryImageDownloadBox.qml">src/QmlControls/CameraGalleryImageDownloadBox.qml</file>
+		    <file alias="QGroundControl/Controls/CameraGalleryImageDownloadBox.qml">src/QmlControls/CameraGalleryImageDownloadBox.qml</file>
+		    <file alias="QGroundControl/Controls/CameraGalleryImageClickTopMenu.qml">src/QmlControls/CameraGalleryImageClickTopMenu.qml</file>
+		    <file alias="QGroundControl/Controls/CameraGallerySelectTopMenu.qml">src/QmlControls/CameraGallerySelectTopMenu.qml</file>
+	    	<file alias="QGroundControl/Controls/CameraGalleryTopBar.qml">src/QmlControls/CameraGalleryTopBar.qml</file>
+        <file alias="QGroundControl/Controls/LearningCenterDialog.qml">src/QmlControls/LearningCenterDialog.qml</file>
+        <file alias="QGroundControl/Controls/PreflightSecurityCheck.qml">src/QmlControls/PrelightSecurityCheck.qml</file>
+        <file alias="QGroundControl/Controls/PreflightSecurityCheckV1.qml">src/QmlControls/PrelightSecurityCheckV1.qml</file>
+        <file alias="QGroundControl/Controls/RemoteControlInstruction.qml">src/QmlControls/RemoteControlInstruction.qml</file>
+        <file alias="QGroundControl/Controls/SdCardDialog.qml">src/QmlControls/SdCardDialog.qml</file>
+        <file alias="QGroundControl/Controls/MissionHistoryItem.qml">src/QmlControls/MissionHistoryItem.qml</file>
+        <file alias="QGroundControl/Controls/VideoEncodingFormat.qml">src/QmlControls/VideoEncodingFormat.qml</file>
+        <file alias="QGroundControl/Controls/SaveLocation.qml">src/QmlControls/SaveLocation.qml</file>
+		    <file alias="QGroundControl/Controls/CameraGalleryTopMenuBar.qml">src/QmlControls/CameraGalleryTopMenuBar.qml</file>
+		    <file alias="QGroundControl/Controls/CameraGimbalSliderBar.qml">src/QmlControls/CameraGimbalSliderBar.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>
