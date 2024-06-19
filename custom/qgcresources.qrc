@@ -87,6 +87,9 @@
 
 		<file alias ="GalleryVideo.svg">../resources/GalleryVideo.svg</file>
 		<file alias ="GalleryPicture.svg">../resources/GalleryPicture.svg</file>
+		<file alias="CameraGimbal0.svg">../resources/CameraGimbal0.svg</file>
+		<file alias="CameraGimbal90.svg">../resources/CameraGimbal90.svg</file>
+		<file alias="CameraGimbalControl.svg">../resources/CameraGimbalControl.svg</file>
 	</qresource>
 	<qresource prefix="/res/firmware">
 		<file alias="3drradio.png">../resources/firmware/3drradio.png</file>
