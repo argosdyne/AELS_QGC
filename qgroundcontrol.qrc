@@ -308,6 +308,7 @@
         <file alias="QGroundControl/Controls/MissionHistoryItem.qml">src/QmlControls/MissionHistoryItem.qml</file>
         <file alias="QGroundControl/Controls/VideoEncodingFormat.qml">src/QmlControls/VideoEncodingFormat.qml</file>
         <file alias="QGroundControl/Controls/SaveLocation.qml">src/QmlControls/SaveLocation.qml</file>
+		    <file alias="QGroundControl/Controls/CameraGalleryImageDownloadBox.qml">src/QmlControls/CameraGalleryImageDownloadBox.qml</file>
 		    <file alias="QGroundControl/Controls/CameraGalleryImageClickTopMenu.qml">src/QmlControls/CameraGalleryImageClickTopMenu.qml</file>
 		    <file alias="QGroundControl/Controls/CameraGallerySelectTopMenu.qml">src/QmlControls/CameraGallerySelectTopMenu.qml</file>
 	    	<file alias="QGroundControl/Controls/CameraGalleryTopBar.qml">src/QmlControls/CameraGalleryTopBar.qml</file>

@@ -131,6 +131,7 @@ add_custom_target(QmlControlsQml
 		CommonHiddenTopBar.qml
 		CommonTopMenu.qml
 		CameraBottomMenu.qml
+		CameraGalleryImageDownloadBox.qml
 		CameraGalleryImageClickTopMenu.qml
 		CameraGallerySelectTopMenu.qml
 		CameraGalleryTopBar.qml
