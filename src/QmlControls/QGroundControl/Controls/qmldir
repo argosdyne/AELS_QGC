@@ -126,6 +126,7 @@ CameraGalleryButton						1.0 CameraGalleryButton.qml
 CommonTopMenu							1.0 CommonTopMenu.qml
 CameraBottomMenu						1.0 CameraBottomMenu.qml
 MissionHistoryItem								1.0 MissionHistoryItem.qml
+CameraGalleryTopBar						1.0 CameraGalleryTopBar.qml
 CameraGalleryTopMenuBar					1.0 CameraGalleryTopMenuBar.qml
 CameraGimbalSliderBar					1.0 CameraGimbalSliderBar.qml
 SdCardDialog							1.0 SdCardDialog.qml
