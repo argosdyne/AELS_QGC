@@ -131,6 +131,7 @@ add_custom_target(QmlControlsQml
 		CommonHiddenTopBar.qml
 		CommonTopMenu.qml
 		CameraBottomMenu.qml
+		CameraGalleryImageClickTopMenu.qml
 		CameraGallerySelectTopMenu.qml
 		CameraGalleryTopBar.qml
 		MissionHistoryItem.qml

@@ -292,6 +292,7 @@
         <file alias="QGroundControl/Controls/CommonTopMenu.qml">../src/QmlControls/CommonTopMenu.qml</file>
         <file alias="QGroundControl/Controls/MissionHistoryItem.qml">../src/QmlControls/MissionHistoryItem.qml</file>
         <file alias="QGroundControl/Controls/CameraBottomMenu.qml">../src/QmlControls/CameraBottomMenu.qml</file>
+		    <file alias="QGroundControl/Controls/CameraGalleryImageClickTopMenu.qml">../src/QmlControls/CameraGalleryImageClickTopMenu.qml</file>
 		    <file alias="QGroundControl/Controls/CameraGallerySelectTopMenu.qml">../src/QmlControls/CameraGallerySelectTopMenu.qml</file>
 		    <file alias="QGroundControl/Controls/CameraGalleryTopBar.qml">../src/QmlControls/CameraGalleryTopBar.qml</file>
 		    <file alias="QGroundControl/Controls/CameraGalleryTopMenuBar.qml">../src/QmlControls/CameraGalleryTopMenuBar.qml</file>

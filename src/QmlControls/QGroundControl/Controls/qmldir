@@ -127,6 +127,7 @@ CommonTopMenu							1.0 CommonTopMenu.qml
 CameraBottomMenu						1.0 CameraBottomMenu.qml
 CameraGallerySelectTopMenu				1.0 CameraGallerySelectTopMenu.qml
 MissionHistoryItem								1.0 MissionHistoryItem.qml
+CameraGalleryImageClickTopMenu			1.0 CameraGalleryImageClickTopMenu.qml
 CameraGalleryTopBar						1.0 CameraGalleryTopBar.qml
 CameraGalleryTopMenuBar					1.0 CameraGalleryTopMenuBar.qml
 CameraGimbalSliderBar					1.0 CameraGimbalSliderBar.qml
