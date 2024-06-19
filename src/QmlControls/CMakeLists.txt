@@ -147,6 +147,7 @@ add_custom_target(QmlControlsQml
 		RemoteControlInstruction.qml
 		VideoEncodingFormat.qml
 		SaveLocation.qml
+		CameraGalleryDownloadProgressBar.qml
 )
 
 target_link_libraries(QmlControls
