@@ -324,6 +324,8 @@
 		    <file alias="QGroundControl/Controls/CameraGimbalSliderBar.qml">src/QmlControls/CameraGimbalSliderBar.qml</file>
 
 		<file alias="QGroundControl/Controls/CameraGalleryDownloadProgressBar.qml">src/QmlControls/CameraGalleryDownloadProgressBar.qml</file>
+
+		<file alias="QGroundControl/Controls/CameraTakePhoto.qml">src/QmlControls/CameraTakePhoto.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>
