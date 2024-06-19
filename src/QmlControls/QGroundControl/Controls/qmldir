@@ -141,3 +141,4 @@ RemoteControlInstruction				1.0 RemoteControlInstruction.qml
 VideoEncodingFormat						1.0 VideoEncodingFormat.qml
 SaveLocation							1.0 SaveLocation.qml
 CameraGalleryDownloadProgressBar		1.0 CameraGalleryDownloadProgressBar.qml
+CameraRecording							1.0 CameraRecording.qml
