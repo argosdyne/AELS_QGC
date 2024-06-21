@@ -148,6 +148,7 @@ add_custom_target(QmlControlsQml
 		VideoEncodingFormat.qml
 		SaveLocation.qml
 		CameraGalleryDownloadProgressBar.qml
+		CameraLearningCenterPanel.qml
 )
 
 target_link_libraries(QmlControls

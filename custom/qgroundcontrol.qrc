@@ -308,6 +308,8 @@
         <file alias="QGroundControl/Controls/SaveLocation.qml">../src/QmlControls/SaveLocation.qml</file>
 
 		<file alias="QGroundControl/Controls/CameraGalleryDownloadProgressBar.qml">../src/QmlControls/CameraGalleryDownloadProgressBar.qml</file>
+
+		<file alias="QGroundControl/Controls/CameraLearningCenterPanel.qml">../src/QmlControls/CameraLearningCenterPanel.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">../src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>
