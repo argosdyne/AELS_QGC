@@ -98,6 +98,10 @@
         <file alias="CameraGimbal0.svg">resources/CameraGimbal0.svg</file>
         <file alias="CameraGimbal90.svg">resources/CameraGimbal90.svg</file>
         <file alias="CameraGimbalControl.svg">resources/CameraGimbalControl.svg</file>
+
+		<file alias="LeftCommandStick.svg">resources/LeftCommandStick.svg</file>
+		<file alias="RightCommandStick.svg">resources/RightCommandStick.svg</file>
+		<file alias="DragLeft.svg">resources/DragLeft.svg</file>
     </qresource>
     <qresource prefix="/res/firmware">
         <file alias="3drradio.png">resources/firmware/3drradio.png</file>
