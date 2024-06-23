@@ -311,6 +311,7 @@
         <file alias="QGroundControl/Controls/CameraTakePhoto.qml">../src/QmlControls/CameraTakePhoto.qml</file>
         <file alias="QGroundControl/Controls/CameraRecording.qml">../src/QmlControls/CameraRecording.qml</file>
         <file alias="QGroundControl/Controls/MissionLocationMap.qml">../src/QmlControls/MissionLocationMap.qml</file>
+        <file alias="QGroundControl/Controls/BlueCheckButton.qml">../src/QmlControls/BlueCheckButton.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">../src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>

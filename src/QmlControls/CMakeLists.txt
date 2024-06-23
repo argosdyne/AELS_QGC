@@ -152,6 +152,7 @@ add_custom_target(QmlControlsQml
 		CameraTakePhoto.qml
 		CameraRecording.qml
 		MissionLocationMap.qml
+		BlueCheckButton.qml
 )
 
 target_link_libraries(QmlControls

@@ -145,3 +145,4 @@ CameraGimbalAngleButton					1.0 CameraGimbalAngleButton.qml
 CameraTakePhoto							1.0 CameraTakePhoto.qml
 CameraRecording							1.0 CameraRecording.qml
 MissionLocationMap						1.0 MissionLocationMap.qml
+BlueCheckButton                         1.0 BlueCheckButton.qml
