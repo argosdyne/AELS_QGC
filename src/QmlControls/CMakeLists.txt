@@ -149,6 +149,8 @@ add_custom_target(QmlControlsQml
 		SaveLocation.qml
 		CameraGalleryDownloadProgressBar.qml
 		CameraGimbalAngleButton.qml
+		CameraTakePhoto.qml
+		CameraRecording.qml
 )
 
 target_link_libraries(QmlControls
