@@ -98,8 +98,10 @@
         <file alias="CameraGimbal0.svg">resources/CameraGimbal0.svg</file>
         <file alias="CameraGimbal90.svg">resources/CameraGimbal90.svg</file>
         <file alias="CameraGimbalControl.svg">resources/CameraGimbalControl.svg</file>
-
-		<file alias="PhotoShoot.svg">resources/PhotoShoot.svg</file>
+        <file alias="PhotoShoot.svg">resources/PhotoShoot.svg</file>
+        <file alias="Recording.svg">resources/Recording.svg</file>
+        <file alias="RecordingTime.svg">resources/RecordingTime.svg</file>
+        <file alias="SdCard.svg">resources/SdCard.svg</file>
     </qresource>
     <qresource prefix="/res/firmware">
         <file alias="3drradio.png">resources/firmware/3drradio.png</file>
