@@ -148,6 +148,7 @@ add_custom_target(QmlControlsQml
 		VideoEncodingFormat.qml
 		SaveLocation.qml
 		CameraGalleryDownloadProgressBar.qml
+		CameraGimbalAngleButton.qml
 		CameraTakePhoto.qml
 		CameraRecording.qml
 )
