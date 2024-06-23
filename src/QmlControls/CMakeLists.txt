@@ -151,6 +151,7 @@ add_custom_target(QmlControlsQml
 		CameraGimbalAngleButton.qml
 		CameraTakePhoto.qml
 		CameraRecording.qml
+		MissionLocationMap.qml
 )
 
 target_link_libraries(QmlControls

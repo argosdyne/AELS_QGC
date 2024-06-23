@@ -166,7 +166,9 @@
         <file alias="PrelightSecurityCheckV1.png">../resources/AlesMission/PrelightSecurityCheckV1.png</file>
         <file alias="PrelightSecurityCheckV1.svg">../resources/AlesMission/PrelightSecurityCheckV1.svg</file>
         <file alias="StartInstruction.svg">../resources/AlesMission/StartInstruction.svg</file>
-    </qresource>
+		<file alias="Location.svg">../resources/AlesMission/Location.svg</file>
+        <file alias="Maptype.svg">../resources/AlesMission/Maptype.svg</file>
+	</qresource>
     <qresource prefix="/res/ales/waypoint">
         <file alias="BlueCheckOff.svg">../resources/AlesWaypoint/BlueCheckOff.svg</file>
         <file alias="BlueCheckOn.svg">../resources/AlesWaypoint/BlueCheckOn.svg</file>
