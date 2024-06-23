@@ -141,3 +141,10 @@ RemoteControlInstruction				1.0 RemoteControlInstruction.qml
 VideoEncodingFormat						1.0 VideoEncodingFormat.qml
 SaveLocation							1.0 SaveLocation.qml
 CameraGalleryDownloadProgressBar		1.0 CameraGalleryDownloadProgressBar.qml
+CameraGimbalAngleButton					1.0 CameraGimbalAngleButton.qml
+CameraTakePhoto							1.0 CameraTakePhoto.qml
+CameraRecording							1.0 CameraRecording.qml
+MissionLocationMap						1.0 MissionLocationMap.qml
+BlueCheckButton                         1.0 BlueCheckButton.qml
+MissionSettingText                      1.0 MissionSettingText.qml
+MissionSettingCombobox                  1.0 MissionSettingCombobox.qml
