@@ -154,6 +154,7 @@ add_custom_target(QmlControlsQml
 		MissionLocationMap.qml
 		BlueCheckButton.qml
 		MissionSettingText.qml
+		MissionSettingCombobox.qml
 )
 
 target_link_libraries(QmlControls
