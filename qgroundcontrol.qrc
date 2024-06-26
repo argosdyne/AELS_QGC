@@ -330,6 +330,8 @@
         <file alias="QGroundControl/Controls/BlueCheckButton.qml">src/QmlControls/BlueCheckButton.qml</file>
         <file alias="QGroundControl/Controls/MissionSettingText.qml">src/QmlControls/MissionSettingText.qml</file>
         <file alias="QGroundControl/Controls/MissionSettingCombobox.qml">src/QmlControls/MissionSettingCombobox.qml</file>
+
+		<file alias="QGroundControl/Controls/CameraBottomMenuPopup.qml">src/QmlControls/CameraBottomMenuPopup.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>

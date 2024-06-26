@@ -148,3 +148,4 @@ MissionLocationMap						1.0 MissionLocationMap.qml
 BlueCheckButton                         1.0 BlueCheckButton.qml
 MissionSettingText                      1.0 MissionSettingText.qml
 MissionSettingCombobox                  1.0 MissionSettingCombobox.qml
+CameraBottomMenuPopup					1.0 CameraBottomMenuPopup.qml
