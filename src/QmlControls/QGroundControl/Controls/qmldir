@@ -154,3 +154,4 @@ MissionControlBar                       1.0 MissionControlBar.qml
 AltitudeBar                             1.0 AltitudeBar.qml
 WaitpointStatus                         1.0 WaitpointStatus.qml
 SpeedSlider                             1.0 SpeedSlider.qml
+TurningRadiusSlider                     1.0 TurningRadiusSlider.qml

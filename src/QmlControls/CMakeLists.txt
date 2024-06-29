@@ -161,6 +161,7 @@ add_custom_target(QmlControlsQml
 		AltitudeBar.qml
 		WaitpointStatus.qml
 		SpeedSlider.qml
+		TurningRadiusSlider.qml
 )
 
 target_link_libraries(QmlControls
