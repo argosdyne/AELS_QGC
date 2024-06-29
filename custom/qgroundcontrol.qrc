@@ -319,6 +319,7 @@
         <file alias="QGroundControl/Controls/MissionControlBar.qml">../src/QmlControls/MissionControlBar.qml</file>
         <file alias="QGroundControl/Controls/AltitudeBar.qml">../src/QmlControls/AltitudeBar.qml</file>
         <file alias="QGroundControl/Controls/WaitpointStatus.qml">../src/QmlControls/WaitpointStatus.qml</file>
+        <file alias="QGroundControl/Controls/SpeedSlider.qml">../src/QmlControls/SpeedSlider.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">../src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>
