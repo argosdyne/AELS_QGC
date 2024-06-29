@@ -155,6 +155,7 @@ add_custom_target(QmlControlsQml
 		BlueCheckButton.qml
 		MissionSettingText.qml
 		MissionSettingCombobox.qml
+		MissionFlyReadyButton.qml
 )
 
 target_link_libraries(QmlControls
