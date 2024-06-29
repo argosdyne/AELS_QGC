@@ -159,6 +159,7 @@ add_custom_target(QmlControlsQml
 		MissionWaypointInformation.qml
 		MissionControlBar.qml
 		AltitudeBar.qml
+		WaitpointStatus.qml
 )
 
 target_link_libraries(QmlControls
