@@ -158,6 +158,7 @@ add_custom_target(QmlControlsQml
 		MissionFlyReadyButton.qml
 		MissionWaypointInformation.qml
 		MissionControlBar.qml
+		AltitudeBar.qml
 )
 
 target_link_libraries(QmlControls
