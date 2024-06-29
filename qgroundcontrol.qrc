@@ -331,6 +331,7 @@
         <file alias="QGroundControl/Controls/MissionSettingText.qml">src/QmlControls/MissionSettingText.qml</file>
         <file alias="QGroundControl/Controls/MissionSettingCombobox.qml">src/QmlControls/MissionSettingCombobox.qml</file>
         <file alias="QGroundControl/Controls/MissionFlyReadyButton.qml">src/QmlControls/MissionFlyReadyButton.qml</file>
+        <file alias="QGroundControl/Controls/MissionWaypointInformation.qml">src/QmlControls/MissionWaypointInformation.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>
