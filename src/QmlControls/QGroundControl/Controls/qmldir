@@ -150,3 +150,4 @@ MissionSettingText                      1.0 MissionSettingText.qml
 MissionSettingCombobox                  1.0 MissionSettingCombobox.qml
 MissionFlyReadyButton                   1.0 MissionFlyReadyButton.qml
 MissionWaypointInformation              1.0 MissionWaypointInformation.qml
+MissionControlBar                       1.0 MissionControlBar.qml

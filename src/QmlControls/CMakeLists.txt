@@ -157,6 +157,7 @@ add_custom_target(QmlControlsQml
 		MissionSettingCombobox.qml
 		MissionFlyReadyButton.qml
 		MissionWaypointInformation.qml
+		MissionControlBar.qml
 )
 
 target_link_libraries(QmlControls
