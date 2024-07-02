@@ -338,6 +338,8 @@
         <file alias="QGroundControl/Controls/SpeedSlider.qml">src/QmlControls/SpeedSlider.qml</file>
         <file alias="QGroundControl/Controls/TurningRadiusSlider.qml">src/QmlControls/TurningRadiusSlider.qml</file>
         <file alias="QGroundControl/Controls/LatitudeLongitudeInput.qml">src/QmlControls/LatitudeLongitudeInput.qml</file>
+
+		<file alias="QGroundControl/Controls/ControllerConnectionPage.qml">src/QmlControls/ControllerConnectionPage.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>

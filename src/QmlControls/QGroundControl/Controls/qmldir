@@ -156,3 +156,4 @@ WaitpointStatus                         1.0 WaitpointStatus.qml
 SpeedSlider                             1.0 SpeedSlider.qml
 TurningRadiusSlider                     1.0 TurningRadiusSlider.qml
 LatitudeLongitudeInput                  1.0 LatitudeLongitudeInput.qml
+ControllerConnectionPage				1.0 ControllerConnectionPage.qml
