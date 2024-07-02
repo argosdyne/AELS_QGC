@@ -156,6 +156,16 @@ add_custom_target(QmlControlsQml
 		MissionSettingText.qml
 		MissionSettingCombobox.qml
 		CameraBottomMenuPopup.qml
+
+		MissionFlyReadyButton.qml
+		MissionWaypointInformation.qml
+		MissionControlBar.qml
+		AltitudeBar.qml
+		WaitpointStatus.qml
+		SpeedSlider.qml
+		TurningRadiusSlider.qml
+		LatitudeLongitudeInput.qml
+
 )
 
 target_link_libraries(QmlControls

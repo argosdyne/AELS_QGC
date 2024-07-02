@@ -148,4 +148,14 @@ MissionLocationMap						1.0 MissionLocationMap.qml
 BlueCheckButton                         1.0 BlueCheckButton.qml
 MissionSettingText                      1.0 MissionSettingText.qml
 MissionSettingCombobox                  1.0 MissionSettingCombobox.qml
-CameraBottomMenuPopup					1.0 CameraBottomMenuPopup.qml
+CameraBottomMenuPopup					          1.0 CameraBottomMenuPopup.qml
+
+MissionFlyReadyButton                   1.0 MissionFlyReadyButton.qml
+MissionWaypointInformation              1.0 MissionWaypointInformation.qml
+MissionControlBar                       1.0 MissionControlBar.qml
+AltitudeBar                             1.0 AltitudeBar.qml
+WaitpointStatus                         1.0 WaitpointStatus.qml
+SpeedSlider                             1.0 SpeedSlider.qml
+TurningRadiusSlider                     1.0 TurningRadiusSlider.qml
+LatitudeLongitudeInput                  1.0 LatitudeLongitudeInput.qml
+
