@@ -102,6 +102,8 @@
 		<file alias="Recording.svg">../resources/Recording.svg</file>
 		<file alias="RecordingTime.svg">../resources/RecordingTime.svg</file>
 		<file alias="SdCard.svg">../resources/SdCard.svg</file>
+
+		<file alias="LoginLogo.png">../resources/LoginLogo.png</file>
 	</qresource>
 	<qresource prefix="/res/firmware">
 		<file alias="3drradio.png">../resources/firmware/3drradio.png</file>

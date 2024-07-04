@@ -163,6 +163,7 @@ add_custom_target(QmlControlsQml
 		SpeedSlider.qml
 		TurningRadiusSlider.qml
 		LatitudeLongitudeInput.qml
+		LoginPage.qml
 )
 
 target_link_libraries(QmlControls
