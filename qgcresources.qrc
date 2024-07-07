@@ -105,9 +105,15 @@
         <file alias="Recording.svg">resources/Recording.svg</file>
         <file alias="RecordingTime.svg">resources/RecordingTime.svg</file>
         <file alias="SdCard.svg">resources/SdCard.svg</file>
-
-		<file alias="CancelIcon.svg">resources/CancelIcon.svg</file>
-		<file alias="Controller.png">resources/Controller.png</file>
+        <file alias="CancelIcon.svg">resources/CancelIcon.svg</file>
+        <file alias="Controller.png">resources/Controller.png</file>
+        <file alias="CameraBottomMenuNeut.svg">resources/CameraBottomMenuNeut.svg</file>
+        <file alias="CameraBottomMenuNeon.svg">resources/CameraBottomMenuNeon.svg</file>
+        <file alias="CameraBottomMenu5000K.svg">resources/CameraBottomMenu5000K.svg</file>
+        <file alias="CameraBottomMenuAuto.svg">resources/CameraBottomMenuAuto.svg</file>
+        <file alias="CameraBottomMenuCloudy.svg">resources/CameraBottomMenuCloudy.svg</file>
+        <file alias="CameraBottomMenuIncan.svg">resources/CameraBottomMenuIncan.svg</file>
+        <file alias="CameraBottomMenuLand.svg">resources/CameraBottomMenuLand.svg</file>
     </qresource>
     <qresource prefix="/res/firmware">
         <file alias="3drradio.png">resources/firmware/3drradio.png</file>
