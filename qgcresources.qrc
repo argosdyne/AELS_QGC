@@ -105,6 +105,7 @@
         <file alias="Recording.svg">resources/Recording.svg</file>
         <file alias="RecordingTime.svg">resources/RecordingTime.svg</file>
         <file alias="SdCard.svg">resources/SdCard.svg</file>
+		    <file alias="LoginLogo.png">resources/LoginLogo.png</file>
         <file alias="CancelIcon.svg">resources/CancelIcon.svg</file>
         <file alias="Controller.png">resources/Controller.png</file>
         <file alias="CameraBottomMenuNeut.svg">resources/CameraBottomMenuNeut.svg</file>
