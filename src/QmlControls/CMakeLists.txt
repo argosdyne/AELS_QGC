@@ -155,6 +155,8 @@ add_custom_target(QmlControlsQml
 		BlueCheckButton.qml
 		MissionSettingText.qml
 		MissionSettingCombobox.qml
+		CameraBottomMenuPopup.qml
+
 		MissionFlyReadyButton.qml
 		MissionWaypointInformation.qml
 		MissionControlBar.qml
@@ -163,6 +165,7 @@ add_custom_target(QmlControlsQml
 		SpeedSlider.qml
 		TurningRadiusSlider.qml
 		LatitudeLongitudeInput.qml
+
 )
 
 target_link_libraries(QmlControls
