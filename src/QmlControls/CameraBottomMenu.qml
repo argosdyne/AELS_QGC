@@ -14,8 +14,7 @@ import QtGraphicalEffects                   1.12
 
 Rectangle {
     id:     root
-    color: defaultBackGroundColor
-    z : 3
+    color: defaultBackGroundColor    
 
     //Color Property
     property color defaultTextColor: "white"
@@ -23,12 +22,37 @@ Rectangle {
     property color fontColorWhite: "white"
     property color fontColorlightGray: "#a7a7a7"
     property color defaultBackGroundColor: "#3b3737"
+    property color blue: "#3d71d7"
 
     //Size Property
     property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
 
     implicitWidth: Screen.width
     implicitHeight: defaultFontSize * 9
+
+    property string resolutionText: "8K"
+    property string frameRateText: "60FPS"
+    property string formatText: "MP4"
+    property string exposureModeText: "MANUAL"
+    property string evText: "+2.3"
+    property url wBImage: "qrc:/res/CameraBottomMenuWbButton.svg"
+    property string digitalZoomText: "2.0X"
+    property string afText: "MF"
+    property string colorText: "LOG"
+    property url styleImage: "qrc:/res/CameraBottomMenuStyleButton.svg"
+    property string pivText: "5S"
+    property var selectedButton: null
+
+    Loader {
+        id: popupLoader
+        anchors {
+            horizontalCenter: parent.horizontalCenter
+            top: parent.top
+        }
+        width: parent.width
+        height: parent.height
+        sourceComponent: null
+    }
 
     Row {
         anchors.fill: parent
@@ -43,14 +67,14 @@ Rectangle {
             Image {
                 width: parent.width / 3.7
                 height: parent.height / 1.5
-                source: "/res/CameraBottomMenuAngleButton.svg"
+                source: "qrc:/res/CameraBottomMenuAngleButton.svg"
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
             }
             Image {
                 width: parent.width / 12
                 height: parent.height / 7.5
-                source: "/res/CameraBottomMenuAngleDotButton.svg"
+                source: "qrc:/res/CameraBottomMenuAngleDotButton.svg"
                 x: parent.width / 2.6
                 y: parent.height / 5.3
             }
@@ -70,7 +94,7 @@ Rectangle {
             background: Rectangle { color: transparent }
 
             Image {
-                source: "/res/BackArrowButton.svg"
+                source: "qrc:/res/BackArrowButton.svg"
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width /1.8
@@ -92,105 +116,246 @@ Rectangle {
                 contentWidth: parent.width * 2.6
                 contentHeight: parent.height
                 id: flickAble
-
                 Row {
                     Button {
                         width: flickAble.width / 5
                         height: flickAble.height
-                        background: Rectangle { color: transparent }
+                        id: resolution
+                        property string resolutionId: "resolution"
 
-                        Column {
-                            anchors.centerIn: parent
-                            spacing: defaultFontSize
-                            Text {
-                                text: "8K"
-                                color: fontColorWhite
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2.4
+                        background: Rectangle {
+                            color: transparent
+                            Column {
+                                anchors.centerIn: parent
+                                spacing: defaultFontSize
+                                Text {
+                                    text: resolutionText
+                                    color: fontColorWhite
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2.4
+                                }
+                                Text {
+                                    text: "RESOLUTION"
+                                    color: fontColorlightGray
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2
+                                }
+                                Rectangle {
+                                    width: parent.width
+                                    height: defaultFontSize / 2
+                                    color: selectedButton === resolution.resolutionId? blue : transparent
+                                }
                             }
-                            Text {
-                                text: "RESOLUTION"
-                                color: fontColorlightGray
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2
+                        }
+                        onClicked:  {
+                            if (!popupLoader.item) {
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "resolution",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentResolutionValue": resolutionText })
+                            } else if(popupLoader.item.buttonType !== resolutionId){
+                                popupLoader.sourceComponent = null
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "resolution",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentResolutionValue": resolutionText })
+                            }else {
+                                popupLoader.sourceComponent = null
+                            }
+                            if (selectedButton !== resolutionId) {
+                                selectedButton = resolutionId
+                            } else {
+                                selectedButton = null
                             }
                         }
                     }
+
                     Button {
                         width: flickAble.width / 5
                         height: flickAble.height
-                        background: Rectangle { color: transparent }
+                        id: frameRate
+                        property string frameButtonId: "frameRate"
 
-                        Column {
-                            anchors.centerIn: parent
-                            spacing: defaultFontSize
-                            Text {
-                                text: "60FPS"
-                                color: fontColorWhite
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2.4
-                            }
-                            Text {
-                                text: "FRAME RATE"
-                                color: fontColorlightGray
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2
+                        background: Rectangle {
+                            color: transparent
+                            Column {
+                                anchors.centerIn: parent
+                                spacing: defaultFontSize
+                                Text {
+                                    text: frameRateText
+                                    color: fontColorWhite
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2.4
+                                }
+                                Text {
+                                    text: "FRAME RATE"
+                                    color: fontColorlightGray
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2
+                                }
+                                Rectangle {
+                                    width: parent.width
+                                    height: defaultFontSize / 2
+                                    color: selectedButton === frameRate.frameButtonId? blue : transparent
+                                }
                             }
                         }
+                        onClicked:  {
+                            if (!popupLoader.item) {
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "frameRate",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentFrameRateValue": frameRateText })
+                            } else if(popupLoader.item.buttonType !== frameButtonId){
+                                popupLoader.sourceComponent = null
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "frameRate",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentFrameRateValue": frameRateText })
+                            }else {
+                                popupLoader.sourceComponent = null
+                            }
 
+                            if (selectedButton !== frameButtonId) {
+                                selectedButton = frameButtonId
+                            } else {
+                                selectedButton = null
+                            }
+                        }
                     }
+
                     Button {
                         width: flickAble.width / 5
                         height: flickAble.height
-                        background: Rectangle { color: transparent }
+                        id: format
+                        property string formatButtonId: "format"
 
-                        Column {
-                            anchors.centerIn: parent
-                            spacing: defaultFontSize
-                            Text {
-                                text: "MP4"
-                                color: fontColorWhite
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2.4
+                        background: Rectangle {
+                            color: transparent
+                            Column {
+                                anchors.centerIn: parent
+                                spacing: defaultFontSize
+                                Text {
+                                    text: formatText
+                                    color: fontColorWhite
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2.4
+                                }
+                                Text {
+                                    text: "FORMAT"
+                                    color: fontColorlightGray
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2
+                                }
+                                Rectangle {
+                                    width: parent.width
+                                    height: defaultFontSize / 2
+                                    color: selectedButton === format.formatButtonId ? blue : transparent
+                                }
                             }
-                            Text {
-                                text: "FORMAT"
-                                color: fontColorlightGray
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2
+                        }
+                        onClicked:  {
+                            if (!popupLoader.item) {
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "format",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentFormatValue": formatText })
+                            } else if(popupLoader.item.buttonType !== formatButtonId){
+                                popupLoader.sourceComponent = null
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "format",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentFormatValue": formatText })
+                            }else {
+                                popupLoader.sourceComponent = null
+                            }
+
+                            if (selectedButton !== formatButtonId) {
+                                selectedButton = formatButtonId
+                            } else {
+                                selectedButton = null
                             }
                         }
                     }
+
                     Button {
                         width: flickAble.width / 5
                         height: flickAble.height
-                        background: Rectangle { color: transparent }
+                        id: exposure
+                        property string exposureButtonId: "exposureMode"
 
-                        Column {
-                            anchors.centerIn: parent
-                            spacing: defaultFontSize
-                            Text {
-                                text: "AUTO"
-                                color: fontColorWhite
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2.4
+                        background: Rectangle {
+                            color: transparent
+                            Column {
+                                anchors.centerIn: parent
+                                spacing: defaultFontSize
+                                Text {
+                                    text: exposureModeText
+                                    color: fontColorWhite
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2.4
+                                }
+                                Text {
+                                    text: "EXPOSURE MODE"
+                                    color: fontColorlightGray
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2
+                                }
+                                Rectangle {
+                                    width: parent.width
+                                    height: defaultFontSize / 2
+                                    color: selectedButton === exposure.exposureButtonId ? blue : transparent
+                                }
                             }
-                            Text {
-                                text: "EXPOSURE MODE"
-                                color: fontColorlightGray
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2
+                        }
+                        onClicked:  {
+                            if (!popupLoader.item) {
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "exposureMode",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentExposureValue": exposureModeText })
+                            } else if(popupLoader.item.buttonType !== exposureButtonId){
+                                popupLoader.sourceComponent = null
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "exposureMode",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentExposureValue": exposureModeText })
+                            }else {
+                                popupLoader.sourceComponent = null
+                            }
+
+                            if (selectedButton !== exposureButtonId) {
+                                selectedButton = exposureButtonId
+                            } else {
+                                selectedButton = null
                             }
                         }
                     }
+
                     Button {
                         width: flickAble.width / 5
                         height: flickAble.height
@@ -215,6 +380,7 @@ Rectangle {
                             }
                         }
                     }
+
                     Button {
                         width: flickAble.width / 5
                         height: flickAble.height
@@ -239,171 +405,417 @@ Rectangle {
                             }
                         }
                     }
+
                     Button {
                         width: flickAble.width / 5
                         height: flickAble.height
-                        background: Rectangle { color: transparent }
+                        id: ev
+                        property string evButtonId: "EV"
 
-                        Column {
-                            anchors.centerIn: parent
-                            spacing: defaultFontSize
-                            Text {
-                                text: "+2.3"
-                                color: fontColorWhite
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2.4
+                        background: Rectangle {
+                            color: transparent
+                            Column {
+                                anchors.centerIn: parent
+                                spacing: defaultFontSize
+                                Text {
+                                    text: evText
+                                    color: fontColorWhite
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2.4
+                                }
+                                Text {
+                                    text: "EV"
+                                    color: fontColorlightGray
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2
+                                }
+                                Rectangle {
+                                    width: parent.width
+                                    height: defaultFontSize / 2
+                                    color: selectedButton === ev.evButtonId ? blue : transparent
+                                }
                             }
-                            Text {
-                                text: "EV"
-                                color: fontColorlightGray
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2
+                        }
+                        onClicked:  {
+                            if (!popupLoader.item) {
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "EV",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentEVValue": evText })
+                            } else if(popupLoader.item.buttonType !== evButtonId){
+                                popupLoader.sourceComponent = null
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "EV",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentEVValue": evText })
+                            }else {
+                                popupLoader.sourceComponent = null
+                            }
+
+                            if (selectedButton !== evButtonId) {
+                                selectedButton = evButtonId
+                            } else {
+                                selectedButton = null
                             }
                         }
                     }
+
                     Button {
                         width: flickAble.width / 5
                         height: flickAble.height
-                        background: Rectangle { color: transparent }
-                        id: btnWB
+                        id: wb
+                        property string wbButtonId: "WB"
 
-                        Column {
-                            anchors.centerIn: parent
-                            spacing: defaultFontSize
-                            Image {
-                                source: "/res/CameraBottomMenuWbButton.svg"
-                                width: btnWB.width / 8.1
-                                height: width
+                        background: Rectangle {
+                            color: transparent
+                            Column {
+                                anchors.centerIn: parent
+                                spacing: defaultFontSize
+                                Image {
+                                    source: wBImage
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                }
+                                Text {
+                                    text: "WB"
+                                    color: fontColorlightGray
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2
+                                }
+                                Rectangle {
+                                    width: parent.width
+                                    height: defaultFontSize / 2
+                                    color: selectedButton === wb.wbButtonId ? blue : transparent
+                                }
+                            }
+                        }
+                        onClicked:  {
+                            if (!popupLoader.item) {
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "WB",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentWBValue": wBImage })
+                            } else if(popupLoader.item.buttonType !== wbButtonId){
+                                popupLoader.sourceComponent = null
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "WB",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentWBValue": wBImage })
+                            }else {
+                                popupLoader.sourceComponent = null
                             }
 
-                            Text {
-                                text: "EV"
-                                color: fontColorlightGray
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2
+                            if (selectedButton !== wbButtonId) {
+                                selectedButton = wbButtonId
+                            } else {
+                                selectedButton = null
                             }
                         }
                     }
+
                     Button {
                         width: flickAble.width / 5
                         height: flickAble.height
-                        background: Rectangle { color: transparent }
+                        id: digitalZoom
+                        property string digitalZoomButtonId: "digitalZoom"
 
-                        Column {
-                            anchors.centerIn: parent
-                            spacing: defaultFontSize
-                            Text {
-                                text: "1.0x"
-                                color: fontColorWhite
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2.4
+                        background: Rectangle {
+                            color: transparent
+                            Column {
+                                anchors.centerIn: parent
+                                spacing: defaultFontSize
+                                Text {
+                                    text: digitalZoomText
+                                    color: fontColorWhite
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2.4
+                                }
+                                Text {
+                                    text: "DIGITAL ZOOM"
+                                    color: fontColorlightGray
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2
+                                }
+                                Rectangle {
+                                    width: parent.width
+                                    height: defaultFontSize / 2
+                                    color: selectedButton === digitalZoom.digitalZoomButtonId ? blue : transparent
+                                }
                             }
-                            Text {
-                                text: "DIGITAL ZOOM"
-                                color: fontColorlightGray
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2
+                        }
+                        onClicked:  {
+                            if (!popupLoader.item) {
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "digitalZoom",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentDigitalZoom": digitalZoomText })
+                            } else if(popupLoader.item.buttonType !== digitalZoomButtonId){
+                                popupLoader.sourceComponent = null
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "digitalZoom",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentDigitalZoom": digitalZoomText })
+                            }else {
+                                popupLoader.sourceComponent = null
+                            }
+
+                            if (selectedButton !== digitalZoomButtonId) {
+                                selectedButton = digitalZoomButtonId
+                            } else {
+                                selectedButton = null
                             }
                         }
                     }
+
                     Button {
                         width: flickAble.width / 5
                         height: flickAble.height
-                        background: Rectangle { color: transparent }
+                        id: af
+                        property string afButtonId: "AF"
 
-                        Column {
-                            anchors.centerIn: parent
-                            spacing: defaultFontSize
-                            Text {
-                                text: "AF"
-                                color: fontColorWhite
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2.4
+                        background: Rectangle {
+                            color: transparent
+                            Column {
+                                anchors.centerIn: parent
+                                spacing: defaultFontSize
+                                Text {
+                                    text: afText
+                                    color: fontColorWhite
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2.4
+                                }
+                                Text {
+                                    text: "AF"
+                                    color: fontColorlightGray
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2
+                                }
+                                Rectangle {
+                                    width: parent.width
+                                    height: defaultFontSize / 2
+                                    color: selectedButton === af.afButtonId ? blue : transparent
+                                }
                             }
-                            Text {
-                                text: "AF"
-                                color: fontColorlightGray
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2
+                        }
+                        onClicked:  {
+                            if (!popupLoader.item) {
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "AF",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentAFValue": afText })
+                            } else if(popupLoader.item.buttonType !== afButtonId){
+                                popupLoader.sourceComponent = null
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "AF",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentAFValue": afText })
+                            }else {
+                                popupLoader.sourceComponent = null
+                            }
+
+                            if (selectedButton !== afButtonId) {
+                                selectedButton = afButtonId
+                            } else {
+                                selectedButton = null
                             }
                         }
                     }
+
                     Button {
                         width: flickAble.width / 5
                         height: flickAble.height
-                        background: Rectangle { color: transparent }
+                        id: color
+                        property string colorButtonId: "COLOR"
 
-                        Column {
-                            anchors.centerIn: parent
-                            spacing: defaultFontSize
-                            Text {
-                                text: "NONE"
-                                color: fontColorWhite
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2.4
+                        background: Rectangle {
+                            color: transparent
+                            Column {
+                                anchors.centerIn: parent
+                                spacing: defaultFontSize
+                                Text {
+                                    text: colorText
+                                    color: fontColorWhite
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2.4
+                                }
+                                Text {
+                                    text: "COLOR"
+                                    color: fontColorlightGray
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2
+                                }
+                                Rectangle {
+                                    width: parent.width
+                                    height: defaultFontSize / 2
+                                    color: selectedButton === color.colorButtonId ? blue : transparent
+                                }
                             }
-                            Text {
-                                text: "COLOR"
-                                color: fontColorlightGray
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2
+                        }
+                        onClicked:  {
+                            if (!popupLoader.item) {
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "COLOR",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentColorValue": colorText })
+                            } else if(popupLoader.item.buttonType !== colorButtonId){
+                                popupLoader.sourceComponent = null
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "COLOR",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentColorValue": colorText })
+                            }else {
+                                popupLoader.sourceComponent = null
+                            }
+
+                            if (selectedButton !== colorButtonId) {
+                                selectedButton = colorButtonId
+                            } else {
+                                selectedButton = null
                             }
                         }
                     }
+
                     Button {
                         width: flickAble.width / 5
                         height: flickAble.height
-                        background: Rectangle { color: transparent }
-                        id: btnStyle
+                        id: style
+                        property string styleButtonId: "STYLE"
 
-                        Column {
-                            anchors.centerIn: parent
-                            spacing: defaultFontSize
-                            Image {
-                                source: "/res/CameraBottomMenuStyleButton.svg"
-                                width: btnStyle.width / 4.4
-                                height: btnStyle.height / 3.3
+                        background: Rectangle {
+                            color: transparent
+                            Column {
+                                anchors.centerIn: parent
+                                spacing: defaultFontSize
+                                Image {
+                                    source: styleImage
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                }
+                                Text {
+                                    text: "STYLE"
+                                    color: fontColorlightGray
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2
+                                }
+                                Rectangle {
+                                    width: parent.width
+                                    height: defaultFontSize / 2
+                                    color: selectedButton === style.styleButtonId ? blue : transparent
+                                }
+                            }
+                        }
+                        onClicked:  {
+                            if (!popupLoader.item) {
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "STYLE",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentStyleValue": styleImage })
+                            } else if(popupLoader.item.buttonType !== styleButtonId){
+                                popupLoader.sourceComponent = null
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "STYLE",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentStyleValue": styleImage })
+                            }else {
+                                popupLoader.sourceComponent = null
                             }
 
-                            Text {
-                                text: "EV"
-                                color: fontColorlightGray
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2
+                            if (selectedButton !== styleButtonId) {
+                                selectedButton = styleButtonId
+                            } else {
+                                selectedButton = null
                             }
                         }
                     }
+
                     Button {
                         width: flickAble.width / 5
                         height: flickAble.height
-                        background: Rectangle { color: transparent }
+                        id: piv
+                        property string pivButtonId: "PIV"
 
-                        Column {
-                            anchors.centerIn: parent
-                            spacing: defaultFontSize
-                            Text {
-                                text: "MANUAL"
-                                color: fontColorWhite
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2.4
+                        background: Rectangle {
+                            color: transparent
+                            Column {
+                                anchors.centerIn: parent
+                                spacing: defaultFontSize
+                                Text {
+                                    text: pivText
+                                    color: fontColorWhite
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2.4
+                                }
+                                Text {
+                                    text: "PIV"
+                                    color: fontColorlightGray
+                                    horizontalAlignment: Text.AlignHCenter
+                                    anchors.horizontalCenter: parent.horizontalCenter
+                                    font.pixelSize: defaultFontSize * 2
+                                }
+                                Rectangle {
+                                    width: parent.width
+                                    height: defaultFontSize / 2
+                                    color: selectedButton === piv.pivButtonId ? blue : transparent
+                                }
                             }
-                            Text {
-                                text: "PIV"
-                                color: fontColorlightGray
-                                horizontalAlignment: Text.AlignHCenter
-                                anchors.horizontalCenter: parent.horizontalCenter
-                                font.pixelSize: defaultFontSize * 2
+                        }
+                        onClicked:  {
+                            if (!popupLoader.item) {
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "PIV",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentPivValue": pivText })
+                            } else if(popupLoader.item.buttonType !== pivButtonId){
+                                popupLoader.sourceComponent = null
+                                popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
+                                                          "buttonType": "PIV",
+                                                          "x": "0",
+                                                          "y": -popupLoader.height,
+                                                          "parentQML":  root,
+                                                          "currentPivValue": pivText })
+                            }else {
+                                popupLoader.sourceComponent = null
+                            }
+
+                            if (selectedButton !== pivButtonId) {
+                                selectedButton = pivButtonId
+                            } else {
+                                selectedButton = null
                             }
                         }
                     }
@@ -412,7 +824,7 @@ Rectangle {
                 //Smooth Moving Animation
                 Behavior on contentX {
                     NumberAnimation {
-                        duration: defaultFontSize * 30
+                        duration: 300
                         easing.type: Easing.InOutQuad
                     }
                 }
@@ -425,7 +837,7 @@ Rectangle {
             background: Rectangle { color: transparent }
 
             Image {
-                source: "/res/FrontArrowButton.svg"
+                source: "qrc:/res/FrontArrowButton.svg"
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width /1.8
@@ -442,13 +854,12 @@ Rectangle {
             background: Rectangle { color: transparent }
 
             Image {
-                source: "/res/CameraBottomMenuSettingButton.svg"
+                source: "qrc:/res/CameraBottomMenuSettingButton.svg"
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width / 3
                 height: parent.height / 2
             }
-
         }
     }
 

@@ -314,6 +314,19 @@
         <file alias="QGroundControl/Controls/BlueCheckButton.qml">../src/QmlControls/BlueCheckButton.qml</file>
         <file alias="QGroundControl/Controls/MissionSettingText.qml">../src/QmlControls/MissionSettingText.qml</file>
         <file alias="QGroundControl/Controls/MissionSettingCombobox.qml">../src/QmlControls/MissionSettingCombobox.qml</file>
+
+		    <file alias="QGroundControl/Controls/CameraBottomMenuPopup.qml">../src/QmlControls/CameraBottomMenuPopup.qml</file>
+
+        <file alias="QGroundControl/Controls/MissionFlyReadyButton.qml">../src/QmlControls/MissionFlyReadyButton.qml</file>
+        <file alias="QGroundControl/Controls/MissionWaypointInformation.qml">../src/QmlControls/MissionWaypointInformation.qml</file>
+        <file alias="QGroundControl/Controls/MissionControlBar.qml">../src/QmlControls/MissionControlBar.qml</file>
+        <file alias="QGroundControl/Controls/AltitudeBar.qml">../src/QmlControls/AltitudeBar.qml</file>
+        <file alias="QGroundControl/Controls/WaitpointStatus.qml">../src/QmlControls/WaitpointStatus.qml</file>
+        <file alias="QGroundControl/Controls/SpeedSlider.qml">../src/QmlControls/SpeedSlider.qml</file>
+        <file alias="QGroundControl/Controls/TurningRadiusSlider.qml">../src/QmlControls/TurningRadiusSlider.qml</file>
+        <file alias="QGroundControl/Controls/LatitudeLongitudeInput.qml">../src/QmlControls/LatitudeLongitudeInput.qml</file>
+		    <file alias="QGroundControl/Controls/LoginPage.qml">../src/QmlControls/LoginPage.qml</file>
+		    <file alias="QGroundControl/Controls/ControllerConnectionPage.qml">../src/QmlControls/ControllerConnectionPage.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">../src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>
