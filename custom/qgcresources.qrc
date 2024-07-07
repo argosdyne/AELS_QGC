@@ -215,5 +215,7 @@
         <file alias="StopButton.svg">../resources/AlesWaypoint/StopButton.svg</file>
         <file alias="Switch.svg">../resources/AlesWaypoint/Switch.svg</file>
         <file alias="UpDir.svg">../resources/AlesWaypoint/UpDir.svg</file>
+		<file alias="AddButton.svg">../resources/AlesWaypoint/AddButton.svg</file>
+        <file alias="MinusButton.png">../resources/AlesWaypoint/MinusButton.png</file>
     </qresource>
 </RCC>
