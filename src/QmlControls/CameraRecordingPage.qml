@@ -16,7 +16,7 @@ Rectangle {
     id:     root
     color: transparent
 
-    //Color Property
+    //Properties
     property color defaultTextColor: "white"
     property color transparent: "transparent"
     property color fontColorWhite: "white"
@@ -24,6 +24,7 @@ Rectangle {
     property color defaultBackGroundColor: "#3b3737"
     property color fontColorRed: "red"
     property color blue: "#3d71d7"
+    property int margin: 10
 
     //Size Property
     property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
@@ -36,7 +37,7 @@ Rectangle {
         anchors {
             right: parent.right
             verticalCenter: parent.verticalCenter
-            margins: 10
+            margins: margin
         }
     }
 
@@ -54,7 +55,7 @@ Rectangle {
         anchors {
             left: parent.left
             top: commonTopMenu.bottom
-            margins: 10
+            margins: margin
         }
         onLoaded: {
             alertBox.item.isRed = true
@@ -67,7 +68,7 @@ Rectangle {
         anchors {
             left: parent.left
             top: alertBox.bottom
-            margins: 10
+            margins: margin
         }
     }
 }
