@@ -130,6 +130,43 @@ add_custom_target(QmlControlsQml
 		VehicleSummaryRow.qml
 		CommonHiddenTopBar.qml
 		CommonTopMenu.qml
+		CameraBottomMenu.qml
+		CameraGalleryImageDownloadBox.qml
+		CameraGalleryImageClickTopMenu.qml
+		CameraGallerySelectTopMenu.qml
+		CameraGalleryTopBar.qml
+		MissionHistoryItem.qml
+		CameraGalleryTopMenuBar.qml
+		MissionHistoryItem.qml
+		CameraGimbalSliderBar.qml
+		SdCardDialog.qml		
+		AntiFlicker.qml
+		LearningCenterDialog.qml
+		PreflightSecurityCheck.qml
+		PreflightSecurityCheckV1.qml
+		RemoteControlInstruction.qml
+		VideoEncodingFormat.qml
+		SaveLocation.qml
+		CameraGalleryDownloadProgressBar.qml
+		CameraGimbalAngleButton.qml
+		CameraTakePhoto.qml
+		CameraRecording.qml
+		MissionLocationMap.qml
+		BlueCheckButton.qml
+		MissionSettingText.qml
+		MissionSettingCombobox.qml
+		CameraBottomMenuPopup.qml
+
+		MissionFlyReadyButton.qml
+		MissionWaypointInformation.qml
+		MissionControlBar.qml
+		AltitudeBar.qml
+		WaitpointStatus.qml
+		SpeedSlider.qml
+		TurningRadiusSlider.qml
+		LatitudeLongitudeInput.qml
+		LoginPage.qml
+		ControllerConnectionPage.qml
 )
 
 target_link_libraries(QmlControls
