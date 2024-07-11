@@ -41,6 +41,41 @@ ApplicationWindow {
         firstRunPromptManager.nextPrompt()
     }
 
+    // For Debugging purpose
+
+    Loader {
+        id: testLoader
+        anchors.fill: parent
+        visible: false
+        z:1000
+    }
+
+    Button {
+        id:toggleButton
+        text: "Full Screen Test"
+        property bool isOpen: false
+        onClicked: {
+            if (isOpen){  // close the loader
+                testLoader.visible = false
+                testLoader.source =""
+                toggleButton.text = 'Full Screen Test'
+            } else { // open loader
+                testLoader.source = 'qrc:/qml/QGroundControl/Controls/CameraSettingsPage.qml'
+                testLoader.visible = true
+                toggleButton.text = 'Close'
+            }
+            // toggle the state
+            isOpen = !isOpen
+        }
+        anchors {
+            bottom: parent.bottom
+            left: parent.left
+            bottomMargin: 20
+            leftMargin: 20
+        }
+        z: 1
+    }
+
     QtObject {
         id: firstRunPromptManager
 
