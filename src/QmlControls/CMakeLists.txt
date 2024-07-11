@@ -167,6 +167,8 @@ add_custom_target(QmlControlsQml
 		LoginPage.qml
 		ControllerConnectionPage.qml
 		ActionInput.qml
+		CameraBasicSettingGridPage.qml
+		CameraSettingsPage.qml
 )
 
 target_link_libraries(QmlControls
