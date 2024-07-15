@@ -168,6 +168,7 @@ add_custom_target(QmlControlsQml
 		ControllerConnectionPage.qml
 		ActionInput.qml
 		ForgotPassword.qml
+		RegisterPage.qml
 )
 
 target_link_libraries(QmlControls
