@@ -330,9 +330,7 @@
         <file alias="QGroundControl/Controls/BlueCheckButton.qml">src/QmlControls/BlueCheckButton.qml</file>
         <file alias="QGroundControl/Controls/MissionSettingText.qml">src/QmlControls/MissionSettingText.qml</file>
         <file alias="QGroundControl/Controls/MissionSettingCombobox.qml">src/QmlControls/MissionSettingCombobox.qml</file>
-
-		    <file alias="QGroundControl/Controls/CameraBottomMenuPopup.qml">src/QmlControls/CameraBottomMenuPopup.qml</file>
-
+        <file alias="QGroundControl/Controls/CameraBottomMenuPopup.qml">src/QmlControls/CameraBottomMenuPopup.qml</file>
         <file alias="QGroundControl/Controls/MissionFlyReadyButton.qml">src/QmlControls/MissionFlyReadyButton.qml</file>
         <file alias="QGroundControl/Controls/MissionWaypointInformation.qml">src/QmlControls/MissionWaypointInformation.qml</file>
         <file alias="QGroundControl/Controls/MissionControlBar.qml">src/QmlControls/MissionControlBar.qml</file>
@@ -341,8 +339,19 @@
         <file alias="QGroundControl/Controls/SpeedSlider.qml">src/QmlControls/SpeedSlider.qml</file>
         <file alias="QGroundControl/Controls/TurningRadiusSlider.qml">src/QmlControls/TurningRadiusSlider.qml</file>
         <file alias="QGroundControl/Controls/LatitudeLongitudeInput.qml">src/QmlControls/LatitudeLongitudeInput.qml</file>
-		    <file alias="QGroundControl/Controls/LoginPage.qml">src/QmlControls/LoginPage.qml</file>
-		    <file alias="QGroundControl/Controls/ControllerConnectionPage.qml">src/QmlControls/ControllerConnectionPage.qml</file>
+        <file alias="QGroundControl/Controls/LoginPage.qml">src/QmlControls/LoginPage.qml</file>
+        <file alias="QGroundControl/Controls/ControllerConnectionPage.qml">src/QmlControls/ControllerConnectionPage.qml</file>
+        <file alias="QGroundControl/Controls/ActionInput.qml">src/QmlControls/ActionInput.qml</file>
+    	  <file alias="QGroundControl/Controls/CameraRecordingPage.qml">src/QmlControls/CameraRecordingPage.qml</file>
+        <file alias="QGroundControl/Controls/CameraBasicSettingsAntiFlickerPage.qml">src/QmlControls/CameraBasicSettingsAntiFlickerPage.qml</file>
+        <file alias="QGroundControl/Controls/CameraBasicSettingsSaveLocationPage.qml">src/QmlControls/CameraBasicSettingsSaveLocationPage.qml</file>
+        <file alias="QGroundControl/Controls/CameraBasicSettingsVideoEncodingPage.qml">src/QmlControls/CameraBasicSettingsVideoEncodingPage.qml</file>
+        <file alias="QGroundControl/Controls/CameraBasicSettingsCenterPointPage.qml">src/QmlControls/CameraBasicSettingsCenterPointPage.qml</file>
+        <file alias="QGroundControl/Controls/CameraBasicSettingGridPage.qml">src/QmlControls/CameraBasicSettingGridPage.qml</file>
+        <file alias="QGroundControl/Controls/CameraSettingsPage.qml">src/QmlControls/CameraSettingsPage.qml</file>
+		    <file alias="QGroundControl/Controls/RegisterPasswordTips.qml">src/QmlControls/RegisterPasswordTips.qml</file>
+		    <file alias="QGroundControl/Controls/ForgotPassword.qml">src/QmlControls/ForgotPassword.qml</file>
+		    <file alias="QGroundControl/Controls/RegisterPage.qml">src/QmlControls/RegisterPage.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>

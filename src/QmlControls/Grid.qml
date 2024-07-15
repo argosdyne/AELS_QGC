@@ -14,19 +14,19 @@ Rectangle {
     property string black: '#000000'
     property string blue: '#3D71D7'
 
-    property int hItemDelegate: 52;
+    property int hItemDelegate: Screen.height / 20;
 
     Text {
         id: gridText
         color: white
         text: qsTr("Grid")
-        font.pixelSize: ScreenTools.mediumFontPointSize * 2
+        font.pixelSize: ScreenTools.mediumFontPointSize * 2.5
         font.bold: true
         font.family: 'Arial'
         anchors.top: parent.top
         anchors.left: parent.left
-        anchors.leftMargin: 12
-        anchors.topMargin: 17  // Add margin from top of the parent if needed
+        anchors.leftMargin: 20
+        anchors.topMargin: 20  // Add margin from top of the parent if needed
     }
 
     Text{

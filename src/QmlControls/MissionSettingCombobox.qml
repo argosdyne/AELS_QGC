@@ -15,7 +15,7 @@ ComboBox {
     id: control
     model: ["First", "Second", "Third"]
     property string backgroundColor: "#3b3737"
-    property string popupBackgroundColor: "back"
+    property string popupBackgroundColor: "black"
     property string borderColor: "#cecdcd"
     property string borderColorFocus: "#7f7f7f"
 

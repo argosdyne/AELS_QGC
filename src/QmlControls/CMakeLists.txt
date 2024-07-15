@@ -156,7 +156,6 @@ add_custom_target(QmlControlsQml
 		MissionSettingText.qml
 		MissionSettingCombobox.qml
 		CameraBottomMenuPopup.qml
-
 		MissionFlyReadyButton.qml
 		MissionWaypointInformation.qml
 		MissionControlBar.qml
@@ -167,6 +166,16 @@ add_custom_target(QmlControlsQml
 		LatitudeLongitudeInput.qml
 		LoginPage.qml
 		ControllerConnectionPage.qml
+		ActionInput.qml
+		CameraRecordingPage.qml
+		CameraBasicSettingsAntiFlickerPage.qml
+		CameraBasicSettingsSaveLocationPage.qml
+		CameraBasicSettingsVideoEncodingPage.qml
+		CameraBasicSettingsCenterPointPage.qml
+		CameraBasicSettingGridPage.qml
+		CameraSettingsPage.qml
+		RegisterPasswordTips.qml
+		ForgotPassword.qml
 )
 
 target_link_libraries(QmlControls
