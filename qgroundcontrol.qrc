@@ -342,6 +342,7 @@
         <file alias="QGroundControl/Controls/LoginPage.qml">src/QmlControls/LoginPage.qml</file>
         <file alias="QGroundControl/Controls/ControllerConnectionPage.qml">src/QmlControls/ControllerConnectionPage.qml</file>
         <file alias="QGroundControl/Controls/ActionInput.qml">src/QmlControls/ActionInput.qml</file>
+        <file alias="QGroundControl/Controls/CameraBasicSettingsSaveLocationPage.qml">src/QmlControls/CameraBasicSettingsSaveLocationPage.qml</file>
         <file alias="QGroundControl/Controls/CameraBasicSettingsVideoEncodingPage.qml">src/QmlControls/CameraBasicSettingsVideoEncodingPage.qml</file>
         <file alias="QGroundControl/Controls/CameraBasicSettingsCenterPointPage.qml">src/QmlControls/CameraBasicSettingsCenterPointPage.qml</file>
         <file alias="QGroundControl/Controls/CameraBasicSettingGridPage.qml">src/QmlControls/CameraBasicSettingGridPage.qml</file>

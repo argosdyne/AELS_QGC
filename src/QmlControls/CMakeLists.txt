@@ -167,6 +167,7 @@ add_custom_target(QmlControlsQml
 		LoginPage.qml
 		ControllerConnectionPage.qml
 		ActionInput.qml
+		CameraBasicSettingsSaveLocationPage.qml
 		CameraBasicSettingsVideoEncodingPage.qml
 		CameraBasicSettingsCenterPointPage.qml
 		CameraBasicSettingGridPage.qml
