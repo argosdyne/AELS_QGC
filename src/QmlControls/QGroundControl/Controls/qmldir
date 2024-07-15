@@ -161,3 +161,5 @@ LoginPage								1.0 LoginPage.qml
 ControllerConnectionPage				1.0 ControllerConnectionPage.qml
 ActionInput                             1.0 ActionInput.qml
 RegisterPasswordTips					1.0 RegisterPasswordTips.qml
+ForgotPassword							1.0 ForgotPassword.qml
+RegisterPage							1.0 RegisterPage.qml
