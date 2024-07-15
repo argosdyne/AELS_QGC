@@ -160,6 +160,7 @@ LatitudeLongitudeInput                  1.0 LatitudeLongitudeInput.qml
 LoginPage								1.0 LoginPage.qml
 ControllerConnectionPage				1.0 ControllerConnectionPage.qml
 ActionInput                             1.0 ActionInput.qml
+CameraBasicSettingsVideoEncodingPage    1.0 CameraBasicSettingsVideoEncodingPage
 CameraBasicSettingsCenterPointPage.qml  1.0 CameraBasicSettingsCenterPointPage.qml
 CameraBasicSettingGridPage.qml          1.0 CameraBasicSettingGridPage.qml
 CameraSettingsPage.qml                  1.0 CameraSettingsPage.qml
