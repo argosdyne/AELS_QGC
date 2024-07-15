@@ -169,6 +169,9 @@ add_custom_target(QmlControlsQml
 		ActionInput.qml
 		CameraBasicSettingGridPage.qml
 		CameraSettingsPage.qml
+		RegisterPasswordTips.qml
+		ForgotPassword.qml
+		RegisterPage.qml
 )
 
 target_link_libraries(QmlControls
