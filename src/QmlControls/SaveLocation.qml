@@ -53,7 +53,7 @@ Rectangle {
     }
 
     Flickable {
-        id: videoEncodingFlickable
+        id: saveLocationFlickable
         anchors {
             top: saveLocationText.bottom
             topMargin: 20
@@ -66,7 +66,7 @@ Rectangle {
 
         Column {
             id: column
-            width: videoEncodingFlickable.width
+            width: saveLocationFlickable.width
             spacing: 5
 
             ItemDelegate {
