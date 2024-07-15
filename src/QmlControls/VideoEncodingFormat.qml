@@ -53,6 +53,7 @@ Rectangle {
     }
 
     Flickable {
+        id: videoEncodingFlickable
         anchors {
             top: videoEncFormatText.bottom
             topMargin: 20
@@ -65,7 +66,7 @@ Rectangle {
 
         Column {
             id: column
-            width: flickable.width
+            width: videoEncodingFlickable.width
             spacing: 5
 
             ItemDelegate {
