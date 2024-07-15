@@ -12,21 +12,25 @@ Rectangle {
     implicitHeight: Screen.height
     property string white: '#ffffff'
     property string black: '#000000'
-    property int hItemDelegate: 40;
+    property int hItemDelegate: Screen.height / 25;
+    property int hSwitchDelegate: Screen.height / 24;
     property int hToolSeparator: 13;
-    property int hSwitchDelegate: 52;
+    property int leftMargin: 20;
+
+    //Size Property
+    property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
 
     Text {
         id: cameraSettingsText
         color: white
         text: qsTr("Camera Settings")
-        font.pixelSize: ScreenTools.mediumFontPointSize * 2
+        font.pixelSize: ScreenTools.mediumFontPointSize * 2.5
         font.bold: true
         font.family: 'Arial'
         anchors.top: parent.top
         anchors.left: parent.left
-        anchors.leftMargin: 10
-        anchors.topMargin: 12  // Add margin from top of the parent if needed
+        anchors.leftMargin: 20
+        anchors.topMargin: 20  // Add margin from top of the parent if needed
     }
 
     Column {
@@ -44,7 +48,7 @@ Rectangle {
 
             Text {
                 anchors.left: parent.left
-                anchors.leftMargin: 15
+                anchors.leftMargin: leftMargin
                 text: 'Grid'
                 font.pixelSize: ScreenTools.mediumFontPointSize * 2
                 anchors.verticalCenter: parent.verticalCenter
@@ -64,7 +68,7 @@ Rectangle {
 
             Text {
                 anchors.left: parent.left
-                anchors.leftMargin: 15
+                anchors.leftMargin: leftMargin
                 color: white
                 text: qsTr("Center Point")
                 font.pixelSize: ScreenTools.mediumFontPointSize * 2
@@ -85,7 +89,7 @@ Rectangle {
 
             Text {
                 anchors.left: parent.left
-                anchors.leftMargin: 15
+                anchors.leftMargin: leftMargin
                 color: white
                 text: qsTr("Histogram")
                 font.pixelSize: ScreenTools.mediumFontPointSize * 2
@@ -106,7 +110,7 @@ Rectangle {
 
             Text {
                 anchors.left: parent.left
-                anchors.leftMargin: 15
+                anchors.leftMargin: leftMargin
                 color: white
                 text: qsTr("Lock Gimbal While Shooting")
                 font.pixelSize: ScreenTools.mediumFontPointSize * 2
@@ -127,7 +131,7 @@ Rectangle {
 
             Text {
                 anchors.left: parent.left
-                anchors.leftMargin: 15
+                anchors.leftMargin: leftMargin
                 color: white
                 text: qsTr("DeFog")
                 font.pixelSize: ScreenTools.mediumFontPointSize * 2
@@ -148,7 +152,7 @@ Rectangle {
 
             Text {
                 anchors.left: parent.left
-                anchors.leftMargin: 15
+                anchors.leftMargin: leftMargin
                 color: white
                 text: qsTr("ROI")
                 font.pixelSize: ScreenTools.mediumFontPointSize * 2
@@ -169,7 +173,7 @@ Rectangle {
 
             Text {
                 anchors.left: parent.left
-                anchors.leftMargin: 15
+                anchors.leftMargin: leftMargin
                 color: white
                 text: qsTr("Over Exposure Warning")
                 font.pixelSize: ScreenTools.mediumFontPointSize * 2
@@ -191,7 +195,7 @@ Rectangle {
             Text {
                 anchors.left: parent.left
                 color: white
-                anchors.leftMargin: 15
+                anchors.leftMargin: leftMargin
                 text: qsTr("Subtitle.ASS File")
                 font.pixelSize: ScreenTools.mediumFontPointSize * 2
                 anchors.verticalCenter: parent.verticalCenter
@@ -212,7 +216,7 @@ Rectangle {
             Text {
                 anchors.left: parent.left
                 color: white
-                anchors.leftMargin: 15
+                anchors.leftMargin: leftMargin
                 text: qsTr("Auto Syne HD Photo")
                 font.pixelSize: ScreenTools.mediumFontPointSize * 2
                 anchors.verticalCenter: parent.verticalCenter
@@ -233,7 +237,7 @@ Rectangle {
             Text {
                 anchors.left: parent.left
                 color: white
-                anchors.leftMargin: 15
+                anchors.leftMargin: leftMargin
                 text: qsTr("Pre-record Photo")
                 font.pixelSize: ScreenTools.mediumFontPointSize * 2
                 anchors.verticalCenter: parent.verticalCenter
@@ -253,7 +257,7 @@ Rectangle {
             Text {
                 anchors.left: parent.left
                 color: white
-                anchors.leftMargin: 15
+                anchors.leftMargin: leftMargin
                 text: qsTr("Video Encoding Format")
                 font.pixelSize: ScreenTools.mediumFontPointSize * 2
                 anchors.verticalCenter: parent.verticalCenter
@@ -273,7 +277,7 @@ Rectangle {
             Text {
                 anchors.left: parent.left
                 color: white
-                anchors.leftMargin: 15
+                anchors.leftMargin: leftMargin
                 text: qsTr("Anti-Flicker")
                 font.pixelSize: ScreenTools.mediumFontPointSize * 2
                 anchors.verticalCenter: parent.verticalCenter
@@ -313,7 +317,7 @@ Rectangle {
             Text {
                 anchors.left: parent.left
                 color: white
-                anchors.leftMargin: 15
+                anchors.leftMargin: leftMargin
                 text: qsTr("Save Location")
                 font.pixelSize: ScreenTools.mediumFontPointSize * 2
                 anchors.verticalCenter: parent.verticalCenter
