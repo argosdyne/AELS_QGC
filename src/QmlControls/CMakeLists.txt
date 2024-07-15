@@ -168,6 +168,14 @@ add_custom_target(QmlControlsQml
 		ControllerConnectionPage.qml
 		ActionInput.qml
 		CameraRecordingPage.qml
+		CameraBasicSettingsAntiFlickerPage.qml
+		CameraBasicSettingsSaveLocationPage.qml
+		CameraBasicSettingsVideoEncodingPage.qml
+		CameraBasicSettingsCenterPointPage.qml
+		CameraBasicSettingGridPage.qml
+		CameraSettingsPage.qml
+		RegisterPasswordTips.qml
+		ForgotPassword.qml
 )
 
 target_link_libraries(QmlControls

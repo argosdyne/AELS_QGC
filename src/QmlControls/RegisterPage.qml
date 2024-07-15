@@ -14,7 +14,7 @@ import QtGraphicalEffects                   1.12
 
 Rectangle {
     id:     root
-    color: defaultBackGroundColor    
+    color: defaultBackGroundColor        
 
     //Color Property
     property color defaultTextColor: "white"
@@ -76,14 +76,10 @@ Rectangle {
         Text {
             text: "Email"
             anchors.horizontalCenter: parent.horizontalCenter
-            color: defaultTextColor
+            color: fontColorlightGray
             font.pixelSize: defaultFontSize * 3
         }
 
-        Item {
-            width: 1
-            height: parent.height / 16
-        }
 
         TextField {
             anchors.horizontalCenter: parent.horizontalCenter
@@ -112,17 +108,39 @@ Rectangle {
             height: parent.height / 15.4
         }
 
-        Text {
-            text: "Password"
-            anchors.horizontalCenter: parent.horizontalCenter
-            color: defaultTextColor
-            font.pixelSize: defaultFontSize * 3
+
+        Row {
+            width: parent.width
+
+            Item {
+                height: 1
+                width: parent.width / 2.14
+            }
+
+            Text {
+                text: "Password"
+                color: fontColorlightGray
+                font.pixelSize: defaultFontSize * 3
+            }
+
+            Item {
+                height: 1
+                width: parent.width / 10.05
+            }
+
+            Button {
+                background: Rectangle { color: transparent }
+                height: parent.height
+                width: defaultFontSize * 2.8
+                Image {
+                    source: "qrc:/res/QuestionMark.svg"
+                    anchors.fill: parent
+                }
+            }
         }
 
-        Item {
-            width: 1
-            height: parent.height / 16.6
-        }
+
+
 
         TextField {
             id: textField
@@ -153,6 +171,40 @@ Rectangle {
             height: parent.height / 21.6
         }
 
+        Text {
+            text: "Confirm Password"
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: fontColorlightGray
+            font.pixelSize: defaultFontSize * 3
+        }
+
+        TextField {
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: parent.width / 3.9
+            height: parent.height / 13.5
+            font.pixelSize: defaultFontSize * 3
+            color: defaultTextColor
+            echoMode: TextInput.Password
+
+            background: Rectangle {
+                color: transparent
+                border.color: transparent
+                anchors.fill: parent
+
+                Rectangle {
+                    anchors.left: parent.left
+                    anchors.right: parent.right
+                    anchors.bottom: parent.bottom
+                    height: 1
+                    color: fontColorlightGray
+                }
+            }
+        }
+
+        Item {
+            width: 1
+            height: parent.height / 21.6
+        }
         Button {
             anchors.horizontalCenter: parent.horizontalCenter
             width: parent.width / 3.9
@@ -172,39 +224,41 @@ Rectangle {
             height: parent.height / 21.6
         }
 
-        Row {
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width / 4.7
-            height: parent.height / 25.7
-            spacing: defaultFontSize * 2
 
-            Button {
-                background: Rectangle { color: transparent }
-                width: parent.width / 1.675
-                height: parent.height
-                Text{
-                    text: "Forgot Password?"
-                    anchors.centerIn: parent
-                    color: defaultTextColor
-                    font.pixelSize: defaultFontSize * 2
-                }
-            }
+            Row {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width / 4.24
+                height: parent.height / 25.7
+                //spacing: defaultFontSize
 
-            Rectangle {
-                width: 1
-                height: parent.height
-            }
-            Button {
-                background: Rectangle { color: transparent }
-                width: parent.width / 3.6
-                height: parent.height
-                Text {
-                    text: "Register"
-                    anchors.centerIn: parent
-                    color: defaultTextColor
-                    font.pixelSize: defaultFontSize * 2
+                Button {
+                    background: Rectangle { color: transparent }
+                    width: parent.width / 1.37
+                    height: parent.height
+                    Text{
+                        text: "Already have an account"
+                        anchors.centerIn: parent
+                        color: defaultTextColor
+                        font.pixelSize: defaultFontSize * 2
+                    }
                 }
-            }
+
+                Rectangle {
+                    width: 1
+                    height: parent.height
+                }
+                Button {
+                    background: Rectangle { color: transparent }
+                    width: parent.width / 4.47
+                    height: parent.height
+                    Text {
+                        text: "Login"
+                        anchors.centerIn: parent
+                        color: defaultTextColor
+                        font.pixelSize: defaultFontSize * 2
+                        anchors.horizontalCenter: parent.horizontalCenter
+                    }
+                }
         }
     }
 }
