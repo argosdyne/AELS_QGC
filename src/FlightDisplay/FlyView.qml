@@ -142,10 +142,26 @@ Item {
         pipMode:                !_mainWindowIsMap
         toolInsets:             customOverlay.totalToolInsets
         mapName:                "FlightDisplayView"
+
+        Rectangle{
+            width: 100
+            height:  100
+            anchors.centerIn: parent
+            color: "red"
+
+        }
     }
 
     FlyViewVideo {
         id: videoControl
+
+        Rectangle{
+            width: 100
+            height:  100
+            anchors.centerIn: parent
+            color: "green"
+
+        }
     }
 
     QGCPipOverlay {
