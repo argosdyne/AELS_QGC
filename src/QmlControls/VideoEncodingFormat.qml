@@ -1,8 +1,16 @@
-import QtQuick 2.15
-import QtQuick.Controls 2.14
-import QtPositioning 5.14
-import QtQuick.Window 2.10
-import QGroundControl.ScreenTools 1.0
+import QtQuick          2.12
+import QtQuick.Controls 2.4
+import QtQuick.Layouts  1.11
+import QtQuick.Dialogs  1.3
+import QtQuick.Window 2.0
+
+import QGroundControl                       1.0
+import QGroundControl.Controls              1.0
+import QGroundControl.Palette               1.0
+import QGroundControl.MultiVehicleManager   1.0
+import QGroundControl.ScreenTools           1.0
+import QGroundControl.Controllers           1.0
+import QtGraphicalEffects                   1.12
 
 Rectangle {
     id: root
@@ -14,7 +22,10 @@ Rectangle {
     property string black: '#000000'
     property string blue: '#3D71D7'
 
-    property int hItemDelegate: 52;
+    property int hItemDelegate: Screen.height / 20;
+
+    //Size Property
+    property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
 
     Text {
         id: videoEncFormatText
@@ -23,10 +34,10 @@ Rectangle {
         font.pixelSize: ScreenTools.mediumFontPointSize * 2.5
         font.bold: true
         font.family: 'Arial'
-        anchors.top: parent.top
         anchors.left: parent.left
         anchors.leftMargin: 12
-        anchors.topMargin: 17
+        anchors.top: root.top
+        anchors.topMargin: 20
     }
 
     Text{
@@ -35,46 +46,54 @@ Rectangle {
         color: blue
         font.pixelSize: ScreenTools.mediumFontPointSize * 2
         font.family: 'Arial'
-        anchors.top: parent.top
         anchors.right: parent.right
         anchors.rightMargin: 30
-        anchors.topMargin: 17
+        anchors.top: root.top
+        anchors.topMargin: 20
     }
 
-    Column {
-        anchors.top: videoEncFormatText.bottom
-        anchors.topMargin: 20
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-
-        spacing: 5
-
-        ItemDelegate {
-            width: parent.width
-            height: hItemDelegate
-
-            Text {
-                text: 'H.264'
-                font.pixelSize: ScreenTools.mediumFontPointSize * 2.5
-                font.family: 'Arial'
-                color: white
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
-            }
+    Flickable {
+        anchors {
+            top: videoEncFormatText.bottom
+            topMargin: 20
+            left: parent.left
+            right: parent.right
+            bottom: parent.bottom
         }
+        contentWidth: parent.width
+        contentHeight: column.height
 
-        ItemDelegate {
-            width: parent.width
-            height: hItemDelegate
+        Column {
+            id: column
+            width: flickable.width
+            spacing: 5
 
-            Text {
-                color: white
-                text: qsTr("H.265")
-                font.family: 'Arial'
-                font.pixelSize: ScreenTools.mediumFontPointSize * 2.5
-                anchors.verticalCenter: parent.verticalCenter
-                anchors.horizontalCenter: parent.horizontalCenter
+            ItemDelegate {
+                width: parent.width
+                height: hItemDelegate
+
+                Text {
+                    text: 'H.264'
+                    font.pixelSize: ScreenTools.mediumFontPointSize * 2.5
+                    font.family: 'Arial'
+                    color: white
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
+            }
+
+            ItemDelegate {
+                width: parent.width
+                height: hItemDelegate
+
+                Text {
+                    color: white
+                    text: qsTr("H.265")
+                    font.family: 'Arial'
+                    font.pixelSize: ScreenTools.mediumFontPointSize * 2.5
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.horizontalCenter: parent.horizontalCenter
+                }
             }
         }
     }
