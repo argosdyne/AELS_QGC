@@ -330,7 +330,7 @@ ApplicationWindow {
     header: MainToolBar {
         id:         toolbar
         height:     ScreenTools.toolbarHeight
-        visible:    !QGroundControl.videoManager.fullScreen
+        visible:   !topOverLay.visible && !QGroundControl.videoManager.fullScreen
     }
 
     footer: LogReplayStatusBar {
@@ -474,6 +474,7 @@ ApplicationWindow {
         }
     }
 
+
     FlyView {
         id:             flightView
         anchors.fill:   parent
@@ -506,7 +507,7 @@ ApplicationWindow {
             anchors.right:  parent.right
             anchors.top:    parent.top
             height:         ScreenTools.toolbarHeight
-            color:          qgcPal.toolbarBackground
+            color:          "blue"//qgcPal.toolbarBackground
 
             RowLayout {
                 anchors.leftMargin: ScreenTools.defaultFontPixelWidth
@@ -575,6 +576,36 @@ ApplicationWindow {
             }
         }
     }
+    Rectangle {
+        id: topOverLay
+        anchors.fill: parent
+        visible: true
+        color: "black"
+
+        AlesLoginScreen {
+            id: screenLogin
+            anchors.fill: parent
+            visible: true
+
+            btnCamera.onClicked: topOverLay.visible = false
+            btnMission.onClicked: {
+                screenLogin.visible = false
+                screenMissionSelection.visible = true
+            }
+        }
+
+        AlesMissionSelection {
+            id: screenMissionSelection
+            anchors.fill: parent
+            visible: false
+            btnCorridor.onClicked: {
+                screenLogin.visible = true
+                screenMissionSelection.visible = false
+            }
+        }
+
+    }
+
 
     //-------------------------------------------------------------------------
     //-- Critical Vehicle Message Popup
