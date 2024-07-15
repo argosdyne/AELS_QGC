@@ -167,6 +167,7 @@ add_custom_target(QmlControlsQml
 		LoginPage.qml
 		ControllerConnectionPage.qml
 		ActionInput.qml
+		ForgotPassword.qml
 		RegisterPage.qml
 )
 
