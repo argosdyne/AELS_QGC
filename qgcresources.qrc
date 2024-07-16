@@ -117,6 +117,7 @@
         <file alias="CameraBottomMenuLand.svg">resources/CameraBottomMenuLand.svg</file>
 
 		<file alias="QuestionMark.svg">resources/QuestionMark.svg</file>
+        <file alias="close.svg">resources/close.svg</file>
     </qresource>
     <qresource prefix="/res/firmware">
         <file alias="3drradio.png">resources/firmware/3drradio.png</file>

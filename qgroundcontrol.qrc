@@ -352,6 +352,8 @@
 		    <file alias="QGroundControl/Controls/RegisterPasswordTips.qml">src/QmlControls/RegisterPasswordTips.qml</file>
 		    <file alias="QGroundControl/Controls/ForgotPassword.qml">src/QmlControls/ForgotPassword.qml</file>
 		    <file alias="QGroundControl/Controls/RegisterPage.qml">src/QmlControls/RegisterPage.qml</file>
+        <file alias="QGroundControl/Controls/CameraSettingsResolutionInPage.qml">src/QmlControls/CameraSettingsResolutionInPage.qml</file>
+        <file alias="QGroundControl/Controls/ResolutionMessage.qml">src/QmlControls/ResolutionMessage.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>
