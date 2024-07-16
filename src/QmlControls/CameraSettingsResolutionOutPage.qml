@@ -73,7 +73,7 @@ Rectangle {
     }
 
     Loader {
-        id: cameraLiveButton1
+        id: cameraBottomMenu
         source: "qrc:/qml/QGroundControl/Controls/CameraBottomMenu.qml"
         anchors {
             bottom: parent.bottom
