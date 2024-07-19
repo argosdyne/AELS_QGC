@@ -177,7 +177,6 @@ add_custom_target(QmlControlsQml
 		RegisterPasswordTips.qml
 		ForgotPassword.qml
 		CameraSettingsResolutionOutPage.qml
-		CameraMainPage.qml
 )
 
 target_link_libraries(QmlControls

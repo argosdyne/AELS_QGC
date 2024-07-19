@@ -113,8 +113,7 @@
 		<file alias="CameraBottomMenuIncan.svg">../resources/CameraBottomMenuIncan.svg</file>
 		<file alias="CameraBottomMenuLand.svg">../resources/CameraBottomMenuLand.svg</file>
 
-		<file alias="QuestionMark.svg">../resources/QuestionMark.svg</file>		
-		<file alias="MiniMap.png">../resources/MiniMap.png</file>
+		<file alias="QuestionMark.svg">../resources/QuestionMark.svg</file>
 	</qresource>
 	<qresource prefix="/res/firmware">
 		<file alias="3drradio.png">../resources/firmware/3drradio.png</file>

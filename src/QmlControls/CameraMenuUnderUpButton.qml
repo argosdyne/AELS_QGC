@@ -28,7 +28,7 @@ Button {
 
     Image {
         anchors.fill: parent
-        source: "qrc:/res/ales/waypoint/UpDir.svg"
+        source: "/res/TopMenu_Up.svg"
     }
 
     onClicked: {
