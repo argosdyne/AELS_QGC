@@ -171,3 +171,4 @@ RegisterPasswordTips					1.0 RegisterPasswordTips.qml
 ForgotPassword							1.0 ForgotPassword.qml
 RegisterPage							1.0 RegisterPage.qml
 CameraSettingsResolutionOutPage         1.0 CameraSettingsResolutionOutPage.qml
+CameraMainPage							1.0 CameraMainPage.qml
