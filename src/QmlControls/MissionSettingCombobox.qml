@@ -23,7 +23,7 @@ ComboBox {
         width: control.width
         contentItem: Text {
             text: modelData
-            color: "white"
+            color: "grey"
             font: control.font
             elide: Text.ElideRight
             verticalAlignment: Text.AlignVCenter

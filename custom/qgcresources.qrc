@@ -188,6 +188,7 @@
         <file alias="OpenFolder.svg">../resources/AlesMission/OpenFolder.svg</file>
         <file alias="POI.svg">../resources/AlesMission/POI.svg</file>
         <file alias="Search.svg">../resources/AlesMission/Search.svg</file>
+		<file alias="Edit.svg">../resources/AlesMission/Edit.svg</file>
     </qresource>
     <qresource prefix="/res/ales/waypoint">
         <file alias="BlueCheckOff.svg">../resources/AlesWaypoint/BlueCheckOff.svg</file>

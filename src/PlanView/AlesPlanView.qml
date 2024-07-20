@@ -61,12 +61,32 @@ Item {
     readonly property int       _layerRallyPoints:          3
     readonly property string    _armedVehicleUploadPrompt:  qsTr("Vehicle is currently armed. Do you want to upload the mission to the vehicle?")
 
+
+    property int  txtFontSize: ScreenTools.defaultFontPixelHeight/16*20
+
     function mapCenter() {
         var coordinate = editorMap.center
         coordinate.latitude  = coordinate.latitude.toFixed(_decimalPlaces)
         coordinate.longitude = coordinate.longitude.toFixed(_decimalPlaces)
         coordinate.altitude  = coordinate.altitude.toFixed(_decimalPlaces)
         return coordinate
+    }
+
+
+    function createNewMission(){
+        newMissionSetting.visible = true
+        mapLocationSettings.visible = false
+        searchBar.visible = false
+        btnBack.visible = false
+        createProject.visible = false
+    }
+
+    function cancelCreateNewMission(){
+        newMissionSetting.visible = false
+        mapLocationSettings.visible = true
+        searchBar.visible = true
+        btnBack.visible = true
+        createProject.visible = true
     }
 
     function updateAirspace(reset) {
@@ -608,6 +628,7 @@ Item {
         }
 
         Button{
+            id: btnBack
             width: ScreenTools.defaultFontPixelHeight/16*50
             height: ScreenTools.defaultFontPixelHeight/16*50
             anchors.left: parent.left
@@ -637,6 +658,7 @@ Item {
 
 
         Rectangle {
+            id: searchBar
             width: parent.width/2
             height: ScreenTools.defaultFontPixelHeight/16*50
             anchors.horizontalCenter:  parent.horizontalCenter
@@ -927,6 +949,7 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
+                    createNewMission()
 
                 }
             }
@@ -965,6 +988,370 @@ Item {
             terrainButtonChecked:   terrainStatus.visible
             onTerrainButtonClicked: terrainStatus.toggleVisible()
         }
+
+        // Mission Setting
+
+        Rectangle {
+            id: newMissionSetting
+            width: _root.width/3*2
+            height: _root.height/4*3
+            anchors.centerIn: parent
+            visible: false
+
+
+            color: "#3C3737"
+
+
+            ColumnLayout{
+                anchors.fill: parent
+                spacing: 10
+                RowLayout {
+                    Layout.alignment: Qt.AlignCenter
+                    Layout.topMargin: 5
+                    spacing: 30
+
+                    // Editable TextField
+                    TextField {
+                        id: textField
+
+                        text: "New Mission 1"
+                        readOnly: true
+                        Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
+                        Layout.preferredWidth: newMissionSetting.width/3
+                        font.pixelSize: ScreenTools.defaultFontPixelHeight/16*30
+                        horizontalAlignment: Text.AlignRight
+                        color: "white"
+
+                        background: Rectangle {
+                            color: textField.readOnly ? "transparent" : "grey"
+                            border.color: textField.readOnly ? "transparent" : "lightgray"
+                            radius: 5
+                        }
+
+                        onAccepted: {
+                            textField.readOnly = true // Disable editing after pressing Enter
+                        }
+
+                        // Also handle the case when the TextField loses focus
+                        onFocusChanged: if (!textField.focus) textField.readOnly = true
+                    }
+
+                    // Edit Button
+                    Button {
+                        id: editButton
+                        // Path to your edit icon
+                        background: Rectangle{
+                            color: "transparent"
+                            Image {
+                                anchors.centerIn: parent
+                                source: "/res/ales/mission/Edit.svg"
+                                fillMode: Image.PreserveAspectFit
+                            }
+                        }
+
+                        onClicked: {
+                            textField.readOnly = !textField.readOnly
+                            if (!textField.readOnly) {
+                                textField.forceActiveFocus()
+                            }
+                        }
+                    }
+                }
+
+                Rectangle{
+                    Layout.preferredHeight: 2
+                    Layout.fillWidth: true
+                }
+
+                GridLayout {
+                    rowSpacing: 10
+                    columnSpacing: 10
+                    Layout.fillWidth: true
+                    Layout.fillHeight: true
+                    Layout.rightMargin: 20
+
+                    columns: 4
+                    RowLayout{
+                        BlueCheckButton{
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+
+                        }
+                        Text{
+                            text: "Altitude (10-800)"
+                            color: "white"
+                            font.pixelSize: txtFontSize
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+
+                        }
+
+                    }
+                    MissionSettingText{
+                        text: "60m"
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 40
+                        font.pixelSize: txtFontSize
+
+                    }
+                    RowLayout{
+                        BlueCheckButton{
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+
+                        }
+                        Text{
+                            text: "Speed (4 - 36)"
+                            color: "white"
+                            font.pixelSize: txtFontSize
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+
+                        }
+
+                    }
+                    MissionSettingText{
+                        text: "18km/h"
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 40
+                        font.pixelSize: txtFontSize
+
+                    }
+
+                    // Altitude Type
+                    RowLayout{
+                        BlueCheckButton{
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+
+                        }
+                        Text{
+                            text: "Altitude Type"
+                            color: "white"
+                            font.pixelSize: txtFontSize
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+
+                        }
+
+                    }
+                    MissionSettingCombobox{
+                        model: ["AGL","MSL"]
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 50
+                        font.pixelSize: txtFontSize
+
+                    }
+
+
+                    // Loss Action
+                    RowLayout{
+                        BlueCheckButton{
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+
+                        }
+                        Text{
+                            text: "Loss Action"
+                            color: "white"
+                            font.pixelSize: txtFontSize
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+
+                        }
+
+                    }
+                    MissionSettingCombobox{
+                        model: ["Go Home", "Continue Mission"]
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 50
+                        font.pixelSize: txtFontSize
+
+                    }
+
+
+                    // Finish Action
+                    RowLayout{
+                        BlueCheckButton{
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+
+                        }
+                        Text{
+                            text: "Finish Action"
+                            color: "white"
+                            font.pixelSize: txtFontSize
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+
+                        }
+
+                    }
+                    MissionSettingCombobox{
+                        model: ["Go Home", "Hover"]
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 50
+                        font.pixelSize: txtFontSize
+
+                    }
+
+                    // Heading
+                    RowLayout{
+                        BlueCheckButton{
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+
+                        }
+                        Text{
+                            text: "Heading"
+                            color: "white"
+                            font.pixelSize: txtFontSize
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+
+                        }
+
+                    }
+
+                    MissionSettingCombobox{
+                        model: ["Route","Manual", "Custom","-"]
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 50
+                        font.pixelSize: txtFontSize
+
+                    }
+
+                    // Camera Action
+                    RowLayout{
+                        BlueCheckButton{
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+
+                        }
+                        Text{
+                            text: "Camera Action"
+                            color: "white"
+                            font.pixelSize: txtFontSize
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+
+                        }
+
+                    }
+
+                    MissionSettingCombobox{
+                        model: ["Start Recording","Stop Recording","Take Photo","Time Lapase","Dist. Lapse"]
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 50
+                        font.pixelSize: txtFontSize
+
+                    }
+
+                    RowLayout{
+                        BlueCheckButton{
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+
+                        }
+                        Text{
+                            text: "Gimbal Pitch"
+                            color: "white"
+                            font.pixelSize: txtFontSize
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+
+                        }
+
+                    }
+                    MissionSettingText{
+                        text: "0\xB0"
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 40
+                        font.pixelSize: txtFontSize
+
+                    }
+
+                    // Weather
+                    RowLayout{
+                        BlueCheckButton{
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+
+                        }
+                        Text{
+                            text: "Weather"
+                            color: "white"
+                            font.pixelSize: txtFontSize
+                            horizontalAlignment: Text.AlignHCenter
+                            verticalAlignment: Text.AlignVCenter
+
+                        }
+
+                    }
+
+                    MissionSettingCombobox{
+                        model:["Sunny", "Cloudy"]
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 50
+                        font.pixelSize: txtFontSize
+
+                    }
+
+
+
+                }
+
+                Rectangle{
+                    color: "transparent"
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                }
+
+                RowLayout {
+                    spacing: 0
+                    Layout.fillWidth: true
+                    Layout.preferredHeight: 50
+                    Button{
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 50
+                        onClicked: {
+                            cancelCreateNewMission()
+                        }
+
+                        background: Rectangle{
+                            color: "Transparent"
+                            border.color: "#ffffff"
+                            border.width: 2
+                            Text {
+                                anchors.centerIn: parent
+                                color: "#3D71D7"
+                                text: qsTr("CANCEL")
+                                font.pixelSize: ScreenTools.defaultFontPixelHeight/16*30
+                            }
+
+                        }
+
+                    }
+                    Button{
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 50
+                        background: Rectangle{
+                            color: "Transparent"
+                            border.color: "#ffffff"
+                            border.width: 2
+                            Text {
+                                anchors.centerIn: parent
+                                color: "#3D71D7"
+                                text: qsTr("OK")
+                                font.pixelSize: ScreenTools.defaultFontPixelHeight/16*30
+                            }
+
+                        }
+
+                    }
+                }
+
+            }
+
+
+
+        }
+
+
+
+
+
     }
 
     Component {
