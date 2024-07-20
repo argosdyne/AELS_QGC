@@ -354,6 +354,7 @@
         <file alias="QGroundControl/Controls/RegisterPage.qml">src/QmlControls/RegisterPage.qml</file>
         <file alias="QGroundControl/Controls/CameraSettingsResolutionOutPage.qml">src/QmlControls/CameraSettingsResolutionOutPage.qml</file>
 		<file alias="QGroundControl/Controls/CameraMainPage.qml">src/QmlControls/CameraMainPage.qml</file>
+        <file alias="AlesPlanView.qml"/src/PlanView/AlesPlanView.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>
