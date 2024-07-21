@@ -16,6 +16,7 @@ Rectangle {
     visible: true
     color: "#4d4d4c"
     property string textColor: "white"
+    radius: 10 
 
     RowLayout{
         anchors.fill: parent
@@ -24,7 +25,7 @@ Rectangle {
         ColumnLayout {
             Label{
                 text:  "Latitude"
-                color: 25
+                color: textColor
                 font.pointSize: ScreenTools.defaultFontPointSize/16*25
             }
 
@@ -99,7 +100,7 @@ Rectangle {
                             color:"transparent"
                             Image {
                                 anchors.fill: parent
-                                source: "qrc://res/ales/waypoint/UpDir.svg"
+                                source: "/res/ales/waypoint/UpDir.svg"
                                 fillMode: Image.PreserveAspectFit
                             }
                         }
@@ -118,7 +119,7 @@ Rectangle {
                             color:"transparent"
                             Image {
                                 anchors.fill: parent
-                                source: "qrc://res/ales/waypoint/LeftDir.svg"
+                                source: "/res/ales/waypoint/LeftDir.svg"
                                 fillMode: Image.PreserveAspectFit
                             }
                         }
@@ -133,7 +134,7 @@ Rectangle {
                             color:"transparent"
                             Image {
                                 anchors.fill: parent
-                                source: "qrc://res/ales/waypoint/CenterDir.svg"
+                                source: "/res/ales/waypoint/CenterDir.svg"
                                 fillMode: Image.PreserveAspectFit
 
                             }
@@ -148,7 +149,7 @@ Rectangle {
                             color:"transparent"
                             Image {
                                 anchors.fill: parent
-                                source: "qrc://res/ales/waypoint/RightDir.svg"
+                                source: "/res/ales/waypoint/RightDir.svg"
                                 fillMode: Image.PreserveAspectFit
                             }
                         }
@@ -167,7 +168,7 @@ Rectangle {
                             color:"transparent"
                             Image {
                                 anchors.fill: parent
-                                source: "qrc://res/ales/waypoint/DownDir.svg"
+                                source: "/res/ales/waypoint/DownDir.svg"
                                 fillMode: Image.PreserveAspectFit
                             }
                         }

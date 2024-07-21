@@ -71,6 +71,7 @@ Rectangle {
             height: ScreenTools.defaultFontPixelHeight/16*150
             Layout.fillWidth: true
             antialiasing: true
+            clip: true
 
             Rectangle {
                 width: swipeView.width
@@ -78,7 +79,7 @@ Rectangle {
 
                 RowLayout {
                     id: rowPlanners
-                    anchors.centerIn: parent
+                    anchors.fill: parent
                     spacing: 40
 
                     Rectangle {

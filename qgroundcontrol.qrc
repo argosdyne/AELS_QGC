@@ -335,7 +335,7 @@
         <file alias="QGroundControl/Controls/MissionWaypointInformation.qml">src/QmlControls/MissionWaypointInformation.qml</file>
         <file alias="QGroundControl/Controls/MissionControlBar.qml">src/QmlControls/MissionControlBar.qml</file>
         <file alias="QGroundControl/Controls/AltitudeBar.qml">src/QmlControls/AltitudeBar.qml</file>
-        <file alias="QGroundControl/Controls/WaitpointStatus.qml">src/QmlControls/WaitpointStatus.qml</file>
+        <file alias="QGroundControl/Controls/WaypointStatus.qml">src/QmlControls/WaypointStatus.qml</file>
         <file alias="QGroundControl/Controls/SpeedSlider.qml">src/QmlControls/SpeedSlider.qml</file>
         <file alias="QGroundControl/Controls/TurningRadiusSlider.qml">src/QmlControls/TurningRadiusSlider.qml</file>
         <file alias="QGroundControl/Controls/LatitudeLongitudeInput.qml">src/QmlControls/LatitudeLongitudeInput.qml</file>
@@ -355,6 +355,7 @@
         <file alias="QGroundControl/Controls/CameraSettingsResolutionOutPage.qml">src/QmlControls/CameraSettingsResolutionOutPage.qml</file>
 		<file alias="QGroundControl/Controls/CameraMainPage.qml">src/QmlControls/CameraMainPage.qml</file>
         <file alias="AlesPlanView.qml"/src/PlanView/AlesPlanView.qml</file>
+        <file alias="QGroundControl/Controls/WaypointMission.qml">src/QmlControls/WaypointMission.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>

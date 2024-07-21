@@ -17,6 +17,8 @@ Rectangle{
     color:"white"
     radius: 10
 
+    property alias btnCurrentWaypoint: btnCurrentWaypoint
+
     ButtonGroup{
         id: barButtonGroup
         buttons: rowButtons.children
@@ -37,7 +39,77 @@ Rectangle{
                 Image {
                     anchors.fill: parent
                     anchors.margins: 5
-                    source: "qrc://res/ales/waypoint/rooteAB.svg"
+                    source: "/res/ales/waypoint/RooteAB.svg"
+                    fillMode: Image.PreserveAspectFit
+                }
+                radius: 5
+            }
+        }
+
+        ToolSeparator{
+
+        }
+
+        Button{
+            id: btnCurrentWaypoint
+            checkable: true
+            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+
+            background: Rectangle{
+                color: parent.checked? "#3d71d7":"transparent"
+                Image {
+                    anchors.fill: parent
+                    anchors.margins: 5
+                    source: "/res/ales/waypoint/CurrentLocation.svg"
+                    fillMode: Image.PreserveAspectFit
+                }
+                radius: 5
+            }
+        }
+        Button{
+            checkable: true
+            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+
+            background: Rectangle{
+                color: parent.checked? "#3d71d7":"transparent"
+                Image {
+                    anchors.fill: parent
+                    anchors.margins: 5
+                    source: "/res/ales/waypoint/LandingLocation.svg"
+                    fillMode: Image.PreserveAspectFit
+                }
+                radius: 5
+            }
+        }
+        Button{
+            checkable: true
+            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+
+            background: Rectangle{
+                color: parent.checked? "#3d71d7":"transparent"
+                Image {
+                    anchors.fill: parent
+                    anchors.margins: 5
+                    source: "/res/ales/waypoint/StarLocation.svg"
+                    fillMode: Image.PreserveAspectFit
+                }
+                radius: 5
+            }
+        }
+        Button{
+            checkable: true
+            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+
+            background: Rectangle{
+                color: parent.checked? "#3d71d7":"transparent"
+                Image {
+                    anchors.fill: parent
+                    anchors.margins: 5
+                    source: "/res/ales/waypoint/Capture.svg"
                     fillMode: Image.PreserveAspectFit
                 }
                 radius: 5
@@ -58,7 +130,7 @@ Rectangle{
                 Image {
                     anchors.fill: parent
                     anchors.margins: 5
-                    source: "qrc://res/ales/waypoint/CurrentLocation.svg"
+                    source: "/res/ales/waypoint/Switch.svg"
                     fillMode: Image.PreserveAspectFit
                 }
                 radius: 5
@@ -74,7 +146,7 @@ Rectangle{
                 Image {
                     anchors.fill: parent
                     anchors.margins: 5
-                    source: "qrc://res/ales/waypoint/LandingLocation.svg"
+                    source: "/res/ales/waypoint/Delete.svg"
                     fillMode: Image.PreserveAspectFit
                 }
                 radius: 5
@@ -90,7 +162,7 @@ Rectangle{
                 Image {
                     anchors.fill: parent
                     anchors.margins: 5
-                    source: "qrc://res/ales/waypoint/StarLocation.svg"
+                    source: "/res/ales/waypoint/Save.svg"
                     fillMode: Image.PreserveAspectFit
                 }
                 radius: 5
@@ -106,76 +178,7 @@ Rectangle{
                 Image {
                     anchors.fill: parent
                     anchors.margins: 5
-                    source: "qrc://res/ales/waypoint/Capture.svg"
-                    fillMode: Image.PreserveAspectFit
-                }
-                radius: 5
-            }
-        }
-
-        ToolSeparator{
-
-        }
-
-        Button{
-            checkable: true
-            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-
-            background: Rectangle{
-                color: parent.checked? "#3d71d7":"transparent"
-                Image {
-                    anchors.fill: parent
-                    anchors.margins: 5
-                    source: "qrc://res/ales/waypoint/Switch.svg"
-                    fillMode: Image.PreserveAspectFit
-                }
-                radius: 5
-            }
-        }
-        Button{
-            checkable: true
-            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-
-            background: Rectangle{
-                color: parent.checked? "#3d71d7":"transparent"
-                Image {
-                    anchors.fill: parent
-                    anchors.margins: 5
-                    source: "qrc://res/ales/waypoint/Delete.svg"
-                    fillMode: Image.PreserveAspectFit
-                }
-                radius: 5
-            }
-        }
-        Button{
-            checkable: true
-            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-
-            background: Rectangle{
-                color: parent.checked? "#3d71d7":"transparent"
-                Image {
-                    anchors.fill: parent
-                    anchors.margins: 5
-                    source: "qrc://res/ales/waypoint/Save.svg"
-                    fillMode: Image.PreserveAspectFit
-                }
-                radius: 5
-            }
-        }
-        Button{
-            checkable: true
-            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-
-            background: Rectangle{
-                color: parent.checked? "#3d71d7":"transparent"
-                Image {
-                    anchors.fill: parent
-                    anchors.margins: 5
-                    source: "qrc://res/ales/waypoint/Rename.svg"
+                    source: "/res/ales/waypoint/Rename.svg"
                     fillMode: Image.PreserveAspectFit
                 }
                 radius: 5
