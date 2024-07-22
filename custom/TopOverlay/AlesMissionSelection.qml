@@ -20,7 +20,9 @@ Rectangle {
     property alias btnHoppingPOI: btnHoppingPOI
     property alias btnPOI: btnPOI
     property alias btnCorridor: btnCorridor
-
+    property alias btnWaypoint: btnWaypoint
+    property alias btnRectangular: btnRectangular
+    property alias btnPolygon: btnPolygon
     Row {
         id: rowTitle
         width: ScreenTools.defaultFontPixelHeight/16*250
@@ -53,13 +55,16 @@ Rectangle {
     ColumnLayout {
         id: colLayoutMain
         anchors.fill: parent
-        anchors.margins: 20
         anchors.topMargin: 70
+        anchors.leftMargin: 20
+        anchors.rightMargin:  20
+        anchors.bottomMargin: 20
+        spacing: 10
 
         Text {
             id: textArea
-            height: ScreenTools.defaultFontPixelHeight/16*80
-            width: parent.width
+            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
+            Layout.fillWidth: true
             color: txtColor
             text: qsTr("New Mission")
             font.pixelSize: ScreenTools.defaultFontPixelHeight *2
@@ -67,27 +72,133 @@ Rectangle {
 
         SwipeView {
             id: swipeView
-            height: ScreenTools.defaultFontPixelHeight/16*150
+            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*100
             Layout.fillWidth: true
-            antialiasing: true
+            clip: true
+
+            // First Page
 
             Rectangle {
-                height: ScreenTools.defaultFontPixelHeight/16*150
-                width: colLayoutMain.width
-                color: "#00000000"
+                color: "transparent"
 
                 RowLayout {
                     id: rowPlanners
                     anchors.fill: parent
-                    spacing: 20
+                    spacing: 40
+
+                    Rectangle {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        color: "#9AD0C2"
+                        radius: 10
+                        MouseArea{
+                            id:btnWaypoint
+                            anchors.fill: parent
+                        }
+
+                        Image {
+                            height: parent.height * 0.3
+                            width: parent.height * 0.3
+                            anchors.right: parent.right
+                            anchors.top: parent.top
+                            anchors.margins: 10
+                            source: "qrc:/res/ales/mission/WayPoint.svg"
+                            fillMode: Image.PreserveAspectFit
+                        }
+
+                        Text {
+                            height: parent.height / 3
+                            width: parent.width - 20
+                            anchors.left: parent.left
+                            anchors.bottom: parent.bottom
+                            anchors.margins: 10
+                            color: "white"
+                            font.pixelSize: ScreenTools.defaultFontPixelHeight*2.4
+                            text: qsTr("Waypoint")
+                        }
+                    }
+
+                    Rectangle {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        color: "#2D9596"
+                        radius: 10
+                        MouseArea{
+                            id:btnRectangular
+                            anchors.fill: parent
+                        }
+
+                        Image {
+                            height: parent.height * 0.3
+                            width: parent.height * 0.3
+                            anchors.right: parent.right
+                            anchors.top: parent.top
+                            anchors.margins: 10
+                            source: "qrc:/res/ales/mission/Rectangular.svg"
+                            fillMode: Image.PreserveAspectFit
+                        }
+
+                        Text {
+                            height: parent.height / 3
+                            width: parent.width - 20
+                            anchors.left: parent.left
+                            anchors.bottom: parent.bottom
+                            anchors.margins: 10
+                            color: "white"
+                            font.pixelSize: ScreenTools.defaultFontPixelHeight*2.4
+                            text: qsTr("Rectangular")
+                        }
+                    }
+
+                    Rectangle {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        color: "#265073"
+                        radius: 10
+                        MouseArea{
+                            id:btnPolygon
+                            anchors.fill: parent
+                        }
+
+                        Image {
+                            height: parent.height * 0.3
+                            width: parent.height * 0.3
+                            anchors.right: parent.right
+                            anchors.top: parent.top
+                            anchors.margins: 10
+                            source: "qrc:/res/ales/mission/Polygon.svg"
+                            fillMode: Image.PreserveAspectFit
+                        }
+
+                        Text {
+                            height: parent.height / 3
+                            width: parent.width - 20
+                            anchors.left: parent.left
+                            anchors.bottom: parent.bottom
+                            anchors.margins: 10
+                            color: "white"
+                            font.pixelSize: ScreenTools.defaultFontPixelHeight*2.4
+                            text: qsTr("Polygon")
+                        }
+                    }
+                }
+            }
+
+            // Second Page
+
+            Rectangle {
+                color: "transparent"
+
+                RowLayout {
+                    anchors.fill: parent
+                    spacing: 40
 
 
                     Rectangle {
-                        Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*150
-                        Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*200
-                        Layout.fillWidth: true
                         color: "#50C4ED"
                         radius: 10
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
                         MouseArea{
                             id:btnCorridor
                             anchors.fill: parent
@@ -99,7 +210,7 @@ Rectangle {
                             anchors.right: parent.right
                             anchors.top: parent.top
                             anchors.margins: 10
-                            source: "qrc:/ales/missionselection/Corridor.svg"
+                            source: "qrc:/res/ales/mission/Corridor.svg"
                             fillMode: Image.PreserveAspectFit
                         }
 
@@ -117,9 +228,7 @@ Rectangle {
 
                     Rectangle {
                         id: btnPOI
-                        Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*150
-                        Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*200
-
+                        Layout.fillHeight: true
                         Layout.fillWidth: true
                         color: "#387ADF"
                         radius: 10
@@ -129,7 +238,7 @@ Rectangle {
                             anchors.right: parent.right
                             anchors.top: parent.top
                             anchors.margins: 10
-                            source: "qrc:/ales/missionselection/POI.svg"
+                            source: "qrc:/res/ales/mission/POI.svg"
                             fillMode: Image.PreserveAspectFit
                         }
 
@@ -147,8 +256,7 @@ Rectangle {
 
                     Rectangle {
                         id: btnHoppingPOI
-                        Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*150
-                        Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*200
+                        Layout.fillHeight: true
                         Layout.fillWidth: true
                         color: "#333A73"
                         radius: 10
@@ -158,7 +266,7 @@ Rectangle {
                             anchors.right: parent.right
                             anchors.top: parent.top
                             anchors.margins: 10
-                            source: "qrc:/ales/missionselection/HoppingPOI.svg"
+                            source: "qrc:/res/ales/mission/HoppingPOI.svg"
                             fillMode: Image.PreserveAspectFit
                         }
 
@@ -178,60 +286,63 @@ Rectangle {
             }
         }
 
-        Row {
-            id: missionTool
-            height: ScreenTools.defaultFontPixelHeight/16*80
-            Layout.alignment: Qt.AlignRight | Qt.AlignVCenter
-            width: parent.width
-            layoutDirection: Qt.RightToLeft
-
-            Button {
-                id: btnFullMission
-                Layout.preferredHeight:ScreenTools.defaultFontPixelHeight/16*80
-                Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*80
-                icon.height: ScreenTools.defaultFontPixelHeight/16*80
-                icon.width: ScreenTools.defaultFontPixelHeight/16*80
-                icon.color: "white"
-                display: AbstractButton.IconOnly
-                background: Rectangle {
-                    color: "black"
+        Rectangle {
+            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*60
+            Layout.fillWidth: true
+            color: "transparent"
+            RowLayout {
+                id: missionTool
+                anchors.fill: parent
+                spacing: 10
+                Rectangle {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    color: "transparent"
                 }
-                icon.source: "qrc:/ales/missionselection/Entire.svg"
-            }
 
-            Button {
-                id: btnOpenFile
-                Layout.preferredHeight:ScreenTools.defaultFontPixelHeight/16*80
-                Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*80
-                icon.height: ScreenTools.defaultFontPixelHeight/16*80
-                icon.width: ScreenTools.defaultFontPixelHeight/16*80
-                icon.color: "white"
-                display: AbstractButton.IconOnly
-                background: Rectangle {
-                    color: "black"
+                Button {
+                    id: btnFullMission
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: height
+                    icon.color: "white"
+                    display: AbstractButton.IconOnly
+                    background: Rectangle {
+                        color: "black"
+                    }
+                    icon.source: "qrc:/ales/missionselection/Entire.svg"
                 }
-                icon.source: "qrc:/ales/missionselection/OpenFolder.svg"
-            }
 
-            Button {
-                id: btnSearch
-                Layout.preferredHeight:ScreenTools.defaultFontPixelHeight/16*80
-                Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*80
-                icon.height: ScreenTools.defaultFontPixelHeight/16*80
-                icon.width: ScreenTools.defaultFontPixelHeight/16*80
-                icon.color: "white"
-                display: AbstractButton.IconOnly
-                background: Rectangle {
-                    color: "black"
+                Button {
+                    id: btnOpenFile
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: height
+                    icon.color: "white"
+                    display: AbstractButton.IconOnly
+                    background: Rectangle {
+                        color: "black"
+                    }
+                    icon.source: "qrc:/ales/missionselection/OpenFolder.svg"
                 }
-                icon.source: "qrc:/ales/missionselection/Search.svg"
+
+                Button {
+                    id: btnSearch
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: height
+                    icon.color: "white"
+                    display: AbstractButton.IconOnly
+                    background: Rectangle {
+                        color: "black"
+                    }
+                    icon.source: "qrc:/ales/missionselection/Search.svg"
+                }
+
             }
         }
 
         Text {
             id: txtMissionHistory
-            Layout.preferredHeight:ScreenTools.defaultFontPixelHeight/16*80
-            Layout.preferredWidth: parent.width
+            Layout.preferredHeight:ScreenTools.defaultFontPixelHeight/16*60
+            Layout.fillWidth: true
             color: txtColor
             text: qsTr("Mission History")
             font.pixelSize: ScreenTools.defaultFontPixelHeight *2

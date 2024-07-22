@@ -42,6 +42,7 @@ add_custom_target(PlanViewQml
 		CameraMenuUnderUpButton.qml 
 		CameraLiveButton.qml  
 		CameraRecordButton.qml      
-		CameraGalleryButton.qml  
+		CameraGalleryButton.qml
+		AlesPlanView.qml  
 )
 
