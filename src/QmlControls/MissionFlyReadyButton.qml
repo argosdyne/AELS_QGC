@@ -21,7 +21,7 @@ Button{
         Image {
             anchors.fill: parent
             anchors.margins: 10
-            source: "qrc://res/ales/waypoint/MissionReady.png"
+            source: "/res/ales/waypoint/MissionReady.png"
             fillMode: Image.PreserveAspectFit
         }
     }

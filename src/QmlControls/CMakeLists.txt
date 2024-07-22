@@ -160,7 +160,7 @@ add_custom_target(QmlControlsQml
 		MissionWaypointInformation.qml
 		MissionControlBar.qml
 		AltitudeBar.qml
-		WaitpointStatus.qml
+		WaypointStatus.qml
 		SpeedSlider.qml
 		TurningRadiusSlider.qml
 		LatitudeLongitudeInput.qml
@@ -178,6 +178,7 @@ add_custom_target(QmlControlsQml
 		ForgotPassword.qml
 		CameraSettingsResolutionOutPage.qml
 		CameraMainPage.qml
+		WaypointMission.qml
 )
 
 target_link_libraries(QmlControls

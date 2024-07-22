@@ -337,7 +337,7 @@ ApplicationWindow {
     header: MainToolBar {
         id:         toolbar
         height:     ScreenTools.toolbarHeight
-        visible:   !topOverLay.visible && !QGroundControl.videoManager.fullScreen && !alesPlanView.visible
+        visible:   !topOverLay.visible && !QGroundControl.videoManager.fullScreen && (toolbar.currentToolbar == toolbar.waypointMissionToolbar)
     }
 
     footer: LogReplayStatusBar {
@@ -502,7 +502,11 @@ ApplicationWindow {
             topOverLay.visible = true
             screenLogin.visible = false
             screenMissionSelection.visible = true
+        }
 
+        onNotifyMoveToWaypointMission: {
+            viewSwitch(toolbar.waypointMissionToolbar)
+            
         }
     }
 

@@ -32,6 +32,7 @@ Item {
 
     property bool planControlColapsed: false
     signal returnToPrevious()
+    signal notifyMoveToWaypointMission()
 
     readonly property int   _decimalPlaces:             8
     readonly property real  _margin:                    ScreenTools.defaultFontPixelHeight * 0.5
@@ -81,12 +82,31 @@ Item {
         createProject.visible = false
     }
 
+    function moveToWaypointMission(){
+        newMissionSetting.visible = false
+        mapLocationSettings.visible = false
+        searchBar.visible = false
+        btnBack.visible = false
+        createProject.visible = false
+        pageWaypointMission.visible = true
+        notifyMoveToWaypointMission()
+    }
+
     function cancelCreateNewMission(){
         newMissionSetting.visible = false
         mapLocationSettings.visible = true
         searchBar.visible = true
         btnBack.visible = true
         createProject.visible = true
+    }
+
+    function exitWaypointMissionUI(){
+        newMissionSetting.visible = false
+        mapLocationSettings.visible = true
+        searchBar.visible = true
+        btnBack.visible = true
+        createProject.visible = true
+        pageWaypointMission.visible = false
     }
 
     function updateAirspace(reset) {
@@ -627,333 +647,338 @@ Item {
             }
         }
 
-        Button{
-            id: btnBack
-            width: ScreenTools.defaultFontPixelHeight/16*50
-            height: ScreenTools.defaultFontPixelHeight/16*50
-            anchors.left: parent.left
-            anchors.top: parent.top
-            anchors.leftMargin: ScreenTools.defaultFontPixelHeight*2
-            anchors.topMargin: ScreenTools.defaultFontPixelHeight*2
-
-            onClicked: {
-                returnToPrevious();
-            }
-
-            background: Rectangle{
-                color:"white"
-                radius: height//2
-                Image {
-                    anchors.fill: parent
-                    anchors.margins: 10
-                    source: "/res/ales/mission/Back.svg"
-                    fillMode: Image.PreserveAspectFit
-
-                }
-            }
-        }
-
-
-
-
-
-        Rectangle {
-            id: searchBar
-            width: parent.width/2
-            height: ScreenTools.defaultFontPixelHeight/16*50
-            anchors.horizontalCenter:  parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: ScreenTools.defaultFontPixelHeight*2
-
-            color: "white"
-            radius: 5
-            border.color: "lightgray"
-
-            RowLayout {
-                anchors.fill: parent
-                anchors.margins: 5
-                spacing: 10
-
-                Image {
-                    source: "/res/ales/mission/Search.svg" // Path to your search icon
-                    Layout.preferredWidth:  parent.height/3*2
-                    Layout.preferredHeight: parent.height/3*2
-                    Layout.alignment: Qt.AlignVCenter
-                    fillMode: Image.PreserveAspectFit
-                }
-
-                TextField {
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    placeholderText: qsTr("Search")
-                    background: Rectangle {
-                        color: "transparent"
-                    }
-                }
-            }
-        }
-
-
         Item {
-            id: mapLocationSettings
-            width: ScreenTools.defaultFontPixelHeight/16*200
-            height: ScreenTools.defaultFontPixelHeight/16*200
-            anchors.right: parent.right
-            anchors.top: parent.top
-            anchors.rightMargin: ScreenTools.defaultFontPixelHeight*2
-            anchors.topMargin: ScreenTools.defaultFontPixelHeight*2
-            ColumnLayout{
-                spacing: 20
+            id: createProjectPage
 
-                Rectangle{
-                    id: locationMapSetting
-                    color:"transparent"
-                    radius: 10
-                    Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*320
-                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+            anchors.fill: parent
 
-                    RowLayout {
-                        anchors.centerIn: parent
-                        Button{
-                            id: btnLocation
-                            checkable: true
-                            checked: false
-                            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-                            background: Rectangle{
-                                color: parent.checked? "#3d71d7": "transparent"
-                                radius: 5
-                                Image {
-                                    anchors.fill: parent
-                                    anchors.margins: 10
-                                    source: "/res/ales/mission/Location.svg"
-                                    fillMode: Image.PreserveAspectFit
-                                }
-                            }
-                            onClicked: {
-                                if (!checked) {
-                                    return
-                                }
+            Button{
+                id: btnBack
+                width: ScreenTools.defaultFontPixelHeight/16*50
+                height: ScreenTools.defaultFontPixelHeight/16*50
+                anchors.left: parent.left
+                anchors.top: parent.top
+                anchors.leftMargin: ScreenTools.defaultFontPixelHeight*2
+                anchors.topMargin: ScreenTools.defaultFontPixelHeight*2
 
-                                if (btnMapType.checked) {
-                                    btnMapType.checked =false
-                                }
-                            }
-                        }
-
-                        Button{
-                            id: btnMapType
-                            checkable: true
-                            checked: false
-                            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-                            background: Rectangle{
-                                color: parent.checked? "#3d71d7": "transparent"
-                                radius: 5
-                                Image {
-                                    anchors.fill: parent
-                                    anchors.margins: 10
-                                    source: "/res/ales/mission/Maptype.svg"
-                                    fillMode: Image.PreserveAspectFit
-                                }
-                            }
-                            onClicked: {
-                                if (!checked) {
-                                    return
-                                }
-
-                                if (btnLocation.checked) {
-                                    btnLocation.checked =false
-                                }
-                            }
-                        }
-                    }
-                }
-
-
-
-
-                Rectangle{
-                    id: locationMapSettingV1
-                    visible: false
-                    color:"#484639"
-                    radius: 10
-                    Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*320
-                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-
-                    RowLayout {
-                        anchors.fill: parent
-                        Button{
-                            id: position
-                            checkable: true
-                            checked: false
-                            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-                            background: Rectangle{
-                                color: parent.checked? "#3d71d7": "transparent"
-                                radius: 5
-                                Image {
-                                    anchors.fill: parent
-                                    anchors.margins: 10
-                                    source: "/res/ales/waypoint/PositionType.svg"
-                                    fillMode: Image.PreserveAspectFit
-                                }
-                            }
-                        }
-
-                        Button{
-                            id: centerObject
-                            checkable: true
-                            checked: false
-                            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-                            background: Rectangle{
-                                color: parent.checked? "#3d71d7": "transparent"
-                                radius: 5
-                                Image {
-                                    anchors.fill: parent
-                                    anchors.margins: 10
-                                    source: "/res/ales/waypoint/CenterIn.svg"
-                                    fillMode: Image.PreserveAspectFit
-                                }
-                            }
-                        }
-
-                        Button{
-                            id: mapType
-                            checkable: true
-                            checked: false
-                            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-                            background: Rectangle{
-                                color: parent.checked? "#3d71d7": "transparent"
-                                radius: 5
-                                Image {
-                                    anchors.fill: parent
-                                    anchors.margins: 10
-                                    source: "/res/ales/mission/Maptype.svg"
-                                    fillMode: Image.PreserveAspectFit
-                                }
-                            }
-                        }
-                    }
-                }
-
-                Rectangle{
-                    id:mapTypeSetting
-                    Layout.preferredWidth:ScreenTools.defaultFontPointSize/16*220
-                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                    Layout.alignment: Qt.AlignHCenter
-                    color: "white"
-                    anchors.margins: 20
-                    visible: btnMapType.checked
-                    RowLayout{
-                        anchors.centerIn: parent
-                        spacing: 10
-
-                        Button{
-                            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-                            background: Rectangle{
-                                color:"transparent"
-                                implicitWidth:ScreenTools.defaultFontPointSize/16*100
-                                implicitHeight:ScreenTools.defaultFontPointSize/16*100
-                                Image {
-                                    anchors.fill: parent
-                                    source: "/res/ales/waypoint/NormalMap.png"
-                                    fillMode: Image.PreserveAspectFit
-                                }
-                            }
-                        }
-
-                        Button{
-                            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                            Layout.preferredWidth:ScreenTools.defaultFontPointSize/16*100
-                            background: Rectangle{
-                                color:"transparent"
-                                implicitWidth:ScreenTools.defaultFontPointSize/16*100
-                                implicitHeight:ScreenTools.defaultFontPointSize/16*100
-                                Image {
-                                    anchors.fill: parent
-                                    source: "/res/ales/waypoint/HybridMap.png"
-                                    fillMode: Image.PreserveAspectFit
-                                }
-                            }
-                        }
-
-                    }
-                }
-
-
-                Rectangle{
-                    Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*220
-                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                    Layout.alignment: Qt.AlignHCenter
-                    color: "white"
-                    visible: btnLocation.checked
-                    RowLayout{
-                        anchors.centerIn: parent
-                        spacing: 10
-
-                        Button{
-                            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-                            background: Rectangle{
-                                color:"transparent"
-                                implicitWidth: ScreenTools.defaultFontPointSize/16*100
-                                implicitHeight: ScreenTools.defaultFontPointSize/16*100
-                                Image {
-                                    anchors.fill: parent
-                                    source: "/res/ales/waypoint/Melocation.svg"
-                                    fillMode: Image.PreserveAspectFit
-                                }
-                            }
-                        }
-
-                        Button{
-                            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-                            background: Rectangle{
-                                color:"transparent"
-                                implicitWidth: ScreenTools.defaultFontPointSize/16*100
-                                implicitHeight: ScreenTools.defaultFontPointSize/16*100
-                                Image {
-                                    anchors.fill: parent
-                                    source: "/res/ales/waypoint/DroneLocation.png"
-                                    fillMode: Image.PreserveAspectFit
-                                }
-                            }
-                        }
-
-                    }
-                }
-            }
-
-        }
-
-        Rectangle {
-            id: createProject
-            width: ScreenTools.defaultFontPixelHeight * 10
-            height: ScreenTools.defaultFontPixelHeight * 2
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height/10
-            color: "#3D71D7"
-            Text {
-                anchors.centerIn: parent
-                text: qsTr("Create Project")
-                color: "white"
-                font.pixelSize: ScreenTools.defaultFontPixelHeight
-            }
-
-            MouseArea{
-                anchors.fill: parent
                 onClicked: {
-                    createNewMission()
+                    returnToPrevious();
+                }
 
+                background: Rectangle{
+                    color:"white"
+                    radius: height//2
+                    Image {
+                        anchors.fill: parent
+                        anchors.margins: 10
+                        source: "/res/ales/mission/Back.svg"
+                        fillMode: Image.PreserveAspectFit
+
+                    }
                 }
             }
+
+
+            Rectangle {
+                id: searchBar
+                width: parent.width/2
+                height: ScreenTools.defaultFontPixelHeight/16*50
+                anchors.horizontalCenter:  parent.horizontalCenter
+                anchors.top: parent.top
+                anchors.topMargin: ScreenTools.defaultFontPixelHeight*2
+
+                color: "white"
+                radius: 5
+                border.color: "lightgray"
+
+                RowLayout {
+                    anchors.fill: parent
+                    anchors.margins: 5
+                    spacing: 10
+
+                    Image {
+                        source: "/res/ales/mission/Search.svg" // Path to your search icon
+                        Layout.preferredWidth:  parent.height/3*2
+                        Layout.preferredHeight: parent.height/3*2
+                        Layout.alignment: Qt.AlignVCenter
+                        fillMode: Image.PreserveAspectFit
+                    }
+
+                    TextField {
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        placeholderText: qsTr("Search")
+                        background: Rectangle {
+                            color: "transparent"
+                        }
+                    }
+                }
+            }
+
+
+            Item {
+                id: mapLocationSettings
+                width: ScreenTools.defaultFontPixelHeight/16*200
+                height: ScreenTools.defaultFontPixelHeight/16*200
+                anchors.right: parent.right
+                anchors.top: parent.top
+                anchors.rightMargin: ScreenTools.defaultFontPixelHeight*2
+                anchors.topMargin: ScreenTools.defaultFontPixelHeight*2
+                ColumnLayout{
+                    spacing: 20
+
+                    Rectangle{
+                        id: locationMapSetting
+                        color:"transparent"
+                        radius: 10
+                        Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*320
+                        Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+
+                        RowLayout {
+                            anchors.centerIn: parent
+                            Button{
+                                id: btnLocation
+                                checkable: true
+                                checked: false
+                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+                                background: Rectangle{
+                                    color: parent.checked? "#3d71d7": "transparent"
+                                    radius: 5
+                                    Image {
+                                        anchors.fill: parent
+                                        anchors.margins: 10
+                                        source: "/res/ales/mission/Location.svg"
+                                        fillMode: Image.PreserveAspectFit
+                                    }
+                                }
+                                onClicked: {
+                                    if (!checked) {
+                                        return
+                                    }
+
+                                    if (btnMapType.checked) {
+                                        btnMapType.checked =false
+                                    }
+                                }
+                            }
+
+                            Button{
+                                id: btnMapType
+                                checkable: true
+                                checked: false
+                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+                                background: Rectangle{
+                                    color: parent.checked? "#3d71d7": "transparent"
+                                    radius: 5
+                                    Image {
+                                        anchors.fill: parent
+                                        anchors.margins: 10
+                                        source: "/res/ales/mission/Maptype.svg"
+                                        fillMode: Image.PreserveAspectFit
+                                    }
+                                }
+                                onClicked: {
+                                    if (!checked) {
+                                        return
+                                    }
+
+                                    if (btnLocation.checked) {
+                                        btnLocation.checked =false
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+
+
+
+                    Rectangle{
+                        id: locationMapSettingV1
+                        visible: false
+                        color:"#484639"
+                        radius: 10
+                        Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*320
+                        Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+
+                        RowLayout {
+                            anchors.fill: parent
+                            Button{
+                                id: position
+                                checkable: true
+                                checked: false
+                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+                                background: Rectangle{
+                                    color: parent.checked? "#3d71d7": "transparent"
+                                    radius: 5
+                                    Image {
+                                        anchors.fill: parent
+                                        anchors.margins: 10
+                                        source: "/res/ales/waypoint/PositionType.svg"
+                                        fillMode: Image.PreserveAspectFit
+                                    }
+                                }
+                            }
+
+                            Button{
+                                id: centerObject
+                                checkable: true
+                                checked: false
+                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+                                background: Rectangle{
+                                    color: parent.checked? "#3d71d7": "transparent"
+                                    radius: 5
+                                    Image {
+                                        anchors.fill: parent
+                                        anchors.margins: 10
+                                        source: "/res/ales/waypoint/CenterIn.svg"
+                                        fillMode: Image.PreserveAspectFit
+                                    }
+                                }
+                            }
+
+                            Button{
+                                id: mapType
+                                checkable: true
+                                checked: false
+                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+                                background: Rectangle{
+                                    color: parent.checked? "#3d71d7": "transparent"
+                                    radius: 5
+                                    Image {
+                                        anchors.fill: parent
+                                        anchors.margins: 10
+                                        source: "/res/ales/mission/Maptype.svg"
+                                        fillMode: Image.PreserveAspectFit
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    Rectangle{
+                        id:mapTypeSetting
+                        Layout.preferredWidth:ScreenTools.defaultFontPointSize/16*220
+                        Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                        Layout.alignment: Qt.AlignHCenter
+                        color: "white"
+                        anchors.margins: 20
+                        visible: btnMapType.checked
+                        RowLayout{
+                            anchors.centerIn: parent
+                            spacing: 10
+
+                            Button{
+                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+                                background: Rectangle{
+                                    color:"transparent"
+                                    implicitWidth:ScreenTools.defaultFontPointSize/16*100
+                                    implicitHeight:ScreenTools.defaultFontPointSize/16*100
+                                    Image {
+                                        anchors.fill: parent
+                                        source: "/res/ales/waypoint/NormalMap.png"
+                                        fillMode: Image.PreserveAspectFit
+                                    }
+                                }
+                            }
+
+                            Button{
+                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                Layout.preferredWidth:ScreenTools.defaultFontPointSize/16*100
+                                background: Rectangle{
+                                    color:"transparent"
+                                    implicitWidth:ScreenTools.defaultFontPointSize/16*100
+                                    implicitHeight:ScreenTools.defaultFontPointSize/16*100
+                                    Image {
+                                        anchors.fill: parent
+                                        source: "/res/ales/waypoint/HybridMap.png"
+                                        fillMode: Image.PreserveAspectFit
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+
+
+                    Rectangle{
+                        Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*220
+                        Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                        Layout.alignment: Qt.AlignHCenter
+                        color: "white"
+                        visible: btnLocation.checked
+                        RowLayout{
+                            anchors.centerIn: parent
+                            spacing: 10
+
+                            Button{
+                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+                                background: Rectangle{
+                                    color:"transparent"
+                                    implicitWidth: ScreenTools.defaultFontPointSize/16*100
+                                    implicitHeight: ScreenTools.defaultFontPointSize/16*100
+                                    Image {
+                                        anchors.fill: parent
+                                        source: "/res/ales/waypoint/Melocation.svg"
+                                        fillMode: Image.PreserveAspectFit
+                                    }
+                                }
+                            }
+
+                            Button{
+                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+                                background: Rectangle{
+                                    color:"transparent"
+                                    implicitWidth: ScreenTools.defaultFontPointSize/16*100
+                                    implicitHeight: ScreenTools.defaultFontPointSize/16*100
+                                    Image {
+                                        anchors.fill: parent
+                                        source: "/res/ales/waypoint/DroneLocation.png"
+                                        fillMode: Image.PreserveAspectFit
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+                }
+
+            }
+
+            Rectangle {
+                id: createProject
+                width: ScreenTools.defaultFontPixelHeight * 10
+                height: ScreenTools.defaultFontPixelHeight * 2
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.bottom: parent.bottom
+                anchors.bottomMargin: parent.height/10
+                color: "#3D71D7"
+                Text {
+                    anchors.centerIn: parent
+                    text: qsTr("Create Project")
+                    color: "white"
+                    font.pixelSize: ScreenTools.defaultFontPixelHeight
+                }
+
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        createNewMission()
+
+                    }
+                }
+            }
+
         }
+
 
 
         TerrainStatus {
@@ -1326,6 +1351,9 @@ Item {
                     Button{
                         Layout.fillWidth: true
                         Layout.preferredHeight: 50
+                        onClicked: {
+                            moveToWaypointMission()
+                        }
                         background: Rectangle{
                             color: "Transparent"
                             border.color: "#ffffff"
@@ -1350,8 +1378,19 @@ Item {
 
 
 
+        // Mission
 
+        WaypointMission {
+            id: pageWaypointMission
+            visible: false
+            anchors.fill: parent
 
+            onExitWaypointMission:{
+                exitWaypointMissionUI()
+                returnToPrevious()
+            }
+
+        }
     }
 
     Component {
