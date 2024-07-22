@@ -337,7 +337,7 @@ ApplicationWindow {
     header: MainToolBar {
         id:         toolbar
         height:     ScreenTools.toolbarHeight
-        visible:   !topOverLay.visible && !QGroundControl.videoManager.fullScreen //&& (toolbar.currentToolbar == toolbar.waypointMissionToolbar)
+        visible:   !topOverLay.visible && !QGroundControl.videoManager.fullScreen && (toolbar.currentToolbar == toolbar.waypointMissionToolbar)
     }
 
     footer: LogReplayStatusBar {

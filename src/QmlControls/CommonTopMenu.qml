@@ -14,11 +14,10 @@ import QtGraphicalEffects                   1.12
 
 Rectangle {
     id:     root
-    color: Qt.rgba(0, 0, 0, 0.4)
+    color: "#6e474141"
 
     //Color Property
     property color defaultTextColor: "white"
-    property color transparent: "transparent"
     property color blue: "#3d71d7"
 
     //Size Property
@@ -36,7 +35,7 @@ Rectangle {
             Layout.preferredWidth: height*2
             Layout.fillHeight: true
             background: Rectangle {
-                color: transparent
+                color: "transparent"
                 Image {
                     anchors.fill: parent
                     source: "/res/TopMenuHomeButton.svg"
@@ -53,39 +52,37 @@ Rectangle {
         Button {
             Layout.preferredWidth: height*4
             Layout.fillHeight: true
-            clip: true
             background: Rectangle {
                 color: "blue"
                 RowLayout {
                     anchors.fill: parent
-                    Rectangle {
-                        Layout.preferredHeight: parent.height - defaultFontSize * 3.2
-                        anchors.verticalCenter: parent.verticalCenter
-                        Row {
-                            anchors.fill: parent
-                            anchors.leftMargin: defaultFontSize * 2.8
-                            spacing: defaultFontSize * 1.5
-                            Image {
-                                source: "/res/TopMenuManualFlight.svg"
-                                height: parent.height
-                                width: height
-                            }
-                            Column {
-                                spacing: defaultFontSize
-                                Text {
-                                    font.pixelSize: defaultFontSize * 1.8
-                                    text: qsTr("Intelligent Photo")
-                                    color: defaultTextColor
-                                    opacity: 0.8
-                                }
-                                Text {
-                                    font.pixelSize: defaultFontSize * 2.5
-                                    text: qsTr("Manual Flight")
-                                    font.bold: true
-                                    color: defaultTextColor
-                                }
-                            }
-                            anchors.bottom: parent.bottom
+                    anchors.leftMargin: defaultFontSize
+                    spacing: defaultFontSize * 1.5
+                    anchors.margins: 5
+                    Image {
+                        Layout.fillHeight: true
+                        Layout.preferredWidth: height
+                        source: "/res/TopMenuManualFlight.svg"
+                        fillMode: Image.PreserveAspectFit
+
+                    }
+                    Column {
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                        spacing: defaultFontSize*1.2
+                        Text {
+                            font.pixelSize: defaultFontSize
+                            text: qsTr("Intelligent Photo")
+                            color: defaultTextColor
+                            opacity: 0.8
+                            horizontalAlignment: Text.AlignHCenter
+                        }
+                        Text {
+                            font.pixelSize: defaultFontSize * 1.5
+                            text: qsTr("Manual Flight")
+                            font.bold: true
+                            color: defaultTextColor
+                            horizontalAlignment: Text.AlignHCenter
                         }
                     }
                 }
@@ -94,108 +91,131 @@ Rectangle {
                 console.log("MainPage btn Click");
             }
         }
-        //Drone Status Show Button
+
         Rectangle {
-            Layout.preferredHeight: height*2
+            Layout.preferredWidth: height*2
             Layout.fillHeight: true
-            Row {
+            color: "transparent"
+            RowLayout {
                 anchors.fill: parent
-                anchors.leftMargin: defaultFontSize * 5
+                anchors.margins: 5
                 spacing: defaultFontSize
                 Image {
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: height*0.5
                     source: "/res/TopMenuBattery.svg"
-                    height: defaultFontSize * 4
-                    width: height
+                    fillMode: Image.PreserveAspectFit
                 }
+
                 Text {
-                    height: parent.height - defaultFontSize * 2.4
-                    font.pixelSize: defaultFontSize * 4.1
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: height*0.5
+                    font.pixelSize: defaultFontSize
                     text: qsTr("N/A")
                     color: defaultTextColor
+                    verticalAlignment: Text.AlignVCenter
                 }
-                anchors.bottom: parent.bottom
             }
         }
 
         Rectangle {
-            Layout.preferredHeight: height*2
+            Layout.preferredWidth: height*2
             Layout.fillHeight: true
-            Row {
+            color: "transparent"
+            RowLayout {
                 anchors.fill: parent
-                anchors.leftMargin: defaultFontSize * 26
+                anchors.margins: 5
                 spacing: defaultFontSize
                 Image {
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: height*0.5
                     source: "/res/TopMenuAltitude.svg"
-                    height: defaultFontSize * 4
-                    width: height
+                    fillMode: Image.PreserveAspectFit
                 }
+
                 Text {
-                    height: parent.height - defaultFontSize * 2.4
-                    font.pixelSize: defaultFontSize * 4.1
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: height*0.5
+                    font.pixelSize: defaultFontSize
                     text: qsTr("N/A")
                     color: defaultTextColor
+                    verticalAlignment: Text.AlignVCenter
                 }
-                anchors.bottom: parent.bottom
             }
+
         }
 
         Rectangle {
-            Layout.preferredHeight: height*2
+
+            Layout.preferredWidth: height*2
             Layout.fillHeight: true
-            Row {
+            color: "transparent"
+            RowLayout {
                 anchors.fill: parent
-                anchors.leftMargin: defaultFontSize * 46
+                anchors.margins: 5
                 spacing: defaultFontSize
                 Image {
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: height*0.5
                     source: "/res/TopMenuDistance.svg"
-                    height: defaultFontSize * 4
-                    width: height
+                    fillMode: Image.PreserveAspectFit
                 }
+
                 Text {
-                    height: parent.height - defaultFontSize * 2.4
-                    font.pixelSize: defaultFontSize * 4.1
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: height*0.5
+                    font.pixelSize: defaultFontSize
                     text: qsTr("N/A")
                     color: defaultTextColor
+                    verticalAlignment: Text.AlignVCenter
                 }
-                anchors.bottom: parent.bottom
             }
+
         }
         Rectangle {
-            Layout.preferredHeight: height*2
+
+            Layout.preferredWidth: height*2
             Layout.fillHeight: true
-            Row {
+            color: "transparent"
+            RowLayout {
                 anchors.fill: parent
-                anchors.leftMargin: defaultFontSize * 66
+                anchors.margins: 5
                 spacing: defaultFontSize
                 Image {
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: height*0.5
                     source: "/res/TopMenuSpeed.svg"
-                    height: defaultFontSize * 4
-                    width: height
+                    fillMode: Image.PreserveAspectFit
                 }
+
                 Text {
-                    height: parent.height - defaultFontSize * 2.4
-                    font.pixelSize: defaultFontSize * 4.1
+                    Layout.fillHeight: true
+                    Layout.preferredWidth: height*0.5
+                    font.pixelSize: defaultFontSize
                     text: qsTr("N/A")
                     color: defaultTextColor
+                    verticalAlignment: Text.AlignVCenter
                 }
-                anchors.bottom: parent.bottom
             }
         }
 
         Rectangle {
             Layout.fillHeight: true
             Layout.fillWidth: true
+            color: "transparent"
         }
 
         // Obstacle Status Icon
         Button {
-            Layout.preferredHeight: height*2
+            Layout.preferredWidth: height
             Layout.fillHeight: true
             background: Rectangle {
-                color: transparent
+                color: "transparent"
                 Image {
+                    anchors.fill: parent
+                    anchors.margins: 5
                     source: "/res/TopMenuObstacleSensorOff.svg"
-                    anchors.centerIn: parent
+                    fillMode: Image.PreserveAspectFit
                 }
             }
             onClicked: {
@@ -204,13 +224,15 @@ Rectangle {
         }
         //Show Map Style Button
         Button {
-            Layout.preferredHeight: height*2
+            Layout.preferredWidth: height
             Layout.fillHeight: true
             background: Rectangle {
-                color: transparent
+                color: "transparent"
                 Image {
+                    anchors.fill: parent
+                    anchors.margins: 5
                     source: "/res/TopMenuMapTool.svg"
-                    anchors.centerIn: parent
+                    fillMode: Image.PreserveAspectFit
                 }
             }
             onClicked: {
@@ -219,13 +241,15 @@ Rectangle {
         }
         //Setting Button
         Button {
-            Layout.preferredHeight: height*2
+            Layout.preferredWidth: height
             Layout.fillHeight: true
             background: Rectangle {
-                color: transparent
+                color: "transparent"
                 Image {
+                    anchors.fill: parent
+                    anchors.margins: 5
                     source: "/res/TopMenuSetting.png"
-                    anchors.centerIn: parent
+                    fillMode: Image.PreserveAspectFit
                 }
             }
             onClicked: {
