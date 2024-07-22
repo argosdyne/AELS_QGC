@@ -18,146 +18,127 @@ Rectangle{
     radius: 10
     property string textColor: "white"
     property string checkedColor: "#3d71d7"
-    property int sizeButton: ScreenTools.defaultFontPointSize/16*100
-    property int sizeText: ScreenTools.defaultFontPointSize/16*20
-    property int sizeTextWidth: sizeButton*0.5
 
     RowLayout {
         anchors.centerIn:parent
-        spacing: 10
-        Rectangle {
-            color: "transparent"
-            Layout.preferredHeight:sizeButton*1.5
-            Layout.preferredWidth: sizeButton*1.5
+        spacing: 50
+        Item {
+            Layout.fillHeight: true
+            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
             RowLayout{
                 anchors.fill: parent
                 Button{
-                    checkable: false
+                    checkable: true
                     checked: false
-                    Layout.preferredHeight: sizeButton
-                    Layout.preferredWidth: sizeButton
+                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                    Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
                     background: Rectangle{
                         color: parent.checked? checkedColor: "transparent"
                         radius: 5
                         Image {
                             anchors.fill: parent
                             anchors.margins: 10
-                            source: "/res/ales/waypoint/MissionTime.svg"
+                            source: "qrc://res/ales/waypoint/MissionTime.svg"
                             fillMode: Image.PreserveAspectFit
                         }
                     }
                 }
                 Text {
-                    Layout.preferredHeight: sizeTextWidth
-                    Layout.preferredWidth: sizeTextWidth
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
                     color: textColor
                     text: "0s"
-                    font.pointSize: sizeText
+                    font.pointSize: ScreenTools.defaultFontPointSize/16*24
                 }
             }
         }
 
-        Rectangle {
-            color: "transparent"
-            Layout.preferredHeight:sizeButton*1.5
-            Layout.preferredWidth: sizeButton*1.5
+        Item {
+            Layout.fillHeight: true
+            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
             RowLayout{
                 anchors.fill: parent
                 Button{
-                    checkable: false
+                    checkable: true
                     checked: false
-                    Layout.preferredHeight: sizeButton
-                    Layout.preferredWidth: sizeButton
+                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                    Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
                     background: Rectangle{
                         color: parent.checked? checkedColor: "transparent"
                         radius: 5
                         Image {
                             anchors.fill: parent
                             anchors.margins: 10
-                            source: "/res/ales/waypoint/LandingDistance.svg"
+                            source: "qrc://res/ales/waypoint/LandingDistance.svg"
                             fillMode: Image.PreserveAspectFit
                         }
                     }
                 }
                 Text {
-                    Layout.preferredHeight: sizeTextWidth
-                    Layout.preferredWidth: sizeTextWidth
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
                     color: textColor
                     text: "0s"
-                    font.pointSize: sizeText
+                    font.pointSize: ScreenTools.defaultFontPointSize/16*24
                 }
             }
         }
 
 
-        Rectangle {
-            color: "transparent"
-            Layout.preferredHeight: sizeButton*1.5
-            Layout.preferredWidth: sizeButton*1.5
+        Item {
+            Layout.fillHeight: true
+            Layout.preferredHeight: 100
+            Layout.preferredWidth: 100
             RowLayout{
                 anchors.fill: parent
                 Button{
-                    checkable: false
+                    checkable: true
                     checked: false
-                    Layout.preferredHeight: sizeButton
-                    Layout.preferredWidth: sizeButton
+                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                    Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
                     background: Rectangle{
                         color: parent.checked? checkedColor: "transparent"
                         radius: 5
                         Image {
                             anchors.fill: parent
                             anchors.margins: 10
-                            source: "/res/ales/waypoint/MissionPoint.svg"
+                            source: "qrc://res/ales/waypoint/MissionPoint.svg"
                             fillMode: Image.PreserveAspectFit
                         }
                     }
                 }
                 Text {
-                    Layout.preferredHeight: sizeTextWidth
-                    Layout.preferredWidth: sizeTextWidth
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
                     color: textColor
                     text: "0s"
-                    font.pointSize: sizeText
+                    font.pointSize: ScreenTools.defaultFontPointSize/16*24
                 }
             }
         }
 
-        Rectangle {
-            color: "transparent"
-            Layout.preferredHeight: sizeButton*1.5
-            Layout.preferredWidth: sizeButton*1.5
+        Item {
+            Layout.fillHeight: true
+            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
             RowLayout{
                 anchors.fill: parent
                 Button{
-                    checkable: false
+                    checkable: true
                     checked: false
-                    Layout.preferredHeight: sizeButton
-                    Layout.preferredWidth: sizeButton
+                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                    Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
                     background: Rectangle{
                         color: parent.checked? checkedColor: "transparent"
                         radius: 5
                         Image {
                             anchors.fill: parent
                             anchors.margins: 10
-                            source: "/res/ales/waypoint/MissionPicture.svg"
+                            source: "qrc://res/ales/waypoint/MissionPicture.svg"
                             fillMode: Image.PreserveAspectFit
                         }
                     }
                 }
                 Text {
-                    Layout.preferredHeight: sizeTextWidth
-                    Layout.preferredWidth: sizeTextWidth
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
                     color: textColor
                     text: "0s"
-                    font.pointSize: sizeText
+                    font.pointSize: ScreenTools.defaultFontPointSize/16*24
                 }
             }
         }

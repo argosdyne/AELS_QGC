@@ -28,25 +28,12 @@ Rectangle {
     readonly property int flyViewToolbar:   0
     readonly property int planViewToolbar:  1
     readonly property int simpleToolbar:    2
-    readonly property int waypointMissionToolbar: 3
 
     property var    _activeVehicle:     QGroundControl.multiVehicleManager.activeVehicle
     property bool   _communicationLost: _activeVehicle ? _activeVehicle.vehicleLinkManager.communicationLost : false
     property color  _mainStatusBGColor: qgcPal.brandingPurple
 
     QGCPalette { id: qgcPal }
-    
-    CommonTopMenu {
-        id: commonTopMenu
-        visible: currentToolbar === waypointMissionToolbar
-        anchor.fill: parent
-    }
-    
-    Item {
-        id: oldToolBar
-        anchor.fill: parent
-        visible: currentToolbar != waypointMissionToolbar
-
 
     /// Bottom single pixel divider
     Rectangle {
@@ -228,6 +215,5 @@ Rectangle {
             anchors.fill:   parent
             onClicked:      largeProgressBar._userHide = true
         }
-    }
     }
 }

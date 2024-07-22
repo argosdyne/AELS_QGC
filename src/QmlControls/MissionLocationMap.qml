@@ -40,7 +40,7 @@ Rectangle{
                         Image {
                             anchors.fill: parent
                             anchors.margins: 10
-                            source: "/res/ales/mission/Location.svg"
+                            source: "qrc://res/ales/mission/Location.svg"
                             fillMode: Image.PreserveAspectFit
                         }
                     }
@@ -57,7 +57,7 @@ Rectangle{
                         Image {
                             anchors.fill: parent
                             anchors.margins: 10
-                            source: "/res/ales/mission/Maptype.svg"
+                            source: "qrc://res/ales/mission/Maptype.svg"
                             fillMode: Image.PreserveAspectFit
                         }
                     }
@@ -85,7 +85,7 @@ Rectangle{
                         Image {
                             anchors.fill: parent
                             anchors.margins: 10
-                            source: "/res/ales/waypoint/PositionType.svg"
+                            source: "qrc://res/ales/waypoint/PositionType.svg"
                             fillMode: Image.PreserveAspectFit
                         }
                     }
@@ -103,7 +103,7 @@ Rectangle{
                         Image {
                             anchors.fill: parent
                             anchors.margins: 10
-                            source: "/res/ales/waypoint/CenterIn.svg"
+                            source: "qrc://res/ales/waypoint/CenterIn.svg"
                             fillMode: Image.PreserveAspectFit
                         }
                     }
@@ -121,7 +121,7 @@ Rectangle{
                         Image {
                             anchors.fill: parent
                             anchors.margins: 10
-                            source: "/res/ales/waypoint/MapType.svg"
+                            source: "qrc://res/ales/waypoint/MapType.svg"
                             fillMode: Image.PreserveAspectFit
                         }
                     }
@@ -147,7 +147,7 @@ Rectangle{
                         implicitHeight:ScreenTools.defaultFontPointSize/16*100
                         Image {
                             anchors.fill: parent
-                            source: "/res/ales/waypoint/NormalMap.png"
+                            source: "qrc://res/ales/waypoint/NormalMap.png"
                             fillMode: Image.PreserveAspectFit
                         }
                     }
@@ -162,7 +162,7 @@ Rectangle{
                         implicitHeight:ScreenTools.defaultFontPointSize/16*100
                         Image {
                             anchors.fill: parent
-                            source: "/res/ales/waypoint/HybridMap.png"
+                            source: "qrc://res/ales/waypoint/HybridMap.png"
                             fillMode: Image.PreserveAspectFit
                         }
                     }
@@ -189,7 +189,7 @@ Rectangle{
                         implicitHeight: ScreenTools.defaultFontPointSize/16*100
                         Image {
                             anchors.fill: parent
-                            source: "/res/ales/waypoint/MeLocation.svg"
+                            source: "qrc://res/ales/waypoint/MeLocation.svg"
                             fillMode: Image.PreserveAspectFit
                         }
                     }
@@ -204,7 +204,7 @@ Rectangle{
                         implicitHeight: ScreenTools.defaultFontPointSize/16*100
                         Image {
                             anchors.fill: parent
-                            source: "/res/ales/waypoint/DroneLocation.png"
+                            source: "qrc://res/ales/waypoint/DroneLocation.png"
                             fillMode: Image.PreserveAspectFit
                         }
                     }

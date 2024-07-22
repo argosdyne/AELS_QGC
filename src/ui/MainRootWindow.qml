@@ -144,13 +144,6 @@ ApplicationWindow {
         planView.visible = true
     }
 
-    function showAlesPlanView() {
-        viewSwitch(toolbar.planViewToolbar)
-
-        alesPlanView.visible = true
-
-    }
-
     function showTool(toolTitle, toolSource, toolIcon) {
         toolDrawer.backIcon     = flightView.visible ? "/qmlimages/PaperPlane.svg" : "/qmlimages/Plan.svg"
         toolDrawer.toolTitle    = toolTitle
@@ -337,7 +330,7 @@ ApplicationWindow {
     header: MainToolBar {
         id:         toolbar
         height:     ScreenTools.toolbarHeight
-        visible:   !topOverLay.visible && !QGroundControl.videoManager.fullScreen && (toolbar.currentToolbar == toolbar.waypointMissionToolbar)
+        visible:   !topOverLay.visible && !QGroundControl.videoManager.fullScreen
     }
 
     footer: LogReplayStatusBar {
@@ -485,7 +478,6 @@ ApplicationWindow {
     FlyView {
         id:             flightView
         anchors.fill:   parent
-        visible: true
     }
 
     PlanView {
@@ -493,24 +485,6 @@ ApplicationWindow {
         anchors.fill:   parent
         visible:        false
     }
-
-    AlesPlanView {
-        id: alesPlanView
-        anchors.fill: parent
-        visible: false
-        onReturnToPrevious: {
-            topOverLay.visible = true
-            screenLogin.visible = false
-            screenMissionSelection.visible = true
-        }
-
-        onNotifyMoveToWaypointMission: {
-            viewSwitch(toolbar.waypointMissionToolbar)
-            
-        }
-    }
-
-
 
     Drawer {
         id:             toolDrawer
@@ -615,7 +589,6 @@ ApplicationWindow {
 
             btnCamera.onClicked: topOverLay.visible = false
             btnMission.onClicked: {
-
                 screenLogin.visible = false
                 screenMissionSelection.visible = true
             }
@@ -628,12 +601,6 @@ ApplicationWindow {
             btnCorridor.onClicked: {
                 screenLogin.visible = true
                 screenMissionSelection.visible = false
-            }
-            btnWaypoint.onClicked: {
-                topOverLay.visible = false
-                screenLogin.visible = false
-                screenMissionSelection.visible = false
-                showAlesPlanView()
             }
         }
 

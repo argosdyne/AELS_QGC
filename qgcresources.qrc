@@ -105,7 +105,7 @@
         <file alias="Recording.svg">resources/Recording.svg</file>
         <file alias="RecordingTime.svg">resources/RecordingTime.svg</file>
         <file alias="SdCard.svg">resources/SdCard.svg</file>
-        <file alias="LoginLogo.png">resources/LoginLogo.png</file>
+		    <file alias="LoginLogo.png">resources/LoginLogo.png</file>
         <file alias="CancelIcon.svg">resources/CancelIcon.svg</file>
         <file alias="Controller.png">resources/Controller.png</file>
         <file alias="CameraBottomMenuNeut.svg">resources/CameraBottomMenuNeut.svg</file>
@@ -115,8 +115,9 @@
         <file alias="CameraBottomMenuCloudy.svg">resources/CameraBottomMenuCloudy.svg</file>
         <file alias="CameraBottomMenuIncan.svg">resources/CameraBottomMenuIncan.svg</file>
         <file alias="CameraBottomMenuLand.svg">resources/CameraBottomMenuLand.svg</file>
-        <file alias="QuestionMark.svg">resources/QuestionMark.svg</file>
-        <file alias="MiniMap.png">resources/MiniMap.png</file>
+
+		<file alias="QuestionMark.svg">resources/QuestionMark.svg</file>
+        <file alias="close.svg">resources/close.svg</file>
     </qresource>
     <qresource prefix="/res/firmware">
         <file alias="3drradio.png">resources/firmware/3drradio.png</file>
@@ -181,18 +182,7 @@
         <file alias="PrelightSecurityCheckV1.svg">resources/AlesMission/PrelightSecurityCheckV1.svg</file>
         <file alias="StartInstruction.svg">resources/AlesMission/StartInstruction.svg</file>
         <file alias="Location.svg">resources/AlesMission/Location.svg</file>
-        <file alias="Back.svg">resources/AlesMission/Back.svg</file>
         <file alias="Maptype.svg">resources/AlesMission/Maptype.svg</file>
-        <file alias="WayPoint.svg">resources/AlesMission/WayPoint.svg</file>
-        <file alias="Rectangular.svg">resources/AlesMission/Rectangular.svg</file>
-        <file alias="Polygon.svg">resources/AlesMission/Polygon.svg</file>
-        <file alias="Entire.svg">resources/AlesMission/Entire.svg</file>
-        <file alias="Corridor.svg">resources/AlesMission/Corridor.svg</file>
-        <file alias="HoppingPOI.svg">resources/AlesMission/HoppingPOI.svg</file>
-        <file alias="OpenFolder.svg">resources/AlesMission/OpenFolder.svg</file>
-        <file alias="POI.svg">resources/AlesMission/POI.svg</file>
-        <file alias="Search.svg">resources/AlesMission/Search.svg</file>
-        <file alias="Edit.svg">resources/AlesMission/Edit.svg</file>
     </qresource>
     <qresource prefix="/res/ales/waypoint">
         <file alias="BlueCheckOff.svg">resources/AlesWaypoint/BlueCheckOff.svg</file>
@@ -207,7 +197,7 @@
         <file alias="DroneLocation.svg">resources/AlesWaypoint/DroneLocation.svg</file>
         <file alias="Editicon.svg">resources/AlesWaypoint/EditIcon.svg</file>
         <file alias="ExitButton.svg">resources/AlesWaypoint/ExitButton.svg</file>
-        <file alias="HybridMap.png">resources/AlesWaypoint/HybridMap.png</file>
+        <file alias="HybridMap.pnd">resources/AlesWaypoint/HybridMap.png</file>
         <file alias="LandingDistance.svg">resources/AlesWaypoint/LandingDistance.svg</file>
         <file alias="LandingLocation.svg">resources/AlesWaypoint/LandingLocation.svg</file>
         <file alias="LeftDir.svg">resources/AlesWaypoint/LeftDir.svg</file>

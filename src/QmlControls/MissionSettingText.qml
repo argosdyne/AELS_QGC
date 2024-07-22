@@ -23,8 +23,8 @@ TextField{
     color: "white"
     background: Rectangle {
         color:backgroundColor
-        border.color: parent.pressed ? borderColor : borderColorFocus
-        border.width: parent.visualFocus ? 5 : 2
+        border.color: control.pressed ? borderColor : borderColorFocus
+        border.width: control.visualFocus ? 5 : 2
         radius: 5
     }
 }

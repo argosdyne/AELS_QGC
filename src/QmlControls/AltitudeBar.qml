@@ -17,7 +17,7 @@ Rectangle {
     width: 800
     visible: true
     color: "#5c5c5c"
-    radius: 10
+
 
 
     RowLayout{

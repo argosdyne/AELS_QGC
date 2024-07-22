@@ -15,7 +15,6 @@ Rectangle {
     width: 800
     visible: true
     color: "#5c5c5c"
-    radius: 10
 
 
 
@@ -28,8 +27,8 @@ Rectangle {
             color: "white"
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*150
-            Layout.fillHeight: true
+            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+            Layout.preferredHeight:ScreenTools.defaultFontPointSize/16*50
             background: Rectangle {
                 radius: 5
                 color: "transparent"

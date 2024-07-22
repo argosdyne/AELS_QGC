@@ -25,7 +25,7 @@ Button {
         Image {
             anchors.fill: parent
             anchors.margins: 10
-            source: root.checked ? "/res/ales/waypoint/BlueCheckOn.svg" : "/res/ales/waypoint/BlueCheckOff.svg"
+            source: root.checked ? "qrc://res/ales/waypoint/BlueCheckOn.svg" : "qrc://res/ales/waypoint/BlueCheckOff.svg"
             fillMode: Image.PreserveAspectFit
         }
     }

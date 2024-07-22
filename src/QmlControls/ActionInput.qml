@@ -15,12 +15,8 @@ Rectangle {
     id: root
     height: 600
     width: 1100
-
     visible: true
     color: "#cf454545"
-    radius: 5
-    property int sizeText: ScreenTools.defaultFontPointSize/16*16
-
 
 
     function addNewScreen() {
@@ -65,7 +61,7 @@ Rectangle {
                 width: control.width
                 contentItem: Text {
                     text: modelData
-                    color: "grey"
+                    color: "white"
                     font: control.font
                     elide: Text.ElideRight
                     verticalAlignment: Text.AlignVCenter
@@ -159,7 +155,7 @@ Rectangle {
                         text: qsTr("Camera Action")
                         Layout.preferredWidth: 150
                         color: "white"
-                        font.pointSize: sizeText
+                        font.pointSize: ScreenTools.defaultFontPointSize
                     }
 
                     Item {
@@ -185,7 +181,7 @@ Rectangle {
                         text: qsTr("Gimbal Pitch")
                         Layout.preferredWidth: 150
                         color: "white"
-                        font.pointSize: sizeText
+                        font.pointSize: ScreenTools.defaultFontPointSize
                     }
 
                     TextField{
@@ -208,7 +204,7 @@ Rectangle {
                         verticalAlignment: Text.AlignVCenter
                         Layout.preferredWidth: 80
                         color:   "#797979"
-                        font.pointSize: sizeText
+                        font.pointSize: 15
                     }
 
                     Slider {
@@ -247,7 +243,7 @@ Rectangle {
                         Layout.preferredWidth: 80
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
-                        font.pointSize: sizeText
+                        font.pointSize: 15
                         color:   "#797979"
 
                     }
@@ -260,7 +256,7 @@ Rectangle {
                         text: qsTr("Heading")
                         Layout.preferredWidth: 150
                         color: "white"
-                        font.pointSize: sizeText
+                        font.pointSize: ScreenTools.defaultFontPointSize
                     }
 
                     Item {
@@ -286,7 +282,7 @@ Rectangle {
                         text: qsTr("")
                         color: "white"
                         Layout.preferredWidth: 150
-                        font.pointSize: sizeText
+                        font.pointSize: ScreenTools.defaultFontPointSize
                     }
 
                     TextField{
@@ -309,7 +305,7 @@ Rectangle {
                         verticalAlignment: Text.AlignVCenter
                         Layout.preferredWidth: 80
                         color:   "#797979"
-                        font.pointSize: sizeText
+                        font.pointSize: 15
                     }
 
                     Slider {
@@ -348,7 +344,7 @@ Rectangle {
                         Layout.preferredWidth: 80
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
-                        font.pointSize: sizeText
+                        font.pointSize: 15
                         color:   "#797979"
 
                     }
@@ -374,7 +370,7 @@ Rectangle {
                         text: qsTr("Camera Action")
                         Layout.preferredWidth: 150
                         color: "white"
-                        font.pointSize: sizeText
+                        font.pointSize: ScreenTools.defaultFontPointSize
                     }
 
                     Item {
@@ -400,7 +396,7 @@ Rectangle {
                         text: qsTr("Interval")
                         Layout.preferredWidth: 150
                         color: "white"
-                        font.pointSize: sizeText
+                        font.pointSize: ScreenTools.defaultFontPointSize
                     }
 
                     TextField{
@@ -423,7 +419,7 @@ Rectangle {
                         verticalAlignment: Text.AlignVCenter
                         Layout.preferredWidth: 80
                         color:   "#797979"
-                        font.pointSize: sizeText
+                        font.pointSize: 15
                     }
 
                     Slider {
@@ -462,7 +458,7 @@ Rectangle {
                         Layout.preferredWidth: 80
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
-                        font.pointSize: sizeText
+                        font.pointSize: 15
                         color:   "#797979"
 
                     }
@@ -475,7 +471,7 @@ Rectangle {
                         text: qsTr("Photo Time")
                         Layout.preferredWidth: 150
                         color: "white"
-                        font.pointSize: sizeText
+                        font.pointSize: ScreenTools.defaultFontPointSize
                     }
 
                     TextField{
@@ -498,7 +494,7 @@ Rectangle {
                         verticalAlignment: Text.AlignVCenter
                         Layout.preferredWidth: 80
                         color:   "#797979"
-                        font.pointSize: sizeText
+                        font.pointSize: 15
                     }
 
                     Slider {
@@ -537,7 +533,7 @@ Rectangle {
                         Layout.preferredWidth: 80
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
-                        font.pointSize: sizeText
+                        font.pointSize: 15
                         color:   "#797979"
 
                     }
@@ -550,7 +546,7 @@ Rectangle {
                         text: qsTr("Gimbal Pitch")
                         Layout.preferredWidth: 150
                         color: "white"
-                        font.pointSize: sizeText
+                        font.pointSize: ScreenTools.defaultFontPointSize
                     }
 
                     TextField{
@@ -573,7 +569,7 @@ Rectangle {
                         verticalAlignment: Text.AlignVCenter
                         Layout.preferredWidth: 80
                         color:   "#797979"
-                        font.pointSize: sizeText
+                        font.pointSize: 15
                     }
 
                     Slider {
@@ -612,7 +608,7 @@ Rectangle {
                         Layout.preferredWidth: 80
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
-                        font.pointSize: sizeText
+                        font.pointSize: 15
                         color:   "#797979"
 
                     }
@@ -625,7 +621,7 @@ Rectangle {
                         text: qsTr("Heading")
                         Layout.preferredWidth: 150
                         color: "white"
-                        font.pointSize: sizeText
+                        font.pointSize: ScreenTools.defaultFontPointSize
                     }
 
                     Item {
@@ -659,7 +655,7 @@ Rectangle {
 
         Rectangle{
             Layout.fillWidth: true
-            Layout.preferredHeight:80
+            Layout.preferredHeight:100
             color: "#464646"
 
             ButtonGroup{
@@ -736,7 +732,7 @@ Rectangle {
 
         Rectangle{
             Layout.fillWidth: true
-            Layout.preferredHeight:80
+            Layout.preferredHeight:100
             color: "#464646"
 
 
@@ -774,7 +770,6 @@ Rectangle {
                             model: Math.min(10, viewsModel.count)
                             delegate: Button{
                                 Layout.fillHeight: true
-                                Layout.preferredWidth: height*0.5
                                 checkable: true
                                 checked:  (viewsModel.count- Math.min(10, viewsModel.count) + index) + 1 //swipeView.currentIndex===index+1
                                 onClicked: {
@@ -788,7 +783,7 @@ Rectangle {
                                         anchors.centerIn:parent
                                         text: viewsModel.get(viewsModel.count- Math.min(10, viewsModel.count) + index).name // name
                                         color: "white"
-                                        font.pointSize: sizeText
+                                        font.pointSize: ScreenTools.defaultFontPointSize/16*16
                                     }
                                 }
                             }
@@ -805,7 +800,7 @@ Rectangle {
                     icon.height: ScreenTools.defaultFontPointSize/16*50
                     icon.width: ScreenTools.defaultFontPointSize/16*50
                     icon.color: "#00000000"
-                    icon.source: "/res/ales/waypoint/AddButton.svg"
+                    icon.source: "ales_icons/Waypoint_/AddButton.svg"
                     checked: true
                     checkable: true
                     Layout.fillHeight: true
@@ -828,7 +823,7 @@ Rectangle {
                     icon.width: ScreenTools.defaultFontPointSize/16*50
                     visible: viewsModel.count
                     icon.color: "#00000000"
-                    icon.source: "/res/ales/waypoint/MinusButton.png"
+                    icon.source: "ales_icons/Waypoint_/MinusButton.png"
                     checked: true
                     checkable: true
                     Layout.fillHeight: true
@@ -855,7 +850,6 @@ Rectangle {
             interactive: false
             Layout.fillHeight: true
             Layout.fillWidth: true
-            clip: true
 
             Rectangle{
                 color: "transparent"
@@ -869,7 +863,7 @@ Rectangle {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         color: "white"
-                        font.pointSize: sizeText*2
+                        font.pointSize: ScreenTools.defaultFontPointSize/16*20
                     }
 
                     Text {
@@ -878,7 +872,7 @@ Rectangle {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         color: "white"
-                        font.pointSize: sizeText*2
+                        font.pointSize: ScreenTools.defaultFontPointSize/16*20
                     }
                 }
             }
