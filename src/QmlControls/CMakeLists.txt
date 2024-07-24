@@ -180,6 +180,8 @@ add_custom_target(QmlControlsQml
 		CameraMainPage.qml
 		WaypointMission.qml
 		CameraStartPage.qml
+		CameraSettingsResolutionInPage.qml
+
 )
 
 target_link_libraries(QmlControls
