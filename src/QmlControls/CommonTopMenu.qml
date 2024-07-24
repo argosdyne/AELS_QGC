@@ -96,105 +96,108 @@ Rectangle {
 
         //Drone Status Show Button
 
-        Button {
+        Rectangle {
             Layout.fillHeight: true
             Layout.preferredWidth: height * 8
-            background: Rectangle {
-                color: "transparent"
+            color: "transparent"
+            RowLayout {
+                anchors.fill: parent
 
-                RowLayout {
-                    anchors.fill: parent
+                Rectangle {
+                    Layout.preferredWidth: height*2
+                    Layout.fillHeight: true
+                    color: "transparent"
+                    RowLayout {
+                        anchors.fill: parent
+                        Image {
+                            Layout.fillHeight: true
+                            source: "/res/TopMenuBattery.svg"
+                            fillMode: Image.PreserveAspectFit
+                        }
 
-                    Rectangle {
-                        Layout.preferredWidth: height*2
-                        Layout.fillHeight: true
-                        color: "transparent"
-                        RowLayout {
-                            anchors.fill: parent
-                            Image {
-                                Layout.fillHeight: true
-                                source: "/res/TopMenuBattery.svg"
-                                fillMode: Image.PreserveAspectFit
-                            }
+                        Text {
+                            Layout.fillHeight: true
+                            font.pixelSize: defaultFontSize * 4
+                            text: qsTr("N/A")
+                            color: defaultTextColor
+                            verticalAlignment: Text.AlignVCenter
+                        }
+                    }
+                }
 
-                            Text {
-                                Layout.fillHeight: true
-                                font.pixelSize: defaultFontSize * 4
-                                text: qsTr("N/A")
-                                color: defaultTextColor
-                                verticalAlignment: Text.AlignVCenter
-                            }
+                Rectangle {
+                    Layout.preferredWidth: height*2
+                    Layout.fillHeight: true
+                    color: "transparent"
+                    RowLayout {
+                        anchors.fill: parent
+                        Image {
+                            Layout.fillHeight: true
+                            source: "/res/TopMenuAltitude.svg"
+                            fillMode: Image.PreserveAspectFit
+                        }
+
+                        Text {
+                            Layout.fillHeight: true
+                            font.pixelSize: defaultFontSize * 4
+                            text: qsTr("N/A")
+                            color: defaultTextColor
+                            verticalAlignment: Text.AlignVCenter
+                        }
+                    }
+                }
+
+                Rectangle {
+
+                    Layout.preferredWidth: height*2
+                    Layout.fillHeight: true
+                    color: "transparent"
+                    RowLayout {
+                        anchors.fill: parent
+                        Image {
+                            Layout.fillHeight: true
+                            source: "/res/TopMenuDistance.svg"
+                            fillMode: Image.PreserveAspectFit
+                        }
+
+                        Text {
+                            Layout.fillHeight: true
+                            font.pixelSize: defaultFontSize * 4
+                            text: qsTr("N/A")
+                            color: defaultTextColor
+                            verticalAlignment: Text.AlignVCenter
                         }
                     }
 
-                    Rectangle {
-                        Layout.preferredWidth: height*2
-                        Layout.fillHeight: true
-                        color: "transparent"
-                        RowLayout {
-                            anchors.fill: parent
-                            Image {
-                                Layout.fillHeight: true
-                                source: "/res/TopMenuAltitude.svg"
-                                fillMode: Image.PreserveAspectFit
-                            }
+                }
 
-                            Text {
-                                Layout.fillHeight: true
-                                font.pixelSize: defaultFontSize * 4
-                                text: qsTr("N/A")
-                                color: defaultTextColor
-                                verticalAlignment: Text.AlignVCenter
-                            }
+                Rectangle {
+
+                    Layout.preferredWidth: height*2
+                    Layout.fillHeight: true
+                    color: "transparent"
+                    RowLayout {
+                        anchors.fill: parent
+                        Image {
+                            Layout.fillHeight: true
+                            source: "/res/TopMenuSpeed.svg"
+                            fillMode: Image.PreserveAspectFit
+                        }
+                        Text {
+                            Layout.fillHeight: true
+                            font.pixelSize: defaultFontSize * 4
+                            text: qsTr("N/A")
+                            color: defaultTextColor
+                            verticalAlignment: Text.AlignVCenter
                         }
                     }
+                }
 
-                    Rectangle {
-
-                        Layout.preferredWidth: height*2
-                        Layout.fillHeight: true
-                        color: "transparent"
-                        RowLayout {
-                            anchors.fill: parent
-                            Image {
-                                Layout.fillHeight: true
-                                source: "/res/TopMenuDistance.svg"
-                                fillMode: Image.PreserveAspectFit
-                            }
-
-                            Text {
-                                Layout.fillHeight: true
-                                font.pixelSize: defaultFontSize * 4
-                                text: qsTr("N/A")
-                                color: defaultTextColor
-                                verticalAlignment: Text.AlignVCenter
-                            }
-                        }
-
-                    }
-
-                    Rectangle {
-
-                        Layout.preferredWidth: height*2
-                        Layout.fillHeight: true
-                        color: "transparent"
-                        RowLayout {
-                            anchors.fill: parent
-                            Image {
-                                Layout.fillHeight: true
-                                source: "/res/TopMenuSpeed.svg"
-                                fillMode: Image.PreserveAspectFit
-                            }
-                            Text {
-                                Layout.fillHeight: true
-                                font.pixelSize: defaultFontSize * 4
-                                text: qsTr("N/A")
-                                color: defaultTextColor
-                                verticalAlignment: Text.AlignVCenter
-                            }
-                        }
-                    }
-
+            }
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    console.log("Drone Status Area Clicked");
                 }
             }
         }
@@ -206,8 +209,9 @@ Rectangle {
             Layout.fillHeight: true
             background: Rectangle { color: "transparent" }
             Image {
-                source: "/res/TopMenuObstacleSensorOff.svg"
-                anchors.centerIn: parent
+                source: "/res/TopMenuObstacleSensorOff.svg"                
+                anchors.fill: parent
+                anchors.margins: defaultFontSize
                 fillMode: Image.PreserveAspectFit
             }
 
@@ -217,12 +221,13 @@ Rectangle {
         }
         //Show Map Style Button
         Button {
-            visible: isCameraWindow == false ? false : true
+            visible: isCameraWindow == false ? true : false
             Layout.preferredWidth: height
             Layout.fillHeight: true
             background: Rectangle { color: "transparent" }
-            Image {
-                anchors.centerIn: parent
+            Image {                
+                anchors.fill: parent
+                anchors.margins: defaultFontSize
                 source: "/res/TopMenuMapTool.svg"
                 fillMode: Image.PreserveAspectFit
             }
@@ -238,8 +243,9 @@ Rectangle {
             background: Rectangle {
                 color: "transparent"
             }
-            Image {
-                    anchors.centerIn: parent
+            Image {                
+                anchors.fill: parent
+                anchors.margins: defaultFontSize
                     source: "/res/TopMenuSetting.png"
                     fillMode: Image.PreserveAspectFit
                 }
