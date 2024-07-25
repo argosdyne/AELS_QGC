@@ -962,11 +962,13 @@ Item {
             Rectangle {
                 id: createProject
                 width: ScreenTools.defaultFontPixelHeight * 10
-                height: ScreenTools.defaultFontPixelHeight * 2
+                height: ScreenTools.defaultFontPixelHeight * 3
                 anchors.horizontalCenter: parent.horizontalCenter
                 anchors.bottom: parent.bottom
                 anchors.bottomMargin: parent.height/10
-                color: "#3D71D7"
+                color: "#cc3D71D7" 
+                radius: 5
+
                 Text {
                     anchors.centerIn: parent
                     text: qsTr("Create Project")

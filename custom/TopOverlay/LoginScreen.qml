@@ -144,7 +144,7 @@ Item {
 
         ComboBox {
             id: comboBox
-            width: ScreenTools.defaultFontPixelHeight/16*200
+            width: ScreenTools.defaultFontPixelHeight/16*300
             height: ScreenTools.defaultFontPixelHeight/16*100
             anchors.top: parent.top
             model: ["AQUILA 2", "AQUILA 3F", "HUMMER"]
