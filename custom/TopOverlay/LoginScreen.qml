@@ -22,10 +22,6 @@ Item {
     property alias btnCamera: btnCamera
     property alias comboBox: comboBox
 
-    Component.onCompleted: {
-        console.log("AAAA"+ ScreenTools.defaultFontPixelHeight)
-    }
-
     QGCMapPalette { id: loginPal }
 
     Rectangle {
@@ -35,20 +31,18 @@ Item {
 
         Rectangle {
             id: recLogo
-            width: ScreenTools.defaultFontPixelHeight*15
-            height: ScreenTools.defaultFontPixelHeight*15
+            width: ScreenTools.defaultFontPixelHeight/16*100
+            height: ScreenTools.defaultFontPixelHeight/16*100
             color: "black"
             anchors.left: parent.left
             anchors.top: parent.top
-            anchors.leftMargin: 10
-            anchors.topMargin: 10
+            anchors.leftMargin: 20
+            anchors.topMargin: 20
 
             Image {
                 id: imgLogo
                 anchors.fill: parent
                 source: "qrc:/ales/login/MainLogo.png"
-                antialiasing: true
-                cache: false
                 fillMode: Image.PreserveAspectFit
             }
 
@@ -60,65 +54,102 @@ Item {
 
         RoundButton {
             id: btnLogin
-            width: ScreenTools.defaultFontPixelHeight*15
-            height: ScreenTools.defaultFontPixelHeight*15
+            width: ScreenTools.defaultFontPixelHeight/16*100
+            height: ScreenTools.defaultFontPixelHeight/16*100
             text: ""
             anchors.right: parent.right
             anchors.top: parent.top
-            icon.height: ScreenTools.defaultFontPixelHeight*8
-            icon.width: ScreenTools.defaultFontPixelHeight*8
+            icon.height: ScreenTools.defaultFontPixelHeight/16*30
+            icon.width: ScreenTools.defaultFontPixelHeight/16*30
             icon.source: "qrc:/ales/login/User.svg"
-            anchors.rightMargin: 10
-            anchors.topMargin: 10
+            anchors.rightMargin: 20
+            anchors.topMargin: 20
         }
 
         RowLayout {
             id: btnRow
-            width: ScreenTools.defaultFontPixelHeight*50
-            height: ScreenTools.defaultFontPixelHeight*10
-            spacing: 100
-            anchors.verticalCenter: parent.verticalCenter
+            spacing: 40
+            
             anchors.bottomMargin: 100
             anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            
 
-            ToolButton {
+            
+            Button {
                 id: btnCamera
-                Layout.preferredHeight: btnRow.height
-                Layout.preferredWidth: btnRow.height * 2
-                text: "Camera"
-                display: AbstractButton.TextBesideIcon
-                icon.height: ScreenTools.defaultFontPixelHeight*6
-                icon.width: ScreenTools.defaultFontPixelHeight*6
-                font.pointSize: ScreenTools.defaultFontPixelHeight*2
-                icon.color: "transparent"
-                icon.source: "qrc:/ales/login/Camera.svg"
-                palette.buttonText: "white"
+                Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*80
+                Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*80*3.5
+                
+                background: Rectangle {
+                    color: Qt.rgba(255, 255, 255, 0.5)
+                    radius: 10
+                    RowLayout {
+                        anchors.fill: parent
+                        spacing: 10
+                        anchors.margins: 10
+                        Image {
+                            Layout.fillHeight: true
+                            Layout.preferredWidth: height
+                            source: "qrc:/ales/login/Camera.svg"
+                            fillMode: Image.PreserveAspectFit
+                        }
+
+                        Text {
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            font.pointSize: ScreenTools.defaultFontPixelHeight*2
+                            text: "Camera"
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            color: "white"
+                        }
+                    }
+                }
             }
 
-
-            ToolButton {
+            Button {
                 id: btnMission
-                Layout.preferredHeight: btnRow.height
-                Layout.preferredWidth: btnRow.height * 2
-                text: "Mission"
-                display: AbstractButton.TextBesideIcon
-                icon.height: ScreenTools.defaultFontPixelHeight*6
-                icon.width: ScreenTools.defaultFontPixelHeight*6
-                font.pointSize: ScreenTools.defaultFontPixelHeight*2
-                icon.color: "transparent"
-                icon.source: "qrc:/ales/login/Mission.svg"
-                palette.buttonText: "white"
+                Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*80
+                Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*80*3.5
+                
+                background: Rectangle {
+                    color: Qt.rgba(255, 255, 255, 0.5)
+                    radius: 10
+                    RowLayout {
+                        anchors.fill: parent
+                        spacing: 10
+                        anchors.margins: 10
+                        Image {
+                            Layout.fillHeight: true
+                            Layout.preferredWidth: height
+                            source: "qrc:/ales/login/Mission.svg"
+                            sourceSize.width: height
+                            sourceSize.height: height
+                            fillMode: Image.PreserveAspectFit
+                        }
+                        Text {
+                            Layout.fillHeight: true
+                            Layout.fillWidth: true
+                            font.pointSize: ScreenTools.defaultFontPixelHeight*2
+                            text: "Mission"
+                            verticalAlignment: Text.AlignVCenter
+                            horizontalAlignment: Text.AlignHCenter
+                            color: "white"
+                        }
+                    }
+                }
             }
         }
 
         ComboBox {
             id: comboBox
-            width: ScreenTools.defaultFontPixelHeight*20
-            height: ScreenTools.defaultFontPixelHeight*8
+            width: ScreenTools.defaultFontPixelHeight/16*200
+            height: ScreenTools.defaultFontPixelHeight/16*100
             anchors.top: parent.top
             model: ["AQUILA 2", "AQUILA 3F", "HUMMER"]
             font.pointSize: ScreenTools.defaultFontPixelHeight * 2
-            anchors.topMargin: 30
+            anchors.topMargin: 20
             anchors.horizontalCenter: parent.horizontalCenter
             palette.buttonText: "gray"
             Material.accent: "black"
