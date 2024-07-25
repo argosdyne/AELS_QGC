@@ -1032,68 +1032,68 @@ Item {
             visible: false
 
 
-            color: "#3C3737"
+            color: "#CC3C3737"
 
 
             ColumnLayout{
                 anchors.fill: parent
                 spacing: 10
-                RowLayout {
-                    Layout.alignment: Qt.AlignCenter
-                    Layout.topMargin: 5
-                    spacing: 30
-
-                    // Editable TextField
-                    TextField {
-                        id: textField
-
-                        text: "New Mission 1"
-                        readOnly: true
-                        Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
-                        Layout.preferredWidth: newMissionSetting.width/3
-                        font.pixelSize: ScreenTools.defaultFontPixelHeight/16*30
-                        horizontalAlignment: Text.AlignRight
-                        color: "white"
-
-                        background: Rectangle {
-                            color: textField.readOnly ? "transparent" : "grey"
-                            border.color: textField.readOnly ? "transparent" : "lightgray"
-                            radius: 5
-                        }
-
-                        onAccepted: {
-                            textField.readOnly = true // Disable editing after pressing Enter
-                        }
-
-                        // Also handle the case when the TextField loses focus
-                        onFocusChanged: if (!textField.focus) textField.readOnly = true
-                    }
-
-                    // Edit Button
-                    Button {
-                        id: editButton
-                        // Path to your edit icon
-                        background: Rectangle{
-                            color: "transparent"
-                            Image {
-                                anchors.centerIn: parent
-                                source: "/res/ales/mission/Edit.svg"
-                                fillMode: Image.PreserveAspectFit
-                            }
-                        }
-
-                        onClicked: {
-                            textField.readOnly = !textField.readOnly
-                            if (!textField.readOnly) {
-                                textField.forceActiveFocus()
-                            }
-                        }
-                    }
-                }
-
                 Rectangle{
-                    Layout.preferredHeight: 2
+                    Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
                     Layout.fillWidth: true
+                    color: "#cc3B3737"
+                    RowLayout {
+                        anchors.centerIn: parent
+                        Layout.topMargin: 5
+                        spacing: 30
+
+                        // Editable TextField
+                        TextField {
+                            id: textField
+
+                            text: "New Mission 1"
+                            readOnly: true
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
+                            Layout.preferredWidth: newMissionSetting.width/3
+                            font.pixelSize: ScreenTools.defaultFontPixelHeight/16*30
+                            horizontalAlignment: Text.AlignRight
+                            color: "white"
+
+                            background: Rectangle {
+                                color: textField.readOnly ? "transparent" : "grey"
+                                border.color: textField.readOnly ? "transparent" : "lightgray"
+                                radius: 5
+                            }
+
+                            onAccepted: {
+                                textField.readOnly = true // Disable editing after pressing Enter
+                            }
+
+                            // Also handle the case when the TextField loses focus
+                            onFocusChanged: if (!textField.focus) textField.readOnly = true
+                        }
+
+                        // Edit Button
+                        Button {
+                            id: editButton
+                            // Path to your edit icon
+                            background: Rectangle{
+                                color: "transparent"
+                                Image {
+                                    anchors.centerIn: parent
+                                    source: "/res/ales/mission/Edit.svg"
+                                    fillMode: Image.PreserveAspectFit
+                                }
+                            }
+
+                            onClicked: {
+                                textField.readOnly = !textField.readOnly
+                                if (!textField.readOnly) {
+                                    textField.forceActiveFocus()
+                                }
+                            }
+                        }
+                    }
                 }
 
                 GridLayout {
