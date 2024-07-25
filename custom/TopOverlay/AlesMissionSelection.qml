@@ -101,7 +101,7 @@ Rectangle {
                             width: parent.height * 0.3
                             anchors.right: parent.right
                             anchors.top: parent.top
-                            anchors.margins: 10
+                            anchors.margins: 15
                             source: "qrc:/res/ales/mission/WayPoint.svg"
                             fillMode: Image.PreserveAspectFit
                         }
@@ -111,9 +111,9 @@ Rectangle {
                             width: parent.width - 20
                             anchors.left: parent.left
                             anchors.bottom: parent.bottom
-                            anchors.margins: 10
+                            anchors.margins: 15
                             color: "white"
-                            font.pixelSize: ScreenTools.defaultFontPixelHeight*2.4
+                            font.pixelSize: ScreenTools.defaultFontPixelHeight*2
                             text: qsTr("Waypoint")
                         }
                     }
@@ -133,7 +133,7 @@ Rectangle {
                             width: parent.height * 0.3
                             anchors.right: parent.right
                             anchors.top: parent.top
-                            anchors.margins: 10
+                            anchors.margins: 15
                             source: "qrc:/res/ales/mission/Rectangular.svg"
                             fillMode: Image.PreserveAspectFit
                         }
@@ -143,9 +143,9 @@ Rectangle {
                             width: parent.width - 20
                             anchors.left: parent.left
                             anchors.bottom: parent.bottom
-                            anchors.margins: 10
+                            anchors.margins: 15
                             color: "white"
-                            font.pixelSize: ScreenTools.defaultFontPixelHeight*2.4
+                            font.pixelSize: ScreenTools.defaultFontPixelHeight*2
                             text: qsTr("Rectangular")
                         }
                     }
@@ -165,7 +165,7 @@ Rectangle {
                             width: parent.height * 0.3
                             anchors.right: parent.right
                             anchors.top: parent.top
-                            anchors.margins: 10
+                            anchors.margins: 15
                             source: "qrc:/res/ales/mission/Polygon.svg"
                             fillMode: Image.PreserveAspectFit
                         }
@@ -175,9 +175,9 @@ Rectangle {
                             width: parent.width - 20
                             anchors.left: parent.left
                             anchors.bottom: parent.bottom
-                            anchors.margins: 10
+                            anchors.margins: 15
                             color: "white"
-                            font.pixelSize: ScreenTools.defaultFontPixelHeight*2.4
+                            font.pixelSize: ScreenTools.defaultFontPixelHeight*2
                             text: qsTr("Polygon")
                         }
                     }
@@ -209,7 +209,7 @@ Rectangle {
                             width: parent.height * 0.3
                             anchors.right: parent.right
                             anchors.top: parent.top
-                            anchors.margins: 10
+                            anchors.margins: 15
                             source: "qrc:/res/ales/mission/Corridor.svg"
                             fillMode: Image.PreserveAspectFit
                         }
@@ -219,9 +219,9 @@ Rectangle {
                             width: parent.width - 20
                             anchors.left: parent.left
                             anchors.bottom: parent.bottom
-                            anchors.margins: 10
+                            anchors.margins: 15
                             color: "white"
-                            font.pixelSize: ScreenTools.defaultFontPixelHeight*2.4
+                            font.pixelSize: ScreenTools.defaultFontPixelHeight*2
                             text: qsTr("Corridor")
                         }
                     }
@@ -237,7 +237,7 @@ Rectangle {
                             width: parent.height * 0.3
                             anchors.right: parent.right
                             anchors.top: parent.top
-                            anchors.margins: 10
+                            anchors.margins: 15
                             source: "qrc:/res/ales/mission/POI.svg"
                             fillMode: Image.PreserveAspectFit
                         }
@@ -247,9 +247,9 @@ Rectangle {
                             width: parent.width - 20
                             anchors.left: parent.left
                             anchors.bottom: parent.bottom
-                            anchors.margins: 10
+                            anchors.margins: 15
                             color: "white"
-                            font.pixelSize: ScreenTools.defaultFontPixelHeight*2.4
+                            font.pixelSize: ScreenTools.defaultFontPixelHeight*2
                             text: qsTr("POI")
                         }
                     }
@@ -265,7 +265,7 @@ Rectangle {
                             width: parent.height * 0.3
                             anchors.right: parent.right
                             anchors.top: parent.top
-                            anchors.margins: 10
+                            anchors.margins: 15
                             source: "qrc:/res/ales/mission/HoppingPOI.svg"
                             fillMode: Image.PreserveAspectFit
                         }
@@ -275,9 +275,9 @@ Rectangle {
                             width: parent.width - 20
                             anchors.left: parent.left
                             anchors.bottom: parent.bottom
-                            anchors.margins: 10
+                            anchors.margins: 15
                             color: "white"
-                            font.pixelSize: ScreenTools.defaultFontPixelHeight*2.4
+                            font.pixelSize: ScreenTools.defaultFontPixelHeight*2
                             text: qsTr("Hopping POI")
                         }
                     }
