@@ -1,4 +1,4 @@
-﻿import QtQuick          2.12
+﻿import QtQuick          2.15
 import QtQuick.Controls 2.4
 import QtQuick.Layouts  1.11
 import QtQuick.Dialogs  1.3
@@ -15,7 +15,19 @@ Rectangle {
     width: 1000
     visible: true
     color: "#5c5c5c"
+    radius: 10
+    property alias btnAltitude: btnAltitude
+    property alias btnSpeed: btnSpeed
+    property alias btnAction: btnAction
+    property alias btnLinkto: btnLinkto
+    property alias btnLongLat: btnLongLat
+    property alias btnTurningRadius: btnTurningRadius
+    property alias btnStop: btnStop
+    property alias btnExit: btnExit
+
     property string textColor: "white"
+
+    property int sizeText: ScreenTools.defaultFontPointSize/16*20
 
     property int altitude: 60
     property int speed: 18 //km/h
@@ -24,35 +36,56 @@ Rectangle {
     property int turningRadius: 0
     property string longlat: "37.-,-127.-"
 
-    ButtonGroup{
-        buttons: btnLayout.children
+
+            // Function to handle button clicks
+    function handleButtonClick(button) { 
+        // uncheck all other buttons
+        for (var i = 0; i < btnLayout.children.length; i++) {
+            // check is the children i type is Button or not
+            if (btnLayout.children[i].hasOwnProperty("checkable") && btnLayout.children[i].checkable) {    
+                if (btnLayout.children[i] !== button) {
+                    btnLayout.children[i].checked = false;
+                }
+            }
+        }
+    }
+
+    function uncheckAllButtons() {
+        for (var i = 0; i < btnLayout.children.length; i++) {
+            if (btnLayout.children[i].hasOwnProperty("checkable") && btnLayout.children[i].checkable) {
+                btnLayout.children[i].checked = false;
+            }
+        }
     }
 
     RowLayout {
         id: btnLayout
         anchors.fill: parent
+        anchors.margins: 5
         spacing: 5
 
 
         Rectangle {
             Layout.fillHeight: true
-            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*130
+            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*140
             color: "#393838"
             Text {
                 color: "#ffffff"
                 anchors.fill: parent
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: Text.AlignVCenter
-                font.pointSize: ScreenTools.defaultFontPointSize/16*15
+                font.pointSize: sizeText
                 text: "02\n Waypoint"
             }
         }
 
         Button {
+            id: btnAltitude
             Layout.fillHeight: true
-            Layout.preferredWidth: 100
+            Layout.preferredWidth: height
             checkable: true
             checked: false
+            onClicked: handleButtonClick(this)
             background: Rectangle {
                 color: !parent.checked? "transparent": "#4c6fda"
                 ColumnLayout {
@@ -61,13 +94,13 @@ Rectangle {
                         id: text1
                         color: "#fffefe"
                         text: altitude + "m"
-                        font.pointSize: ScreenTools.defaultFontPointSize/16*15
+                        font.pointSize: sizeText
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     }
                     Text {
                         color: "#ffffff"
                         text: qsTr("Altitude")
-                        font.pointSize: ScreenTools.defaultFontPointSize/16*10
+                        font.pointSize: sizeText
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     }
                 }
@@ -75,10 +108,12 @@ Rectangle {
         }
 
         Button {
+            id:btnSpeed
             Layout.fillHeight: true
-            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+            Layout.preferredWidth: height
             checkable: true
             checked: false
+            onClicked: handleButtonClick(this)
             background: Rectangle {
                 color: !parent.checked? "transparent": "#4c6fda"
                 ColumnLayout {
@@ -86,13 +121,13 @@ Rectangle {
                     Text {
                         color: "#fffefe"
                         text: speed + "km/h"
-                        font.pointSize: ScreenTools.defaultFontPointSize/16*15
+                        font.pointSize: sizeText
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     }
                     Text {
                         color: "#ffffff"
                         text: qsTr("Speed")
-                        font.pointSize: ScreenTools.defaultFontPointSize/16*10
+                        font.pointSize: sizeText
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     }
                 }
@@ -100,24 +135,26 @@ Rectangle {
         }
 
         Button {
+            id:btnAction
             Layout.fillHeight: true
-            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+            Layout.preferredWidth: height
             checkable: true
             checked: false
+            onClicked: handleButtonClick(this)
             background: Rectangle {
                 color: !parent.checked? "transparent": "#4c6fda"
                 ColumnLayout {
                     anchors.centerIn: parent
                     Text {
                         color: "#fffefe"
-                        text: numAction + "Action"
-                        font.pointSize: ScreenTools.defaultFontPointSize/16*15
+                        text: numAction + " Action"
+                        font.pointSize: sizeText
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     }
                     Text {
                         color: "#ffffff"
                         text: qsTr("Action")
-                        font.pointSize: 10
+                        font.pointSize: sizeText
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     }
                 }
@@ -125,10 +162,12 @@ Rectangle {
         }
 
         Button {
+            id:btnLinkto
             Layout.fillHeight: true
-            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+            Layout.preferredWidth: height
             checkable: true
             checked: false
+            onClicked: handleButtonClick(this)
             background: Rectangle {
                 color: !parent.checked? "transparent": "#4c6fda"
                 ColumnLayout {
@@ -136,13 +175,13 @@ Rectangle {
                     Text {
                         color: "#fffefe"
                         text: linkTo
-                        font.pointSize: ScreenTools.defaultFontPointSize/16*15
+                        font.pointSize: sizeText
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     }
                     Text {
                         color: "#ffffff"
                         text: qsTr("Link To")
-                        font.pointSize: ScreenTools.defaultFontPointSize/16*10
+                        font.pointSize: sizeText
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     }
                 }
@@ -152,10 +191,12 @@ Rectangle {
 
 
         Button {
+            id:btnLongLat
             Layout.fillHeight: true
-            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+            Layout.preferredWidth: height*2
             checkable: true
             checked: false
+            onClicked: handleButtonClick(this)
             background: Rectangle {
                 color: !parent.checked? "transparent": "#4c6fda"
                 ColumnLayout {
@@ -163,13 +204,13 @@ Rectangle {
                     Text {
                         color: "#fffefe"
                         text: longlat
-                        font.pointSize: ScreenTools.defaultFontPointSize/16*15
+                        font.pointSize: sizeText
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     }
                     Text {
                         color: "#ffffff"
                         text: qsTr("Latitude Longtitude")
-                        font.pointSize: ScreenTools.defaultFontPointSize/16*10
+                        font.pointSize: sizeText
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     }
                 }
@@ -177,10 +218,12 @@ Rectangle {
         }
 
         Button {
+            id:btnTurningRadius
             Layout.fillHeight: true
-            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+            Layout.preferredWidth: height*1.5
             checkable: true
             checked: false
+            onClicked: handleButtonClick(this)
             background: Rectangle {
                 color: !parent.checked? "transparent": "#4c6fda"
                 ColumnLayout {
@@ -188,49 +231,61 @@ Rectangle {
                     Text {
                         color: "#fffefe"
                         text: turningRadius
-                        font.pointSize: ScreenTools.defaultFontPointSize/16*15
+                        font.pointSize: sizeText
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     }
                     Text {
                         color: "#ffffff"
                         text: qsTr("Turning Radius")
-                        font.pointSize: ScreenTools.defaultFontPointSize/16*10
+                        font.pointSize: sizeText
                         Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     }
                 }
             }
         }
 
+        Rectangle {
+            Layout.fillHeight: true
+            Layout.fillWidth: true
+            color:"transparent"
+        }
+
         ToolSeparator {}
 
-        ToolButton {
+
+        Button {
             id: btnStop
-            visible: true
-            icon.height: ScreenTools.defaultFontPointSize/16*70
-            icon.width: ScreenTools.defaultFontPointSize/16*70
-            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*80
-            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*80
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-            display: AbstractButton.IconOnly
-            font.pointSize: ScreenTools.defaultFontPointSize/16*20
-            icon.color: "#00000000"
-            icon.source: "qrc://res/ales/waypoint/StopButton.svg"
-            Material.foreground: textColor
+            Layout.fillHeight: true
+            Layout.preferredWidth: height
+            onClicked: {
+                uncheckAllButtons()
+            }
+            background: Rectangle {
+                color: parent.visualFocus? "#4c6fda": "transparent"
+                Image{
+                    anchors.fill: parent
+                    source: "/res/ales/waypoint/StopButton.svg"
+                    fillMode: Image.PreserveAspectFit
+                }
+            }
         }
 
-        ToolButton {
+        Button {
             id: btnExit
-            visible: true
-            icon.height: ScreenTools.defaultFontPointSize/16*70
-            icon.width: ScreenTools.defaultFontPointSize/16*70
-            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*80
-            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*80
-            Layout.alignment: Qt.AlignVCenter | Qt.AlignHCenter
-            display: AbstractButton.IconOnly
-            font.pointSize: ScreenTools.defaultFontPointSize/16*20
-            icon.color: "#00000000"
-            icon.source: "qrc://res/ales/waypoint/ExitButton.svg"
-            Material.foreground: textColor
+            Layout.fillHeight: true
+            Layout.preferredWidth: height
+            onClicked: {
+                uncheckAllButtons()
+            }
+            background: Rectangle {
+                color: parent.visualFocus? "#4c6fda": "transparent"
+                Image{
+                    anchors.fill: parent
+                    source: "/res/ales/waypoint/ExitButton.svg"
+                    fillMode: Image.PreserveAspectFit
+                }
+            }
         }
+        
     }
 }

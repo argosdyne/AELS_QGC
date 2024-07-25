@@ -28,10 +28,10 @@ Button {
 
     Image {
         anchors.fill: parent
-        source: "/res/TopMenu_Up.svg"
+        source: "qrc:/res/ales/waypoint/UpDir.svg"
     }
 
     onClicked: {
-        _root.visible = false
+        //_root.visible = false
     }
 }
