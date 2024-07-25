@@ -347,6 +347,7 @@
         <file alias="QGroundControl/Controls/WaypointMission.qml">../src/QmlControls/WaypointMission.qml</file>
         <file alias="QGroundControl/Controls/CameraSettingsResolutionInPage.qml">../src/QmlControls/CameraSettingsResolutionInPage.qml</file>
         <file alias="QGroundControl/Controls/ResolutionMessage.qml">../src/QmlControls/ResolutionMessage.qml</file>
+        <file alias="QGroundControl/Controls/SearchBox.qml">../src/QmlControls/SearchBox.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">../src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>

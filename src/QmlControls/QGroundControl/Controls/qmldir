@@ -174,3 +174,4 @@ CameraSettingsResolutionOutPage         1.0 CameraSettingsResolutionOutPage.qml
 CameraMainPage                          1.0 CameraMainPage.qml
 WaypointMission                         1.0 WaypointMission.qml
 CameraSettingsResolutionInPage          1.0 CameraSettingsResolutionInPage.qml
+SearchBox.qml                           1.0 SearchBox.qml
