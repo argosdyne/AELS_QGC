@@ -16,6 +16,7 @@ Rectangle {
     visible: true
     color: "#5c5c5c"
     radius: 10
+    property alias speed: slider.value
 
 
 

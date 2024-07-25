@@ -57,6 +57,11 @@ Item {
         width: root.width/1.3 < 850? 850: root.width/1.3
         height: 80
         visible: false
+        altitude: altitudeBar.altitude
+        speed: speedSlider.speed
+        turningRadius: turningRadiusSlider.turningRadius
+        numAction: actionInput.getNumAction()
+    
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
         anchors.horizontalCenter: parent.horizontalCenter
@@ -64,13 +69,14 @@ Item {
             barWaypointStatus.visible = false
             barMissionControl.visible = true
         }
-        btnExit.onClicked: {
+        btnExit.onClicked: { 
             exitWaypointMission()
         }
 
     }
 
     AltitudeBar{
+        id: altitudeBar
         visible: barWaypointStatus.btnAltitude.checked
         width: root.width/1.4
         height: 80
@@ -81,6 +87,7 @@ Item {
     }
 
     SpeedSlider{
+        id: speedSlider
         visible: barWaypointStatus.btnSpeed.checked
         width: root.width/1.4
         height: 80
@@ -90,6 +97,7 @@ Item {
     }
 
     TurningRadiusSlider{
+        id: turningRadiusSlider
         visible: barWaypointStatus.btnTurningRadius.checked
         width: root.width/1.4
         height: 80
@@ -109,6 +117,7 @@ Item {
     }
 
     ActionInput{
+        id: actionInput
         visible: barWaypointStatus.btnAction.checked
         width: root.width/1.4
         height: root.height/1.4

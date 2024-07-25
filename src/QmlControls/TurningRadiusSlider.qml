@@ -17,6 +17,7 @@ Rectangle {
     color: "#5c5c5c"
     radius: 10
 
+    property alias turningRadius: slider.value
 
 
     RowLayout{

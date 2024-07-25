@@ -18,6 +18,8 @@ Rectangle {
     visible: true
     color: "#5c5c5c"
     radius: 10
+    // alias for slider.value 
+    property alias altitude: slider.value
 
 
     RowLayout{

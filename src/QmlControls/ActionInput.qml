@@ -20,6 +20,10 @@ Rectangle {
     color: "#cf454545"
     radius: 5
     property int sizeText: ScreenTools.defaultFontPointSize/16*16
+    
+    function getNumAction(){
+        return viewsModel.count
+    }
 
 
 

@@ -14,7 +14,7 @@ import QGroundControl.ScreenTools           1.0
 Rectangle{
     implicitWidth: 500
     implicitHeight: 100
-    color:"#474141"
+    color:"#cc474141"
     radius: 10
     property string textColor: "white"
     property string checkedColor: "#3d71d7"
