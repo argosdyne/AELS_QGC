@@ -173,5 +173,6 @@ RegisterPage                            1.0 RegisterPage.qml
 CameraSettingsResolutionOutPage         1.0 CameraSettingsResolutionOutPage.qml
 CameraMainPage                          1.0 CameraMainPage.qml
 WaypointMission                         1.0 WaypointMission.qml
+CameraStartPage							            1.0 CameraStartPage.qml
 CameraSettingsResolutionInPage          1.0 CameraSettingsResolutionInPage.qml
 SearchBox.qml                           1.0 SearchBox.qml

@@ -32,6 +32,6 @@ Button {
     }
 
     onClicked: {
-        _root.visible = false
+        //_root.visible = false
     }
 }
