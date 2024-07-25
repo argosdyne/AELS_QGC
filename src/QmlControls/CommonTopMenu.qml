@@ -41,9 +41,7 @@ Rectangle {
                 Image {
                     anchors.fill: parent
                     source: "/res/TopMenuHomeButton.svg"
-                    anchors.centerIn: parent
                     fillMode: Image.PreserveAspectFit
-
                 }
             }
             onClicked: {
@@ -52,8 +50,8 @@ Rectangle {
         }
         //Move to MainPage Button
         Button {
-            Layout.preferredWidth: height*4
             Layout.fillHeight: true
+            Layout.preferredWidth: height*4
             background: Rectangle {
                 color: "blue"
                 RowLayout {
@@ -71,16 +69,16 @@ Rectangle {
                     Column {
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        spacing: defaultFontSize*1.2
+                        spacing: 5
                         Text {
-                            font.pixelSize: defaultFontSize * 2
+                            font.pixelSize: defaultFontSize
                             text: qsTr("Intelligent Photo")
                             color: defaultTextColor
                             opacity: 0.8
                             horizontalAlignment: Text.AlignHCenter
                         }
                         Text {
-                            font.pixelSize: defaultFontSize * 2.5
+                            font.pixelSize: defaultFontSize*1.5
                             text: qsTr("Manual Flight")
                             font.bold: true
                             color: defaultTextColor
@@ -98,13 +96,14 @@ Rectangle {
 
         Rectangle {
             Layout.fillHeight: true
-            Layout.preferredWidth: height * 8
+            Layout.fillWidth: true
             color: "transparent"
             RowLayout {
                 anchors.fill: parent
+                anchors.margins: defaultFontSize
 
                 Rectangle {
-                    Layout.preferredWidth: height*2
+                    Layout.preferredWidth: height*4
                     Layout.fillHeight: true
                     color: "transparent"
                     RowLayout {
@@ -117,7 +116,7 @@ Rectangle {
 
                         Text {
                             Layout.fillHeight: true
-                            font.pixelSize: defaultFontSize * 4
+                            font.pixelSize: defaultFontSize * 3
                             text: qsTr("N/A")
                             color: defaultTextColor
                             verticalAlignment: Text.AlignVCenter
@@ -126,7 +125,7 @@ Rectangle {
                 }
 
                 Rectangle {
-                    Layout.preferredWidth: height*2
+                    Layout.preferredWidth: height*4
                     Layout.fillHeight: true
                     color: "transparent"
                     RowLayout {
@@ -139,7 +138,7 @@ Rectangle {
 
                         Text {
                             Layout.fillHeight: true
-                            font.pixelSize: defaultFontSize * 4
+                            font.pixelSize: defaultFontSize * 3
                             text: qsTr("N/A")
                             color: defaultTextColor
                             verticalAlignment: Text.AlignVCenter
@@ -149,7 +148,7 @@ Rectangle {
 
                 Rectangle {
 
-                    Layout.preferredWidth: height*2
+                    Layout.preferredWidth: height*4
                     Layout.fillHeight: true
                     color: "transparent"
                     RowLayout {
@@ -162,7 +161,7 @@ Rectangle {
 
                         Text {
                             Layout.fillHeight: true
-                            font.pixelSize: defaultFontSize * 4
+                            font.pixelSize: defaultFontSize * 3
                             text: qsTr("N/A")
                             color: defaultTextColor
                             verticalAlignment: Text.AlignVCenter
@@ -173,7 +172,7 @@ Rectangle {
 
                 Rectangle {
 
-                    Layout.preferredWidth: height*2
+                    Layout.preferredWidth: height*4
                     Layout.fillHeight: true
                     color: "transparent"
                     RowLayout {
@@ -185,7 +184,7 @@ Rectangle {
                         }
                         Text {
                             Layout.fillHeight: true
-                            font.pixelSize: defaultFontSize * 4
+                            font.pixelSize: defaultFontSize * 3
                             text: qsTr("N/A")
                             color: defaultTextColor
                             verticalAlignment: Text.AlignVCenter
@@ -193,7 +192,14 @@ Rectangle {
                     }
                 }
 
+                Rectangle {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    color: "transparent"
+                }
+
             }
+
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
@@ -205,8 +211,8 @@ Rectangle {
 
         // Obstacle Status Icon
         Button {
-            Layout.preferredWidth: height
             Layout.fillHeight: true
+            Layout.preferredWidth: height
             background: Rectangle { color: "transparent" }
             Image {
                 source: "/res/TopMenuObstacleSensorOff.svg"                
