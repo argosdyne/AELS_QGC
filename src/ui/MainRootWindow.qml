@@ -146,6 +146,7 @@ ApplicationWindow {
 
     function showAlesPlanView() {
         viewSwitch(toolbar.planViewToolbar)
+        alesPlanView.showNotificationBox()
 
         alesPlanView.visible = true
 

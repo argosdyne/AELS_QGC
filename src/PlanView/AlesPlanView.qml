@@ -64,6 +64,9 @@ Item {
 
 
     property int  txtFontSize: ScreenTools.defaultFontPixelHeight/16*20
+    function showNotificationBox(){
+        notification.item.itemvisible = true
+    }
 
     function mapCenter() {
         var coordinate = editorMap.center
@@ -80,6 +83,7 @@ Item {
         searchBar.visible = false
         btnBack.visible = false
         createProject.visible = false
+        
     }
 
     function moveToWaypointMission(){
@@ -107,6 +111,7 @@ Item {
         btnBack.visible = true
         createProject.visible = true
         pageWaypointMission.visible = false
+        notification.item.itemvisible = false
     }
 
     function updateAirspace(reset) {
@@ -663,6 +668,7 @@ Item {
 
                 onClicked: {
                     returnToPrevious();
+                    notification.itemvisible = false
                 }
 
                 background: Rectangle{
@@ -1390,6 +1396,75 @@ Item {
                 returnToPrevious()
             }
 
+        }
+
+        Loader {
+            id: notification
+            anchors.left: parent.left
+            anchors.leftMargin: ScreenTools.defaultFontPixelHeight*2
+            anchors.verticalCenter: parent.verticalCenter
+            sourceComponent: notificationBox
+        }
+
+
+    }
+
+
+    Component {
+        id: notificationBox
+
+        Rectangle {
+            implicitWidth: ScreenTools.defaultFontPixelHeight/16*300
+            implicitHeight: txtNotify.height + 20
+            property int notiType: 1
+            property string notiText: "The phone is not connected to the drone. Please connect the phone to the drone and try again."
+            readonly property int warning : 0
+            readonly property int error : 1
+            readonly property int info : 2
+            property bool itemvisible: true
+            property string bgcolor: notiType === warning ? "#FFA500" : notiType === error ? "#FF0000" : "#00FF00"
+            function showNotification(notiType, notiText) {
+                this.notiType = notiType
+                this.notiText = notiText
+                visible = true
+            }
+
+            color: bgcolor
+            radius: 2
+            border.color: "transparent"
+            visible: itemvisible
+            RowLayout {
+                anchors.margins: 10
+                spacing: 10
+                anchors.fill: parent
+
+                // multiline text
+                Text {
+                    id: txtNotify
+                    Layout.fillWidth: true
+                    wrapMode: Text.WordWrap
+                    text: notiText
+                    color: "white"
+                    font.pixelSize: ScreenTools.defaultFontPixelHeight/16*20
+                }
+                Button {
+                    Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*30
+                    
+                    onClicked: {
+                        itemvisible = false
+                    }
+                    background: Rectangle{
+                        color: "transparent"
+                        border.color: "transparent"
+                        Text{
+                            anchors.centerIn: parent
+                            text: "X"
+                            color: "white"
+                            font.pixelSize: ScreenTools.defaultFontPixelHeight/16*30
+                        }
+                    }
+                }
+            }
         }
     }
 
