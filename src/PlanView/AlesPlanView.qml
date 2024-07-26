@@ -724,7 +724,7 @@ Item {
 
             Item {
                 id: mapLocationSettings
-                width: ScreenTools.defaultFontPixelHeight/16*200
+                width: ScreenTools.defaultFontPixelHeight/16*150
                 height: ScreenTools.defaultFontPixelHeight/16*200
                 anchors.right: parent.right
                 anchors.top: parent.top
@@ -1416,7 +1416,7 @@ Item {
         id: notificationBox
 
         Rectangle {
-            implicitWidth: ScreenTools.defaultFontPixelHeight/16*300
+            implicitWidth: Screen.width/4
             implicitHeight: txtNotify.height + 20
             property int notiType: 1
             property string notiText: "The phone is not connected to the drone. Please connect the phone to the drone and try again."
