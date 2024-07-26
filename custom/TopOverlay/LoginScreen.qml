@@ -31,8 +31,8 @@ Item {
 
         Rectangle {
             id: recLogo
-            width: ScreenTools.defaultFontPixelHeight/16*100
-            height: ScreenTools.defaultFontPixelHeight/16*100
+            width: Screen.height/10
+            height: Screen.height/10
             color: "black"
             anchors.left: parent.left
             anchors.top: parent.top
@@ -54,8 +54,8 @@ Item {
 
         RoundButton {
             id: btnLogin
-            width: ScreenTools.defaultFontPixelHeight/16*100
-            height: ScreenTools.defaultFontPixelHeight/16*100
+            width: Screen.height/10
+            height: Screen.height/10
             text: ""
             anchors.right: parent.right
             anchors.top: parent.top
@@ -70,7 +70,7 @@ Item {
             id: btnRow
             spacing: 40
             
-            anchors.bottomMargin: 100
+            anchors.bottomMargin: Screen.height/4
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: parent.bottom
             
@@ -78,8 +78,8 @@ Item {
             
             Button {
                 id: btnCamera
-                Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*80
-                Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*80*3.5
+                Layout.preferredHeight: Screen.height/12
+                Layout.preferredWidth: height*4
                 
                 background: Rectangle {
                     color: Qt.rgba(255, 255, 255, 0.5)
@@ -98,7 +98,7 @@ Item {
                         Text {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
-                            font.pointSize: ScreenTools.defaultFontPixelHeight*2
+                            font.pointSize: ScreenTools.defaultFontPixelHeight*1.5
                             text: "Camera"
                             verticalAlignment: Text.AlignVCenter
                             horizontalAlignment: Text.AlignHCenter
@@ -110,8 +110,8 @@ Item {
 
             Button {
                 id: btnMission
-                Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*80
-                Layout.preferredWidth: ScreenTools.defaultFontPixelHeight/16*80*3.5
+                Layout.preferredHeight: Screen.height/12
+                Layout.preferredWidth: height*4
                 
                 background: Rectangle {
                     color: Qt.rgba(255, 255, 255, 0.5)
@@ -131,7 +131,7 @@ Item {
                         Text {
                             Layout.fillHeight: true
                             Layout.fillWidth: true
-                            font.pointSize: ScreenTools.defaultFontPixelHeight*2
+                            font.pointSize: ScreenTools.defaultFontPixelHeight*1.5
                             text: "Mission"
                             verticalAlignment: Text.AlignVCenter
                             horizontalAlignment: Text.AlignHCenter
@@ -144,8 +144,8 @@ Item {
 
         ComboBox {
             id: comboBox
-            width: ScreenTools.defaultFontPixelHeight/16*300
-            height: ScreenTools.defaultFontPixelHeight/16*100
+            width: Screen.width/3
+            height: Screen.height/10
             anchors.top: parent.top
             model: ["AQUILA 2", "AQUILA 3F", "HUMMER"]
             font.pointSize: ScreenTools.defaultFontPixelHeight * 2

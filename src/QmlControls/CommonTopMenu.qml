@@ -56,7 +56,6 @@ Rectangle {
                 color: "blue"
                 RowLayout {
                     anchors.fill: parent
-                    anchors.leftMargin: defaultFontSize
                     spacing: defaultFontSize * 1.5
                     anchors.margins: 5
                     Image {
@@ -66,23 +65,32 @@ Rectangle {
                         fillMode: Image.PreserveAspectFit
 
                     }
-                    Column {
+                    Rectangle {
+                        color:"transparent"
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        spacing: 5
-                        Text {
-                            font.pixelSize: defaultFontSize
-                            text: qsTr("Intelligent Photo")
-                            color: defaultTextColor
-                            opacity: 0.8
-                            horizontalAlignment: Text.AlignHCenter
-                        }
-                        Text {
-                            font.pixelSize: defaultFontSize*1.5
-                            text: qsTr("Manual Flight")
-                            font.bold: true
-                            color: defaultTextColor
-                            horizontalAlignment: Text.AlignHCenter
+                        Column {
+                            anchors.fill: parent
+                            spacing: 5
+                            Text {
+                                Layout.fillHeight:true
+                                Layout.fillWidth: true
+                                font.pixelSize: defaultFontSize*2
+                                text: qsTr("Intelligent Photo")
+                                color: defaultTextColor
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                Layout.fillHeight:true
+                                Layout.fillWidth: true
+                                font.pixelSize: defaultFontSize*3
+                                text: qsTr("Manual Flight")
+                                font.bold: true
+                                color: defaultTextColor
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                            }
                         }
                     }
                 }
@@ -100,10 +108,10 @@ Rectangle {
             color: "transparent"
             RowLayout {
                 anchors.fill: parent
-                anchors.margins: defaultFontSize
+                anchors.margins: 5
 
                 Rectangle {
-                    Layout.preferredWidth: height*4
+                    Layout.preferredWidth: height*3
                     Layout.fillHeight: true
                     color: "transparent"
                     RowLayout {
@@ -116,7 +124,7 @@ Rectangle {
 
                         Text {
                             Layout.fillHeight: true
-                            font.pixelSize: defaultFontSize * 3
+                            font.pixelSize: defaultFontSize * 2
                             text: qsTr("N/A")
                             color: defaultTextColor
                             verticalAlignment: Text.AlignVCenter
@@ -125,7 +133,7 @@ Rectangle {
                 }
 
                 Rectangle {
-                    Layout.preferredWidth: height*4
+                    Layout.preferredWidth: height*3
                     Layout.fillHeight: true
                     color: "transparent"
                     RowLayout {
@@ -138,7 +146,7 @@ Rectangle {
 
                         Text {
                             Layout.fillHeight: true
-                            font.pixelSize: defaultFontSize * 3
+                            font.pixelSize: defaultFontSize * 2
                             text: qsTr("N/A")
                             color: defaultTextColor
                             verticalAlignment: Text.AlignVCenter
@@ -148,7 +156,7 @@ Rectangle {
 
                 Rectangle {
 
-                    Layout.preferredWidth: height*4
+                    Layout.preferredWidth: height*3
                     Layout.fillHeight: true
                     color: "transparent"
                     RowLayout {
@@ -161,7 +169,7 @@ Rectangle {
 
                         Text {
                             Layout.fillHeight: true
-                            font.pixelSize: defaultFontSize * 3
+                            font.pixelSize: defaultFontSize * 2
                             text: qsTr("N/A")
                             color: defaultTextColor
                             verticalAlignment: Text.AlignVCenter
@@ -172,7 +180,7 @@ Rectangle {
 
                 Rectangle {
 
-                    Layout.preferredWidth: height*4
+                    Layout.preferredWidth: height*3
                     Layout.fillHeight: true
                     color: "transparent"
                     RowLayout {
@@ -184,7 +192,7 @@ Rectangle {
                         }
                         Text {
                             Layout.fillHeight: true
-                            font.pixelSize: defaultFontSize * 3
+                            font.pixelSize: defaultFontSize * 2
                             text: qsTr("N/A")
                             color: defaultTextColor
                             verticalAlignment: Text.AlignVCenter
@@ -217,7 +225,7 @@ Rectangle {
             Image {
                 source: "/res/TopMenuObstacleSensorOff.svg"                
                 anchors.fill: parent
-                anchors.margins: defaultFontSize
+                anchors.margins: 5
                 fillMode: Image.PreserveAspectFit
             }
 
@@ -233,7 +241,7 @@ Rectangle {
             background: Rectangle { color: "transparent" }
             Image {                
                 anchors.fill: parent
-                anchors.margins: defaultFontSize
+                anchors.margins: 5
                 source: "/res/TopMenuMapTool.svg"
                 fillMode: Image.PreserveAspectFit
             }
@@ -251,7 +259,7 @@ Rectangle {
             }
             Image {                
                 anchors.fill: parent
-                anchors.margins: defaultFontSize
+                anchors.margins: 5
                     source: "/res/TopMenuSetting.png"
                     fillMode: Image.PreserveAspectFit
                 }

@@ -63,7 +63,7 @@ Item {
     readonly property string    _armedVehicleUploadPrompt:  qsTr("Vehicle is currently armed. Do you want to upload the mission to the vehicle?")
 
 
-    property int  txtFontSize: ScreenTools.defaultFontPixelHeight/16*20
+    property int  txtFontSize: ScreenTools.defaultFontPixelHeight/16*16
     function showNotificationBox(){
         notification.item.itemvisible = true
     }
@@ -1026,8 +1026,8 @@ Item {
 
         Rectangle {
             id: newMissionSetting
-            width: _root.width/3*2
-            height: _root.height/4*3
+            width: _root.width/4*3
+            height: _root.height/6*5
             anchors.centerIn: parent
             visible: false
 
@@ -1039,7 +1039,7 @@ Item {
                 anchors.fill: parent
                 spacing: 10
                 Rectangle{
-                    Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+                    Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*40
                     Layout.fillWidth: true
                     color: "#cc3B3737"
                     RowLayout {
@@ -1053,9 +1053,9 @@ Item {
 
                             text: "New Mission 1"
                             readOnly: true
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*40
                             Layout.preferredWidth: newMissionSetting.width/3
-                            font.pixelSize: ScreenTools.defaultFontPixelHeight/16*30
+                            font.pixelSize: ScreenTools.defaultFontPixelHeight/16*25
                             horizontalAlignment: Text.AlignRight
                             color: "white"
 
@@ -1106,7 +1106,7 @@ Item {
                     columns: 4
                     RowLayout{
                         BlueCheckButton{
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
 
                         }
                         Text{
@@ -1122,13 +1122,13 @@ Item {
                     MissionSettingText{
                         text: "60m"
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 40
+                        Layout.preferredHeight: txtFontSize+20
                         font.pixelSize: txtFontSize
 
                     }
                     RowLayout{
                         BlueCheckButton{
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
 
                         }
                         Text{
@@ -1144,7 +1144,7 @@ Item {
                     MissionSettingText{
                         text: "18km/h"
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 40
+                        Layout.preferredHeight: txtFontSize+20
                         font.pixelSize: txtFontSize
 
                     }
@@ -1152,7 +1152,7 @@ Item {
                     // Altitude Type
                     RowLayout{
                         BlueCheckButton{
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
 
                         }
                         Text{
@@ -1168,7 +1168,7 @@ Item {
                     MissionSettingCombobox{
                         model: ["AGL","MSL"]
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 50
+                        Layout.preferredHeight: txtFontSize+20
                         font.pixelSize: txtFontSize
 
                     }
@@ -1177,7 +1177,7 @@ Item {
                     // Loss Action
                     RowLayout{
                         BlueCheckButton{
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
 
                         }
                         Text{
@@ -1193,7 +1193,7 @@ Item {
                     MissionSettingCombobox{
                         model: ["Go Home", "Continue Mission"]
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 50
+                        Layout.preferredHeight: txtFontSize+20
                         font.pixelSize: txtFontSize
 
                     }
@@ -1202,7 +1202,7 @@ Item {
                     // Finish Action
                     RowLayout{
                         BlueCheckButton{
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
 
                         }
                         Text{
@@ -1218,7 +1218,7 @@ Item {
                     MissionSettingCombobox{
                         model: ["Go Home", "Hover"]
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 50
+                        Layout.preferredHeight: txtFontSize+20
                         font.pixelSize: txtFontSize
 
                     }
@@ -1226,7 +1226,7 @@ Item {
                     // Heading
                     RowLayout{
                         BlueCheckButton{
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
 
                         }
                         Text{
@@ -1243,7 +1243,7 @@ Item {
                     MissionSettingCombobox{
                         model: ["Route","Manual", "Custom","-"]
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 50
+                        Layout.preferredHeight: txtFontSize+20
                         font.pixelSize: txtFontSize
 
                     }
@@ -1251,7 +1251,7 @@ Item {
                     // Camera Action
                     RowLayout{
                         BlueCheckButton{
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
 
                         }
                         Text{
@@ -1268,7 +1268,7 @@ Item {
                     MissionSettingCombobox{
                         model: ["Start Recording","Stop Recording","Take Photo","Time Lapase","Dist. Lapse"]
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 50
+                        Layout.preferredHeight: txtFontSize+20
                         font.pixelSize: txtFontSize
 
                     }
@@ -1291,7 +1291,7 @@ Item {
                     MissionSettingText{
                         text: "0\xB0"
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 40
+                        Layout.preferredHeight: txtFontSize+20
                         font.pixelSize: txtFontSize
 
                     }
@@ -1316,7 +1316,7 @@ Item {
                     MissionSettingCombobox{
                         model:["Sunny", "Cloudy"]
                         Layout.fillWidth: true
-                        Layout.preferredHeight: 50
+                        Layout.preferredHeight: txtFontSize+20
                         font.pixelSize: txtFontSize
 
                     }
@@ -1350,7 +1350,7 @@ Item {
                                 anchors.centerIn: parent
                                 color: "#3D71D7"
                                 text: qsTr("CANCEL")
-                                font.pixelSize: ScreenTools.defaultFontPixelHeight/16*30
+                                font.pixelSize: ScreenTools.defaultFontPixelHeight/16*25
                             }
 
                         }
@@ -1370,7 +1370,7 @@ Item {
                                 anchors.centerIn: parent
                                 color: "#3D71D7"
                                 text: qsTr("OK")
-                                font.pixelSize: ScreenTools.defaultFontPixelHeight/16*30
+                                font.pixelSize: ScreenTools.defaultFontPixelHeight/16*25
                             }
 
                         }
