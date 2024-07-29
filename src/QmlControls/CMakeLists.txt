@@ -182,7 +182,6 @@ add_custom_target(QmlControlsQml
 		CameraStartPage.qml
 		CameraSettingsResolutionInPage.qml
 		SearchBox.qml
-		CopyMission.qml
 )
 
 target_link_libraries(QmlControls
