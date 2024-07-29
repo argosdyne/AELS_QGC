@@ -176,3 +176,4 @@ WaypointMission                         1.0 WaypointMission.qml
 CameraStartPage							            1.0 CameraStartPage.qml
 CameraSettingsResolutionInPage          1.0 CameraSettingsResolutionInPage.qml
 SearchBox.qml                           1.0 SearchBox.qml
+CopyMission								1.0	CopyMission.qml
