@@ -26,6 +26,7 @@ import QGroundControl.Controllers       1.0
 import QGroundControl.ShapeFileHelper   1.0
 import QGroundControl.Airspace          1.0
 import QGroundControl.Airmap            1.0
+import QGroundControl.FlightDisplay 1.0
 
 Item {
     id: _root
@@ -61,8 +62,12 @@ Item {
     readonly property int       _layerGeoFence:             2
     readonly property int       _layerRallyPoints:          3
     readonly property string    _armedVehicleUploadPrompt:  qsTr("Vehicle is currently armed. Do you want to upload the mission to the vehicle?")
-
-
+    // Overlay for the map
+    property bool   _mainWindowIsMap:       mapControl.pipState.state === mapControl.pipState.fullState
+    property bool   _isFullWindowItemDark:  _mainWindowIsMap ? mapControl.isSatelliteMap : true
+    property real   _fullItemZorder:    0
+    property real   _pipItemZorder:     QGroundControl.zOrderWidgets
+    // ----
     property int  txtFontSize: ScreenTools.defaultFontPixelHeight/16*16
     function showNotificationBox(){
         notification.item.itemvisible = true
@@ -459,9 +464,62 @@ Item {
         id:             panel
         anchors.fill:   parent
 
+        PlanMasterController {
+            id:                     _planController
+            flyView:                true
+            Component.onCompleted:  start()
+        }
+
+        QGCToolInsets {
+            id:                     _toolInsets
+            leftEdgeBottomInset:    _pipOverlay.visible ? _pipOverlay.x + _pipOverlay.width : 0
+            bottomEdgeLeftInset:    _pipOverlay.visible ? parent.height - _pipOverlay.y : 0
+        }
+
+        FlyViewMap {
+            id:                     mapControl
+            planMasterController:   _planController
+            rightPanelWidth:        ScreenTools.defaultFontPixelHeight * 9
+            pipMode:                !_mainWindowIsMap
+            toolInsets:             _toolInsets
+            mapName:                "FlightDisplayView"
+        }
+
+        
+        FlyViewVideo {
+            id: videoControl
+
+            Text{
+                width: 500
+                height:  100
+                anchors.centerIn: parent
+                text: "There is no video stream available"
+                color: "white"
+            }
+        }
+
+
+        QGCPipOverlay {
+            id:                     _pipOverlay
+            anchors.left:           parent.left
+            anchors.top:         parent.top
+            anchors.topMargin:      parent.height/8
+            anchors.margins:        ScreenTools.defaultFontPixelWidth * 0.75
+            item1IsFullSettingsKey: "MainFlyWindowIsMap"
+            item1:                  mapControl
+            item2:                  QGroundControl.videoManager.hasVideo ? videoControl : null
+            fullZOrder:             _fullItemZorder
+            pipZOrder:              _pipItemZorder
+            show:                   !QGroundControl.videoManager.fullScreen &&
+                                        (videoControl.pipState.state === videoControl.pipState.pipState || mapControl.pipState.state === mapControl.pipState.pipState)
+        }
+
+
+
         FlightMap {
             id:                         editorMap
             anchors.fill:               parent
+            visible:                    false
             mapName:                    "MissionEditor"
             allowGCSLocationCenter:     true
             allowVehicleLocationCenter: true
@@ -1410,6 +1468,7 @@ Item {
 
 
     }
+
 
 
     Component {
