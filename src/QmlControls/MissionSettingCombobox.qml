@@ -42,17 +42,29 @@ ComboBox {
 
         Connections {
             target: control
-            function onPressedChanged() { canvas.requestPaint(); }
+            onPressedChanged: canvas.requestPaint()
         }
 
         onPaint: {
-            context.reset();
-            context.moveTo(0, 0);
-            context.lineTo(width, 0);
-            context.lineTo(width / 2, height);
-            context.closePath();
-            context.fillStyle = control.pressed ? "white" : "white";
-            context.fill();
+            var ctx = canvas.getContext("2d");
+            if (!ctx) return; // Ensure context is valid
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear previous drawing
+            ctx.beginPath();
+            ctx.moveTo(0, 0);
+            ctx.lineTo(canvas.width, 0);
+            ctx.lineTo(canvas.width / 2, canvas.height);
+            ctx.closePath();
+            ctx.fillStyle = control.pressed ? "white" : "white";
+            ctx.fill();
+
+            // context.reset();
+            // context.moveTo(0, 0);
+            // context.lineTo(width, 0);
+            // context.lineTo(width / 2, height);
+            // context.closePath();
+            // context.fillStyle = control.pressed ? "white" : "white";
+            // context.fill();
         }
     }
 
@@ -60,7 +72,7 @@ ComboBox {
 
         leftPadding: 0
         rightPadding: control.indicator.width + control.spacing
-        text: control.displayText
+        text: control.displayText|| "Select an option" // Fallback text
         font: control.font
         color: "white"
         verticalAlignment: Text.AlignVCenter
@@ -79,7 +91,7 @@ ComboBox {
     popup: Popup {
         y: control.height - 1
         width: control.width
-        implicitHeight: contentItem.implicitHeight
+        implicitHeight: contentItem.implicitHeight || 100
         padding: 1
 
         contentItem: ListView {
