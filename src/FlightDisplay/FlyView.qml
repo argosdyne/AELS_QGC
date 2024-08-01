@@ -142,27 +142,12 @@ Item {
         pipMode:                !_mainWindowIsMap
         toolInsets:             customOverlay.totalToolInsets
         mapName:                "FlightDisplayView"
-
-        Rectangle{
-            width: 100
-            height:  100
-            anchors.centerIn: parent
-            color: "red"
-
-        }
     }
 
-    FlyViewVideo {
-        id: videoControl
+    // FlyViewVideo {
+    //     id: videoControl
 
-        Rectangle{
-            width: 100
-            height:  100
-            anchors.centerIn: parent
-            color: "green"
-
-        }
-    }
+    // }
 
     QGCPipOverlay {
         id:                     _pipOverlay
@@ -171,10 +156,10 @@ Item {
         anchors.margins:        _toolsMargin
         item1IsFullSettingsKey: "MainFlyWindowIsMap"
         item1:                  mapControl
-        item2:                  QGroundControl.videoManager.hasVideo ? videoControl : null
+        item2:                  QGroundControl.videoManager.hasVideo ? null: null //  videoControl : null
         fullZOrder:             _fullItemZorder
         pipZOrder:              _pipItemZorder
-        show:                   !QGroundControl.videoManager.fullScreen &&
-                                    (videoControl.pipState.state === videoControl.pipState.pipState || mapControl.pipState.state === mapControl.pipState.pipState)
+        show:                   !QGroundControl.videoManager.fullScreen //&&
+                                    //(videoControl.pipState.state === videoControl.pipState.pipState || mapControl.pipState.state === mapControl.pipState.pipState)
     }
 }
