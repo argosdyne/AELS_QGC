@@ -477,7 +477,7 @@ Item {
             bottomEdgeLeftInset:    _pipOverlay.visible ? parent.height - _pipOverlay.y : 0
         }
 
-        FlyViewMap {
+        AlesPlanViewMap {
             id:                     mapControl
             planMasterController:   _planController
             rightPanelWidth:        ScreenTools.defaultFontPixelHeight * 9
