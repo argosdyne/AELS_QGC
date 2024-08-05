@@ -49,5 +49,6 @@ add_custom_target(FligthDisplayQml
 		ObstacleDistanceOverlay.qml
 		ObstacleDistanceOverlayMap.qml
 		ObstacleDistanceOverlayVideo.qml
+		AlesPlanViewMap.qml
 )
 

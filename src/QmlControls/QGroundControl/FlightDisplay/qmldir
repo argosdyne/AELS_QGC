@@ -36,3 +36,4 @@ VehicleWarnings                 1.0 VehicleWarnings.qml
 ObstacleDistanceOverlay         1.0 ObstacleDistanceOverlay.qml
 ObstacleDistanceOverlayMap      1.0 ObstacleDistanceOverlayMap.qml
 ObstacleDistanceOverlayVideo    1.0 ObstacleDistanceOverlayVideo.qml
+AlesPlanViewMap                 1.0 AlesPlanViewMap.qml

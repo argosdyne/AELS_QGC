@@ -19,7 +19,7 @@ Item {
 
 
     MissionWaypointInformation{
-        width: 400
+        width: root.width/3.2
         height: 80
         anchors.right: parent.right
         anchors.top: parent.top
@@ -32,9 +32,9 @@ Item {
     MissionControlBar{
         id: barMissionControl
         width: root.width/1.5 < 800? 800: root.width/1.5
-        height: 80
+        height: root.height/10
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: 40
+        anchors.bottomMargin: root.height/10
         anchors.horizontalCenter: parent.horizontalCenter
         btnCurrentWaypoint.onClicked: {
             barMissionControl.visible = false
@@ -55,8 +55,13 @@ Item {
     WaypointStatus{
         id:barWaypointStatus
         width: root.width/1.3 < 850? 850: root.width/1.3
-        height: 80
+        height: root.height/7
         visible: false
+        altitude: altitudeBar.altitude
+        speed: speedSlider.speed
+        turningRadius: turningRadiusSlider.turningRadius
+        numAction: actionInput.getNumAction()
+    
         anchors.bottom: parent.bottom
         anchors.bottomMargin: 0
         anchors.horizontalCenter: parent.horizontalCenter
@@ -64,13 +69,14 @@ Item {
             barWaypointStatus.visible = false
             barMissionControl.visible = true
         }
-        btnExit.onClicked: {
+        btnExit.onClicked: { 
             exitWaypointMission()
         }
 
     }
 
     AltitudeBar{
+        id: altitudeBar
         visible: barWaypointStatus.btnAltitude.checked
         width: root.width/1.4
         height: 80
@@ -81,6 +87,7 @@ Item {
     }
 
     SpeedSlider{
+        id: speedSlider
         visible: barWaypointStatus.btnSpeed.checked
         width: root.width/1.4
         height: 80
@@ -90,6 +97,7 @@ Item {
     }
 
     TurningRadiusSlider{
+        id: turningRadiusSlider
         visible: barWaypointStatus.btnTurningRadius.checked
         width: root.width/1.4
         height: 80
@@ -100,8 +108,8 @@ Item {
 
     LatitudeLongitudeInput{
         visible: barWaypointStatus.btnLongLat.checked
-        width: 300
-        height: 220
+        width: Screen.width/3
+        height: width*2/3
         anchors.bottom: barWaypointStatus.top
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottomMargin: 0
@@ -109,6 +117,7 @@ Item {
     }
 
     ActionInput{
+        id: actionInput
         visible: barWaypointStatus.btnAction.checked
         width: root.width/1.4
         height: root.height/1.4

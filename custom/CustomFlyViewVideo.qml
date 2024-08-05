@@ -50,6 +50,7 @@ Item {
         onTriggered:  QGroundControl.videoManager.startVideo()
     }
 
+
     //-- Video Streaming
     FlightDisplayViewVideo {
         id:             videoStreaming
@@ -107,4 +108,5 @@ Item {
     FlyViewVideoSiYiController {
         anchors.fill: parent
     }
+
 }

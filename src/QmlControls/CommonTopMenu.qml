@@ -23,7 +23,7 @@ Rectangle {
     property bool isCameraWindow: false
 
     //Size Property
-    property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
+    property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.mediumFontPointSize : ScreenTools.mediumFontPointSize
 
     implicitWidth: Screen.width
 
@@ -41,9 +41,7 @@ Rectangle {
                 Image {
                     anchors.fill: parent
                     source: "/res/TopMenuHomeButton.svg"
-                    anchors.centerIn: parent
                     fillMode: Image.PreserveAspectFit
-
                 }
             }
             onClicked: {
@@ -52,13 +50,12 @@ Rectangle {
         }
         //Move to MainPage Button
         Button {
-            Layout.preferredWidth: height*4
             Layout.fillHeight: true
+            Layout.preferredWidth: height*4.5
             background: Rectangle {
                 color: "blue"
                 RowLayout {
                     anchors.fill: parent
-                    anchors.leftMargin: defaultFontSize
                     spacing: defaultFontSize * 1.5
                     anchors.margins: 5
                     Image {
@@ -68,23 +65,32 @@ Rectangle {
                         fillMode: Image.PreserveAspectFit
 
                     }
-                    Column {
+                    Rectangle {
+                        color:"transparent"
                         Layout.fillHeight: true
                         Layout.fillWidth: true
-                        spacing: defaultFontSize*1.2
-                        Text {
-                            font.pixelSize: defaultFontSize * 2
-                            text: qsTr("Intelligent Photo")
-                            color: defaultTextColor
-                            opacity: 0.8
-                            horizontalAlignment: Text.AlignHCenter
-                        }
-                        Text {
-                            font.pixelSize: defaultFontSize * 2.5
-                            text: qsTr("Manual Flight")
-                            font.bold: true
-                            color: defaultTextColor
-                            horizontalAlignment: Text.AlignHCenter
+                        Column {
+                            anchors.fill: parent
+                            spacing: 5
+                            Text {
+                                Layout.fillHeight:true
+                                Layout.fillWidth: true
+                                font.pixelSize: defaultFontSize
+                                text: qsTr("Intelligent Photo")
+                                color: defaultTextColor
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                            }
+                            Text {
+                                Layout.fillHeight:true
+                                Layout.fillWidth: true
+                                font.pixelSize: defaultFontSize*1.5
+                                text: qsTr("Manual Flight")
+                                font.bold: true
+                                color: defaultTextColor
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+                            }
                         }
                     }
                 }
@@ -98,13 +104,14 @@ Rectangle {
 
         Rectangle {
             Layout.fillHeight: true
-            Layout.preferredWidth: height * 8
+            Layout.fillWidth: true
             color: "transparent"
             RowLayout {
                 anchors.fill: parent
+                anchors.margins: 5
 
                 Rectangle {
-                    Layout.preferredWidth: height*2
+                    Layout.preferredWidth: height*3
                     Layout.fillHeight: true
                     color: "transparent"
                     RowLayout {
@@ -117,7 +124,7 @@ Rectangle {
 
                         Text {
                             Layout.fillHeight: true
-                            font.pixelSize: defaultFontSize * 4
+                            font.pixelSize: defaultFontSize * 2
                             text: qsTr("N/A")
                             color: defaultTextColor
                             verticalAlignment: Text.AlignVCenter
@@ -126,7 +133,7 @@ Rectangle {
                 }
 
                 Rectangle {
-                    Layout.preferredWidth: height*2
+                    Layout.preferredWidth: height*3
                     Layout.fillHeight: true
                     color: "transparent"
                     RowLayout {
@@ -139,7 +146,7 @@ Rectangle {
 
                         Text {
                             Layout.fillHeight: true
-                            font.pixelSize: defaultFontSize * 4
+                            font.pixelSize: defaultFontSize * 2
                             text: qsTr("N/A")
                             color: defaultTextColor
                             verticalAlignment: Text.AlignVCenter
@@ -149,7 +156,7 @@ Rectangle {
 
                 Rectangle {
 
-                    Layout.preferredWidth: height*2
+                    Layout.preferredWidth: height*3
                     Layout.fillHeight: true
                     color: "transparent"
                     RowLayout {
@@ -162,7 +169,7 @@ Rectangle {
 
                         Text {
                             Layout.fillHeight: true
-                            font.pixelSize: defaultFontSize * 4
+                            font.pixelSize: defaultFontSize * 2
                             text: qsTr("N/A")
                             color: defaultTextColor
                             verticalAlignment: Text.AlignVCenter
@@ -173,7 +180,7 @@ Rectangle {
 
                 Rectangle {
 
-                    Layout.preferredWidth: height*2
+                    Layout.preferredWidth: height*3
                     Layout.fillHeight: true
                     color: "transparent"
                     RowLayout {
@@ -185,7 +192,7 @@ Rectangle {
                         }
                         Text {
                             Layout.fillHeight: true
-                            font.pixelSize: defaultFontSize * 4
+                            font.pixelSize: defaultFontSize * 2
                             text: qsTr("N/A")
                             color: defaultTextColor
                             verticalAlignment: Text.AlignVCenter
@@ -193,7 +200,14 @@ Rectangle {
                     }
                 }
 
+                Rectangle {
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    color: "transparent"
+                }
+
             }
+
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
@@ -205,13 +219,13 @@ Rectangle {
 
         // Obstacle Status Icon
         Button {
-            Layout.preferredWidth: height
             Layout.fillHeight: true
+            Layout.preferredWidth: height
             background: Rectangle { color: "transparent" }
             Image {
                 source: "/res/TopMenuObstacleSensorOff.svg"                
                 anchors.fill: parent
-                anchors.margins: defaultFontSize
+                anchors.margins: 5
                 fillMode: Image.PreserveAspectFit
             }
 
@@ -227,7 +241,7 @@ Rectangle {
             background: Rectangle { color: "transparent" }
             Image {                
                 anchors.fill: parent
-                anchors.margins: defaultFontSize
+                anchors.margins: 5
                 source: "/res/TopMenuMapTool.svg"
                 fillMode: Image.PreserveAspectFit
             }
@@ -245,7 +259,7 @@ Rectangle {
             }
             Image {                
                 anchors.fill: parent
-                anchors.margins: defaultFontSize
+                anchors.margins: 5
                     source: "/res/TopMenuSetting.png"
                     fillMode: Image.PreserveAspectFit
                 }

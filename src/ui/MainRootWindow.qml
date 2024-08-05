@@ -33,8 +33,8 @@ ApplicationWindow {
         if (ScreenTools.isMobile || Screen.height / ScreenTools.realPixelDensity < 120) {
             mainWindow.showFullScreen()
         } else {
-            width   = ScreenTools.isMobile ? Screen.width  : Math.min(250 * Screen.pixelDensity, Screen.width)
-            height  = ScreenTools.isMobile ? Screen.height : Math.min(150 * Screen.pixelDensity, Screen.height)
+            width   = ScreenTools.isMobile ? Screen.width  : Math.min(1920 , Screen.width)
+            height  = ScreenTools.isMobile ? Screen.height : Math.min(1080 , Screen.height)
         }
 
         // Start the sequence of first run prompt(s)
@@ -146,6 +146,7 @@ ApplicationWindow {
 
     function showAlesPlanView() {
         viewSwitch(toolbar.planViewToolbar)
+        alesPlanView.showNotificationBox()
 
         alesPlanView.visible = true
 
