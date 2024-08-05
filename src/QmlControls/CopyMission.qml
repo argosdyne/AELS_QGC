@@ -31,7 +31,7 @@ Rectangle {
     implicitHeight: Screen.height / 22.5
 
     Image {
-        source: "qrc:/res/copy-mission.svg"
+        source: "qrc:/res/CopyMission.svg"
         anchors.fill: parent
     }
 }
