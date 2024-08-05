@@ -26,6 +26,7 @@ import QGroundControl.Controllers       1.0
 import QGroundControl.ShapeFileHelper   1.0
 import QGroundControl.Airspace          1.0
 import QGroundControl.Airmap            1.0
+import QGroundControl.FlightDisplay 1.0
 
 Item {
     id: _root
@@ -61,8 +62,13 @@ Item {
     readonly property int       _layerGeoFence:             2
     readonly property int       _layerRallyPoints:          3
     readonly property string    _armedVehicleUploadPrompt:  qsTr("Vehicle is currently armed. Do you want to upload the mission to the vehicle?")
-
-
+    // Overlay for the map
+    property bool   _mainWindowIsMap:       mapControl.pipState.state === mapControl.pipState.fullState
+    property bool   _isFullWindowItemDark:  _mainWindowIsMap ? mapControl.isSatelliteMap : true
+    property real   _fullItemZorder:    0
+    property real   _pipItemZorder:     QGroundControl.zOrderWidgets
+    property var    _activeVehicle:         QGroundControl.multiVehicleManager.activeVehicle
+    // ----
     property int  txtFontSize: ScreenTools.defaultFontPixelHeight/16*16
     function showNotificationBox(){
         notification.item.itemvisible = true
@@ -459,9 +465,805 @@ Item {
         id:             panel
         anchors.fill:   parent
 
+        PlanMasterController {
+            id:                     _planController
+            flyView:                true
+            Component.onCompleted:  start()
+        }
+
+        QGCToolInsets {
+            id:                     _toolInsets
+            leftEdgeBottomInset:    _pipOverlay.visible ? _pipOverlay.x + _pipOverlay.width : 0
+            bottomEdgeLeftInset:    _pipOverlay.visible ? parent.height - _pipOverlay.y : 0
+        }
+
+        AlesPlanViewMap {
+            id:                     mapControl
+            planMasterController:   _planController
+            rightPanelWidth:        ScreenTools.defaultFontPixelHeight * 9
+            pipMode:                !_mainWindowIsMap
+            toolInsets:             _toolInsets
+            mapName:                "FlightDisplayView"
+
+            Item {
+                id: createProjectPage
+
+                anchors.fill: parent
+                visible: (parent.width > 1000 && parent.height > 500) ? true : false
+
+
+                Button{
+                    id: btnBack
+                    width: ScreenTools.defaultFontPixelHeight/16*50
+                    height: ScreenTools.defaultFontPixelHeight/16*50
+                    anchors.left: parent.left
+                    anchors.top: parent.top
+                    anchors.leftMargin: ScreenTools.defaultFontPixelHeight*2
+                    anchors.topMargin: ScreenTools.defaultFontPixelHeight*2
+
+                    onClicked: {
+                        returnToPrevious();
+                        notification.item.itemvisible = false
+                    }
+
+                    background: Rectangle{
+                        color:"white"
+                        radius: height//2
+                        Image {
+                            anchors.fill: parent
+                            anchors.margins: 10
+                            source: "/res/ales/mission/Back.svg"
+                            fillMode: Image.PreserveAspectFit
+
+                        }
+                    }
+                }
+
+
+                Rectangle {
+                    id: searchBar
+                    width: parent.width/2
+                    height: ScreenTools.defaultFontPixelHeight/16*50
+                    anchors.horizontalCenter:  parent.horizontalCenter
+                    anchors.top: parent.top
+                    anchors.topMargin: ScreenTools.defaultFontPixelHeight*2
+
+                    color: "white"
+                    radius: 5
+                    border.color: "lightgray"
+
+                    RowLayout {
+                        anchors.fill: parent
+                        anchors.margins: 5
+                        spacing: 10
+
+                        Image {
+                            source: "/res/ales/mission/Search.svg" // Path to your search icon
+                            Layout.preferredWidth:  parent.height/3*2
+                            Layout.preferredHeight: parent.height/3*2
+                            Layout.alignment: Qt.AlignVCenter
+                            fillMode: Image.PreserveAspectFit
+                        }
+
+                        TextField {
+                            Layout.fillWidth: true
+                            Layout.fillHeight: true
+                            placeholderText: qsTr("Search")
+                            background: Rectangle {
+                                color: "transparent"
+                            }
+                        }
+                    }
+                }
+
+
+                Item {
+                    id: mapLocationSettings
+                    width: ScreenTools.defaultFontPixelHeight/16*150
+                    height: ScreenTools.defaultFontPixelHeight/16*200
+                    anchors.right: parent.right
+                    anchors.top: parent.top
+                    anchors.rightMargin: ScreenTools.defaultFontPixelHeight*2
+                    anchors.topMargin: ScreenTools.defaultFontPixelHeight*2
+                    ColumnLayout{
+                        spacing: 20
+
+                        Rectangle{
+                            id: locationMapSetting
+                            color:"transparent"
+                            radius: 10
+                            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*320
+                            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+
+                            RowLayout {
+                                anchors.centerIn: parent
+                                Button{
+                                    id: btnLocation
+                                    checkable: true
+                                    checked: false
+                                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                    Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+                                    background: Rectangle{
+                                        color: parent.checked? "#3d71d7": "transparent"
+                                        radius: 5
+                                        Image {
+                                            anchors.fill: parent
+                                            anchors.margins: 10
+                                            source: "/res/ales/mission/Location.svg"
+                                            fillMode: Image.PreserveAspectFit
+                                        }
+                                    }
+                                    onClicked: {
+                                        if (!checked) {
+                                            return
+                                        }
+
+                                        if (btnMapType.checked) {
+                                            btnMapType.checked =false
+                                        }
+                                    }
+                                }
+
+                                Button{
+                                    id: btnMapType
+                                    checkable: true
+                                    checked: false
+                                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                    Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+                                    background: Rectangle{
+                                        color: parent.checked? "#3d71d7": "transparent"
+                                        radius: 5
+                                        Image {
+                                            anchors.fill: parent
+                                            anchors.margins: 10
+                                            source: "/res/ales/mission/Maptype.svg"
+                                            fillMode: Image.PreserveAspectFit
+                                        }
+                                    }
+                                    onClicked: {
+                                        if (!checked) {
+                                            return
+                                        }
+
+                                        if (btnLocation.checked) {
+                                            btnLocation.checked =false
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+
+
+
+                        Rectangle{
+                            id: locationMapSettingV1
+                            visible: false
+                            color:"#484639"
+                            radius: 10
+                            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*320
+                            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+
+                            RowLayout {
+                                anchors.fill: parent
+                                Button{
+                                    id: position
+                                    checkable: true
+                                    checked: false
+                                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                    Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+                                    background: Rectangle{
+                                        color: parent.checked? "#3d71d7": "transparent"
+                                        radius: 5
+                                        Image {
+                                            anchors.fill: parent
+                                            anchors.margins: 10
+                                            source: "/res/ales/waypoint/PositionType.svg"
+                                            fillMode: Image.PreserveAspectFit
+                                        }
+                                    }
+                                }
+
+                                Button{
+                                    id: centerObject
+                                    checkable: true
+                                    checked: false
+                                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                    Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+                                    background: Rectangle{
+                                        color: parent.checked? "#3d71d7": "transparent"
+                                        radius: 5
+                                        Image {
+                                            anchors.fill: parent
+                                            anchors.margins: 10
+                                            source: "/res/ales/waypoint/CenterIn.svg"
+                                            fillMode: Image.PreserveAspectFit
+                                        }
+                                    }
+                                }
+
+                                Button{
+                                    id: mapType
+                                    checkable: true
+                                    checked: false
+                                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                    Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+                                    background: Rectangle{
+                                        color: parent.checked? "#3d71d7": "transparent"
+                                        radius: 5
+                                        Image {
+                                            anchors.fill: parent
+                                            anchors.margins: 10
+                                            source: "/res/ales/mission/Maptype.svg"
+                                            fillMode: Image.PreserveAspectFit
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        Rectangle{
+                            id:mapTypeSetting
+                            Layout.preferredWidth:ScreenTools.defaultFontPointSize/16*220
+                            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                            Layout.alignment: Qt.AlignHCenter
+                            color: "white"
+                            anchors.margins: 20
+                            visible: btnMapType.checked
+                            RowLayout{
+                                anchors.centerIn: parent
+                                spacing: 10
+
+                                Button{
+                                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                    Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+                                    background: Rectangle{
+                                        color:"transparent"
+                                        implicitWidth:ScreenTools.defaultFontPointSize/16*100
+                                        implicitHeight:ScreenTools.defaultFontPointSize/16*100
+                                        Image {
+                                            anchors.fill: parent
+                                            source: "/res/ales/waypoint/NormalMap.png"
+                                            fillMode: Image.PreserveAspectFit
+                                        }
+                                    }
+                                }
+
+                                Button{
+                                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                    Layout.preferredWidth:ScreenTools.defaultFontPointSize/16*100
+                                    background: Rectangle{
+                                        color:"transparent"
+                                        implicitWidth:ScreenTools.defaultFontPointSize/16*100
+                                        implicitHeight:ScreenTools.defaultFontPointSize/16*100
+                                        Image {
+                                            anchors.fill: parent
+                                            source: "/res/ales/waypoint/HybridMap.png"
+                                            fillMode: Image.PreserveAspectFit
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+
+
+                        Rectangle{
+                            Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*220
+                            Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                            Layout.alignment: Qt.AlignHCenter
+                            color: "white"
+                            visible: btnLocation.checked
+                            RowLayout{
+                                anchors.centerIn: parent
+                                spacing: 10
+
+                                Button{
+                                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                    Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+                                    background: Rectangle{
+                                        color:"transparent"
+                                        implicitWidth: ScreenTools.defaultFontPointSize/16*100
+                                        implicitHeight: ScreenTools.defaultFontPointSize/16*100
+                                        Image {
+                                            anchors.fill: parent
+                                            source: "/res/ales/waypoint/Melocation.svg"
+                                            fillMode: Image.PreserveAspectFit
+                                        }
+                                    }
+                                }
+
+                                Button{
+                                    Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
+                                    Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
+                                    background: Rectangle{
+                                        color:"transparent"
+                                        implicitWidth: ScreenTools.defaultFontPointSize/16*100
+                                        implicitHeight: ScreenTools.defaultFontPointSize/16*100
+                                        Image {
+                                            anchors.fill: parent
+                                            source: "/res/ales/waypoint/DroneLocation.png"
+                                            fillMode: Image.PreserveAspectFit
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+                    }
+
+                }
+
+                Rectangle {
+                    id: createProject
+                    width: ScreenTools.defaultFontPixelHeight * 10
+                    height: ScreenTools.defaultFontPixelHeight * 3
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    anchors.bottom: parent.bottom
+                    anchors.bottomMargin: parent.height/10
+                    color: "#cc3D71D7"
+                    radius: 5
+
+                    Text {
+                        anchors.centerIn: parent
+                        text: qsTr("Create Project")
+                        color: "white"
+                        font.pixelSize: ScreenTools.defaultFontPixelHeight
+                    }
+
+                    MouseArea{
+                        anchors.fill: parent
+                        onClicked: {
+                            createNewMission()
+
+                        }
+                    }
+                }
+
+            }
+
+
+
+            TerrainStatus {
+                id:                 terrainStatus
+                anchors.margins:    _toolsMargin
+                anchors.leftMargin: 0
+                anchors.left:       mapScale.left
+                anchors.right:      parent.right
+                anchors.bottom:     parent.bottom
+                height:             ScreenTools.defaultFontPixelHeight * 7
+                missionController:  _missionController
+                visible:            _internalVisible && _editingLayer === _layerMission && QGroundControl.corePlugin.options.showMissionStatus
+
+                onSetCurrentSeqNum: _missionController.setCurrentPlanViewSeqNum(seqNum, true)
+
+                property bool _internalVisible: _planViewSettings.showMissionItemStatus.rawValue
+
+                function toggleVisible() {
+                    _internalVisible = !_internalVisible
+                    _planViewSettings.showMissionItemStatus.rawValue = _internalVisible
+                }
+            }
+
+            MapScale {
+                id:                     mapScale
+                anchors.margins:        _toolsMargin
+                anchors.bottom:         terrainStatus.visible ? terrainStatus.top : parent.bottom
+                anchors.left:            parent.left
+                mapControl:             editorMap
+                buttonsOnLeft:          true
+                terrainButtonVisible:   _editingLayer === _layerMission
+                terrainButtonChecked:   terrainStatus.visible
+                onTerrainButtonClicked: terrainStatus.toggleVisible()
+            }
+
+            // Mission Setting
+
+            Rectangle {
+                id: newMissionSetting
+                width: _root.width/3*2
+                height: _root.height/4*3
+                anchors.centerIn: parent
+                visible: false
+
+
+                color: "#CC3C3737"
+
+
+                ColumnLayout{
+                    anchors.fill: parent
+                    spacing: 10
+                    Rectangle{
+                        Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*40
+                        Layout.fillWidth: true
+                        color: "#cc3B3737"
+                        RowLayout {
+                            anchors.centerIn: parent
+                            Layout.topMargin: 5
+                            spacing: 30
+
+                            // Editable TextField
+                            TextField {
+                                id: textField
+
+                                text: "New Mission 1"
+                                readOnly: true
+                                Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*40
+                                Layout.preferredWidth: newMissionSetting.width/3
+                                font.pixelSize: ScreenTools.defaultFontPixelHeight/16*25
+                                horizontalAlignment: Text.AlignRight
+                                color: "white"
+
+                                background: Rectangle {
+                                    color: textField.readOnly ? "transparent" : "grey"
+                                    border.color: textField.readOnly ? "transparent" : "lightgray"
+                                    radius: 5
+                                }
+
+                                onAccepted: {
+                                    textField.readOnly = true // Disable editing after pressing Enter
+                                }
+
+                                // Also handle the case when the TextField loses focus
+                                onFocusChanged: if (!textField.focus) textField.readOnly = true
+                            }
+
+                            // Edit Button
+                            Button {
+                                id: editButton
+                                // Path to your edit icon
+                                background: Rectangle{
+                                    color: "transparent"
+                                    Image {
+                                        anchors.centerIn: parent
+                                        source: "/res/ales/mission/Edit.svg"
+                                        fillMode: Image.PreserveAspectFit
+                                    }
+                                }
+
+                                onClicked: {
+                                    textField.readOnly = !textField.readOnly
+                                    if (!textField.readOnly) {
+                                        textField.forceActiveFocus()
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    GridLayout {
+                        rowSpacing: 10
+                        columnSpacing: 10
+                        Layout.fillWidth: true
+                        Layout.fillHeight: true
+                        Layout.rightMargin: 20
+
+                        columns: 4
+                        RowLayout{
+                            BlueCheckButton{
+                                Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
+
+                            }
+                            Text{
+                                text: "Altitude (10-800)"
+                                color: "white"
+                                font.pixelSize: txtFontSize
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+
+                            }
+
+                        }
+                        MissionSettingText{
+                            text: "60m"
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: txtFontSize+20
+                            font.pixelSize: txtFontSize
+
+                        }
+                        RowLayout{
+                            BlueCheckButton{
+                                Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
+
+                            }
+                            Text{
+                                text: "Speed (4 - 36)"
+                                color: "white"
+                                font.pixelSize: txtFontSize
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+
+                            }
+
+                        }
+                        MissionSettingText{
+                            text: "18km/h"
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: txtFontSize+20
+                            font.pixelSize: txtFontSize
+
+                        }
+
+                        // Altitude Type
+                        RowLayout{
+                            BlueCheckButton{
+                                Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
+
+                            }
+                            Text{
+                                text: "Altitude Type"
+                                color: "white"
+                                font.pixelSize: txtFontSize
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+
+                            }
+
+                        }
+                        MissionSettingCombobox{
+                            model: ["AGL","MSL"]
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: txtFontSize+20
+                            font.pixelSize: txtFontSize
+
+                        }
+
+
+                        // Loss Action
+                        RowLayout{
+                            BlueCheckButton{
+                                Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
+
+                            }
+                            Text{
+                                text: "Loss Action"
+                                color: "white"
+                                font.pixelSize: txtFontSize
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+
+                            }
+
+                        }
+                        MissionSettingCombobox{
+                            model: ["Go Home", "Continue Mission"]
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: txtFontSize+20
+                            font.pixelSize: txtFontSize
+
+                        }
+
+
+                        // Finish Action
+                        RowLayout{
+                            BlueCheckButton{
+                                Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
+
+                            }
+                            Text{
+                                text: "Finish Action"
+                                color: "white"
+                                font.pixelSize: txtFontSize
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+
+                            }
+
+                        }
+                        MissionSettingCombobox{
+                            model: ["Go Home", "Hover"]
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: txtFontSize+20
+                            font.pixelSize: txtFontSize
+
+                        }
+
+                        // Heading
+                        RowLayout{
+                            BlueCheckButton{
+                                Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
+
+                            }
+                            Text{
+                                text: "Heading"
+                                color: "white"
+                                font.pixelSize: txtFontSize
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+
+                            }
+
+                        }
+
+                        MissionSettingCombobox{
+                            model: ["Route","Manual", "Custom","-"]
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: txtFontSize+20
+                            font.pixelSize: txtFontSize
+
+                        }
+
+                        // Camera Action
+                        RowLayout{
+                            BlueCheckButton{
+                                Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
+
+                            }
+                            Text{
+                                text: "Camera Action"
+                                color: "white"
+                                font.pixelSize: txtFontSize
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+
+                            }
+
+                        }
+
+                        MissionSettingCombobox{
+                            model: ["Start Recording","Stop Recording","Take Photo","Time Lapase","Dist. Lapse"]
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: txtFontSize+20
+                            font.pixelSize: txtFontSize
+
+                        }
+
+                        RowLayout{
+                            BlueCheckButton{
+                                Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+
+                            }
+                            Text{
+                                text: "Gimbal Pitch"
+                                color: "white"
+                                font.pixelSize: txtFontSize
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+
+                            }
+
+                        }
+                        MissionSettingText{
+                            text: "0\xB0"
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: txtFontSize+20
+                            font.pixelSize: txtFontSize
+
+                        }
+
+                        // Weather
+                        RowLayout{
+                            BlueCheckButton{
+                                Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
+
+                            }
+                            Text{
+                                text: "Weather"
+                                color: "white"
+                                font.pixelSize: txtFontSize
+                                horizontalAlignment: Text.AlignHCenter
+                                verticalAlignment: Text.AlignVCenter
+
+                            }
+
+                        }
+
+                        MissionSettingCombobox{
+                            model:["Sunny", "Cloudy"]
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: txtFontSize+20
+                            font.pixelSize: txtFontSize
+
+                        }
+
+
+
+                    }
+
+                    Rectangle{
+                        color: "transparent"
+                        Layout.fillHeight: true
+                        Layout.fillWidth: true
+                    }
+
+                    RowLayout {
+                        spacing: 0
+                        Layout.fillWidth: true
+                        Layout.preferredHeight: 50
+                        Button{
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 50
+                            onClicked: {
+                                cancelCreateNewMission()
+                            }
+
+                            background: Rectangle{
+                                color: "Transparent"
+                                border.color: "#ffffff"
+                                border.width: 2
+                                Text {
+                                    anchors.centerIn: parent
+                                    color: "#3D71D7"
+                                    text: qsTr("CANCEL")
+                                    font.pixelSize: ScreenTools.defaultFontPixelHeight/16*25
+                                }
+
+                            }
+
+                        }
+                        Button{
+                            Layout.fillWidth: true
+                            Layout.preferredHeight: 50
+                            onClicked: {
+                                moveToWaypointMission()
+                            }
+                            background: Rectangle{
+                                color: "Transparent"
+                                border.color: "#ffffff"
+                                border.width: 2
+                                Text {
+                                    anchors.centerIn: parent
+                                    color: "#3D71D7"
+                                    text: qsTr("OK")
+                                    font.pixelSize: ScreenTools.defaultFontPixelHeight/16*25
+                                }
+
+                            }
+
+                        }
+                    }
+
+                }
+
+
+
+            }
+
+
+
+            // Mission
+
+            WaypointMission {
+                id: pageWaypointMission
+                visible: false
+                anchors.fill: parent
+
+                onExitWaypointMission:{
+                    exitWaypointMissionUI()
+                    returnToPrevious()
+                }
+
+            }
+        }
+
+        
+        FlyViewVideo {
+            id: videoControl
+
+        }
+
+
+        QGCPipOverlay {
+            id:                     _pipOverlay
+            anchors.left:           parent.left
+            anchors.top:         parent.top
+            anchors.topMargin:      parent.height/8
+            anchors.margins:        ScreenTools.defaultFontPixelWidth * 0.75
+            item1IsFullSettingsKey: "MainFlyWindowIsMap"
+            item1:                  mapControl
+            item2:                  QGroundControl.videoManager.hasVideo ? videoControl : null
+            fullZOrder:             _fullItemZorder
+            pipZOrder:              _pipItemZorder
+            show:                   !QGroundControl.videoManager.fullScreen &&
+                                    (videoControl.pipState.state === videoControl.pipState.pipState || mapControl.pipState.state === mapControl.pipState.pipState)
+        }
+
+
+
         FlightMap {
             id:                         editorMap
             anchors.fill:               parent
+            visible:                    false
             mapName:                    "MissionEditor"
             allowGCSLocationCenter:     true
             allowVehicleLocationCenter: true
@@ -652,753 +1454,7 @@ Item {
             }
         }
 
-        Item {
-            id: createProjectPage
 
-            anchors.fill: parent
-
-            Button{
-                id: btnBack
-                width: ScreenTools.defaultFontPixelHeight/16*50
-                height: ScreenTools.defaultFontPixelHeight/16*50
-                anchors.left: parent.left
-                anchors.top: parent.top
-                anchors.leftMargin: ScreenTools.defaultFontPixelHeight*2
-                anchors.topMargin: ScreenTools.defaultFontPixelHeight*2
-
-                onClicked: {
-                    returnToPrevious();
-                    notification.itemvisible = false
-                }
-
-                background: Rectangle{
-                    color:"white"
-                    radius: height//2
-                    Image {
-                        anchors.fill: parent
-                        anchors.margins: 10
-                        source: "/res/ales/mission/Back.svg"
-                        fillMode: Image.PreserveAspectFit
-
-                    }
-                }
-            }
-
-
-            Rectangle {
-                id: searchBar
-                width: parent.width/2
-                height: ScreenTools.defaultFontPixelHeight/16*50
-                anchors.horizontalCenter:  parent.horizontalCenter
-                anchors.top: parent.top
-                anchors.topMargin: ScreenTools.defaultFontPixelHeight*2
-
-                color: "white"
-                radius: 5
-                border.color: "lightgray"
-
-                RowLayout {
-                    anchors.fill: parent
-                    anchors.margins: 5
-                    spacing: 10
-
-                    Image {
-                        source: "/res/ales/mission/Search.svg" // Path to your search icon
-                        Layout.preferredWidth:  parent.height/3*2
-                        Layout.preferredHeight: parent.height/3*2
-                        Layout.alignment: Qt.AlignVCenter
-                        fillMode: Image.PreserveAspectFit
-                    }
-
-                    TextField {
-                        Layout.fillWidth: true
-                        Layout.fillHeight: true
-                        placeholderText: qsTr("Search")
-                        background: Rectangle {
-                            color: "transparent"
-                        }
-                    }
-                }
-            }
-
-
-            Item {
-                id: mapLocationSettings
-                width: ScreenTools.defaultFontPixelHeight/16*150
-                height: ScreenTools.defaultFontPixelHeight/16*200
-                anchors.right: parent.right
-                anchors.top: parent.top
-                anchors.rightMargin: ScreenTools.defaultFontPixelHeight*2
-                anchors.topMargin: ScreenTools.defaultFontPixelHeight*2
-                ColumnLayout{
-                    spacing: 20
-
-                    Rectangle{
-                        id: locationMapSetting
-                        color:"transparent"
-                        radius: 10
-                        Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*320
-                        Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-
-                        RowLayout {
-                            anchors.centerIn: parent
-                            Button{
-                                id: btnLocation
-                                checkable: true
-                                checked: false
-                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                                Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-                                background: Rectangle{
-                                    color: parent.checked? "#3d71d7": "transparent"
-                                    radius: 5
-                                    Image {
-                                        anchors.fill: parent
-                                        anchors.margins: 10
-                                        source: "/res/ales/mission/Location.svg"
-                                        fillMode: Image.PreserveAspectFit
-                                    }
-                                }
-                                onClicked: {
-                                    if (!checked) {
-                                        return
-                                    }
-
-                                    if (btnMapType.checked) {
-                                        btnMapType.checked =false
-                                    }
-                                }
-                            }
-
-                            Button{
-                                id: btnMapType
-                                checkable: true
-                                checked: false
-                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                                Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-                                background: Rectangle{
-                                    color: parent.checked? "#3d71d7": "transparent"
-                                    radius: 5
-                                    Image {
-                                        anchors.fill: parent
-                                        anchors.margins: 10
-                                        source: "/res/ales/mission/Maptype.svg"
-                                        fillMode: Image.PreserveAspectFit
-                                    }
-                                }
-                                onClicked: {
-                                    if (!checked) {
-                                        return
-                                    }
-
-                                    if (btnLocation.checked) {
-                                        btnLocation.checked =false
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-
-
-
-                    Rectangle{
-                        id: locationMapSettingV1
-                        visible: false
-                        color:"#484639"
-                        radius: 10
-                        Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*320
-                        Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-
-                        RowLayout {
-                            anchors.fill: parent
-                            Button{
-                                id: position
-                                checkable: true
-                                checked: false
-                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                                Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-                                background: Rectangle{
-                                    color: parent.checked? "#3d71d7": "transparent"
-                                    radius: 5
-                                    Image {
-                                        anchors.fill: parent
-                                        anchors.margins: 10
-                                        source: "/res/ales/waypoint/PositionType.svg"
-                                        fillMode: Image.PreserveAspectFit
-                                    }
-                                }
-                            }
-
-                            Button{
-                                id: centerObject
-                                checkable: true
-                                checked: false
-                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                                Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-                                background: Rectangle{
-                                    color: parent.checked? "#3d71d7": "transparent"
-                                    radius: 5
-                                    Image {
-                                        anchors.fill: parent
-                                        anchors.margins: 10
-                                        source: "/res/ales/waypoint/CenterIn.svg"
-                                        fillMode: Image.PreserveAspectFit
-                                    }
-                                }
-                            }
-
-                            Button{
-                                id: mapType
-                                checkable: true
-                                checked: false
-                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                                Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-                                background: Rectangle{
-                                    color: parent.checked? "#3d71d7": "transparent"
-                                    radius: 5
-                                    Image {
-                                        anchors.fill: parent
-                                        anchors.margins: 10
-                                        source: "/res/ales/mission/Maptype.svg"
-                                        fillMode: Image.PreserveAspectFit
-                                    }
-                                }
-                            }
-                        }
-                    }
-
-                    Rectangle{
-                        id:mapTypeSetting
-                        Layout.preferredWidth:ScreenTools.defaultFontPointSize/16*220
-                        Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                        Layout.alignment: Qt.AlignHCenter
-                        color: "white"
-                        anchors.margins: 20
-                        visible: btnMapType.checked
-                        RowLayout{
-                            anchors.centerIn: parent
-                            spacing: 10
-
-                            Button{
-                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                                Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-                                background: Rectangle{
-                                    color:"transparent"
-                                    implicitWidth:ScreenTools.defaultFontPointSize/16*100
-                                    implicitHeight:ScreenTools.defaultFontPointSize/16*100
-                                    Image {
-                                        anchors.fill: parent
-                                        source: "/res/ales/waypoint/NormalMap.png"
-                                        fillMode: Image.PreserveAspectFit
-                                    }
-                                }
-                            }
-
-                            Button{
-                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                                Layout.preferredWidth:ScreenTools.defaultFontPointSize/16*100
-                                background: Rectangle{
-                                    color:"transparent"
-                                    implicitWidth:ScreenTools.defaultFontPointSize/16*100
-                                    implicitHeight:ScreenTools.defaultFontPointSize/16*100
-                                    Image {
-                                        anchors.fill: parent
-                                        source: "/res/ales/waypoint/HybridMap.png"
-                                        fillMode: Image.PreserveAspectFit
-                                    }
-                                }
-                            }
-
-                        }
-                    }
-
-
-                    Rectangle{
-                        Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*220
-                        Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                        Layout.alignment: Qt.AlignHCenter
-                        color: "white"
-                        visible: btnLocation.checked
-                        RowLayout{
-                            anchors.centerIn: parent
-                            spacing: 10
-
-                            Button{
-                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                                Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-                                background: Rectangle{
-                                    color:"transparent"
-                                    implicitWidth: ScreenTools.defaultFontPointSize/16*100
-                                    implicitHeight: ScreenTools.defaultFontPointSize/16*100
-                                    Image {
-                                        anchors.fill: parent
-                                        source: "/res/ales/waypoint/Melocation.svg"
-                                        fillMode: Image.PreserveAspectFit
-                                    }
-                                }
-                            }
-
-                            Button{
-                                Layout.preferredHeight: ScreenTools.defaultFontPointSize/16*100
-                                Layout.preferredWidth: ScreenTools.defaultFontPointSize/16*100
-                                background: Rectangle{
-                                    color:"transparent"
-                                    implicitWidth: ScreenTools.defaultFontPointSize/16*100
-                                    implicitHeight: ScreenTools.defaultFontPointSize/16*100
-                                    Image {
-                                        anchors.fill: parent
-                                        source: "/res/ales/waypoint/DroneLocation.png"
-                                        fillMode: Image.PreserveAspectFit
-                                    }
-                                }
-                            }
-
-                        }
-                    }
-                }
-
-            }
-
-            Rectangle {
-                id: createProject
-                width: ScreenTools.defaultFontPixelHeight * 10
-                height: ScreenTools.defaultFontPixelHeight * 3
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.bottom: parent.bottom
-                anchors.bottomMargin: parent.height/10
-                color: "#cc3D71D7" 
-                radius: 5
-
-                Text {
-                    anchors.centerIn: parent
-                    text: qsTr("Create Project")
-                    color: "white"
-                    font.pixelSize: ScreenTools.defaultFontPixelHeight
-                }
-
-                MouseArea{
-                    anchors.fill: parent
-                    onClicked: {
-                        createNewMission()
-
-                    }
-                }
-            }
-
-        }
-
-
-
-        TerrainStatus {
-            id:                 terrainStatus
-            anchors.margins:    _toolsMargin
-            anchors.leftMargin: 0
-            anchors.left:       mapScale.left
-            anchors.right:      parent.right
-            anchors.bottom:     parent.bottom
-            height:             ScreenTools.defaultFontPixelHeight * 7
-            missionController:  _missionController
-            visible:            _internalVisible && _editingLayer === _layerMission && QGroundControl.corePlugin.options.showMissionStatus
-
-            onSetCurrentSeqNum: _missionController.setCurrentPlanViewSeqNum(seqNum, true)
-
-            property bool _internalVisible: _planViewSettings.showMissionItemStatus.rawValue
-
-            function toggleVisible() {
-                _internalVisible = !_internalVisible
-                _planViewSettings.showMissionItemStatus.rawValue = _internalVisible
-            }
-        }
-
-        MapScale {
-            id:                     mapScale
-            anchors.margins:        _toolsMargin
-            anchors.bottom:         terrainStatus.visible ? terrainStatus.top : parent.bottom
-            anchors.left:            parent.left
-            mapControl:             editorMap
-            buttonsOnLeft:          true
-            terrainButtonVisible:   _editingLayer === _layerMission
-            terrainButtonChecked:   terrainStatus.visible
-            onTerrainButtonClicked: terrainStatus.toggleVisible()
-        }
-
-        // Mission Setting
-
-        Rectangle {
-            id: newMissionSetting
-            width: _root.width/4*3
-            height: _root.height/6*5
-            anchors.centerIn: parent
-            visible: false
-
-
-            color: "#CC3C3737"
-
-
-            ColumnLayout{
-                anchors.fill: parent
-                spacing: 10
-                Rectangle{
-                    Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*40
-                    Layout.fillWidth: true
-                    color: "#cc3B3737"
-                    RowLayout {
-                        anchors.centerIn: parent
-                        Layout.topMargin: 5
-                        spacing: 30
-
-                        // Editable TextField
-                        TextField {
-                            id: textField
-
-                            text: "New Mission 1"
-                            readOnly: true
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*40
-                            Layout.preferredWidth: newMissionSetting.width/3
-                            font.pixelSize: ScreenTools.defaultFontPixelHeight/16*25
-                            horizontalAlignment: Text.AlignRight
-                            color: "white"
-
-                            background: Rectangle {
-                                color: textField.readOnly ? "transparent" : "grey"
-                                border.color: textField.readOnly ? "transparent" : "lightgray"
-                                radius: 5
-                            }
-
-                            onAccepted: {
-                                textField.readOnly = true // Disable editing after pressing Enter
-                            }
-
-                            // Also handle the case when the TextField loses focus
-                            onFocusChanged: if (!textField.focus) textField.readOnly = true
-                        }
-
-                        // Edit Button
-                        Button {
-                            id: editButton
-                            // Path to your edit icon
-                            background: Rectangle{
-                                color: "transparent"
-                                Image {
-                                    anchors.centerIn: parent
-                                    source: "/res/ales/mission/Edit.svg"
-                                    fillMode: Image.PreserveAspectFit
-                                }
-                            }
-
-                            onClicked: {
-                                textField.readOnly = !textField.readOnly
-                                if (!textField.readOnly) {
-                                    textField.forceActiveFocus()
-                                }
-                            }
-                        }
-                    }
-                }
-
-                GridLayout {
-                    rowSpacing: 10
-                    columnSpacing: 10
-                    Layout.fillWidth: true
-                    Layout.fillHeight: true
-                    Layout.rightMargin: 20
-
-                    columns: 4
-                    RowLayout{
-                        BlueCheckButton{
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
-
-                        }
-                        Text{
-                            text: "Altitude (10-800)"
-                            color: "white"
-                            font.pixelSize: txtFontSize
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-
-                        }
-
-                    }
-                    MissionSettingText{
-                        text: "60m"
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: txtFontSize+20
-                        font.pixelSize: txtFontSize
-
-                    }
-                    RowLayout{
-                        BlueCheckButton{
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
-
-                        }
-                        Text{
-                            text: "Speed (4 - 36)"
-                            color: "white"
-                            font.pixelSize: txtFontSize
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-
-                        }
-
-                    }
-                    MissionSettingText{
-                        text: "18km/h"
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: txtFontSize+20
-                        font.pixelSize: txtFontSize
-
-                    }
-
-                    // Altitude Type
-                    RowLayout{
-                        BlueCheckButton{
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
-
-                        }
-                        Text{
-                            text: "Altitude Type"
-                            color: "white"
-                            font.pixelSize: txtFontSize
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-
-                        }
-
-                    }
-                    MissionSettingCombobox{
-                        model: ["AGL","MSL"]
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: txtFontSize+20
-                        font.pixelSize: txtFontSize
-
-                    }
-
-
-                    // Loss Action
-                    RowLayout{
-                        BlueCheckButton{
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
-
-                        }
-                        Text{
-                            text: "Loss Action"
-                            color: "white"
-                            font.pixelSize: txtFontSize
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-
-                        }
-
-                    }
-                    MissionSettingCombobox{
-                        model: ["Go Home", "Continue Mission"]
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: txtFontSize+20
-                        font.pixelSize: txtFontSize
-
-                    }
-
-
-                    // Finish Action
-                    RowLayout{
-                        BlueCheckButton{
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
-
-                        }
-                        Text{
-                            text: "Finish Action"
-                            color: "white"
-                            font.pixelSize: txtFontSize
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-
-                        }
-
-                    }
-                    MissionSettingCombobox{
-                        model: ["Go Home", "Hover"]
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: txtFontSize+20
-                        font.pixelSize: txtFontSize
-
-                    }
-
-                    // Heading
-                    RowLayout{
-                        BlueCheckButton{
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
-
-                        }
-                        Text{
-                            text: "Heading"
-                            color: "white"
-                            font.pixelSize: txtFontSize
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-
-                        }
-
-                    }
-
-                    MissionSettingCombobox{
-                        model: ["Route","Manual", "Custom","-"]
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: txtFontSize+20
-                        font.pixelSize: txtFontSize
-
-                    }
-
-                    // Camera Action
-                    RowLayout{
-                        BlueCheckButton{
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*50
-
-                        }
-                        Text{
-                            text: "Camera Action"
-                            color: "white"
-                            font.pixelSize: txtFontSize
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-
-                        }
-
-                    }
-
-                    MissionSettingCombobox{
-                        model: ["Start Recording","Stop Recording","Take Photo","Time Lapase","Dist. Lapse"]
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: txtFontSize+20
-                        font.pixelSize: txtFontSize
-
-                    }
-
-                    RowLayout{
-                        BlueCheckButton{
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
-
-                        }
-                        Text{
-                            text: "Gimbal Pitch"
-                            color: "white"
-                            font.pixelSize: txtFontSize
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-
-                        }
-
-                    }
-                    MissionSettingText{
-                        text: "0\xB0"
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: txtFontSize+20
-                        font.pixelSize: txtFontSize
-
-                    }
-
-                    // Weather
-                    RowLayout{
-                        BlueCheckButton{
-                            Layout.preferredHeight: ScreenTools.defaultFontPixelHeight/16*70
-
-                        }
-                        Text{
-                            text: "Weather"
-                            color: "white"
-                            font.pixelSize: txtFontSize
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-
-                        }
-
-                    }
-
-                    MissionSettingCombobox{
-                        model:["Sunny", "Cloudy"]
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: txtFontSize+20
-                        font.pixelSize: txtFontSize
-
-                    }
-
-
-
-                }
-
-                Rectangle{
-                    color: "transparent"
-                    Layout.fillHeight: true
-                    Layout.fillWidth: true
-                }
-
-                RowLayout {
-                    spacing: 0
-                    Layout.fillWidth: true
-                    Layout.preferredHeight: 50
-                    Button{
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 50
-                        onClicked: {
-                            cancelCreateNewMission()
-                        }
-
-                        background: Rectangle{
-                            color: "Transparent"
-                            border.color: "#ffffff"
-                            border.width: 2
-                            Text {
-                                anchors.centerIn: parent
-                                color: "#3D71D7"
-                                text: qsTr("CANCEL")
-                                font.pixelSize: ScreenTools.defaultFontPixelHeight/16*25
-                            }
-
-                        }
-
-                    }
-                    Button{
-                        Layout.fillWidth: true
-                        Layout.preferredHeight: 50
-                        onClicked: {
-                            moveToWaypointMission()
-                        }
-                        background: Rectangle{
-                            color: "Transparent"
-                            border.color: "#ffffff"
-                            border.width: 2
-                            Text {
-                                anchors.centerIn: parent
-                                color: "#3D71D7"
-                                text: qsTr("OK")
-                                font.pixelSize: ScreenTools.defaultFontPixelHeight/16*25
-                            }
-
-                        }
-
-                    }
-                }
-
-            }
-
-
-
-        }
-
-
-
-        // Mission
-
-        WaypointMission {
-            id: pageWaypointMission
-            visible: false
-            anchors.fill: parent
-
-            onExitWaypointMission:{
-                exitWaypointMissionUI()
-                returnToPrevious()
-            }
-
-        }
 
         Loader {
             id: notification
@@ -1410,6 +1466,7 @@ Item {
 
 
     }
+
 
 
     Component {

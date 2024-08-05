@@ -23,7 +23,7 @@ Rectangle {
     property bool isCameraWindow: false
 
     //Size Property
-    property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
+    property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.mediumFontPointSize : ScreenTools.mediumFontPointSize
 
     implicitWidth: Screen.width
 
@@ -51,7 +51,7 @@ Rectangle {
         //Move to MainPage Button
         Button {
             Layout.fillHeight: true
-            Layout.preferredWidth: height*4
+            Layout.preferredWidth: height*4.5
             background: Rectangle {
                 color: "blue"
                 RowLayout {
@@ -75,7 +75,7 @@ Rectangle {
                             Text {
                                 Layout.fillHeight:true
                                 Layout.fillWidth: true
-                                font.pixelSize: defaultFontSize*2
+                                font.pixelSize: defaultFontSize
                                 text: qsTr("Intelligent Photo")
                                 color: defaultTextColor
                                 horizontalAlignment: Text.AlignHCenter
@@ -84,7 +84,7 @@ Rectangle {
                             Text {
                                 Layout.fillHeight:true
                                 Layout.fillWidth: true
-                                font.pixelSize: defaultFontSize*3
+                                font.pixelSize: defaultFontSize*1.5
                                 text: qsTr("Manual Flight")
                                 font.bold: true
                                 color: defaultTextColor
