@@ -118,6 +118,7 @@
         <file alias="QuestionMark.svg">resources/QuestionMark.svg</file>
         <file alias="MiniMap.png">resources/MiniMap.png</file>
         <file alias="SearchBox.svg">resources/SearchBox.svg</file>
+        <file alias="DataHistoryFolder.svg">resources/DataHistoryFolder.svg</file>
         <file alias="CopyMission.svg">resources/CopyMission.svg</file>
     </qresource>
     <qresource prefix="/res/firmware">

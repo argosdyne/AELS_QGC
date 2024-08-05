@@ -182,6 +182,7 @@ add_custom_target(QmlControlsQml
 		CameraStartPage.qml
 		CameraSettingsResolutionInPage.qml
 		SearchBox.qml
+		DataHistoryFolder.qml
 		CopyMission.qml
 )
 

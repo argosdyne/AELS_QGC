@@ -349,6 +349,7 @@
         <file alias="QGroundControl/Controls/CameraSettingsResolutionInPage.qml">../src/QmlControls/CameraSettingsResolutionInPage.qml</file>
         <file alias="QGroundControl/Controls/ResolutionMessage.qml">../src/QmlControls/ResolutionMessage.qml</file>
         <file alias="QGroundControl/Controls/SearchBox.qml">../src/QmlControls/SearchBox.qml</file>
+        <file alias="QGroundControl/Controls/DataHistoryFolder.qml">../src/QmlControls/DataHistoryFolder.qml</file>
         <file alias="QGroundControl/Controls/CopyMission.qml">../src/QmlControls/CopyMission.qml</file>
         <file alias="QGroundControl/FlightDisplay/AlesPlanViewMap.qml">../src/FlightDisplay/AlesPlanViewMap.qml</file>
     </qresource>
