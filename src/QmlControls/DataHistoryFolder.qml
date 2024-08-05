@@ -30,7 +30,7 @@ Rectangle {
     implicitHeight: Screen.height / 15.43
 
     Image {
-        source: "qrc:/res/data-history-folder.svg"
+        source: "qrc:/res/DataHistoryFolder.svg"
         anchors.fill: parent
     }
 }
