@@ -357,6 +357,7 @@
 		<file alias="AlesPlanView.qml">/src/PlanView/AlesPlanView.qml</file>
         <file alias="QGroundControl/Controls/WaypointMission.qml">src/QmlControls/WaypointMission.qml</file>
 		<file alias="QGroundControl/Controls/CameraStartPage.qml">src/QmlControls/CameraStartPage.qml</file>
+        <file alias="QGroundControl/FlightDisplay/AlesPlanViewMap.qml">src/FlightDisplay/AlesPlanViewMap.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>

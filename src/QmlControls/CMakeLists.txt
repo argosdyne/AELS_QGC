@@ -183,6 +183,7 @@ add_custom_target(QmlControlsQml
 		CameraSettingsResolutionInPage.qml
 		SearchBox.qml
 		DataHistoryFolder.qml
+		CopyMission.qml
 )
 
 target_link_libraries(QmlControls
