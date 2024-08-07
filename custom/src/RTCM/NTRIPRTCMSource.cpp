@@ -39,7 +39,9 @@ NTRIPRTCMSource::NTRIPRTCMSource(QObject* parent)
     });
 
     //get_caster_xml(); // 불러오면 해당 코드에서 호출해서 사용함
-
+    if(host()->rawValue().toString() != "" && port()->rawValue().toString() != ""){ //이미 값이 채워져 있다면
+        onReadyRead();
+    }
 
 }
 
