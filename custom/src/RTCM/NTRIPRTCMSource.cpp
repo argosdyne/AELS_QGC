@@ -38,7 +38,7 @@ NTRIPRTCMSource::NTRIPRTCMSource(QObject* parent)
         }
     });
 
-    get_caster_xml(); // 불러오면 해당 코드에서 호출해서 사용함
+    //get_caster_xml(); // 불러오면 해당 코드에서 호출해서 사용함
 
 
 }
@@ -47,14 +47,17 @@ NTRIPRTCMSource::~NTRIPRTCMSource()
 {
 
 }
-QStringList contentList;
 
-QStringList NTRIPRTCMSource::get_contentList(){
+QStringList NTRIPRTCMSource::getContentList() const
+{
     return contentList;
 }
 
-//Ntrip caster Source Code 
-#if true
+void NTRIPRTCMSource::addItem(const QString &item)
+{
+    contentList.append(item);
+    emit contentListChanged();
+}
 size_t writeData(void* ptr, size_t size, size_t nmemb, FILE* stream) {
     return fwrite(ptr, size, nmemb, stream);
 }
@@ -62,6 +65,97 @@ QString getExternalStoragePath() {
     // Get the directory for storing external files.
     return QStandardPaths::writableLocation(QStandardPaths::DownloadLocation);
 }
+
+QTcpSocket* tcpSocket = new QTcpSocket;
+
+int NTRIPRTCMSource::onReadyRead()
+{
+#ifdef Q_OS_ANDROID
+    // 안드로이드 환경에서 실행될 코드
+    QString filePath = getExternalStoragePath() + "/rtk_data.xml";
+    qCDebug(NTRIPRTCMSourceLog) << "Android File Path : " << filePath;
+#else
+    // 윈도우 환경에서 실행될 코드
+    QString filePath = "rtk_data.xml";
+#endif
+
+    QString userAgent = "MountPointScript";
+    QString server = host()->rawValueString();
+    int nport = port()->rawValue().toInt();
+
+    qDebug() << "herre1";
+
+    qDebug() << "herre2";
+    tcpSocket->connectToHost(server, nport);
+
+    if (!tcpSocket->waitForConnected(5000)) {
+        qDebug() << "Connection failed!";
+        return -1;
+    }
+
+    qDebug() << "herre3";
+    QString requestHeader = "GET / HTTP/1.0\r\n"
+                            "User-Agent: NTRIP Client/1.0\r\n"
+                            "Connection: close\r\n"
+                            "\r\n";
+
+    qDebug() << "**********************";
+    qDebug() << "*  request_header    *";
+    qDebug() << "**********************";
+    qDebug() << requestHeader;
+
+    tcpSocket->write(requestHeader.toUtf8());
+    if (!tcpSocket->waitForBytesWritten(5000)) {
+        qDebug() << "Writing to socket failed!";
+        return -1;
+    }
+
+    QByteArray response;
+    while (tcpSocket->waitForReadyRead(5000)) {
+        response.append(tcpSocket->readAll());
+    }
+
+    qDebug() << "**********************";
+    qDebug() << "*     response       *";
+    qDebug() << "**********************";
+    qDebug() << response;
+
+    contentList.clear();
+
+    QFile file(filePath);
+    if (file.open(QIODevice::WriteOnly)) {
+        QTextStream stream(response);
+        QTextStream out(&file);
+
+        while (!stream.atEnd()) {
+            QString line = stream.readLine();
+            if (line.startsWith("STR")) {
+                QStringList parts = line.split(';');
+                QString mountpoint = parts.value(1);
+                QString format = parts.value(3);
+                QString both = mountpoint + ":" + format;
+                addItem(both);
+
+                out << line << "\n"; // 파일에 쓰기
+            }
+        }
+        file.close();
+        std::cout << "RTK data received and saved to: " << filePath.toStdString() << std::endl;
+        qCDebug(NTRIPRTCMSourceLog) << "RTK data received and saved to: " << filePath;
+    } else {
+        std::cerr << "Failed to open file for writing: " << filePath.toStdString() << std::endl;
+        qCDebug(NTRIPRTCMSourceLog) << "Failed to open file for writing: " << filePath;
+    }
+
+    tcpSocket->close();
+
+    return 0;
+}
+
+
+//Ntrip caster Source Code 
+#if true
+
 void NTRIPRTCMSource::get_caster_xml() {
 #ifdef Q_OS_ANDROID
 	// 안드로이드 환경에서 실행될 코드
@@ -128,14 +222,14 @@ void NTRIPRTCMSource::_handle_send_gpgga_time_out()
             }
             QString res_str = QString::number(result, 16);
             test_message.append(res_str.count() == 2 ? res_str : '0' + res_str);
-            qCDebug(NTRIPRTCMSourceLog) << "Send GPGGA:" << test_message;
+            //qCDebug(NTRIPRTCMSourceLog) << "Send GPGGA:" << test_message;
             test_message.append("\r\n");
             _tcpSocket->write(test_message.toUtf8());
         } else {
             QString message = gpggamessage()->rawValueString();
             message.append("\r\n");
             _tcpSocket->write(message.toUtf8());
-            qCDebug(NTRIPRTCMSourceLog) << "Send GPGGA:" << message;
+            //qCDebug(NTRIPRTCMSourceLog) << "Send GPGGA:" << message;
         }
     }
 }
@@ -207,18 +301,49 @@ void NTRIPRTCMSource::logOut()
 {
     qCDebug(NTRIPRTCMSourceLog) << "Log Out";
     _tcpSocket->close();
+
+    if (_tcpSocket->state() != QAbstractSocket::UnconnectedState) {
+        qCDebug(NTRIPRTCMSourceLog) << "connectedState";
+        _tcpSocket->disconnectFromHost();
+
+        // 이벤트 루프를 돌려 상태 업데이트를 기다림
+        QEventLoop loop;
+        QTimer timer;
+        timer.setSingleShot(true);
+        QElapsedTimer elapsedTimer;
+        elapsedTimer.start();
+
+        connect(_tcpSocket, &QTcpSocket::disconnected, &loop, &QEventLoop::quit);
+        connect(&timer, &QTimer::timeout, &loop, &QEventLoop::quit);
+        timer.start(5000);  // 5000ms 대기
+
+        loop.exec();
+
+        if (_tcpSocket->state() != QAbstractSocket::UnconnectedState) {
+            qint64 elapsed = elapsedTimer.elapsed();
+            qDebug() << "Time elapsed:" << elapsed << "ms";
+            qCDebug(NTRIPRTCMSourceLog) << "Failed to disconnect within timeout, aborting";
+            _tcpSocket->abort();  // 강제 종료
+        } else {
+            qCDebug(NTRIPRTCMSourceLog) << "Disconnected successfully";
+        }
+    } else {
+        qCDebug(NTRIPRTCMSourceLog) << "UnconnectState";
+    }
 }
 
 void NTRIPRTCMSource::_onSocketConnected()
 {
     QString userinfo_raw = QString("%1:%2").arg(user()->rawValueString()).arg(passwd()->rawValueString());
     QString userinfo = QString(userinfo_raw.toLatin1().toBase64());
+    QStringList parts = mountpoint()->rawValue().toString().split(':');
+    QString mountPoint = parts[0];
     QString request = QString("GET /%1 HTTP/1.1\r\n"
                    "User-Agent: NTRIPSource/v1.0\r\n"
                    "Accept: */*\r\n"
                    "Connection: close\r\n"
                    "Authorization: Basic %2\r\n"
-                   "\r\n").arg(mountpoint()->rawValue().toString()).arg(userinfo);
+                   "\r\n").arg(mountPoint).arg(userinfo);
 
      _tcpSocket->write(request.toUtf8());
     qCDebug(NTRIPRTCMSourceLog) << "Authorization...\n\r" << request;
@@ -266,6 +391,7 @@ void NTRIPRTCMSource::_onSocketError(QAbstractSocket::SocketError error)
 
 void NTRIPRTCMSource::_onSocketDisconnected()
 {
+    qCDebug(NTRIPRTCMSourceLog) << "SocketDisconnect";
     _sendGPGGATimer.stop();
     setIsLogIn(false);
     setIsLogIning(false);

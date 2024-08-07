@@ -42,6 +42,10 @@ Column {
         FactTextField {
             fact:           _ntripSource.port
             Layout.minimumWidth: _valueWidth
+
+            onAccepted: {
+                _ntripSource.onReadyRead()
+            }
         }
         QGCLabel {
             text:           qsTr("Mountpoint:")
@@ -56,17 +60,19 @@ Column {
         QGCComboBox {
             id: cbMountPoint
             Layout.minimumWidth: _labelWidth
-            model : _ntripSource.get_contentList()
+            model : _ntripSource.contentList
 
             //When Selected Item changed call this function
             onActivated: {
-                    if (index !== -1) {
-                        var selectedItem = model[index]; // 선택된 아이템 가져오기
-                        // C++로 선택된 아이템 보내기
-                        _ntripSource.mountpoint.value = selectedItem;
-                    }
+                if (index !== -1) {
+                    var selectedItem = model[index]; // 선택된 아이템 가져오기
+                    // C++로 선택된 아이템 보내기
+                    _ntripSource.mountpoint.value = selectedItem;
                 }
+            }
         }
+
+
         QGCLabel {
             text:           qsTr("User:")
             Layout.minimumWidth: _labelWidth

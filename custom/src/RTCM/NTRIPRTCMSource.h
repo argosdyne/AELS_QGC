@@ -8,6 +8,9 @@ Q_DECLARE_LOGGING_CATEGORY(NTRIPRTCMSourceLog)
 class NTRIPRTCMSource : public RTCMBase
 {
     Q_OBJECT
+
+    Q_PROPERTY(QStringList contentList READ getContentList NOTIFY contentListChanged)
+
 public:
     Q_PROPERTY(bool isLogIning READ isLogIning WRITE setIsLogIning NOTIFY isLogIningChanged)
     bool isLogIning() const { return _isLogIning; }
@@ -36,8 +39,10 @@ public:
     Q_INVOKABLE void getFromVehicle();
 
     //Ntrip caster
-    Q_INVOKABLE void get_caster_xml();
-    Q_INVOKABLE QStringList get_contentList();    
+    Q_INVOKABLE void get_caster_xml();    
+    QStringList getContentList() const;
+    void addItem(const QString &item);
+    Q_INVOKABLE int onReadyRead();
 
     DEFINE_SETTINGFACT(host)
     DEFINE_SETTINGFACT(port)
@@ -51,6 +56,7 @@ public:
 signals:
     void isLogInChanged(bool isLogIn);
     void isLogIningChanged(bool isLogIning);
+    void contentListChanged();
 
 private slots:
     void _handle_send_gpgga_time_out();
@@ -63,7 +69,8 @@ private:
     QTimer _sendGPGGATimer;
     QTcpSocket* _tcpSocket{nullptr};
     bool _isLogIn{false};
-    bool _isLogIning{false}; 
+    bool _isLogIning{false};
+    QStringList contentList;
 };
 
 #endif // NTRIPRTCMSOURCE_H
