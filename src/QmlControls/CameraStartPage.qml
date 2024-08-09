@@ -11,6 +11,7 @@ import QGroundControl.MultiVehicleManager   1.0
 import QGroundControl.ScreenTools           1.0
 import QGroundControl.Controllers           1.0
 import QtGraphicalEffects                   1.12
+import QGroundControl.FlightDisplay 1.0
 
 Rectangle {
     id:     root
@@ -31,6 +32,14 @@ Rectangle {
 
     implicitWidth: Screen.width
     implicitHeight: Screen.height    
+
+
+    FlyViewVideo {
+        id: videoControl
+        anchors.fill: parent
+    }
+
+
     Loader {
         source: "qrc:/qml/QGroundControl/Controls/CameraTakePhoto.qml"
         anchors {
@@ -108,12 +117,37 @@ Rectangle {
         }
     }
 
-    Loader {
-        id: startPopup
-        source: "qrc:/qml/QGroundControl/Controls/LearningCenterDialog.qml"
-        anchors.centerIn:parent
-        z: 3
+    //Modal
+    Rectangle {
+        id: modalBackground
+        color: Qt.rgba(0,0,0,0.5)
+
+        visible: !screenLogin.isExit
+        width: Screen.width
+        height: Screen.height
+        z: 1
+
+        MouseArea {
+            anchors.fill: parent
+        }
+        enabled: !screenLogin.isExit
     }
 
+    Rectangle {
+        id: cameraStartPopup
+        anchors.centerIn: parent
+        width: 850
+        height: 550
+        color: transparent
+        z: 2
 
+        StackView {
+            anchors.fill: parent
+            clip: true
+            id: learningCenterGroup
+
+            initialItem: (screenLogin.isExit == false) ? Qt.resolvedUrl("qrc:/qml/QGroundControl/Controls/LearningCenterDialog.qml") : null
+
+        }
+    }
 }

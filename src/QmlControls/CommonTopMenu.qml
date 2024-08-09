@@ -25,7 +25,7 @@ Rectangle {
     //Size Property
     property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.mediumFontPointSize : ScreenTools.mediumFontPointSize
 
-    implicitWidth: Screen.width
+    implicitWidth: Screen.width    
 
     RowLayout {
         id:  viewButtonRow
@@ -46,6 +46,11 @@ Rectangle {
             }
             onClicked: {
                 console.log("Logo btn Click");
+                //Move to Start Page
+                screenLogin.visible = true
+                topOverLay.visible = true
+                cameraOverLay.sourceComponent = null
+
             }
         }
         //Move to MainPage Button

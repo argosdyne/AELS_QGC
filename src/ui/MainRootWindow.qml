@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  *
  * (c) 2009-2020 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
  *
@@ -603,6 +603,15 @@ ApplicationWindow {
             }
         }
     }
+
+    Loader {
+        id: cameraOverLay
+        anchors.fill: parent
+        width: parent.width
+        height: parent.height
+        sourceComponent: null
+    }
+
     Rectangle {
         id: topOverLay
         anchors.fill: parent
@@ -614,7 +623,18 @@ ApplicationWindow {
             anchors.fill: parent
             visible: true
 
-            btnCamera.onClicked: topOverLay.visible = false
+            property bool isExit : false
+
+            btnCamera.onClicked:  {
+              
+                topOverLay.visible = false
+
+                if(!cameraOverLay.item) {
+                    console.log("Make Component");
+                    cameraOverLay.setSource("qrc:/qml/QGroundControl/Controls/CameraStartPage.qml")
+                }
+            }
+
             btnMission.onClicked: {
 
                 screenLogin.visible = false

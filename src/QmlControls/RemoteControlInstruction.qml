@@ -18,7 +18,7 @@ Item {
     property int titleFontSize: 35
     property int contentFontSize: 30
     property string backgroundColor: "#3b3737"
-    property string boderColor: "#cecdcd"
+    property string boderColor: "#cecdcd"    
 
     Rectangle {
         anchors.fill: parent
@@ -72,7 +72,7 @@ Item {
                         id: buttonRow
 
                         RadioButton {
-                            checked: true
+                            checked: false
 
                             indicator: Rectangle {
                                 implicitWidth: 20
@@ -96,7 +96,7 @@ Item {
                         }
 
                         RadioButton {
-                            checked: false
+                            checked: true
 
                             indicator: Rectangle {
                                 implicitWidth: 20
@@ -126,53 +126,41 @@ Item {
                 Layout.fillWidth: true
                 Layout.preferredHeight: titleFontSize * 2
                 color: backgroundColor
-                border.color: "transparent"
-                border.width: 0
+                border.color: boderColor
+                
 
-                RowLayout {
+                Button {
                     anchors.fill: parent
-                    spacing: 0
-                    Button {
-                        Layout.fillHeight: true
-                        Layout.rowSpan: 1
-                        text: "DO NOT SHOW AGAIN"
-                        font.pixelSize: titleFontSize
+                    text: "FINISH"
+                    font.pixelSize: titleFontSize
 
-                        background: Rectangle {
-                            color: "transparent"
-                            border.color: boderColor
-                        }
-
-                        contentItem: Text {
-                            text: parent.text
-                            font: parent.font
-                            opacity: enabled ? 1.0 : 0.3
-                            color: parent.down ? "white" : "white"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            elide: Text.ElideRight
-                        }
+                    background: Rectangle {
+                        color: "transparent"
+                        border.color: boderColor
                     }
 
-                    Button {
-                        Layout.rowSpan: 1
-                        Layout.fillWidth: true
-                        text: "FINISH"
-                        font.pixelSize: titleFontSize
+                    contentItem: Text {
+                        text: parent.text
+                        font: parent.font
+                        opacity: enabled ? 1.0 : 0.3
+                        color: parent.down ? "white" : "white"
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideRight
+                    }
 
-                        background: Rectangle {
-                            color: "transparent"
-                            border.color: boderColor
-                        }
+                    onClicked: {
 
-                        contentItem: Text {
-                            text: parent.text
-                            font: parent.font
-                            opacity: enabled ? 1.0 : 0.3
-                            color: parent.down ? "white" : "white"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            elide: Text.ElideRight
+                        var componentUrl = Qt.resolvedUrl("qrc:/qml/QGroundControl/Controls/SdCardDialog.qml");
+
+                        // CreateComponent
+                        var component = Qt.createComponent(componentUrl);
+
+                        if (component.status === Component.Ready) {
+                            // 애니메이션이 없는 Transition을 설정하여 페이지를 푸시
+                            var newPage = component.createObject(learningCenterGroup);
+                        } else {
+                            console.log("Error loading component:", component.errorString());
                         }
                     }
                 }
