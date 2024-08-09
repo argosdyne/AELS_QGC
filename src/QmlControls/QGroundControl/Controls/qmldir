@@ -178,3 +178,4 @@ CameraSettingsResolutionInPage          1.0 CameraSettingsResolutionInPage.qml
 SearchBox                               1.0 SearchBox.qml
 DataHistoryFolder                       1.0 DataHistoryFolder.qml
 CopyMission                             1.0 CopyMission.qml
+DeleteMissionButton                     1.0 DeleteMissionButton.qml

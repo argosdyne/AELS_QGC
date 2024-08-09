@@ -344,7 +344,7 @@
         <file alias="QGroundControl/Controls/CameraSettingsResolutionOutPage.qml">../src/QmlControls/CameraSettingsResolutionOutPage.qml</file>
         <file alias="QGroundControl/Controls/CameraMainPage.qml">../src/QmlControls/CameraMainPage.qml</file>
         <file alias="AlesPlanView.qml">../src/PlanView/AlesPlanView.qml</file>
-        <file alias="QGroundControl/Controls/WaypointMission.qml">../src/QmlControls/WaypointMission.qml</file>       
+        <file alias="QGroundControl/Controls/WaypointMission.qml">../src/QmlControls/WaypointMission.qml</file>
         <file alias="QGroundControl/Controls/CameraStartPage.qml">../src/QmlControls/CameraStartPage.qml</file>
         <file alias="QGroundControl/Controls/CameraSettingsResolutionInPage.qml">../src/QmlControls/CameraSettingsResolutionInPage.qml</file>
         <file alias="QGroundControl/Controls/ResolutionMessage.qml">../src/QmlControls/ResolutionMessage.qml</file>
@@ -352,6 +352,7 @@
         <file alias="QGroundControl/Controls/DataHistoryFolder.qml">../src/QmlControls/DataHistoryFolder.qml</file>
         <file alias="QGroundControl/Controls/CopyMission.qml">../src/QmlControls/CopyMission.qml</file>
         <file alias="QGroundControl/FlightDisplay/AlesPlanViewMap.qml">../src/FlightDisplay/AlesPlanViewMap.qml</file>
+        <file alias="QGroundControl/Controls/DeleteMissionButton.qml">../src/QmlControls/DeleteMissionButton.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">../src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>

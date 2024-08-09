@@ -184,6 +184,7 @@ add_custom_target(QmlControlsQml
 		SearchBox.qml
 		DataHistoryFolder.qml
 		CopyMission.qml
+		DeleteMissionButton.qml
 )
 
 target_link_libraries(QmlControls
