@@ -57,7 +57,7 @@ Item {
                         Layout.alignment: Qt.AlignHCenter
                         Layout.preferredHeight: contentFontSize * 2
                         text: qsTr("Please insert SD Card or switch storage location to Flash Card")
-                        font.pixelSize: 25
+                        font.pixelSize: contentFontSize - 5
                         color: "white"
                     }
                 }
