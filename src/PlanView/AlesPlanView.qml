@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  *
  * (c) 2009-2020 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
  *
@@ -99,7 +99,8 @@ Item {
         btnBack.visible = false
         createProject.visible = false
         pageWaypointMission.visible = true
-        notifyMoveToWaypointMission()
+        notifyMoveToWaypointMission()        
+        toolbar.visible = toolbar.waypointMissionToolbar        
     }
 
     function cancelCreateNewMission(){
@@ -1191,11 +1192,12 @@ Item {
                             }
 
                         }
-                        Button{
+                        Button{                            
                             Layout.fillWidth: true
                             Layout.preferredHeight: 50
                             onClicked: {
                                 moveToWaypointMission()
+                                screenMissionSelection.isMakeMission = true
                             }
                             background: Rectangle{
                                 color: "Transparent"

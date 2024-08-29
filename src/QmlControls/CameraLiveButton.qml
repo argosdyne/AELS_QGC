@@ -28,10 +28,10 @@ Button {
 
     Image {
         anchors.fill: parent
-        source: "/res/LiveButton.svg"
+        source: "qrc:/res/LiveButton.svg"
     }
 
     onClicked: {
-        _root.visible = false
+        root.visible = false
     }
 }

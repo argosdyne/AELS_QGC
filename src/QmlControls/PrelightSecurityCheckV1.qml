@@ -122,6 +122,24 @@ Item {
                         }
                     }
                 }
+
+                MouseArea {
+                    id: swipeArea
+                    anchors.fill: parent
+                    drag.target: null
+
+                    property real startX: 0
+                    property real threshold: 100
+                    property bool actionPerformed: false
+
+                    onPressed: startX = mouse.x
+                    onReleased: {
+                        if (!actionPerformed && mouse.x > startX + threshold) {
+                            learningCenterGroup.replace(Qt.resolvedUrl("qrc:/qml/QGroundControl/Controls/PreflightSecurityCheck.qml"))
+                            actionPerformed = true
+                        }
+                    }
+                }
             }
 
             Rectangle {

@@ -18,7 +18,7 @@ Rectangle {
 
     //Color Property
     property color defaultTextColor: "white"
-    property color blue: "#3d71d7"
+    property color moveToMainPageBtnBackgroundColor: "blue"
     property color defaultBackgroundColor: "#6e474141"
     property bool isCameraWindow: false
 
@@ -26,6 +26,18 @@ Rectangle {
     property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.mediumFontPointSize : ScreenTools.mediumFontPointSize
 
     implicitWidth: Screen.width    
+
+    Loader {
+        id: commonHiddenTopBar
+        visible: false
+
+        onLoaded: {
+            if(item){
+                width = item.width;
+                height = item.height;
+            }
+        }
+    }
 
     RowLayout {
         id:  viewButtonRow
@@ -48,8 +60,9 @@ Rectangle {
                 console.log("Logo btn Click");
                 //Move to Start Page
                 screenLogin.visible = true
-                topOverLay.visible = true
-                cameraOverLay.sourceComponent = null
+                topOverLay.visible = true                
+                cameraOverLay.visible = false
+                toolbar.visible = !toolbar.waypointMissionToolbar
 
             }
         }
@@ -58,7 +71,7 @@ Rectangle {
             Layout.fillHeight: true
             Layout.preferredWidth: height*4.5
             background: Rectangle {
-                color: "blue"
+                color: moveToMainPageBtnBackgroundColor
                 RowLayout {
                     anchors.fill: parent
                     spacing: defaultFontSize * 1.5
@@ -80,7 +93,7 @@ Rectangle {
                             Text {
                                 Layout.fillHeight:true
                                 Layout.fillWidth: true
-                                font.pixelSize: defaultFontSize
+                                font.pixelSize: defaultFontSize * 2
                                 text: qsTr("Intelligent Photo")
                                 color: defaultTextColor
                                 horizontalAlignment: Text.AlignHCenter
@@ -89,7 +102,7 @@ Rectangle {
                             Text {
                                 Layout.fillHeight:true
                                 Layout.fillWidth: true
-                                font.pixelSize: defaultFontSize*1.5
+                                font.pixelSize: defaultFontSize* 3
                                 text: qsTr("Manual Flight")
                                 font.bold: true
                                 color: defaultTextColor
@@ -217,6 +230,16 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     console.log("Drone Status Area Clicked");
+                    // Component 생성하기
+                    if(commonHiddenTopBar.item == null) {
+                    commonHiddenTopBar.source = "qrc:/qml/QGroundControl/Controls/CommonHiddenTopBar.qml"
+                    commonHiddenTopBar.visible = true
+                    commonHiddenTopBar.x = viewButtonRow.x
+                    commonHiddenTopBar.y = viewButtonRow.y + viewButtonRow.height
+                    }
+                    else {
+                        commonHiddenTopBar.item.visible = true
+                    }
                 }
             }
         }
@@ -227,15 +250,25 @@ Rectangle {
             Layout.fillHeight: true
             Layout.preferredWidth: height
             background: Rectangle { color: "transparent" }
+            id: obstacleBtn
+
+            property bool isObstacleOn: false
+
             Image {
-                source: "/res/TopMenuObstacleSensorOff.svg"                
+                //source: "/res/TopMenuObstacleSensorOff.svg"
+                source: (obstacleBtn.isObstacleOn === true) ? "qrc:/res/TopMenuObstacleSensorOff.svg" : "qrc:/res/TopMenuObstacleSensorOn.svg"
                 anchors.fill: parent
                 anchors.margins: 5
                 fillMode: Image.PreserveAspectFit
             }
 
             onClicked: {
-                console.log("Red btn Click");
+                if(isObstacleOn === true){
+                    isObstacleOn = false;
+                }
+                else {
+                    isObstacleOn = true;
+                }
             }
         }
         //Show Map Style Button

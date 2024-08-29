@@ -1,4 +1,4 @@
-import QtQuick          2.12
+﻿import QtQuick          2.12
 import QtQuick.Controls 2.4
 import QtQuick.Layouts  1.11
 import QtQuick.Dialogs  1.3
@@ -21,80 +21,97 @@ Rectangle {
     property string white: '#ffffff'
     property string black: '#000000'
     property string blue: '#3D71D7'
+    property color lightGray: "#4a4a4a"
+    property color transparent: "transparent"
 
     property int hItemDelegate: Screen.height / 20;
 
     //Size Property
     property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
 
-    Text {
-        id: videoEncFormatText
-        color: white
-        text: qsTr("Video Encoding Format")
-        font.pixelSize: ScreenTools.mediumFontPointSize * 2.5
-        font.bold: true
-        font.family: 'Arial'
-        anchors.left: parent.left
-        anchors.leftMargin: 12
-        anchors.top: root.top
-        anchors.topMargin: 20
-    }
+    //Value
+    property var parentQML: null
+    property alias listViewModel: mymodel
+    property alias listView: listView
+    z: 4
 
-    Text{
-        id: backtext
-        text: qsTr('Back')
-        color: blue
-        font.pixelSize: ScreenTools.mediumFontPointSize * 2
-        font.family: 'Arial'
-        anchors.right: parent.right
-        anchors.rightMargin: 30
-        anchors.top: root.top
-        anchors.topMargin: 20
-    }
+    Column {
+        anchors.fill: parent
+        height: defaultFontSize * 10
 
-    Flickable {
-        id: videoEncodingFlickable
-        anchors {
-            top: videoEncFormatText.bottom
-            topMargin: 20
-            left: parent.left
-            right: parent.right
-            bottom: parent.bottom
-        }
-        contentWidth: parent.width
-        contentHeight: column.height
+        ItemDelegate {
+            width: parent.width
+            height: defaultFontSize * 10
 
-        Column {
-            id: column
-            width: videoEncodingFlickable.width
-            spacing: 5
+            Text {
+                anchors.left: parent.left
+                anchors.leftMargin: defaultFontSize * 2
+                color: white
+                text: qsTr("Video Encoding Format")
+                font.pixelSize: defaultFontSize * 2
+                anchors.verticalCenter: parent.verticalCenter
+            }
+            Text {
+                anchors.right: parent.right
+                color: blue
+                text: qsTr("Back")
+                font.pixelSize: defaultFontSize * 2
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.rightMargin: defaultFontSize * 2
+            }
+            background: Rectangle { color: transparent }
 
-            ItemDelegate {
-                width: parent.width
-                height: hItemDelegate
-
-                Text {
-                    text: 'H.264'
-                    font.pixelSize: ScreenTools.mediumFontPointSize * 2.5
-                    font.family: 'Arial'
-                    color: white
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    parentQML.videoEncodingLoader.sourceComponent = null
                 }
             }
+        }
 
-            ItemDelegate {
+        ListModel {
+            id: mymodel
+        }
+
+        ListView {
+            id: listView
+            width: parent.width
+            height: parent.height
+            interactive: false
+
+            //Item Model
+            model: mymodel
+
+            delegate: Rectangle {
                 width: parent.width
-                height: hItemDelegate
+                height: defaultFontSize * 6
+                color: ListView.isCurrentItem ? lightGray : transparent
 
                 Text {
+                    text: texts
+                    anchors.centerIn: parent
+                    font.pixelSize: defaultFontSize * 2
                     color: white
-                    text: qsTr("H.265")
-                    font.family: 'Arial'
-                    font.pixelSize: ScreenTools.mediumFontPointSize * 2.5
-                    anchors.verticalCenter: parent.verticalCenter
-                    anchors.horizontalCenter: parent.horizontalCenter
                 }
+
+               MouseArea {
+                   anchors.fill: parent
+                   onClicked: {
+                       listView.currentIndex = index
+                       switch(index) {
+                       case 0:
+                           parentQML.videoEncodingText = "H.264"
+                           break;
+                       case 1:
+                           parentQML.videoEncodingText = "H.265"
+                           break;
+                       default:
+                           parentQML.videoEncodingText = "H.264"
+                           break;
+                       }
+                   }
+               }
+
             }
         }
     }

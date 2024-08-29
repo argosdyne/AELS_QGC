@@ -27,7 +27,7 @@ ApplicationWindow {
     minimumWidth:   ScreenTools.isMobile ? Screen.width  : Math.min(ScreenTools.defaultFontPixelWidth * 100, Screen.width)
     minimumHeight:  ScreenTools.isMobile ? Screen.height : Math.min(ScreenTools.defaultFontPixelWidth * 50, Screen.height)
     visible:        true
-
+    property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.mediumFontPointSize : ScreenTools.mediumFontPointSize
     Component.onCompleted: {
         //-- Full screen on mobile or tiny screens
         if (ScreenTools.isMobile || Screen.height / ScreenTools.realPixelDensity < 120) {
@@ -337,7 +337,8 @@ ApplicationWindow {
     /// Toolbar
     header: MainToolBar {
         id:         toolbar
-        height:     ScreenTools.toolbarHeight
+        //height:     ScreenTools.toolbarHeight
+        height: defaultFontSize * 8
         visible:   !topOverLay.visible && !QGroundControl.videoManager.fullScreen && (toolbar.currentToolbar == toolbar.waypointMissionToolbar)
     }
 
@@ -625,18 +626,24 @@ ApplicationWindow {
 
             property bool isExit : false
 
-            btnCamera.onClicked:  {
-              
+            btnCamera.onClicked:  {              
                 topOverLay.visible = false
-
+                screenLogin.visible = false
+                alesPlanView.visible = false
+                toolbar.visible = !toolbar.waypointMissionToolbar
                 if(!cameraOverLay.item) {
-                    console.log("Make Component");
+                    console.log("ScreenTools.toolbarHeight : ", ScreenTools.toolbarHeight);
                     cameraOverLay.setSource("qrc:/qml/QGroundControl/Controls/CameraStartPage.qml")
+                    cameraOverLay.visible = true;
+                }
+                else // Already have Item
+                {
+                    console.log("Already have Camera Item")
+                    cameraOverLay.visible = true;
                 }
             }
 
-            btnMission.onClicked: {
-
+            btnMission.onClicked: {                
                 screenLogin.visible = false
                 screenMissionSelection.visible = true
             }
@@ -646,6 +653,9 @@ ApplicationWindow {
             id: screenMissionSelection
             anchors.fill: parent
             visible: false
+
+            property bool isMakeMission : false
+
             btnCorridor.onClicked: {
                 screenLogin.visible = true
                 screenMissionSelection.visible = false
@@ -654,6 +664,13 @@ ApplicationWindow {
                 topOverLay.visible = false
                 screenLogin.visible = false
                 screenMissionSelection.visible = false
+
+                if(isMakeMission === true){
+                    toolbar.visible = true
+                    console.log("toolbar.waypointMissionToolbar = ", toolbar.waypointMissionToolbar)
+                }
+
+                console.log("btbWaypoint onClicked toolbar.visible = ", toolbar.visible)
                 showAlesPlanView()
             }
         }

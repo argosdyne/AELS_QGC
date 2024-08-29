@@ -1,4 +1,4 @@
-import QtQuick 2.15
+﻿import QtQuick 2.15
 import QtQuick.Controls 2.14
 import QtPositioning 5.14
 import QtQuick.Window 2.10
@@ -13,103 +13,108 @@ Rectangle {
     property string white: '#ffffff'
     property string black: '#000000'
     property string blue: '#3D71D7'
-
+    property color lightGray: "#4a4a4a"
+    property color transparent : "transparent"
     property int hItemDelegate: Screen.height / 20;
 
-    Text {
-        id: gridText
-        color: white
-        text: qsTr("Grid")
-        font.pixelSize: ScreenTools.mediumFontPointSize * 2.5
-        font.bold: true
-        font.family: 'Arial'
-        anchors.top: parent.top
-        anchors.left: parent.left
-        anchors.leftMargin: 20
-        anchors.topMargin: 20  // Add margin from top of the parent if needed
-    }
+    //Size Property
+    property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
 
-    Text{
-        id: backtext
-        text: qsTr('Back')
-        color: blue
-        font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
-        font.family: 'Arial'
-        anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.rightMargin: 30
-        anchors.topMargin: 17
-    }
+    //Value
+    property var parentQML: null
+    property alias listViewModel: mymodel
+    property alias listView: listView
+    z: 4
 
     Column {
-        anchors.top: gridText.bottom
-        anchors.topMargin: 20 // Editable margin between text1 and column1
-        anchors.left: parent.left
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-
-        spacing: 5
+        anchors.fill: parent
+        height: defaultFontSize * 10
 
         ItemDelegate {
             width: parent.width
-            height: hItemDelegate
-
-            Image {
-                source: "qrc:/qmlimages/NoneBox.svg"
-                anchors.left: parent.left
-                anchors.leftMargin: 15
-                anchors.verticalCenter: parent.verticalCenter
-            }
+            height: defaultFontSize * 10
 
             Text {
                 anchors.left: parent.left
-                anchors.leftMargin: 90
-                text: 'None'
-                font.pixelSize: ScreenTools.mediumFontPointSize * 2
-                color: white
-                anchors.verticalCenter: parent.verticalCenter
-            }
-        }
-
-        ItemDelegate {
-            width: parent.width
-            height: hItemDelegate
-
-            Image {
-                source: "qrc:/qmlimages/Grid.svg"
-                anchors.left: parent.left
-                anchors.leftMargin: 20
-                anchors.verticalCenter: parent.verticalCenter
-            }
-
-            Text {
-                anchors.left: parent.left
-                anchors.leftMargin: 80
+                anchors.leftMargin: defaultFontSize * 2
                 color: white
                 text: qsTr("Grid")
-                font.pixelSize: ScreenTools.mediumFontPointSize * 2
+                font.pixelSize: defaultFontSize * 2
                 anchors.verticalCenter: parent.verticalCenter
+            }
+            Text {
+                anchors.right: parent.right
+                color: blue
+                text: qsTr("Back")
+                font.pixelSize: defaultFontSize * 2
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.rightMargin: defaultFontSize * 2
+            }
+            background: Rectangle { color: transparent }
+
+
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
+                    parentQML.gridLoader.sourceComponent = null
+                }
             }
         }
+        ListModel {
+            id: mymodel
+        }
 
-        ItemDelegate {
+        ListView {
+            id: listView
             width: parent.width
-            height: hItemDelegate
+            height: parent.height
+            interactive: false
 
-            Image {
-                source: "qrc:/qmlimages/gridLine.svg"
-                anchors.left: parent.left
-                anchors.leftMargin: 20
-                anchors.verticalCenter: parent.verticalCenter
-            }
+            //Item Model
+            model : mymodel
 
-            Text {
-                anchors.left: parent.left
-                anchors.leftMargin: 80
-                color: white
-                text: qsTr("Grid + Line")
-                font.pixelSize: ScreenTools.mediumFontPointSize * 2
-                anchors.verticalCenter: parent.verticalCenter
+            delegate: Rectangle {
+                width: parent.width
+                height: defaultFontSize * 6
+                color: ListView.isCurrentItem ? lightGray : transparent
+
+                Image {
+                    id: modelImages
+                    anchors.left: parent.left
+                    anchors.leftMargin: defaultFontSize * 3
+                    anchors.verticalCenter: parent.verticalCenter
+                    source: images
+                }
+                Text {
+                    anchors.left: modelImages.left
+                    anchors.leftMargin: defaultFontSize * 9
+                    text: texts
+                    color: white
+                    font.pixelSize: defaultFontSize * 2
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        listView.currentIndex = index
+                        switch(index) {
+                        case 0:
+                            parentQML.gridImage = "qrc:/qmlimages/NoneBox.svg"
+                            break;
+                        case 1:
+                            parentQML.gridImage = "qrc:/qmlimages/Grid.svg"
+                            break;
+                        case 2:
+                            parentQML.gridImage = "qrc:/qmlimages/gridLine.svg"
+                            break;
+                        default:
+                            parentQML.gridImage = "qrc:/qmlimages/NoneBox.svg"
+                            break;
+                        }
+
+                    }
+                }
             }
         }
     }
