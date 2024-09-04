@@ -53,10 +53,12 @@ FlightMap {
     property bool   _airspaceEnabled:           QGroundControl.airmapSupported ? (QGroundControl.settingsManager.airMapSettings.enableAirMap.rawValue && QGroundControl.airspaceManager.connected): false
     property var    _flyViewSettings:           QGroundControl.settingsManager.flyViewSettings
     property bool   _keepMapCenteredOnVehicle:  _flyViewSettings.keepMapCenteredOnVehicle.rawValue
-
     property bool   _disableVehicleTracking:    false
     property bool   _keepVehicleCentered:       pipMode ? true : false
     property bool   _saveZoomLevelSetting:      true
+    // PlanView properties
+    property real _nonInteractiveOpacity:  0.5
+    
 
     function updateAirspace(reset) {
         if(_airspaceEnabled) {
@@ -511,53 +513,6 @@ FlightMap {
         }
     }
 
-    // Handle guided mode clicks
-    MouseArea {
-        anchors.fill: parent
-
-        QGCMenu {
-            id: clickMenu
-            property var coord
-            QGCMenuItem {
-                text:           qsTr("Go to location")
-                visible:        globals.guidedControllerFlyView.showGotoLocation
-
-                onTriggered: {
-                    gotoLocationItem.show(clickMenu.coord)
-                    globals.guidedControllerFlyView.confirmAction(globals.guidedControllerFlyView.actionGoto, clickMenu.coord, gotoLocationItem)
-                }
-            }
-            QGCMenuItem {
-                text:           qsTr("Orbit at location")
-                visible:        globals.guidedControllerFlyView.showOrbit
-
-                onTriggered: {
-                    orbitMapCircle.show(clickMenu.coord)
-                    globals.guidedControllerFlyView.confirmAction(globals.guidedControllerFlyView.actionOrbit, clickMenu.coord, orbitMapCircle)
-                }
-            }
-            QGCMenuItem {
-                text:           qsTr("ROI at location")
-                visible:        globals.guidedControllerFlyView.showROI
-
-                onTriggered: {
-                    roiLocationItem.show(clickMenu.coord)
-                    globals.guidedControllerFlyView.confirmAction(globals.guidedControllerFlyView.actionROI, clickMenu.coord, roiLocationItem)
-                }
-            }
-        }
-
-        onClicked: {
-            if (!globals.guidedControllerFlyView.guidedUIVisible && (globals.guidedControllerFlyView.showGotoLocation || globals.guidedControllerFlyView.showOrbit || globals.guidedControllerFlyView.showROI)) {
-                orbitMapCircle.hide()
-                gotoLocationItem.hide()
-                var clickCoord = _root.toCoordinate(Qt.point(mouse.x, mouse.y), false /* clipToViewPort */)
-                clickMenu.coord = clickCoord
-                clickMenu.popup()
-            }
-        }
-    }
-
     // Airspace overlap support
     MapItemView {
         model:              _airspaceEnabled && QGroundControl.settingsManager.airMapSettings.enableAirspace && QGroundControl.airspaceManager.airspaceVisible ? QGroundControl.airspaceManager.airspaces.circles : []
@@ -580,16 +535,16 @@ FlightMap {
         }
     }
 
-    MapScale {
-        id:                 mapScale
-        anchors.margins:    _toolsMargin
-        anchors.left:       parent.left
-        anchors.top:        parent.top
-        mapControl:         _root
-        buttonsOnLeft:      false
-        visible:            !ScreenTools.isTinyScreen && QGroundControl.corePlugin.options.flyView.showMapScale && mapControl.pipState.state === mapControl.pipState.windowState
+    // MapScale {
+    //     id:                 mapScale
+    //     anchors.margins:    _toolsMargin
+    //     anchors.left:       parent.left
+    //     anchors.bottom:        parent.bottom
+    //     mapControl:         _root
+    //     buttonsOnLeft:      false
+    //     visible:            true//!ScreenTools.isTinyScreen && QGroundControl.corePlugin.options.flyView.showMapScale && mapControl.pipState.state === mapControl.pipState.windowState
 
-        property real centerInset: visible ? parent.height - y : 0
-    }
+    //     property real centerInset: visible ? parent.height - y : 0
+    // }
 
 }

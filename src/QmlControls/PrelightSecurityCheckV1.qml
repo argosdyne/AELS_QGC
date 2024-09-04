@@ -10,7 +10,6 @@ import QGroundControl.Palette               1.0
 import QGroundControl.ScreenTools           1.0
 
 
-
 Item {
     id: root
     implicitWidth: 850
@@ -75,7 +74,7 @@ Item {
                         Layout.preferredHeight: contentFontSize * 2
 
                         RadioButton {
-                            checked: true
+                            checked: false
 
                             indicator: Rectangle {
                                 implicitWidth: 20
@@ -99,7 +98,7 @@ Item {
                         }
 
                         RadioButton {
-                            checked: false
+                            checked: true
 
                             indicator: Rectangle {
                                 implicitWidth: 20
@@ -123,60 +122,59 @@ Item {
                         }
                     }
                 }
+
+                MouseArea {
+                    id: swipeArea
+                    anchors.fill: parent
+                    drag.target: null
+
+                    property real startX: 0
+                    property real threshold: 100
+                    property bool actionPerformed: false
+
+                    onPressed: startX = mouse.x
+                    onReleased: {
+                        if (!actionPerformed && mouse.x > startX + threshold) {
+                            learningCenterGroup.replace(Qt.resolvedUrl("qrc:/qml/QGroundControl/Controls/PreflightSecurityCheck.qml"))
+                            actionPerformed = true
+                        }
+                    }
+                }
             }
 
             Rectangle {
                 Layout.fillWidth: true
                 Layout.preferredHeight: titleFontSize * 2
                 color: backgroundColor
-                border.color: "transparent"
-                border.width: 0
+                border.color: boderColor
+               
 
-                RowLayout {
+                Button {
                     anchors.fill: parent
-                    spacing: 0
-                    Button {
-                        Layout.fillHeight: true
-                        Layout.rowSpan: 1
-                        text: "DO NOT SHOW AGAIN"
-                        font.pixelSize: titleFontSize
+                    text: "OK"
+                    font.pixelSize: titleFontSize
 
-                        background: Rectangle {
-                            color: "transparent"
-                            border.color: boderColor
-                        }
-
-                        contentItem: Text {
-                            text: parent.text
-                            font: parent.font
-                            opacity: enabled ? 1.0 : 0.3
-                            color: parent.down ? "white" : "white"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            elide: Text.ElideRight
-                        }
+                    background: Rectangle {
+                        color: "transparent"
+                        border.color: boderColor
                     }
 
-                    Button {
-                        Layout.rowSpan: 1
-                        Layout.fillWidth: true
-                        text: "OK"
-                        font.pixelSize: titleFontSize
+                    contentItem: Text {
+                        text: parent.text
+                        font: parent.font
+                        opacity: enabled ? 1.0 : 0.3
+                        color: parent.down ? "white" : "white"
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideRight
+                    }
 
-                        background: Rectangle {
-                            color: "transparent"
-                            border.color: boderColor
-                        }
+                    onClicked: {
+                        modalBackground.visible = false;
+                        modalBackground.enabled = false;
 
-                        contentItem: Text {
-                            text: parent.text
-                            font: parent.font
-                            opacity: enabled ? 1.0 : 0.3
-                            color: parent.down ? "white" : "white"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            elide: Text.ElideRight
-                        }
+                        cameraStartPopup.visible = false;
+                        screenLogin.isExit = true;
                     }
                 }
             }

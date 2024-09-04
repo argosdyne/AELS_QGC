@@ -122,60 +122,53 @@ Item {
                         }
                     }
                 }
+                MouseArea {
+                    id: swipeArea
+                    anchors.fill: parent
+                    drag.target: null
+
+                    property real startX: 0
+                    property real threshold: 100
+                    property bool actionTriggered: false
+
+                    onPressed: startX = mouse.x
+                    onReleased: {
+                        if (!actionTriggered && mouse.x < startX - threshold) {
+                            actionTriggered = true;
+                            learningCenterGroup.push(Qt.resolvedUrl("qrc:/qml/QGroundControl/Controls/PreflightSecurityCheckV1.qml"))
+                        }
+                    }
+                }
             }
 
             Rectangle {
                 Layout.fillWidth: true
                 Layout.preferredHeight: titleFontSize * 2
                 color: backgroundColor
-                border.color: "transparent"
-                border.width: 0
+                border.color: boderColor
 
-                RowLayout {
+
+                Button {
                     anchors.fill: parent
-                    spacing: 0
-                    Button {
-                        Layout.fillHeight: true
-                        Layout.rowSpan: 1
-                        text: "DO NOT SHOW AGAIN"
-                        font.pixelSize: titleFontSize
+                    text: "Next"
+                    font.pixelSize: titleFontSize
 
-                        background: Rectangle {
-                            color: "transparent"
-                            border.color: boderColor
-                        }
-
-                        contentItem: Text {
-                            text: parent.text
-                            font: parent.font
-                            opacity: enabled ? 1.0 : 0.3
-                            color: parent.down ? "white" : "white"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            elide: Text.ElideRight
-                        }
+                    background: Rectangle {
+                        color: "transparent"
+                        border.color: boderColor
                     }
 
-                    Button {
-                        Layout.rowSpan: 1
-                        Layout.fillWidth: true
-                        text: "FINISH"
-                        font.pixelSize: titleFontSize
-
-                        background: Rectangle {
-                            color: "transparent"
-                            border.color: boderColor
-                        }
-
-                        contentItem: Text {
-                            text: parent.text
-                            font: parent.font
-                            opacity: enabled ? 1.0 : 0.3
-                            color: parent.down ? "white" : "white"
-                            horizontalAlignment: Text.AlignHCenter
-                            verticalAlignment: Text.AlignVCenter
-                            elide: Text.ElideRight
-                        }
+                    contentItem: Text {
+                        text: parent.text
+                        font: parent.font
+                        opacity: enabled ? 1.0 : 0.3
+                        color: parent.down ? "white" : "white"
+                        horizontalAlignment: Text.AlignHCenter
+                        verticalAlignment: Text.AlignVCenter
+                        elide: Text.ElideRight
+                    }
+                    onClicked: {
+                        learningCenterGroup.push(Qt.resolvedUrl("qrc:/qml/QGroundControl/Controls/PreflightSecurityCheckV1.qml"))
                     }
                 }
             }

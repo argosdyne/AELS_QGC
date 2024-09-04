@@ -184,6 +184,11 @@ add_custom_target(QmlControlsQml
 		SearchBox.qml
 		DataHistoryFolder.qml
 		CopyMission.qml
+		DeleteMissionButton.qml
+		LogMessagePage.qml
+		DroneStatusPage.qml
+		FlightLogPage.qml
+		CurrentWarningMessagePage.qml
 )
 
 target_link_libraries(QmlControls

@@ -26,6 +26,8 @@ Rectangle {
     //Size Property
     property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
 
+    property var parentQML: null
+
     implicitWidth: Screen.width / 20.2
     implicitHeight: Screen.height / 2.76
 
@@ -43,6 +45,12 @@ Rectangle {
             Image {
                 anchors.fill: parent
                 source: "qrc:/res/Angle30.svg"
+            }
+
+            onClicked: {
+
+                parentQML.camGimbalSliderBar.item.currentPitch = 30
+                parentQML.camGimbalSliderBar.item.gimbalControl.value = 30
             }
         }
 
@@ -62,6 +70,10 @@ Rectangle {
                 anchors.fill: parent
                 source: "qrc:/res/Angle45.svg"
             }
+            onClicked: {
+                parentQML.camGimbalSliderBar.item.currentPitch = 45
+                parentQML.camGimbalSliderBar.item.gimbalControl.value = 45
+            }
         }
 
         Item {
@@ -79,6 +91,10 @@ Rectangle {
             Image {
                 anchors.fill: parent
                 source: "qrc:/res/Angle60.svg"
+            }
+            onClicked: {
+                parentQML.camGimbalSliderBar.item.currentPitch = 60
+                parentQML.camGimbalSliderBar.item.gimbalControl.value = 60
             }
         }
     }
