@@ -178,7 +178,9 @@ CameraSettingsResolutionInPage          1.0 CameraSettingsResolutionInPage.qml
 SearchBox                               1.0 SearchBox.qml
 DataHistoryFolder                       1.0 DataHistoryFolder.qml
 CopyMission                             1.0 CopyMission.qml
+DeleteMissionButton                     1.0 DeleteMissionButton.qml
 LogMessagePage							1.0 LogMessagePage.qml
 DroneStatusPage							1.0 DroneStatusPage.qml
 CurrentWarningMessagePage				1.0 CurrentWarningMessagePage.qml
 FlightLogPage							1.0 FlightLogPage.qml
+
