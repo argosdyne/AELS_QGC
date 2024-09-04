@@ -2,6 +2,7 @@
 import QtQuick.Controls 2.4
 import QtQuick.Layouts  1.11
 import QtQuick.Dialogs  1.3
+import QtQuick.Window 2.0
 
 import QGroundControl                       1.0
 import QGroundControl.Controls              1.0
@@ -35,135 +36,109 @@ Rectangle {
         width: parent.width
         anchors.fill: parent
 
+
+        Item {
+            height: 1
+            width: viewButtonRow.width / 6
+        }
+
+        Image {
+            source: "/res/TopMenuGpsStatus.svg"
+            height: defaultFontSize * 4
+            width: height
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        Image {
+            source: "/res/TopMenuSignalLevel.svg"
+            height: defaultFontSize * 4
+            width: height
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        Item {
+            width: viewButtonRow.width / 10
+            height: 10
+        }
+        Image {
+            source: "/res/TopMenuRemoteControllerConnectionStatus.svg"
+            height: defaultFontSize * 4
+            width: height
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        Image {
+            source: "/res/TopMenuSignalLevel.svg"
+            height: defaultFontSize * 4
+            width: height
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        Item {
+            width: viewButtonRow.width / 10
+            height: 10
+        }
+        Image {
+            source: "/res/TopMenuImageTransferStatus.svg"
+            height: defaultFontSize * 4
+            width: height
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        Image {
+            source: "/res/TopMenuSignalLevel.svg"
+            height: defaultFontSize * 4
+            width: height
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        Item {
+            width: viewButtonRow.width / 10
+            height: 10
+        }
+        Image {
+            source: "/res/TopMenuBattery2.svg"
+            height: defaultFontSize * 4
+            width: height
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        Text {
+            height: parent.height - defaultFontSize * 2.4
+            font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+            text: qsTr("N/A")
+            color: defaultTextColor
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        Item {
+            width: viewButtonRow.width / 10
+            height: 10
+        }
+        Image {
+            source: "/res/TopMenuBatteryPower.svg"
+            height: defaultFontSize * 4
+            width: height
+            anchors.verticalCenter: parent.verticalCenter
+        }
+        Text {
+            height: parent.height - defaultFontSize * 2.4
+            font.pixelSize: ScreenTools.defaultFontPixelHeight * 2
+            text: qsTr("N/A")
+            color: defaultTextColor
+            anchors.verticalCenter: parent.verticalCenter
+        }
+
+        Item {
+            width: viewButtonRow.width / 10
+            height: 10
+        }
+
         Button {
-            width: viewButtonRow.width
-            height: parent.height
+            anchors.verticalCenter: parent.verticalCenter
+            height: defaultFontSize * 4
+            width: height
             background: Rectangle {
                 color: transparent
-                Row {
-                    Rectangle {
-                        height: parent.height - defaultFontSize * 2
-                        anchors.verticalCenter: parent.verticalCenter
-                        Row {
-                            anchors.fill: parent
-                            anchors.leftMargin: viewButtonRow.width / 6 - defaultFontSize * 8
-                            spacing: defaultFontSize
-                            Image {
-                                source: "/res/TopMenuGpsStatus.svg"
-                                height: defaultFontSize * 4
-                                width: height
-                            }
-                            Image {
-                                source: "/res/TopMenuSignalLevel.svg"
-                                height: defaultFontSize * 4
-                                width: height
-                            }
-                            anchors.bottom: parent.bottom
-                        }
-                    }
-
-                    Rectangle {
-                        height: parent.height - defaultFontSize * 2
-                        anchors.verticalCenter: parent.verticalCenter
-                        Row {
-                            anchors.fill: parent
-                            anchors.leftMargin: viewButtonRow.width / 6 * 2 - defaultFontSize * 8
-                            spacing: defaultFontSize
-                            Image {
-                                source: "/res/TopMenuRemoteControllerConnectionStatus.svg"
-                                height: defaultFontSize * 4
-                                width: height
-                            }
-                            Image {
-                                source: "/res/TopMenuSignalLevel.svg"
-                                height: defaultFontSize * 4
-                                width: height
-                            }
-                            anchors.bottom: parent.bottom
-                        }
-                    }
-                    Rectangle {
-                        height: parent.height - defaultFontSize * 2
-                        anchors.verticalCenter: parent.verticalCenter
-                        Row {
-                            anchors.fill: parent
-                            anchors.leftMargin: viewButtonRow.width / 6 * 3 - defaultFontSize * 8
-                            spacing: defaultFontSize
-                            Image {
-                                source: "/res/TopMenuImageTransferStatus.svg"
-                                height: defaultFontSize * 4
-                                width: height
-                            }
-                            Image {
-                                source: "/res/TopMenuSignalLevel.svg"
-                                height: defaultFontSize * 4
-                                width: height
-                            }
-                            anchors.bottom: parent.bottom
-                        }
-                    }
-                    Rectangle {
-                        height: parent.height - defaultFontSize * 2
-                        anchors.verticalCenter: parent.verticalCenter
-                        Row {
-                            anchors.fill: parent
-                            anchors.leftMargin: viewButtonRow.width / 6 * 4 - defaultFontSize * 8
-                            spacing: defaultFontSize
-                            Image {
-                                source: "/res/TopMenuBattery2.svg"
-                                height: defaultFontSize * 4
-                                width: height
-                            }
-                            Text {
-                                height: parent.height - defaultFontSize * 2.4                                
-                                font.pixelsize: ScreenTools.defaultFontPixelHeight * 4.1
-                                text: qsTr("N/A")
-                                color: defaultTextColor
-                            }
-                            anchors.bottom: parent.bottom
-                        }
-                    }
-
-                    Rectangle {
-                        height: parent.height - defaultFontSize * 2
-                        anchors.verticalCenter: parent.verticalCenter
-                        Row {
-                            anchors.fill: parent
-                            anchors.leftMargin: viewButtonRow.width / 6 * 5 - defaultFontSize * 8 
-                            spacing: defaultFontSize
-                            Image {
-                                source: "/res/TopMenuBatteryPower.svg"
-                                height: defaultFontSize * 4
-                                width: height
-                            }
-                            Text {
-                                height: parent.height - defaultFontSize * 2.4                               
-                                font.pixelsize: ScreenTools.defaultFontPixelHeight * 4.1
-                                text: qsTr("N/A")
-                                color: defaultTextColor
-                            }
-                            anchors.bottom: parent.bottom
-                        }
-                    }
-
-                    Rectangle {
-                        height : parent.height - defaultFontSize * 2
-                        anchors.verticalCenter: parent.verticalCenter
-                        Row {
-                            anchors.leftMargin: viewButtonRow.width - defaultFontSize * 10
-                            anchors.fill: parent
-                            Image {
-                                source: "/res/TopMenuUp.svg"
-                                height: defaultFontSize * 4
-                                width: height
-                            }
-                              anchors.bottom: parent.bottom
-                        }
-                    }
+                Image{
+                    source: "qrc:/res/ales/waypoint/UpDir.svg"
+                    anchors.fill: parent
                 }
             }
             onClicked: {
-                console.log("btn Click");                
+                root.visible = false;
             }
         }
     }

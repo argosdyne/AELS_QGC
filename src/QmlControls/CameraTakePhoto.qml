@@ -29,12 +29,13 @@ Rectangle {
     implicitWidth: Screen.width / 15.5
     implicitHeight: Screen.height / 2.5
 
+    property var parentQML: null
 
     Column {
         anchors.fill: parent
 
         Button {
-            width: parent.width / 1.45
+            width: parent.width / 1.5
             height: width
             anchors.horizontalCenter: parent.horizontalCenter
 
@@ -48,7 +49,7 @@ Rectangle {
 
         Item {
             width: 1
-            height: parent.height / 6.4
+            height: parent.height / 10
         }
 
         Button {
@@ -66,7 +67,7 @@ Rectangle {
 
         Item {
             width: 1
-            height: parent.height / 6.4
+            height: parent.height / 7.5
         }
 
         Button {
@@ -79,6 +80,11 @@ Rectangle {
             Image {
                 anchors.fill: parent
                 source: "qrc:/res/ShootRecordSwitch.svg"
+            }
+
+            onClicked: {
+                root.visible = parentQML.isPhotoPage
+                parentQML.isPhotoPage = false
             }
         }
 

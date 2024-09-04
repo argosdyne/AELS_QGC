@@ -27,8 +27,10 @@ Rectangle {
     property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
 
     implicitWidth: Screen.width / 15.5
-    implicitHeight: Screen.height / 3
+    implicitHeight: Screen.height / 2.5
+    property var parentQML: null
 
+    property bool isRecord: false
 
     Column {
         anchors.fill: parent
@@ -42,13 +44,15 @@ Rectangle {
 
             Image {
                 anchors.fill: parent
-                source: "qrc:/res/PhotoShoot.svg"
+                source:(isRecord) ? "qrc:/res/PhotoShoot.svg" : "qrc:/res/GalleryButton.svg"
+            }
+            onClicked: {
             }
         }
 
         Item {
             width: 1
-            height: parent.height / 10.3
+            height: parent.height / 10
         }
 
         Button {
@@ -60,7 +64,15 @@ Rectangle {
 
             Image {
                 anchors.fill: parent
-                source: "qrc:/res/Recording.svg"
+                source:(isRecord) ? "qrc:/res/Recording.svg" : "qrc:/res/Record.svg"
+            }
+            onClicked: {
+                if(isRecord){
+                    isRecord = false
+                }
+                else {
+                    isRecord = true
+                }
             }
         }
 
@@ -70,6 +82,7 @@ Rectangle {
         }
 
         Row {
+            visible : isRecord
             width: parent.width - defaultFontSize
             height: parent.height / 10.24
             spacing: parent.width / 6.2
@@ -89,6 +102,7 @@ Rectangle {
         }
 
         Row {
+            visible : isRecord
             width: parent.width - defaultFontSize
             height: parent.height / 10.24
             spacing: parent.width / 6.2
@@ -103,6 +117,24 @@ Rectangle {
                 color: defaultTextColor
                 text: "638:24"
                 anchors.bottom: parent.bottom
+            }
+        }
+        Button {
+            visible: !isRecord
+            width: parent.width / 1.45
+            height: width
+            anchors.horizontalCenter: parent.horizontalCenter
+
+            background: Rectangle { color: transparent }
+
+            Image {
+                anchors.fill: parent
+                source: "qrc:/res/ShootSwitch.svg"
+            }
+
+            onClicked: {
+                root.visible = !parentQML.isPhotoPage
+                parentQML.isPhotoPage = true
             }
         }
     }

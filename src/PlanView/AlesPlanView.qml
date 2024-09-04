@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  *
  * (c) 2009-2020 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
  *
@@ -104,29 +104,9 @@ Item {
         btnBack.visible = false
         createProject.visible = false
         pageWaypointMission.visible = true
-        notifyMoveToWaypointMission()
 
-        // Create a new blank mission 
-
-        if (_planMasterController.containsItems) {
-            createPlanRemoveAllPromptDialogMapCenter = _mapCenter()
-            createPlanRemoveAllPromptDialogPlanCreator = _planMasterController.planCreators.get(0)
-            mainWindow.showComponentDialog(createPlanRemoveAllPromptDialog, qsTr("Create Plan"), mainWindow.showDialogDefaultWidth, StandardButton.Yes | StandardButton.No)
-            editorMap.focus = false
-        } else {
-            _planMasterController.planCreators.get(0).createPlan(_mapCenter())
-            if (_missionController.isInsertTakeoffValid){
-                // Insert takeoff item after current item
-                var nextIndex = _missionController.currentPlanViewVIIndex + 1
-                _missionController.insertTakeoffItem(_mapCenter(), nextIndex, true /* makeCurrentItem */)
-            }
-            mainWindow.showComponentDialog(clickToSetTakeOffLocationDialog, qsTr("Create Plan"), mainWindow.showDialogDefaultWidth, StandardButton.Yes)
-            // console.log("Visual Items " + _missionController.visualItems.count)
-            // Print all _missionController.visualItems
-            // for (var i = 0; i < _missionController.visualItems.count; i++) {
-            //     console.log(_missionController.visualItems.get(i))
-            // }
-        }
+        notifyMoveToWaypointMission()        
+        toolbar.visible = toolbar.waypointMissionToolbar               
     }
 
     function cancelCreateNewMission(){
@@ -1412,11 +1392,12 @@ Item {
                             }
 
                         }
-                        Button{
+                        Button{                            
                             Layout.fillWidth: true
                             Layout.preferredHeight: 50
                             onClicked: {
                                 moveToWaypointMission()
+                                screenMissionSelection.isMakeMission = true
                             }
                             background: Rectangle{
                                 color: "Transparent"

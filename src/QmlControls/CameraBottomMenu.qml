@@ -43,6 +43,15 @@ Rectangle {
     property string pivText: "5S"
     property var selectedButton: null
 
+    property alias camGimbalSliderBar: cameraGimbalSliderBar
+    property var parentQML: null
+    property var parentQMLRoot: null
+
+    z : 1
+
+    signal settingClicked()
+
+    //BottomMenu Popup
     Loader {
         id: popupLoader
         anchors {
@@ -52,7 +61,49 @@ Rectangle {
         width: parent.width
         height: parent.height
         sourceComponent: null
+
+        z : 2
     }
+
+    //Camera Gimbal Loader
+    Loader {
+        id: cameraGimbalSliderBar
+        visible : false
+        onLoaded: {
+            if(item){
+                width = item.width
+                height = item.height
+            }
+        }
+    }
+
+    //Camera Gimbal Value Setting button Loader
+    Loader {
+        id: cameraGimbalValueButton
+        visible: false
+        onLoaded: {
+            if(item){
+                width = item.width
+                height = item.height
+            }
+        }
+    }
+
+
+
+    //Camera Gimbal Value Text
+    Text {
+        id: gimbalValueText
+        visible: false
+        text: (cameraGimbalSliderBar.item != null) ? cameraGimbalSliderBar.item.currentPitch + "°" : "0°"
+        color: defaultTextColor
+        font.pixelSize: defaultFontSize * 20
+        anchors.right: root.right
+        anchors.rightMargin: root.width / 2.4
+        anchors.bottom: root.bottom
+        anchors.bottomMargin: Screen.height / 2.5
+    }
+
 
     Row {
         anchors.fill: parent
@@ -63,6 +114,8 @@ Rectangle {
             width: viewButtonRow.width * 0.107
             height: viewButtonRow.height
             background: Rectangle { color: transparent }
+
+            property bool isGimbalMenuShow: false
 
             Image {
                 width: parent.width / 3.7
@@ -80,14 +133,51 @@ Rectangle {
             }
 
             Text {
-                text: "0 °"
+                text: (cameraGimbalSliderBar.item != null) ? cameraGimbalSliderBar.item.currentPitch + " °" : "0 °"
                 color: "white"
                 x: parent.width / 1.7
                 y: parent.height / 8
                 font.pixelSize: defaultFontSize * 2
             }
 
+            onClicked: {
+
+                if(isGimbalMenuShow == false){
+                    gimbalValueText.visible = true
+                    cameraGimbalSliderBar.visible = true
+                    if(cameraGimbalSliderBar.item == null){
+                        cameraGimbalSliderBar.source = "qrc:/qml/QGroundControl/Controls/CameraGimbalSliderBar.qml"
+                        cameraGimbalSliderBar.visible = true
+                        cameraGimbalSliderBar.anchors.right = root.right
+                        cameraGimbalSliderBar.anchors.rightMargin = root.width / 6
+                        cameraGimbalSliderBar.anchors.bottom = root.bottom
+                        cameraGimbalSliderBar.anchors.bottomMargin = Screen.height / 3
+
+                        console.log("currentPitch", cameraGimbalSliderBar.item.currentPitch)
+                    }
+                    if(cameraGimbalValueButton.item == null) {
+                        cameraGimbalValueButton.source = "qrc:/qml/QGroundControl/Controls/CameraGimbalAngleButton.qml"
+                        cameraGimbalValueButton.visible = true
+                        cameraGimbalValueButton.anchors.right = root.right
+                        cameraGimbalValueButton.anchors.rightMargin = root.width / 4.5
+
+                        cameraGimbalValueButton.anchors.bottom = cameraGimbalSliderBar.bottom
+                        cameraGimbalValueButton.item.parentQML = root
+
+                    }
+                    isGimbalMenuShow = true
+                }
+                else {
+                    gimbalValueText.visible = false
+                    cameraGimbalSliderBar.visible = false
+                    //cameraGimbalSliderBar.sourceComponent = null
+                    cameraGimbalValueButton.sourceComponent = null
+                    isGimbalMenuShow = false
+                }
+            }
         }
+
+
         Button {
             width: viewButtonRow.width * 0.024
             height: viewButtonRow.height
@@ -157,6 +247,7 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentResolutionValue": resolutionText })
+                                parentQML.visible = false
                             } else if(popupLoader.item.buttonType !== resolutionId){
                                 popupLoader.sourceComponent = null
                                 popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
@@ -165,8 +256,10 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentResolutionValue": resolutionText })
+                                parentQML.visible = false
                             }else {
                                 popupLoader.sourceComponent = null
+                                parentQML.visible = true
                             }
                             if (selectedButton !== resolutionId) {
                                 selectedButton = resolutionId
@@ -216,6 +309,7 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentFrameRateValue": frameRateText })
+                                parentQML.visible = false
                             } else if(popupLoader.item.buttonType !== frameButtonId){
                                 popupLoader.sourceComponent = null
                                 popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
@@ -224,8 +318,10 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentFrameRateValue": frameRateText })
+                                parentQML.visible = false
                             }else {
                                 popupLoader.sourceComponent = null
+                                parentQML.visible = true
                             }
 
                             if (selectedButton !== frameButtonId) {
@@ -276,6 +372,7 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentFormatValue": formatText })
+                                parentQML.visible = false
                             } else if(popupLoader.item.buttonType !== formatButtonId){
                                 popupLoader.sourceComponent = null
                                 popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
@@ -284,8 +381,10 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentFormatValue": formatText })
+                                parentQML.visible = false
                             }else {
                                 popupLoader.sourceComponent = null
+                                parentQML.visible = true
                             }
 
                             if (selectedButton !== formatButtonId) {
@@ -336,6 +435,7 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentExposureValue": exposureModeText })
+                                parentQML.visible = false
                             } else if(popupLoader.item.buttonType !== exposureButtonId){
                                 popupLoader.sourceComponent = null
                                 popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
@@ -344,8 +444,10 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentExposureValue": exposureModeText })
+                                parentQML.visible = false
                             }else {
                                 popupLoader.sourceComponent = null
+                                parentQML.visible = true
                             }
 
                             if (selectedButton !== exposureButtonId) {
@@ -446,6 +548,7 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentEVValue": evText })
+                                parentQML.visible = false
                             } else if(popupLoader.item.buttonType !== evButtonId){
                                 popupLoader.sourceComponent = null
                                 popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
@@ -454,8 +557,10 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentEVValue": evText })
+                                parentQML.visible = false
                             }else {
                                 popupLoader.sourceComponent = null
+                                parentQML.visible = true
                             }
 
                             if (selectedButton !== evButtonId) {
@@ -503,6 +608,7 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentWBValue": wBImage })
+                                parentQML.visible = false
                             } else if(popupLoader.item.buttonType !== wbButtonId){
                                 popupLoader.sourceComponent = null
                                 popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
@@ -511,8 +617,10 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentWBValue": wBImage })
+                                parentQML.visible = false
                             }else {
                                 popupLoader.sourceComponent = null
+                                parentQML.visible = true
                             }
 
                             if (selectedButton !== wbButtonId) {
@@ -563,6 +671,7 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentDigitalZoom": digitalZoomText })
+                                parentQML.visible = false
                             } else if(popupLoader.item.buttonType !== digitalZoomButtonId){
                                 popupLoader.sourceComponent = null
                                 popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
@@ -571,8 +680,10 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentDigitalZoom": digitalZoomText })
+                                parentQML.visible = false
                             }else {
                                 popupLoader.sourceComponent = null
+                                parentQML.visible = true
                             }
 
                             if (selectedButton !== digitalZoomButtonId) {
@@ -623,6 +734,7 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentAFValue": afText })
+                                parentQML.visible = false
                             } else if(popupLoader.item.buttonType !== afButtonId){
                                 popupLoader.sourceComponent = null
                                 popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
@@ -631,8 +743,10 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentAFValue": afText })
+                                parentQML.visible = false
                             }else {
                                 popupLoader.sourceComponent = null
+                                parentQML.visible = true
                             }
 
                             if (selectedButton !== afButtonId) {
@@ -683,6 +797,7 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentColorValue": colorText })
+                                parentQML.visible = false
                             } else if(popupLoader.item.buttonType !== colorButtonId){
                                 popupLoader.sourceComponent = null
                                 popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
@@ -691,8 +806,10 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentColorValue": colorText })
+                                parentQML.visible = false
                             }else {
                                 popupLoader.sourceComponent = null
+                                parentQML.visible = true
                             }
 
                             if (selectedButton !== colorButtonId) {
@@ -740,6 +857,7 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentStyleValue": styleImage })
+                                parentQML.visible = false
                             } else if(popupLoader.item.buttonType !== styleButtonId){
                                 popupLoader.sourceComponent = null
                                 popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
@@ -748,8 +866,10 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentStyleValue": styleImage })
+                                parentQML.visible = false
                             }else {
                                 popupLoader.sourceComponent = null
+                                parentQML.visible = true
                             }
 
                             if (selectedButton !== styleButtonId) {
@@ -800,6 +920,7 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentPivValue": pivText })
+                                parentQML.visible = false
                             } else if(popupLoader.item.buttonType !== pivButtonId){
                                 popupLoader.sourceComponent = null
                                 popupLoader.setSource("qrc:/qml/QGroundControl/Controls/CameraBottomMenuPopup.qml", {
@@ -808,8 +929,10 @@ Rectangle {
                                                           "y": -popupLoader.height,
                                                           "parentQML":  root,
                                                           "currentPivValue": pivText })
+                                parentQML.visible = false
                             }else {
                                 popupLoader.sourceComponent = null
+                                parentQML.visible = true
                             }
 
                             if (selectedButton !== pivButtonId) {
@@ -859,6 +982,11 @@ Rectangle {
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: parent.width / 3
                 height: parent.height / 2
+            }
+            onClicked: {
+                console.log("Camera Setting Button Click");
+
+                settingClicked()
             }
         }
     }

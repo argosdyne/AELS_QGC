@@ -15,7 +15,7 @@ import QtGraphicalEffects                   1.12
 Rectangle {
     id: root
     color: black
-    z: 3
+    z: 4
 
     //Color Picker
     property color black: "#222020"
@@ -27,11 +27,17 @@ Rectangle {
     //Size Property
     property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
 
+    //values
+    property var parentQML: null
+    property bool isWarning: true
+    property string innerText: ""
+
     radius: defaultFontSize * 1.2     
     implicitWidth: Screen.width / 4.1
     implicitHeight: Screen.height / 3.4
 
     Rectangle {
+        visible: isWarning
         width: parent.width
         height: 2 
         color: gray
@@ -69,6 +75,11 @@ Rectangle {
         }
         onClicked: {
             console.log("Left btn Click");
+
+            parentQML.resetCameraLoader.sourceComponent = null
+            parentQML.modalBackground.visible = false
+            parentQML.modalBackground.enabled = false
+            parentQML.modalBackground.z = 1
         }
     }
 
@@ -93,7 +104,26 @@ Rectangle {
 
         onClicked: {
             console.log("Right btn Click");
-            _root.visible = false 
+            if(!isWarning){
+                parentQML.resetCameraLoader.sourceComponent = null
+                parentQML.modalBackground.visible = false
+                parentQML.modalBackground.enabled = false
+                parentQML.modalBackground.z = 1
+                parentQML.cameraSettingLoader.visible = false
+                parentQML.videoControl.z = 0
+
+                //Show Reset Complete Rect
+                parentQML.popupRect.showPopup()
+            }
+            else {
+                parentQML.resetCameraLoader.sourceComponent = null
+                parentQML.modalBackground.visible = false
+                parentQML.modalBackground.enabled = false
+                parentQML.modalBackground.z = 1
+
+                //Show Log Window Button
+                parentQML.logWindowButton.visible = true
+            }
         }
     }
 
@@ -108,6 +138,7 @@ Rectangle {
     }
 
     Rectangle {
+        visible : isWarning
         width: parent.width
         height: parent.height / 4.7
         anchors.top: parent.top
@@ -139,6 +170,21 @@ Rectangle {
                     color: white
                 }
             }
+        }
+    }
+
+    //Inner Text Field
+
+    Rectangle {
+        width: parent.width
+        height: parent.height - topRect.height - parent.height / 5.3
+        anchors.verticalCenter: parent.verticalCenter
+        color: transparent
+        Text {
+            text: innerText
+            color: white
+            font.pixelSize: defaultFontSize * 2
+            anchors.centerIn: parent
         }
     }
 }
