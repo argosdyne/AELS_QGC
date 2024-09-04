@@ -51,7 +51,7 @@ Item {
     property bool   _lightWidgetBorders:                editorMap.isSatelliteMap
     property bool   _addROIOnClick:                     false
     property bool   _singleComplexItem:                 _missionController.complexMissionItemNames.length === 1
-    property int    _editingLayer:                      0
+    property int    _editingLayer:                      1//layerTabBar.currentIndex ? _layers[layerTabBar.currentIndex] : _layerMission
     property var    _appSettings:                       QGroundControl.settingsManager.appSettings
     property var    _planViewSettings:                  QGroundControl.settingsManager.planViewSettings
     property bool   _promptForPlanUsageShowing:         false
@@ -63,8 +63,8 @@ Item {
     readonly property int       _layerRallyPoints:          3
     readonly property string    _armedVehicleUploadPrompt:  qsTr("Vehicle is currently armed. Do you want to upload the mission to the vehicle?")
     // Overlay for the map
-    property bool   _mainWindowIsMap:       mapControl.pipState.state === mapControl.pipState.fullState
-    property bool   _isFullWindowItemDark:  _mainWindowIsMap ? mapControl.isSatelliteMap : true
+    property bool   _mainWindowIsMap:       editorMap.pipState.state === editorMap.pipState.fullState
+    property bool   _isFullWindowItemDark:  _mainWindowIsMap ? editorMap.isSatelliteMap : true
     property real   _fullItemZorder:    0
     property real   _pipItemZorder:     QGroundControl.zOrderWidgets
     property var    _activeVehicle:         QGroundControl.multiVehicleManager.activeVehicle
@@ -91,6 +91,11 @@ Item {
         createProject.visible = false
         
     }
+    
+    function _mapCenter() {
+        var centerPoint = Qt.point(editorMap.centerViewport.left + (editorMap.centerViewport.width / 2), editorMap.centerViewport.top + (editorMap.centerViewport.height / 2))
+        return editorMap.toCoordinate(centerPoint, false /* clipToViewPort */)
+    }
 
     function moveToWaypointMission(){
         newMissionSetting.visible = false
@@ -99,8 +104,9 @@ Item {
         btnBack.visible = false
         createProject.visible = false
         pageWaypointMission.visible = true
+
         notifyMoveToWaypointMission()        
-        toolbar.visible = toolbar.waypointMissionToolbar        
+        toolbar.visible = toolbar.waypointMissionToolbar               
     }
 
     function cancelCreateNewMission(){
@@ -466,12 +472,6 @@ Item {
         id:             panel
         anchors.fill:   parent
 
-        PlanMasterController {
-            id:                     _planController
-            flyView:                true
-            Component.onCompleted:  start()
-        }
-
         QGCToolInsets {
             id:                     _toolInsets
             leftEdgeBottomInset:    _pipOverlay.visible ? _pipOverlay.x + _pipOverlay.width : 0
@@ -479,12 +479,212 @@ Item {
         }
 
         AlesPlanViewMap {
-            id:                     mapControl
-            planMasterController:   _planController
+            id:                     editorMap // mapControl
+            property real _leftToolWidth:       0// toolStrip.x + toolStrip.width
+            property real _rightToolWidth:      0 // rightPanel.width + rightPanel.anchors.rightMargin
+            property rect centerViewport:   Qt.rect(_leftToolWidth + _margin,  _margin, editorMap.width - _leftToolWidth - _rightToolWidth - (_margin * 2), (terrainStatus.visible ? terrainStatus.y : height - _margin) - _margin)
+
+            mapName:                    "MissionEditor"
+            allowGCSLocationCenter:     true
+            allowVehicleLocationCenter: true
+            planView:                   true
+
+            zoomLevel:                  QGroundControl.flightMapZoom
+            center:                     QGroundControl.flightMapPosition
+
+
+
+            planMasterController:   _planMasterController
             rightPanelWidth:        ScreenTools.defaultFontPixelHeight * 9
             pipMode:                !_mainWindowIsMap
             toolInsets:             _toolInsets
-            mapName:                "FlightDisplayView"
+                // Handle guided mode clicks
+            MouseArea {
+                anchors.fill: parent
+                acceptedButtons:  Qt.RightButton | Qt.LeftButton
+
+                QGCMenu {
+                    id: clickMenu
+                    property var coord
+                    property string coordinate: coord ? coord.latitude + ", " + coord.longitude + ", " + coord.altitude : ""
+                    QGCMenuItem {
+                        text:          addWaypointRallyPointAction.checked?  qsTr("Finish Waypoint"): qsTr("Add waypoint") 
+                        visible:        true   //globals.guidedControllerFlyView.showGotoLocation
+                        onTriggered: {
+                            addWaypointRallyPointAction.checked = !addWaypointRallyPointAction.checked
+                        }
+                    }
+                    QGCMenuItem {
+                        text:           qsTr("Return")
+                        visible:        true//globals.guidedControllerFlyView.showROI
+
+                        onTriggered: {
+                            toolStrip.allAddClickBoolsOff()
+                            insertLandItemAfterCurrent()
+                        }
+                    }
+                }
+
+                onClicked: {
+                    if (mouse.button === Qt.RightButton) {
+                        var clickCoord = editorMap.toCoordinate(Qt.point(mouse.x, mouse.y), false /* clipToViewPort */)
+                        clickCoord.latitude = clickCoord.latitude.toFixed(_decimalPlaces)
+                        clickCoord.longitude = clickCoord.longitude.toFixed(_decimalPlaces)
+                        clickCoord.altitude = clickCoord.altitude.toFixed(_decimalPlaces)
+                        clickMenu.coord = clickCoord
+
+                        clickMenu.popup()
+                    // if (!globals.guidedControllerFlyView.guidedUIVisible && (globals.guidedControllerFlyView.showGotoLocation || globals.guidedControllerFlyView.showOrbit || globals.guidedControllerFlyView.showROI)) {
+                    //     orbitMapCircle.hide()
+                    //     gotoLocationItem.hide()
+                    //     var clickCoord = _root.toCoordinate(Qt.point(mouse.x, mouse.y), false /* clipToViewPort */)
+                    //     clickMenu.coord = clickCoord
+                    //     clickMenu.popup()
+                    // }
+                    } else{
+                        editorMap.focus = true
+                        var coordinate = editorMap.toCoordinate(Qt.point(mouse.x, mouse.y), false /* clipToViewPort */)
+                        coordinate.latitude = coordinate.latitude.toFixed(_decimalPlaces)
+                        coordinate.longitude = coordinate.longitude.toFixed(_decimalPlaces)
+                        coordinate.altitude = coordinate.altitude.toFixed(_decimalPlaces)
+                        if (addWaypointRallyPointAction.checked) {
+                            insertSimpleItemAfterCurrent(coordinate)
+                        }
+                    }
+
+                }
+            }
+
+            // Add the mission item visuals to the map
+            Repeater {
+                model: _missionController.visualItems
+                delegate: MissionItemMapVisual {
+                    map:         editorMap
+                    onClicked:   _missionController.setCurrentPlanViewSeqNum(sequenceNumber, false)
+                    opacity:     _editingLayer == _layerMission ? 1 : editorMap._nonInteractiveOpacity
+                    interactive: _editingLayer == _layerMission
+                    vehicle:     _planMasterController.controllerVehicle
+                }
+            }
+
+            // Add lines between waypoints
+            MissionLineView {
+                showSpecialVisual:  _missionController.isROIBeginCurrentItem
+                model:              _missionController.simpleFlightPathSegments
+                opacity:            _editingLayer == _layerMission ? 1 : editorMap._nonInteractiveOpacity
+            }
+
+            // Direction arrows in waypoint lines
+            MapItemView {
+                model: _editingLayer == _layerMission ? _missionController.directionArrows : undefined
+
+                delegate: MapLineArrow {
+                    fromCoord:      object ? object.coordinate1 : undefined
+                    toCoord:        object ? object.coordinate2 : undefined
+                    arrowPosition:  3
+                    z:              QGroundControl.zOrderWaypointLines + 1
+                }
+            }
+
+            // Incomplete segment lines
+            MapItemView {
+                model: _missionController.incompleteComplexItemLines
+
+                delegate: MapPolyline {
+                    path:       [ object.coordinate1, object.coordinate2 ]
+                    line.width: 1
+                    line.color: "red"
+                    z:          QGroundControl.zOrderWaypointLines
+                    opacity:    _editingLayer == _layerMission ? 1 : editorMap._nonInteractiveOpacity
+                }
+            }
+
+            // UI for splitting the current segment
+            MapQuickItem {
+                id:             splitSegmentItem
+                anchorPoint.x:  sourceItem.width / 2
+                anchorPoint.y:  sourceItem.height / 2
+                z:              QGroundControl.zOrderWaypointLines + 1
+                visible:        _editingLayer == _layerMission
+
+                sourceItem: SplitIndicator {
+                    onClicked:  _missionController.insertSimpleMissionItem(splitSegmentItem.coordinate,
+                                                                           _missionController.currentPlanViewVIIndex,
+                                                                           true /* makeCurrentItem */)
+                }
+
+                function _updateSplitCoord() {
+                    if (_missionController.splitSegment) {
+                        var distance = _missionController.splitSegment.coordinate1.distanceTo(_missionController.splitSegment.coordinate2)
+                        var azimuth = _missionController.splitSegment.coordinate1.azimuthTo(_missionController.splitSegment.coordinate2)
+                        splitSegmentItem.coordinate = _missionController.splitSegment.coordinate1.atDistanceAndAzimuth(distance / 2, azimuth)
+                    } else {
+                        coordinate = QtPositioning.coordinate()
+                    }
+                }
+
+                Connections {
+                    target:                 _missionController
+                    function onSplitSegmentChanged()  { splitSegmentItem._updateSplitCoord() }
+                }
+
+                Connections {
+                    target:                 _missionController.splitSegment
+                    function onCoordinate1Changed()   { splitSegmentItem._updateSplitCoord() }
+                    function onCoordinate2Changed()   { splitSegmentItem._updateSplitCoord() }
+                }
+            }
+
+            // Add the vehicles to the map
+            MapItemView {
+                model: QGroundControl.multiVehicleManager.vehicles
+                delegate: VehicleMapItem {
+                    vehicle:        object
+                    coordinate:     object.coordinate
+                    map:            editorMap
+                    size:           ScreenTools.defaultFontPixelHeight * 3
+                    z:              QGroundControl.zOrderMapItems - 1
+                }
+            }
+
+            GeoFenceMapVisuals {
+                map:                    editorMap
+                myGeoFenceController:   _geoFenceController
+                interactive:            _editingLayer == _layerGeoFence
+                homePosition:           _missionController.plannedHomePosition
+                planView:               true
+                opacity:                _editingLayer != _layerGeoFence ? editorMap._nonInteractiveOpacity : 1
+            }
+
+            RallyPointMapVisuals {
+                map:                    editorMap
+                myRallyPointController: _rallyPointController
+                interactive:            _editingLayer == _layerRallyPoints
+                planView:               true
+                opacity:                _editingLayer != _layerRallyPoints ? editorMap._nonInteractiveOpacity : 1
+            }
+
+            // Airspace overlap support
+            MapItemView {
+                model:              _airspaceEnabled && QGroundControl.airspaceManager.airspaceVisible ? QGroundControl.airspaceManager.airspaces.circles : []
+                delegate: MapCircle {
+                    center:         object.center
+                    radius:         object.radius
+                    color:          object.color
+                    border.color:   object.lineColor
+                    border.width:   object.lineWidth
+                }
+            }
+
+            MapItemView {
+                model:              _airspaceEnabled && QGroundControl.airspaceManager.airspaceVisible ? QGroundControl.airspaceManager.airspaces.polygons : []
+                delegate: MapPolygon {
+                    path:           object.polygon
+                    color:          object.color
+                    border.color:   object.lineColor
+                    border.width:   object.lineWidth
+                }
+            }
 
             Item {
                 id: createProjectPage
@@ -1252,208 +1452,12 @@ Item {
             anchors.topMargin:      parent.height/8
             anchors.margins:        ScreenTools.defaultFontPixelWidth * 0.75
             item1IsFullSettingsKey: "MainFlyWindowIsMap"
-            item1:                  mapControl
+            item1:                  editorMap
             item2:                  QGroundControl.videoManager.hasVideo ? videoControl : null
             fullZOrder:             _fullItemZorder
             pipZOrder:              _pipItemZorder
             show:                   !QGroundControl.videoManager.fullScreen &&
-                                    (videoControl.pipState.state === videoControl.pipState.pipState || mapControl.pipState.state === mapControl.pipState.pipState)
-        }
-
-
-
-        FlightMap {
-            id:                         editorMap
-            anchors.fill:               parent
-            visible:                    false
-            mapName:                    "MissionEditor"
-            allowGCSLocationCenter:     true
-            allowVehicleLocationCenter: true
-            planView:                   true
-
-            zoomLevel:                  QGroundControl.flightMapZoom
-            center:                     QGroundControl.flightMapPosition
-
-            // This is the center rectangle of the map which is not obscured by tools
-            property rect centerViewport:   Qt.rect(_leftToolWidth + _margin,  _margin, editorMap.width - _leftToolWidth - _rightToolWidth - (_margin * 2), (terrainStatus.visible ? terrainStatus.y : height - _margin) - _margin)
-
-            property real _leftToolWidth:       0
-            property real _rightToolWidth:      0
-            property real _nonInteractiveOpacity:  0.5
-
-            // Initial map position duplicates Fly view position
-            Component.onCompleted: editorMap.center = QGroundControl.flightMapPosition
-
-            QGCMapPalette { id: mapPal; lightColors: editorMap.isSatelliteMap }
-
-            onZoomLevelChanged: {
-                QGroundControl.flightMapZoom = zoomLevel
-                updateAirspace(false)
-            }
-            onCenterChanged: {
-                QGroundControl.flightMapPosition = center
-                updateAirspace(false)
-            }
-
-            MouseArea {
-                anchors.fill: parent
-                onClicked: {
-                    // Take focus to close any previous editing
-                    editorMap.focus = true
-                    var coordinate = editorMap.toCoordinate(Qt.point(mouse.x, mouse.y), false /* clipToViewPort */)
-                    coordinate.latitude = coordinate.latitude.toFixed(_decimalPlaces)
-                    coordinate.longitude = coordinate.longitude.toFixed(_decimalPlaces)
-                    coordinate.altitude = coordinate.altitude.toFixed(_decimalPlaces)
-
-                    switch (_editingLayer) {
-                    case _layerMission:
-                        if (addWaypointRallyPointAction.checked) {
-                            insertSimpleItemAfterCurrent(coordinate)
-                        } else if (_addROIOnClick) {
-                            insertROIAfterCurrent(coordinate)
-                            _addROIOnClick = false
-                        }
-
-                        break
-                    case _layerRallyPoints:
-                        if (_rallyPointController.supported && addWaypointRallyPointAction.checked) {
-                            _rallyPointController.addPoint(coordinate)
-                        }
-                        break
-                    }
-                }
-            }
-
-            // Add the mission item visuals to the map
-            Repeater {
-                model: _missionController.visualItems
-                delegate: MissionItemMapVisual {
-                    map:         editorMap
-                    onClicked:   _missionController.setCurrentPlanViewSeqNum(sequenceNumber, false)
-                    opacity:     _editingLayer == _layerMission ? 1 : editorMap._nonInteractiveOpacity
-                    interactive: _editingLayer == _layerMission
-                    vehicle:     _planMasterController.controllerVehicle
-                }
-            }
-
-            // Add lines between waypoints
-            MissionLineView {
-                showSpecialVisual:  _missionController.isROIBeginCurrentItem
-                model:              _missionController.simpleFlightPathSegments
-                opacity:            _editingLayer == _layerMission ? 1 : editorMap._nonInteractiveOpacity
-            }
-
-            // Direction arrows in waypoint lines
-            MapItemView {
-                model: _editingLayer == _layerMission ? _missionController.directionArrows : undefined
-
-                delegate: MapLineArrow {
-                    fromCoord:      object ? object.coordinate1 : undefined
-                    toCoord:        object ? object.coordinate2 : undefined
-                    arrowPosition:  3
-                    z:              QGroundControl.zOrderWaypointLines + 1
-                }
-            }
-
-            // Incomplete segment lines
-            MapItemView {
-                model: _missionController.incompleteComplexItemLines
-
-                delegate: MapPolyline {
-                    path:       [ object.coordinate1, object.coordinate2 ]
-                    line.width: 1
-                    line.color: "red"
-                    z:          QGroundControl.zOrderWaypointLines
-                    opacity:    _editingLayer == _layerMission ? 1 : editorMap._nonInteractiveOpacity
-                }
-            }
-
-            // UI for splitting the current segment
-            MapQuickItem {
-                id:             splitSegmentItem
-                anchorPoint.x:  sourceItem.width / 2
-                anchorPoint.y:  sourceItem.height / 2
-                z:              QGroundControl.zOrderWaypointLines + 1
-                visible:        _editingLayer == _layerMission
-
-                sourceItem: SplitIndicator {
-                    onClicked:  _missionController.insertSimpleMissionItem(splitSegmentItem.coordinate,
-                                                                           _missionController.currentPlanViewVIIndex,
-                                                                           true /* makeCurrentItem */)
-                }
-
-                function _updateSplitCoord() {
-                    if (_missionController.splitSegment) {
-                        var distance = _missionController.splitSegment.coordinate1.distanceTo(_missionController.splitSegment.coordinate2)
-                        var azimuth = _missionController.splitSegment.coordinate1.azimuthTo(_missionController.splitSegment.coordinate2)
-                        splitSegmentItem.coordinate = _missionController.splitSegment.coordinate1.atDistanceAndAzimuth(distance / 2, azimuth)
-                    } else {
-                        coordinate = QtPositioning.coordinate()
-                    }
-                }
-
-                Connections {
-                    target:                 _missionController
-                    function onSplitSegmentChanged()  { splitSegmentItem._updateSplitCoord() }
-                }
-
-                Connections {
-                    target:                 _missionController.splitSegment
-                    function onCoordinate1Changed()   { splitSegmentItem._updateSplitCoord() }
-                    function onCoordinate2Changed()   { splitSegmentItem._updateSplitCoord() }
-                }
-            }
-
-            // Add the vehicles to the map
-            MapItemView {
-                model: QGroundControl.multiVehicleManager.vehicles
-                delegate: VehicleMapItem {
-                    vehicle:        object
-                    coordinate:     object.coordinate
-                    map:            editorMap
-                    size:           ScreenTools.defaultFontPixelHeight * 3
-                    z:              QGroundControl.zOrderMapItems - 1
-                }
-            }
-
-            GeoFenceMapVisuals {
-                map:                    editorMap
-                myGeoFenceController:   _geoFenceController
-                interactive:            _editingLayer == _layerGeoFence
-                homePosition:           _missionController.plannedHomePosition
-                planView:               true
-                opacity:                _editingLayer != _layerGeoFence ? editorMap._nonInteractiveOpacity : 1
-            }
-
-            RallyPointMapVisuals {
-                map:                    editorMap
-                myRallyPointController: _rallyPointController
-                interactive:            _editingLayer == _layerRallyPoints
-                planView:               true
-                opacity:                _editingLayer != _layerRallyPoints ? editorMap._nonInteractiveOpacity : 1
-            }
-
-            // Airspace overlap support
-            MapItemView {
-                model:              _airspaceEnabled && QGroundControl.airspaceManager.airspaceVisible ? QGroundControl.airspaceManager.airspaces.circles : []
-                delegate: MapCircle {
-                    center:         object.center
-                    radius:         object.radius
-                    color:          object.color
-                    border.color:   object.lineColor
-                    border.width:   object.lineWidth
-                }
-            }
-
-            MapItemView {
-                model:              _airspaceEnabled && QGroundControl.airspaceManager.airspaceVisible ? QGroundControl.airspaceManager.airspaces.polygons : []
-                delegate: MapPolygon {
-                    path:           object.polygon
-                    color:          object.color
-                    border.color:   object.lineColor
-                    border.width:   object.lineWidth
-                }
-            }
+                                    (videoControl.pipState.state === videoControl.pipState.pipState || editorMap.pipState.state === editorMap.pipState.pipState)
         }
 
 
@@ -1466,6 +1470,301 @@ Item {
             sourceComponent: notificationBox
         }
 
+
+        ToolStrip {
+            id:                 toolStrip
+            anchors.margins:    _toolsMargin
+            anchors.left:       parent.left
+            anchors.top:        parent.top
+            z:                  QGroundControl.zOrderWidgets
+            maxHeight:          parent.height - toolStrip.y
+            title:              qsTr("Plan")
+            visible: false
+            readonly property int flyButtonIndex:       0
+            readonly property int fileButtonIndex:      1
+            readonly property int takeoffButtonIndex:   2
+            readonly property int waypointButtonIndex:  3
+            readonly property int roiButtonIndex:       4
+            readonly property int patternButtonIndex:   5
+            readonly property int landButtonIndex:      6
+            readonly property int centerButtonIndex:    7
+
+            property bool _isRallyLayer:    _editingLayer == _layerRallyPoints
+            property bool _isMissionLayer:  _editingLayer == _layerMission
+
+            ToolStripActionList {
+                id: toolStripActionList
+                model: [
+                    ToolStripAction {
+                        text:           qsTr("Fly")
+                        iconSource:     "/qmlimages/PaperPlane.svg"
+                        onTriggered:    mainWindow.showFlyView()
+                    },
+                    ToolStripAction {
+                        text:                   qsTr("File")
+                        enabled:                !_planMasterController.syncInProgress
+                        visible:                true
+                        showAlternateIcon:      _planMasterController.dirty
+                        iconSource:             "/qmlimages/MapSync.svg"
+                        alternateIconSource:    "/qmlimages/MapSyncChanged.svg"
+                        dropPanelComponent:     syncDropPanel
+                    },
+                    ToolStripAction {
+                        text:       qsTr("Takeoff")
+                        iconSource: "/res/takeoff.svg"
+                        enabled:    _missionController.isInsertTakeoffValid
+                        visible:    toolStrip._isMissionLayer && !_planMasterController.controllerVehicle.rover
+                        onTriggered: {
+                            toolStrip.allAddClickBoolsOff()
+                            insertTakeItemAfterCurrent()
+                        }
+                    },
+                    ToolStripAction {
+                        id:                 addWaypointRallyPointAction
+                        text:               _editingLayer == _layerRallyPoints ? qsTr("Rally Point") : qsTr("Waypoint")
+                        iconSource:         "/qmlimages/MapAddMission.svg"
+                        enabled:            toolStrip._isRallyLayer ? true : _missionController.flyThroughCommandsAllowed
+                        visible:            toolStrip._isRallyLayer || toolStrip._isMissionLayer
+                        checkable:          true
+                    },
+                    ToolStripAction {
+                        text:               _missionController.isROIActive ? qsTr("Cancel ROI") : qsTr("ROI")
+                        iconSource:         "/qmlimages/MapAddMission.svg"
+                        enabled:            !_missionController.onlyInsertTakeoffValid
+                        visible:            toolStrip._isMissionLayer && _planMasterController.controllerVehicle.roiModeSupported
+                        checkable:          !_missionController.isROIActive
+                        onCheckedChanged:   _addROIOnClick = checked
+                        onTriggered: {
+                            if (_missionController.isROIActive) {
+                                toolStrip.allAddClickBoolsOff()
+                                insertCancelROIAfterCurrent()
+                            }
+                        }
+                        property bool myAddROIOnClick: _addROIOnClick
+                        onMyAddROIOnClickChanged: checked = _addROIOnClick
+                    },
+                    ToolStripAction {
+                        text:               _singleComplexItem ? _missionController.complexMissionItemNames[0] : qsTr("Pattern")
+                        iconSource:         "/qmlimages/MapDrawShape.svg"
+                        enabled:            _missionController.flyThroughCommandsAllowed
+                        visible:            toolStrip._isMissionLayer
+                        dropPanelComponent: _singleComplexItem ? undefined : patternDropPanel
+                        onTriggered: {
+                            toolStrip.allAddClickBoolsOff()
+                            if (_singleComplexItem) {
+                                insertComplexItemAfterCurrent(_missionController.complexMissionItemNames[0])
+                            }
+                        }
+                    },
+                    ToolStripAction {
+                        text:       _planMasterController.controllerVehicle.multiRotor ? qsTr("Return") : qsTr("Land")
+                        iconSource: "/res/rtl.svg"
+                        enabled:    _missionController.isInsertLandValid
+                        visible:    toolStrip._isMissionLayer
+                        onTriggered: {
+                            toolStrip.allAddClickBoolsOff()
+                            insertLandItemAfterCurrent()
+                        }
+                    },
+                    ToolStripAction {
+                        text:               qsTr("Center")
+                        iconSource:         "/qmlimages/MapCenter.svg"
+                        enabled:            true
+                        visible:            true
+                        dropPanelComponent: centerMapDropPanel
+                    }
+                ]
+            }
+
+            model: toolStripActionList.model
+
+            function allAddClickBoolsOff() {
+                _addROIOnClick =        false
+                addWaypointRallyPointAction.checked = false
+            }
+
+            onDropped: allAddClickBoolsOff()
+        }
+
+        //-----------------------------------------------------------
+        // Right pane for mission editing controls
+        Rectangle {
+            id:                 rightPanel
+            visible: false
+            height:             parent.height
+            width:              _rightPanelWidth
+            color:              qgcPal.window
+            opacity:            layerTabBar.visible ? 0.2 : 0
+            anchors.bottom:     parent.bottom
+            anchors.right:      parent.right
+            anchors.rightMargin: _toolsMargin
+        }
+        //-------------------------------------------------------
+        // Right Panel Controls
+        Item {
+            visible: false
+            anchors.fill:           rightPanel
+            anchors.topMargin:      _toolsMargin
+            DeadMouseArea {
+                anchors.fill:   parent
+            }
+            Column {
+                id:                 rightControls
+                spacing:            ScreenTools.defaultFontPixelHeight * 0.5
+                anchors.left:       parent.left
+                anchors.right:      parent.right
+                anchors.top:        parent.top
+                //-------------------------------------------------------
+                // Airmap Airspace Control
+                AirspaceControl {
+                    id:             airspaceControl
+                    width:          parent.width
+                    visible:        _airspaceEnabled
+                    planView:       true
+                    showColapse:    true
+                }
+                //-------------------------------------------------------
+                // Mission Controls (Colapsed)
+                Rectangle {
+                    width:      parent.width
+                    height:     planControlColapsed ? colapsedRow.height + ScreenTools.defaultFontPixelHeight : 0
+                    color:      qgcPal.missionItemEditor
+                    radius:     _radius
+                    visible:    planControlColapsed && _airspaceEnabled
+                    Row {
+                        id:                     colapsedRow
+                        spacing:                ScreenTools.defaultFontPixelWidth
+                        anchors.left:           parent.left
+                        anchors.leftMargin:     ScreenTools.defaultFontPixelWidth
+                        anchors.verticalCenter: parent.verticalCenter
+                        QGCColoredImage {
+                            width:              height
+                            height:             ScreenTools.defaultFontPixelWidth * 2.5
+                            sourceSize.height:  height
+                            source:             "qrc:/res/waypoint.svg"
+                            color:              qgcPal.text
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                        QGCLabel {
+                            text:               qsTr("Plan")
+                            color:              qgcPal.text
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
+                    }
+                    QGCColoredImage {
+                        width:                  height
+                        height:                 ScreenTools.defaultFontPixelWidth * 2.5
+                        sourceSize.height:      height
+                        source:                 QGroundControl.airmapSupported ? "qrc:/airmap/expand.svg" : ""
+                        color:                  "white"
+                        visible:                QGroundControl.airmapSupported
+                        anchors.right:          parent.right
+                        anchors.rightMargin:    ScreenTools.defaultFontPixelWidth
+                        anchors.verticalCenter: parent.verticalCenter
+                    }
+                    MouseArea {
+                        anchors.fill:   parent
+                        enabled:        QGroundControl.airmapSupported
+                        onClicked: {
+                            QGroundControl.airspaceManager.airspaceVisible = false
+                        }
+                    }
+                }
+                //-------------------------------------------------------
+                // Mission Controls (Expanded)
+                QGCTabBar {
+                    id:         layerTabBar
+                    width:      parent.width
+                    visible:    (!planControlColapsed || !_airspaceEnabled) && QGroundControl.corePlugin.options.enablePlanViewSelector
+                    Component.onCompleted: currentIndex = 0
+                    QGCTabButton {
+                        text:       qsTr("Mission")
+                    }
+                    QGCTabButton {
+                        text:       qsTr("Fence")
+                        enabled:    _geoFenceController.supported
+                    }
+                    QGCTabButton {
+                        text:       qsTr("Rally")
+                        enabled:    _rallyPointController.supported
+                    }
+                }
+            }
+            //-------------------------------------------------------
+            // Mission Item Editor
+            Item {
+                id:                     missionItemEditor
+                anchors.left:           parent.left
+                anchors.right:          parent.right
+                anchors.top:            rightControls.bottom
+                anchors.topMargin:      ScreenTools.defaultFontPixelHeight * 0.25
+                anchors.bottom:         parent.bottom
+                anchors.bottomMargin:   ScreenTools.defaultFontPixelHeight * 0.25
+                visible:                true//_editingLayer == _layerMission && !planControlColapsed
+                QGCListView {
+                    id:                 missionItemEditorListView
+                    anchors.fill:       parent
+                    spacing:            ScreenTools.defaultFontPixelHeight / 4
+                    orientation:        ListView.Vertical
+                    model:              _missionController.visualItems
+                    cacheBuffer:        Math.max(height * 2, 0)
+                    clip:               true
+                    currentIndex:       _missionController.currentPlanViewSeqNum
+                    highlightMoveDuration: 250
+                    visible:            _editingLayer == true//_layerMission && !planControlColapsed
+                    //-- List Elements
+                    delegate: MissionItemEditor {
+                        map:            editorMap
+                        masterController:  _planMasterController
+                        missionItem:    object
+                        width:          100// 100 parent.width
+                        readOnly:       false
+                        onClicked:      _missionController.setCurrentPlanViewSeqNum(object.sequenceNumber, false)
+                        onRemove: {
+                            var removeVIIndex = index
+                            _missionController.removeVisualItem(removeVIIndex)
+                            if (removeVIIndex >= _missionController.visualItems.count) {
+                                removeVIIndex--
+                            }
+                        }
+                        onSelectNextNotReadyItem:   selectNextNotReady()
+                    }
+                }
+            }
+            // GeoFence Editor
+            GeoFenceEditor {
+                anchors.top:            rightControls.bottom
+                anchors.topMargin:      ScreenTools.defaultFontPixelHeight * 0.25
+                anchors.bottom:         parent.bottom
+                anchors.left:           parent.left
+                anchors.right:          parent.right
+                myGeoFenceController:   _geoFenceController
+                flightMap:              editorMap
+                visible:                _editingLayer == _layerGeoFence
+            }
+
+            // Rally Point Editor
+            RallyPointEditorHeader {
+                id:                     rallyPointHeader
+                anchors.top:            rightControls.bottom
+                anchors.topMargin:      ScreenTools.defaultFontPixelHeight * 0.25
+                anchors.left:           parent.left
+                anchors.right:          parent.right
+                visible:                _editingLayer == _layerRallyPoints
+                controller:             _rallyPointController
+            }
+            RallyPointItemEditor {
+                id:                     rallyPointEditor
+                anchors.top:            rallyPointHeader.bottom
+                anchors.topMargin:      ScreenTools.defaultFontPixelHeight * 0.25
+                anchors.left:           parent.left
+                anchors.right:          parent.right
+                visible:                _editingLayer == _layerRallyPoints && _rallyPointController.points.count
+                rallyPoint:             _rallyPointController.currentRallyPoint
+                controller:             _rallyPointController
+            }
+        }
+        
 
     }
 
@@ -1561,6 +1860,22 @@ Item {
             message: qsTr("Are you sure you want to remove current plan and create a new plan? ")
             function accept() {
                 createPlanRemoveAllPromptDialogPlanCreator.createPlan(createPlanRemoveAllPromptDialogMapCenter)
+                hideDialog()
+                if (_missionController.isInsertTakeoffValid){
+                    // Insert takeoff item after current item
+                    var nextIndex = _missionController.currentPlanViewVIIndex + 1
+                    _missionController.insertTakeoffItem(_mapCenter(), nextIndex, true /* makeCurrentItem */)
+                }
+                mainWindow.showComponentDialog(clickToSetTakeOffLocationDialog, qsTr("Create Plan"), mainWindow.showDialogDefaultWidth, StandardButton.Yes)
+            }
+        }
+    }
+
+    Component { 
+        id: clickToSetTakeOffLocationDialog
+        QGCViewMessage {
+            message: qsTr("Click on the map to set the takeoff location.")
+            function accept() {
                 hideDialog()
             }
         }

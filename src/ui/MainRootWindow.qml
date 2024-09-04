@@ -127,7 +127,7 @@ ApplicationWindow {
         toolDrawer.visible      = false
         toolDrawer.toolSource   = ""
         flightView.visible      = false
-        planView.visible        = false
+        // planView.visible        = false
         toolbar.currentToolbar  = currentToolbar
     }
 
@@ -141,7 +141,7 @@ ApplicationWindow {
 
     function showPlanView() {
         viewSwitch(toolbar.planViewToolbar)
-        planView.visible = true
+        // planView.visible = true
     }
 
     function showAlesPlanView() {
@@ -490,11 +490,11 @@ ApplicationWindow {
         visible: true
     }
 
-    PlanView {
-        id:             planView
-        anchors.fill:   parent
-        visible:        false
-    }
+    // PlanView {
+    //     id:             planView
+    //     anchors.fill:   parent
+    //     visible:        false
+    // }
 
     AlesPlanView {
         id: alesPlanView
