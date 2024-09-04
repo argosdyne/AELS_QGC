@@ -358,6 +358,10 @@
         <file alias="QGroundControl/Controls/WaypointMission.qml">src/QmlControls/WaypointMission.qml</file>
 		<file alias="QGroundControl/Controls/CameraStartPage.qml">src/QmlControls/CameraStartPage.qml</file>
         <file alias="QGroundControl/FlightDisplay/AlesPlanViewMap.qml">src/FlightDisplay/AlesPlanViewMap.qml</file>
+		<file alias="QGroundControl/Controls/LogMessagePage.qml">src/QmlControls/LogMessagePage.qml</file>
+		<file alias="QGroundControl/Controls/DroneStatusPage.qml">src/QmlControls/DroneStatusPage.qml</file>
+		<file alias="QGroundControl/Controls/CurrentWarningMessagePage.qml">src/QmlControls/CurrentWarningMessagePage.qml</file>
+		<file alias="QGroundControl/Controls/FlightLogPage.qml">src/QmlControls/FlightLogPage.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>

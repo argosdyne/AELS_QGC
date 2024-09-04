@@ -12,7 +12,7 @@ import QGroundControl.ScreenTools           1.0
 
 
 Item {
-    id: root
+    id: root    
     implicitWidth: 850
     implicitHeight: 550
     property int titleFontSize: 40
@@ -20,11 +20,12 @@ Item {
     property string backgroundColor: "#3b3737"
     property string boderColor: "#cecdcd"
 
+    //Inner Text
     Rectangle {
         anchors.fill: parent
+        anchors.centerIn: parent
         color: backgroundColor
         radius: 5
-        visible: true
 
         ColumnLayout {
             anchors.fill: parent
@@ -119,6 +120,22 @@ Item {
                         }
                     }
                 }
+
+                MouseArea {
+                    id: swipeArea
+                    anchors.fill: parent
+                    drag.target: null
+
+                    property real startX: 0
+                    property real threshold: 100
+
+                    onPressed: startX = mouse.x
+                    onReleased: {
+                        if (mouse.x < startX - threshold) {
+                            learningCenterGroup.push(Qt.resolvedUrl("qrc:/qml/QGroundControl/Controls/RemoteControlInstruction.qml"))
+                        }
+                    }
+                }
             }
 
             Rectangle {
@@ -130,7 +147,7 @@ Item {
                 Button {
                     id: control
                     anchors.fill: parent
-                    text: "NEXT"
+                    text: "Next"
                     font.pixelSize: titleFontSize
 
                     background: Rectangle {
@@ -146,8 +163,12 @@ Item {
                         verticalAlignment: Text.AlignVCenter
                         elide: Text.ElideRight
                     }
+
+                    onClicked: {
+                        learningCenterGroup.push(Qt.resolvedUrl("qrc:/qml/QGroundControl/Controls/RemoteControlInstruction.qml"))
+                    }
                 }
             }
         }
-    }
+    }       
 }

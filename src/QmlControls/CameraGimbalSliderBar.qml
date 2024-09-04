@@ -20,8 +20,13 @@ Rectangle {
     property color transparent: "transparent"
     property color fontColorlightGray: "lightGray"
 
-    implicitWidth: defaultFontSize * 6
-    implicitHeight:defaultFontSize * 60
+    implicitWidth: Screen.width / 32
+    implicitHeight: Screen.height / 2.5
+
+    //Gimbal Value
+    property var currentPitch: "0"
+    property var parentQML: null
+    property alias gimbalControl : control
 
     color: transparent
     Column {
@@ -34,6 +39,11 @@ Rectangle {
                 source: "qrc:/res/CameraGimbal0.svg"
                 anchors.fill: parent
             }
+
+            onClicked: {
+                control.value = 0
+                currentPitch = control.value
+            }
         }
 
         Slider {
@@ -42,7 +52,14 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             height: root.height
             width: root.width
-            value: 1
+            value: 0
+            from: 90
+            to: 0
+
+            onValueChanged: {
+                console.log("Slider value:", control.value);
+                currentPitch = control.value.toFixed(0);
+            }
 
             background: Rectangle {
                 width: control.availableWidth
@@ -72,6 +89,11 @@ Rectangle {
             Image {
                 source: "qrc:/res/CameraGimbal90.svg"
                 anchors.fill: parent
+            }
+
+            onClicked: {
+                control.value = 90
+                currentPitch = control.value
             }
         }
     }

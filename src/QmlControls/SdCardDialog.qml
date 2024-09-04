@@ -57,7 +57,7 @@ Item {
                         Layout.alignment: Qt.AlignHCenter
                         Layout.preferredHeight: contentFontSize * 2
                         text: qsTr("Please insert SD Card or switch storage location to Flash Card")
-                        font.pixelSize: contentFontSize
+                        font.pixelSize: contentFontSize - 5
                         color: "white"
                     }
                 }
@@ -87,6 +87,20 @@ Item {
                         horizontalAlignment: Text.AlignHCenter
                         verticalAlignment: Text.AlignVCenter
                         elide: Text.ElideRight
+                    }
+
+                    onClicked: {
+                        var componentUrl = Qt.resolvedUrl("qrc:/qml/QGroundControl/Controls/PreflightSecurityCheck.qml");
+
+                        // 컴포넌트를 생성하기 위한 Component 객체 생성
+                        var component = Qt.createComponent(componentUrl);
+
+                        if (component.status === Component.Ready) {
+                            // 애니메이션이 없는 Transition을 설정하여 페이지를 푸시
+                            var newPage = component.createObject(learningCenterGroup);
+                        } else {
+                            console.log("Error loading component:", component.errorString());
+                        }
                     }
                 }
             }

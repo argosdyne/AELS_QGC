@@ -1,4 +1,4 @@
-/****************************************************************************
+﻿/****************************************************************************
  *
  * (c) 2009-2020 QGROUNDCONTROL PROJECT <http://www.qgroundcontrol.org>
  *
@@ -38,15 +38,15 @@ Rectangle {
     
     CommonTopMenu {
         id: commonTopMenu
-        visible: currentToolbar === waypointMissionToolbar
+        visible: true
         anchor.fill: parent
     }
     
     Item {
         id: oldToolBar
         anchor.fill: parent
-        visible: currentToolbar != waypointMissionToolbar
-
+        //visible: currentToolbar != waypointMissionToolbar
+        visible : false
 
     /// Bottom single pixel divider
     Rectangle {

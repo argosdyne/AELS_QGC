@@ -120,6 +120,15 @@
         <file alias="SearchBox.svg">resources/SearchBox.svg</file>
         <file alias="DataHistoryFolder.svg">resources/DataHistoryFolder.svg</file>
         <file alias="CopyMission.svg">resources/CopyMission.svg</file>
+		<file alias="UnderUp.svg">resources/UnderUp.svg</file>
+		<file alias="UnderDown.svg">resources/UnderDown.svg</file>
+		<file alias="ShootSwitch.svg">resources/ShootSwitch.svg</file>
+		<file alias="ResolutionHelp.svg">resources/ResolutionHelp.svg</file>
+		<file alias="Alarm.svg">resources/Alarm.svg</file>
+		<file alias="Success.svg">resources/Success.svg</file>
+		<file alias ="WarningWindow.svg">resources/WarningWindow.svg</file>
+		<file alias ="DroneStatus.svg">resources/DroneStatus.svg</file>
+		<file alias ="WarningNotice.svg">resources/WarningNotice.svg</file>
     </qresource>
     <qresource prefix="/res/firmware">
         <file alias="3drradio.png">resources/firmware/3drradio.png</file>

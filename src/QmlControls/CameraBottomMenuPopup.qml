@@ -45,9 +45,73 @@ Rectangle {
     property var currentStyleValue: null
     property var currentPivValue: null
 
+    z : 2
+    property alias bottomMenuHelpPopupLoader : bottomMenuHelpPopup
+
+    //Resolution Text & button
+    Rectangle {
+        width: parent.width / 6
+        height: parent.height - defaultFontSize
+        color: transparent
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: parent.height
+
+        anchors.left: parent.left
+        anchors.leftMargin: defaultFontSize
+
+        Row {
+            anchors.fill: parent
+            spacing: defaultFontSize
+            Text {
+                text: buttonType.toUpperCase()
+                font.pixelSize: defaultFontSize * 4
+                anchors.verticalCenter: parent.verticalCenter
+                color: fontColorWhite
+            }
+
+            Button {
+                anchors.verticalCenter: parent.verticalCenter
+                width: defaultFontSize * 5
+                height: width
+                background: Rectangle { color: transparent }
+
+                Image {
+                    source: "qrc:/res/ResolutionHelp.svg"
+                    anchors.fill: parent
+                }
+                onClicked: {
+                    //Show Resolution text
+                    if(!bottomMenuHelpPopup.item){
+                        bottomMenuHelpPopup.setSource("qrc:/qml/QGroundControl/Controls/ResolutionMessage.qml",{
+                                                          "currentButton": buttonType,
+                                                          "parentQML": root,
+                                                          "titleText": buttonType.toUpperCase()
+                                                      })
+                        bottomMenuHelpPopup.anchors.bottomMargin = - root.height
+                    }
+                }
+            }
+        }
+    }
+    Loader {
+        id: bottomMenuHelpPopup
+        z: 3
+        sourceComponent: null
+        anchors {
+            bottom: parent.bottom
+        }
+
+        onLoaded: {
+            if(item){
+                width = item.width
+                height = item.height
+            }
+        }
+    }
+
+
     Item {
         anchors.fill: parent
-
         // Resolution UI
         Item {
             visible: buttonType === "resolution"
