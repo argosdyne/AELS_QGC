@@ -27,6 +27,7 @@ Rectangle {
     property color blue: "#3d71d7"
     property color lightgray: "#a7a7a7"
     property color black : "#000000"
+    property color adjustBackGroundColor: "#615E5E"
     property int margin: 10
 
     //Size Property
@@ -45,6 +46,15 @@ Rectangle {
     property alias popupRect : popupRect
     property alias logWindowButton : logWindowButton
     property alias logMessageLoader: logMessageLoader
+    property alias adjustWindow : adjustWindow
+    property alias adjustdoneButton : adjustdoneButton
+    property alias adjustdoneText : adjustdoneText
+
+    // 각 축의 값을 저장하는 property
+    property real pitchValue: 0.0
+    property real yawValue: 0.0
+    property real rollValue: 0.0
+
 
     z : 1
 
@@ -86,6 +96,7 @@ Rectangle {
 
 
     CommonTopMenu {
+        z: 2
         id: commonTopMenu
         visible: true
         anchors.top: parent.top
@@ -93,6 +104,7 @@ Rectangle {
         defaultBackgroundColor: "black"
         isCameraWindow: false
         moveToMainPageBtnBackgroundColor: "#3d71d7"
+        parentQML: root
     }
 
 
@@ -182,7 +194,7 @@ Rectangle {
     }
 
     Loader{
-        z: 4
+        z: 5
         id: resetCameraLoader
         visible: false
         onLoaded: {
@@ -210,6 +222,293 @@ Rectangle {
             modalBackground.z = 3
 
         }
+    }
+
+    // Adjust Window
+    Rectangle {
+        width: parent.width / 3.2 // 600
+        height: parent.height / 3 // 360
+        color: transparent
+        id: adjustWindow
+        z: 3
+        visible: false
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: parent.height / 7.2
+        anchors.horizontalCenter: parent.horizontalCenter
+
+        Grid {
+            anchors.fill: parent
+            columns: 4
+            rows: 3
+            columnSpacing: defaultFontSize
+            rowSpacing: defaultFontSize
+
+            // pitch
+            Rectangle {
+                width: parent.width / 5
+                height: parent.height / 4
+                color: adjustBackGroundColor
+                radius: 5
+                Text {
+                    color: fontColorWhite
+                    text: "Pitch"
+                    anchors.centerIn: parent
+                    font.pixelSize: defaultFontSize * 3
+                }
+            }
+
+            Button {
+                width: parent.width / 6
+                height: parent.height / 4
+                background:Rectangle {
+                    color: adjustBackGroundColor
+                    radius: 5
+                }
+
+                Text {
+                    color: fontColorWhite
+                    text: "-"
+                    anchors.centerIn: parent
+                    font.pixelSize: defaultFontSize * 3
+                }
+
+                onClicked: {
+                    if(pitchValue > -10){
+                        pitchValue = Math.max(pitchValue - 0.2, -10)
+                    }
+                }
+            }
+
+            Rectangle {
+                width: parent.width / 2.4
+                height: parent.height / 4
+                color: adjustBackGroundColor
+                radius: 5
+
+                Text {
+                    color: fontColorWhite
+                    font.pixelSize: defaultFontSize * 4
+                    text: pitchValue.toFixed(1)
+                    anchors.centerIn: parent
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        pitchValue = 0.0
+                    }
+                }
+            }
+
+            Button {
+                width: parent.width / 6
+                height: parent.height / 4
+                background:Rectangle {
+                    color: adjustBackGroundColor
+                    radius: 5
+                }
+                Text {
+                    color: fontColorWhite
+                    text: "+"
+                    anchors.centerIn: parent
+                    font.pixelSize: defaultFontSize * 3
+                }
+                onClicked: {
+                    if (pitchValue < 10)
+                        pitchValue = Math.min(pitchValue + 0.2, 10)
+                }
+            }
+
+            // Yaw
+            Rectangle {
+                width: parent.width / 5
+                height: parent.height / 4
+                color: adjustBackGroundColor
+                radius: 5
+                Text {
+                    color: fontColorWhite
+                    text: "Yaw"
+                    anchors.centerIn: parent
+                    font.pixelSize: defaultFontSize * 3
+                }
+            }
+
+            Button {
+                width: parent.width / 6
+                height: parent.height / 4
+                background:Rectangle {
+                    color: adjustBackGroundColor
+                    radius: 5
+                }
+                Text {
+                    color: fontColorWhite
+                    text: "-"
+                    anchors.centerIn: parent
+                    font.pixelSize: defaultFontSize * 3
+                }
+                onClicked: {
+                    if (yawValue > -10)
+                        yawValue = Math.max(yawValue - 0.2, -10)
+                }
+            }
+
+            Rectangle {
+                width: parent.width / 2.4
+                height: parent.height / 4
+                radius: 5
+
+                color: adjustBackGroundColor
+
+                Text {
+                    color: fontColorWhite
+                    font.pixelSize: defaultFontSize * 4
+                    text: yawValue.toFixed(1)
+                    anchors.centerIn: parent
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        yawValue = 0.0
+                    }
+                }
+            }
+
+            Button {
+                width: parent.width / 6
+                height: parent.height / 4
+                background:Rectangle {
+                    color: adjustBackGroundColor
+                    radius: 5
+                }
+                Text {
+                    color: fontColorWhite
+                    text: "+"
+                    anchors.centerIn: parent
+                    font.pixelSize: defaultFontSize * 3
+                }
+                onClicked: {
+                    if (yawValue < 10)
+                        yawValue = Math.min(yawValue + 0.2, 10)
+                }
+            }
+
+            //Roll
+            Rectangle {
+                width: parent.width / 5
+                height: parent.height / 4
+                color: adjustBackGroundColor
+                radius: 5
+                Text {
+                    color: fontColorWhite
+                    text: "Roll"
+                    anchors.centerIn: parent
+                    font.pixelSize: defaultFontSize * 3
+                }
+            }
+
+            Button {
+                width: parent.width / 6
+                height: parent.height / 4
+                background:Rectangle {
+                    color: adjustBackGroundColor
+                    radius: 5
+                }
+                Text {
+                    color: fontColorWhite
+                    text: "-"
+                    anchors.centerIn: parent
+                    font.pixelSize: defaultFontSize * 3
+                }
+                onClicked: {
+                    if (rollValue > -10)
+                        rollValue = Math.max(rollValue - 0.2, -10)
+                }
+            }
+
+            Rectangle {
+                width: parent.width / 2.4
+                height: parent.height / 4
+                radius: 5
+
+                color: adjustBackGroundColor
+
+                Text {
+                    color: fontColorWhite
+                    font.pixelSize: defaultFontSize * 4
+                    text: rollValue.toFixed(1)
+                    anchors.centerIn: parent
+                }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        rollValue = 0.0
+                    }
+                }
+            }
+
+            Button {
+                width: parent.width / 6
+                height: parent.height / 4
+                background:Rectangle {
+                    color: adjustBackGroundColor
+                    radius: 5
+                }
+                Text {
+                    color: fontColorWhite
+                    text: "+"
+                    anchors.centerIn: parent
+                    font.pixelSize: defaultFontSize * 3
+                }
+                onClicked: {
+                    if (rollValue < 10)
+                        rollValue = Math.min(rollValue + 0.2, 10)
+                }
+            }
+        }
+    }
+
+    Button {
+        id: adjustdoneButton
+        z: 3
+        width: parent.width / 14.4
+        height: parent.height / 21.6
+        anchors.right: parent.right
+        anchors.rightMargin: parent.width / 18
+        anchors.top: parent.top
+        anchors.topMargin: parent.width / 18
+        visible: false
+        background: Rectangle {
+            color: fontColorWhite
+            radius: 5
+        }
+        Text {
+            text: "Done"
+            color: blue
+            anchors.centerIn: parent
+            font.pixelSize: defaultFontSize * 3
+        }
+
+        onClicked: {
+            adjustWindow.visible = false
+            adjustdoneButton.visible = false
+            adjustdoneText.visible = false
+
+            videoControl.z = 0
+        }
+    }
+
+    Text {
+        id: adjustdoneText
+        text: "Adjust Gimbal"
+        font.pixelSize: defaultFontSize * 3.3
+        font.bold: true
+        color: black
+        z: 3
+        anchors.left: parent.left
+        anchors.leftMargin: parent.width / 18
+        anchors.top: parent.top
+        anchors.topMargin: parent.width / 18
+        visible: false
     }
 
     //Reset Success Window
@@ -407,7 +706,7 @@ Rectangle {
         visible: !screenLogin.isExit
         width: Screen.width
         height: Screen.height
-        z: 1
+        z: 2
 
         MouseArea {
             anchors.fill: parent

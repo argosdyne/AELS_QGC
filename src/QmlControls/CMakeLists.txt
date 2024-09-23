@@ -189,6 +189,16 @@ add_custom_target(QmlControlsQml
 		DroneStatusPage.qml
 		FlightLogPage.qml
 		CurrentWarningMessagePage.qml
+		SystemSettingPage.qml
+		FlightControlPage.qml
+		VisualNavigationPage.qml
+		RemoteControlPage.qml
+		ImageTransmissionPage.qml
+		DroneBatteryPage.qml
+		GimbalPage.qml
+		LivePage.qml
+		SecurityPage.qml
+		GeneralPage.qml
 )
 
 target_link_libraries(QmlControls

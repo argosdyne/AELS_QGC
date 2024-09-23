@@ -28,7 +28,7 @@ Rectangle {
     property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
 
     implicitWidth: Screen.width
-    implicitHeight: defaultFontSize * 9
+    implicitHeight: Screen.height / 12
 
     property string resolutionText: "8K"
     property string frameRateText: "60FPS"
