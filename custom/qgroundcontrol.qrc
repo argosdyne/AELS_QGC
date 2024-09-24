@@ -353,10 +353,20 @@
         <file alias="QGroundControl/Controls/CopyMission.qml">../src/QmlControls/CopyMission.qml</file>
         <file alias="QGroundControl/FlightDisplay/AlesPlanViewMap.qml">../src/FlightDisplay/AlesPlanViewMap.qml</file>
         <file alias="QGroundControl/Controls/DeleteMissionButton.qml">../src/QmlControls/DeleteMissionButton.qml</file>
-		    <file alias="QGroundControl/Controls/LogMessagePage.qml">../src/QmlControls/LogMessagePage.qml</file>
-		    <file alias="QGroundControl/Controls/DroneStatusPage.qml">../src/QmlControls/DroneStatusPage.qml</file>
-		    <file alias="QGroundControl/Controls/CurrentWarningMessagePage.qml">../src/QmlControls/CurrentWarningMessagePage.qml</file>
-		    <file alias="QGroundControl/Controls/FlightLogPage.qml">../src/QmlControls/FlightLogPage.qml</file>
+		<file alias="QGroundControl/Controls/LogMessagePage.qml">../src/QmlControls/LogMessagePage.qml</file>
+		<file alias="QGroundControl/Controls/DroneStatusPage.qml">../src/QmlControls/DroneStatusPage.qml</file>
+		<file alias="QGroundControl/Controls/CurrentWarningMessagePage.qml">../src/QmlControls/CurrentWarningMessagePage.qml</file>
+		<file alias="QGroundControl/Controls/FlightLogPage.qml">../src/QmlControls/FlightLogPage.qml</file>
+		<file alias ="QGroundControl/Controls/SystemSettingPage.qml">../src/QmlControls/SystemSettingPage.qml</file>
+		<file alias="QGroundControl/Controls/FlightControlPage.qml">../src/QmlControls/FlightControlPage.qml</file>
+		<file alias="QGroundControl/Controls/VisualNavigationPage.qml">../src/QmlControls/VisualNavigationPage.qml</file>
+		<file alias="QGroundControl/Controls/RemoteControlPage.qml">../src/QmlControls/RemoteControlPage.qml</file>
+		<file alias="QGroundControl/Controls/ImageTransmissionPage.qml">../src/QmlControls/ImageTransmissionPage.qml</file>
+		<file alias="QGroundControl/Controls/DroneBatteryPage.qml">../src/QmlControls/DroneBatteryPage.qml</file>
+		<file alias="QGroundControl/Controls/GimbalPage.qml">../src/QmlControls/GimbalPage.qml</file>
+		<file alias="QGroundControl/Controls/LivePage.qml">../src/QmlControls/LivePage.qml</file>
+		<file alias="QGroundControl/Controls/SecurityPage.qml">../src/QmlControls/SecurityPage.qml</file>
+		<file alias="QGroundControl/Controls/GeneralPage.qml">../src/QmlControls/GeneralPage.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">../src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>
