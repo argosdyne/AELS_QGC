@@ -183,4 +183,13 @@ LogMessagePage							1.0 LogMessagePage.qml
 DroneStatusPage							1.0 DroneStatusPage.qml
 CurrentWarningMessagePage				1.0 CurrentWarningMessagePage.qml
 FlightLogPage							1.0 FlightLogPage.qml
-
+SystemSettingPage						1.0 SystemSettingPage.qml
+FlightControlPage						1.0 FlightControlPage.qml
+VisualNavigationPage					1.0 VisualNavigationPage.qml
+RemoteControlPage						1.0 RemoteControlPage.qml
+ImageTransmissionPage					1.0 ImageTransmissionPage.qml
+DroneBatteryPage						1.0 DroneBatteryPage.qml
+GimbalPage								1.0 GimbalPage.qml
+LivePage								1.0 LivePage.qml
+SecurityPage							1.0 SecurityPage.qml
+GeneralPage								1.0 GeneralPage.qml

@@ -25,18 +25,63 @@ Rectangle {
     //Size Property
     property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.mediumFontPointSize : ScreenTools.mediumFontPointSize
 
-    implicitWidth: Screen.width    
+    implicitWidth: Screen.width
+
+    property var parentQML: null
+    property alias commonHiddenTopBar: commonHiddenTopBar
+    property alias systemSetting: systemSetting
+    z: 2
 
     Loader {
         id: commonHiddenTopBar
         visible: false
-
+        anchors.left: parent.left
+        z: 4
         onLoaded: {
             if(item){
                 width = item.width;
                 height = item.height;
             }
         }
+    }
+
+    Loader {
+        id:systemSetting
+        z: 4
+        visible: false
+        onLoaded: {
+            if(item){
+                width = item.width
+                height = item.height
+                item.listViewModel.append({'images': "qrc:/res/FlightControl.png", 'texts': "Flight Control"})
+                item.listViewModel.append({'images': "qrc:/res/VisualNavigation.svg", 'texts': "Visual Navigation"})
+                item.listViewModel.append({'images': "qrc:/res/RemoteControl.svg", 'texts': "Remote Control"})
+                item.listViewModel.append({'images': "qrc:/res/ImageTransmission.svg", 'texts': "Image\nTransmission"})
+                item.listViewModel.append({'images': "qrc:/res/DroneBattery.svg", 'texts': "Drone Battery"})
+                item.listViewModel.append({'images': "qrc:/res/Gimbal.svg", 'texts': "Gimbal"})
+                item.listViewModel.append({'images': "qrc:/res/Live.svg", 'texts': "Live"})
+                item.listViewModel.append({'images': "qrc:/res/Security.svg", 'texts': "Security"})
+                item.listViewModel.append({'images': "qrc:/res/General.svg", 'texts': "General"})
+                item.parentQML = root
+
+                systemSetting.item.gimbalPage.adjustGimbalClicked.connect(handleAdjustGimbalClicked)
+            }
+        }
+    }
+
+    //Adjust Gimbal - System Setting
+    function handleAdjustGimbalClicked(){
+        console.log("AdjustGimbal Click")
+
+        //1. Close system setting.
+        systemSetting.item.handleCloseAllPages()
+        systemSetting.visible = false
+
+        //2. Show Adjust Gimbal Window
+        parentQML.videoControl.z = 3
+        parentQML.adjustWindow.visible = true
+        parentQML.adjustdoneButton.visible = true
+        parentQML.adjustdoneText.visible = true
     }
 
     RowLayout {
@@ -298,11 +343,22 @@ Rectangle {
             Image {                
                 anchors.fill: parent
                 anchors.margins: 5
-                    source: "/res/TopMenuSetting.png"
+                    source: "qrc:/res/TopMenuSetting.png"
                     fillMode: Image.PreserveAspectFit
                 }
             onClicked: {
-                console.log("Red btn Click");
+                console.log("Setting btn Click");
+
+                // Add System SettingPage
+                if(systemSetting.item == null) {
+                    systemSetting.source= "qrc:/qml/QGroundControl/Controls/SystemSettingPage.qml"
+                    systemSetting.visible = true
+                    systemSetting.x = 0
+                    systemSetting.y = 0
+                }
+                else {
+                    systemSetting.visible = true
+                }
             }
         }
 

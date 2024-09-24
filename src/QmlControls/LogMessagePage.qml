@@ -37,7 +37,7 @@ Rectangle {
 
     property int previousIndex : -1
 
-    z : 4
+    z : 10
 
     ListModel {
         id: mymodel

@@ -15,8 +15,7 @@ import QtGraphicalEffects                   1.12
 Rectangle {
     id: root
     color: black
-    z: 4
-
+    z: 5
     //Color Picker
     property color black: "#222020"
     property color gray: "#848282"
@@ -31,6 +30,11 @@ Rectangle {
     property var parentQML: null
     property bool isWarning: true
     property string innerText: ""
+
+    property alias cancelButton: cancelButton
+    property alias okButton: okButton
+    property alias verticalSeparator: verticalSeparator
+    property alias root: root
 
     radius: defaultFontSize * 1.2     
     implicitWidth: Screen.width / 4.1
@@ -57,6 +61,7 @@ Rectangle {
 
     //Left button
     Button {
+        id: cancelButton
         width: parent.width / 2
         height: parent.height / 5.3
         anchors.bottom: parent.bottom
@@ -76,15 +81,54 @@ Rectangle {
         onClicked: {
             console.log("Left btn Click");
 
-            parentQML.resetCameraLoader.sourceComponent = null
+            if (parentQML.resetCameraLoader !== null && typeof parentQML.resetCameraLoader !== "undefined") {
+                if (typeof parentQML.resetCameraLoader.sourceComponent !== "undefined" && parentQML.resetCameraLoader.sourceComponent !== null) {
+                    parentQML.resetCameraLoader.sourceComponent = null
+                }
+            }
+
+            if (parentQML.ledIndicatorsLoader !== null && typeof parentQML.ledIndicatorsLoader !== "undefined") {
+                if (typeof parentQML.ledIndicatorsLoader.sourceComponent !== "undefined" && parentQML.ledIndicatorsLoader.sourceComponent !== null) {
+                    parentQML.ledIndicatorsLoader.sourceComponent = null
+                    console.log("ledIndicatorsLoader null")
+                }
+            }
+
+            if (parentQML.visualObstacleAvoidanceLoader !== null && typeof parentQML.visualObstacleAvoidanceLoader !== "undefined") {
+                if (typeof parentQML.visualObstacleAvoidanceLoader.sourceComponent !== "undefined" && parentQML.visualObstacleAvoidanceLoader.sourceComponent !== null) {
+                    parentQML.visualObstacleAvoidanceLoader.sourceComponent = null
+                }
+            }
+
+            if (parentQML.downwardVisionLoader !== null && typeof parentQML.downwardVisionLoader !== "undefined") {
+                if (typeof parentQML.downwardVisionLoader.sourceComponent !== "undefined" && parentQML.downwardVisionLoader.sourceComponent !== null) {
+                    parentQML.downwardVisionLoader.sourceComponent = null
+                }
+            }
+
             parentQML.modalBackground.visible = false
             parentQML.modalBackground.enabled = false
             parentQML.modalBackground.z = 1
+
+            if(parentQML.currentLED === "Front"){
+                parentQML.flightControl.frontLEDcontrol.checked = true
+            }
+            else {
+                parentQML.flightControl.backwardLEDcontrol.checked = true
+            }
+
+            if(parentQML.currentVisualControl === "openDownward"){
+                parentQML.visualNavigation.downwardVisioncontrol.checked = true
+            }
+            else {
+                parentQML.visualNavigation.visualObstaclecontrol.checked = false
+            }
         }
     }
 
     //Right button
     Button {
+        id: okButton
         width: parent.width / 2
         height: parent.height / 5.3
         anchors.bottom: parent.bottom
@@ -98,32 +142,64 @@ Rectangle {
             text: qsTr("OK")
             color: blue
             anchors.centerIn: parent
-            font.pixelSize: parent.width / 7.7
+            font.pixelSize: defaultFontSize * 3
             font.bold: true
         }
 
         onClicked: {
             console.log("Right btn Click");
             if(!isWarning){
-                parentQML.resetCameraLoader.sourceComponent = null
-                parentQML.modalBackground.visible = false
-                parentQML.modalBackground.enabled = false
-                parentQML.modalBackground.z = 1
-                parentQML.cameraSettingLoader.visible = false
-                parentQML.videoControl.z = 0
+                if (parentQML.resetCameraLoader !== null && typeof parentQML.resetCameraLoader !== "undefined") {
+                    if (typeof parentQML.resetCameraLoader.sourceComponent !== "undefined" && parentQML.resetCameraLoader.sourceComponent !== null) {
+                        {
+                            parentQML.resetCameraLoader.sourceComponent = null
+                            parentQML.cameraSettingLoader.visible = false
+                            parentQML.videoControl.z = 0
 
-                //Show Reset Complete Rect
-                parentQML.popupRect.showPopup()
+                            //Show Reset Complete Rect
+                            parentQML.popupRect.showPopup()
+                        }
+                    }
+                }
             }
             else {
-                parentQML.resetCameraLoader.sourceComponent = null
-                parentQML.modalBackground.visible = false
-                parentQML.modalBackground.enabled = false
-                parentQML.modalBackground.z = 1
+                if (parentQML.resetCameraLoader !== null && typeof parentQML.resetCameraLoader !== "undefined") {
+                    if (typeof parentQML.resetCameraLoader.sourceComponent !== "undefined" && parentQML.resetCameraLoader.sourceComponent !== null) {
+                        parentQML.resetCameraLoader.sourceComponent = null;
+                        // Show Log Window Button
+                        parentQML.logWindowButton.visible = true;
+                    }
+                }
 
-                //Show Log Window Button
-                parentQML.logWindowButton.visible = true
+                if (parentQML.ledIndicatorsLoader !== null && typeof parentQML.ledIndicatorsLoader !== "undefined") {
+                    if (typeof parentQML.ledIndicatorsLoader.sourceComponent !== "undefined" && parentQML.ledIndicatorsLoader.sourceComponent !== null) {
+                        parentQML.ledIndicatorsLoader.sourceComponent = null
+                        console.log("ledIndicatorsLoader null")
+                    }
+                }
+
+                if (parentQML.noviceModeUncheckedLoader !== null && typeof parentQML.noviceModeUncheckedLoader !== "undefined") {
+                    if (typeof parentQML.noviceModeUncheckedLoader.sourceComponent !== "undefined" && parentQML.noviceModeUncheckedLoader.sourceComponent !== null) {
+                        parentQML.noviceModeUncheckedLoader.sourceComponent = null
+                    }
+                }
+
+
+                if (parentQML.visualObstacleAvoidanceLoader !== null && typeof parentQML.visualObstacleAvoidanceLoader !== "undefined") {
+                    if (typeof parentQML.visualObstacleAvoidanceLoader.sourceComponent !== "undefined" && parentQML.visualObstacleAvoidanceLoader.sourceComponent !== null) {
+                        parentQML.visualObstacleAvoidanceLoader.sourceComponent = null
+                    }
+                }
+
+                if (parentQML.downwardVisionLoader !== null && typeof parentQML.downwardVisionLoader !== "undefined") {
+                    if (typeof parentQML.downwardVisionLoader.sourceComponent !== "undefined" && parentQML.downwardVisionLoader.sourceComponent !== null) {
+                        parentQML.downwardVisionLoader.sourceComponent = null
+                    }
+                }
             }
+            parentQML.modalBackground.visible = false
+            parentQML.modalBackground.enabled = false
+            parentQML.modalBackground.z = 1
         }
     }
 
@@ -135,6 +211,7 @@ Rectangle {
         color: gray        
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.bottom: parent.bottom
+        id: verticalSeparator
     }
 
     Rectangle {
