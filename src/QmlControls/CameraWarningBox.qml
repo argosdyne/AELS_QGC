@@ -252,16 +252,33 @@ Rectangle {
 
     //Inner Text Field
 
+//    Rectangle {
+//        width: parent.width
+//        height: parent.height - topRect.height - parent.height / 5.3
+//        anchors.verticalCenter: parent.verticalCenter
+//        color: transparent
+//        Text {
+//            text: innerText
+//            color: white
+//            font.pixelSize: defaultFontSize * 2
+//            anchors.centerIn: parent
+//            wrapMode: Text.WordWrap
+//        }
+//    }
+
     Rectangle {
         width: parent.width
         height: parent.height - topRect.height - parent.height / 5.3
         anchors.verticalCenter: parent.verticalCenter
         color: transparent
+
         Text {
             text: innerText
             color: white
             font.pixelSize: defaultFontSize * 2
-            anchors.centerIn: parent
+            anchors.centerIn: parent  // parent를 기준으로 중앙 정렬
+            wrapMode: Text.WordWrap  // 텍스트 줄바꿈
+            width: parent.width * 0.9  // 너비를 약간 줄여서 여백을 추가
         }
     }
 }

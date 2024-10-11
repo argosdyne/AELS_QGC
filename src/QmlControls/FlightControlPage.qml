@@ -19,6 +19,8 @@ Rectangle {
     property string white: '#ffffff'
     property string black: '#1f1f1f'
     property string blue: '#3D71D7'
+    property string red: "red"
+    property string green: "green"
     property color lightGray: "#4a4a4a"
     property color transparent: "transparent"
     property int hItemDelegate: Screen.height / 5;
@@ -42,91 +44,6 @@ Rectangle {
     property alias frontLEDcontrol: frontLEDcontrol
     property alias backwardLEDcontrol: backwardLEDcontrol
 
-    //Compass Calibration Page
-    Rectangle {
-        id: compassCalibrationPage
-        anchors.fill: parent
-        z: 4
-        color: black
-        visible: false
-        MouseArea {
-            anchors.fill: parent
-        }
-        Text {
-            text: "compass calibration"
-            color: white
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: parent.height / 15
-            font.pixelSize: defaultFontSize * 4
-        }
-
-        Image {
-            source: "qrc:/res/FlightControl.png"
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width / 8
-            height: parent.height / 12
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height / 1.9
-        }
-
-        Image {
-            height: parent.height / 2.5
-            width: height
-            source: "qrc:/res/CompassCalibration.svg"
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height / 2.5
-            anchors.horizontalCenter: parent.horizontalCenter
-        }
-
-        Button {
-            width: parent.width / 3.2
-            height: parent.height / 9.6
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height / 6.4
-
-            background: Rectangle {
-                color: blue
-                radius: defaultFontSize * 2
-            }
-
-            Text {
-                text: "Starting Calibration"
-                anchors.centerIn: parent
-                color: white
-                font.pixelSize: defaultFontSize * 4
-            }
-
-            onClicked: {
-                startCalibrationPage.visible = true
-                parentQML.page2 = startCalibrationPage
-                parentQML.currentPageIndex = 2
-                parentQML.previousTitle = parentQML.settingTitle
-            }
-        }
-    }
-
-    // Start Calibration
-    Rectangle{
-        id: startCalibrationPage
-        anchors.fill: parent
-        z: 4
-        color: black
-        visible: false
-        MouseArea {
-            anchors.fill: parent
-        }
-        Text {
-            text: "Hold drone horizontally and rotate it 360 degrees until the rear flight LED's turn solid green"
-            color: white
-            font.pixelSize: defaultFontSize * 3
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height / 9.6
-        }
-    }
-
     // IMU Calibration Page
     Rectangle {
         id: imuCalibrationPage
@@ -137,55 +54,177 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
         }
-        Image {
-            source: "qrc:/res/DroneCenter.png"
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width / 2
-            height: parent.height / 2.5
-            anchors.top: parent.top
-            anchors.topMargin: parent.height / 15
-        }
 
-        Text {
-            text: "• Please remove the propellers, fold the arms and place\n  the drone on a horizontal\n\n• Follow the instruction to place the drone and keep it still\n\n• During calibration, the gimbal will not work"
-            color: white
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: parent.height / 2.5
-            font.pixelSize: defaultFontSize * 3
-        }
+        Column {
+            anchors.fill: parent
+            //Compass
+            ItemDelegate {
+                width: parent.width
+                height: hItemDelegate / 2
 
-        Button {
-            width: parent.width / 3.2
-            height: parent.height / 9.6
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height / 6.4
+                Text {
+                    anchors.left: parent.left
+                    anchors.leftMargin: parent.width / 24
+                    color: white
+                    text: "Compass"
+                    font.pixelSize: defaultFontSize * 3
+                    anchors.verticalCenter: parent.verticalCenter
+                }
 
-            background: Rectangle {
-                color: blue
-                radius: defaultFontSize * 2
+                Image {
+                    source : "qrc:/res/ales/waypoint/RightDir.svg"
+                    anchors.right: parent.right
+                    anchors.rightMargin: defaultFontSize * 2
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                background: Rectangle {
+                    color: transparent
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        startCompassCalibrationPage.visible = true
+                        parentQML.page2 = startCompassCalibrationPage
+                        parentQML.currentPageIndex = 2
+                        parentQML.previousTitle = parentQML.settingTitle
+                        parentQML.settingTitle = "Compass Calibration"
+                    }
+                }
             }
 
-            Text {
-                text: "Starting Calibration"
-                anchors.centerIn: parent
-                color: white
-                font.pixelSize: defaultFontSize * 4
+            ToolSeparator {
+                width: parent.width
+                height: hToolSeparator
+                orientation: Qt.Horizontal
+            }
+            //Gyroscope
+            ItemDelegate {
+                width: parent.width
+                height: hItemDelegate / 2
+
+                Text {
+                    anchors.left: parent.left
+                    anchors.leftMargin: parent.width / 24
+                    color: white
+                    text: "Gyroscope"
+                    font.pixelSize: defaultFontSize * 3
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Image {
+                    source : "qrc:/res/ales/waypoint/RightDir.svg"
+                    anchors.right: parent.right
+                    anchors.rightMargin: defaultFontSize * 2
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                background: Rectangle {
+                    color: transparent
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        startGyroScopeCalibrationPage.visible = true
+                        parentQML.page2 = startGyroScopeCalibrationPage
+                        parentQML.currentPageIndex = 2
+                        parentQML.previousTitle = parentQML.settingTitle
+                        parentQML.settingTitle = "Gyroscope Calibration"
+                    }
+                }
             }
 
-            onClicked: {
-                startimuCalibrationPage.visible = true
-                parentQML.page2 = startimuCalibrationPage
-                parentQML.currentPageIndex = 2
-                parentQML.previousTitle = parentQML.settingTitle
+            ToolSeparator {
+                width: parent.width
+                height: hToolSeparator
+                orientation: Qt.Horizontal
+            }
+            //Accelerometer
+            ItemDelegate {
+                width: parent.width
+                height: hItemDelegate / 2
+
+                Text {
+                    anchors.left: parent.left
+                    anchors.leftMargin: parent.width / 24
+                    color: white
+                    text: "Accelerometer"
+                    font.pixelSize: defaultFontSize * 3
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Image {
+                    source : "qrc:/res/ales/waypoint/RightDir.svg"
+                    anchors.right: parent.right
+                    anchors.rightMargin: defaultFontSize * 2
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                background: Rectangle {
+                    color: transparent
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        startAccelerometerCalibrationPage.visible = true
+                        parentQML.page2 = startAccelerometerCalibrationPage
+                        parentQML.currentPageIndex = 2
+                        parentQML.previousTitle = parentQML.settingTitle
+                        parentQML.settingTitle = "Accelerometer Calibration"
+                    }
+                }
+            }
+
+            ToolSeparator {
+                width: parent.width
+                height: hToolSeparator
+                orientation: Qt.Horizontal
+            }
+
+            ItemDelegate {
+                width: parent.width
+                height: hItemDelegate / 2
+
+                Text {
+                    anchors.left: parent.left
+                    anchors.leftMargin: parent.width / 24
+                    color: white
+                    text: "Level Horizon"
+                    font.pixelSize: defaultFontSize * 3
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                Image {
+                    source : "qrc:/res/ales/waypoint/RightDir.svg"
+                    anchors.right: parent.right
+                    anchors.rightMargin: defaultFontSize * 2
+                    anchors.verticalCenter: parent.verticalCenter
+                }
+
+                background: Rectangle {
+                    color: transparent
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: {
+                        startLevelHorizonCalibrationPage.visible = true
+                        parentQML.page2 = startLevelHorizonCalibrationPage
+                        parentQML.currentPageIndex = 2
+                        parentQML.previousTitle = parentQML.settingTitle
+                        parentQML.settingTitle = "Level Horizon"
+                    }
+                }
             }
         }
     }
 
-    // Start IMU Calibration
-    Rectangle {
-        id: startimuCalibrationPage
+    // Start Compass Calibration
+    Rectangle{
+        id: startCompassCalibrationPage
         anchors.fill: parent
         z: 4
         color: black
@@ -193,146 +232,551 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
         }
-        Rectangle {
-            width: parent.width / 3
-            height: parent.height / 19.2
-            color: transparent
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: parent.top
-            anchors.topMargin: parent.height / 24
-            Row {
-                anchors.fill: parent
-                spacing: 4
-                Rectangle {
-                    height: parent.height
-                    width: height
-                    radius: height
+
+        Column {
+            anchors.fill: parent
+
+            Item {
+                width: 1
+                height: parent.height / 3
+            }
+
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width / 4
+                height: parent.height / 10
+                Text {
+                    text: "Start Calibration"
+                    font.pixelSize: defaultFontSize * 4
+                    anchors.centerIn: parent
+                    color: white
+                }
+                background: Rectangle {
                     color: blue
+                }
+                onClicked: {
+                    compassCalibrationPage.visible = true
+                    parentQML.page3 = compassCalibrationPage
+                    parentQML.currentPageIndex = 3
+                }
+            }
 
-                    Text {
-                        text: "1"
-                        color: white
-                        font.pixelSize: defaultFontSize * 3
-                        anchors.centerIn: parent
-                    }
-                }
+            Item {
+                width: 1
+                height:hItemDelegate / 3
+            }
+
+            Text {
+                text: "For Compass calibration you will need to rotate your vehicle through a number of positions."
+                color: white
+                font.pixelSize: defaultFontSize * 3
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Item {
+                width: 1
+                height:hItemDelegate / 3
+            }
+
+            Text {
+                color: white
+                font.pixelSize: defaultFontSize * 3
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Click Ok to Start Calibration"
+            }
+        }
+    }
+
+    //Compass Calibration Page
+    Rectangle {
+        id: compassCalibrationPage
+        anchors.fill: parent
+        z: 4
+        color: black
+        visible: false
+        MouseArea {
+            anchors.fill: parent
+        }
+
+        Column {
+            anchors.fill: parent
+
+            Item {
+                width: 1
+                height: hItemDelegate / 3
+            }
+
+            Text {
+                color: white
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: defaultFontSize * 3
+                text: "Place your vehicle into one of the Incomplete orientations shown below and hold it still"
+            }
+
+            Item {
+                width: 1
+                height: hItemDelegate / 3
+            }
+
+            Grid {
+                width: parent.width / 1.2
+                height: parent.height / 1.5
+                spacing: defaultFontSize
+                columns: 3
+                rows: 2
+                anchors.horizontalCenter: parent.horizontalCenter
 
                 Rectangle {
-                    height: 1
-                    width: defaultFontSize * 2
-                    color: lightGray
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-
-                Rectangle {
-                    height: parent.height
-                    width: height
-                    radius: height
-                    color: lightGray
-
-                    Text {
-                        text: "2"
-                        color: white
-                        font.pixelSize: defaultFontSize * 3
-                        anchors.centerIn: parent
-                    }
-                }
-                Rectangle {
-                    height: 1
-                    width: defaultFontSize * 2
-                    color: lightGray
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                Rectangle {
-                    height: parent.height
-                    width: height
-                    radius: height
-                    color: lightGray
-
-                    Text {
-                        text: "3"
-                        color: white
-                        font.pixelSize: defaultFontSize * 3
-                        anchors.centerIn: parent
-                    }
-                }
-                Rectangle {
-                    height: 1
-                    width: defaultFontSize * 2
-                    color: lightGray
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                Rectangle {
-                    height: parent.height
-                    width: height
-                    radius: height
-                    color: lightGray
-
-                    Text {
-                        text: "4"
-                        color: white
-                        font.pixelSize: defaultFontSize * 3
-                        anchors.centerIn: parent
-                    }
-                }
-                Rectangle {
-                    height: 1
-                    width: defaultFontSize * 2
-                    color: lightGray
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                Rectangle {
-                    height: parent.height
-                    width: height
-                    radius: height
-                    color: lightGray
-
-                    Text {
-                        text: "5"
-                        color: white
-                        font.pixelSize: defaultFontSize * 3
-                        anchors.centerIn: parent
+                    width: parent.width / 3 - defaultFontSize
+                    height: parent.height / 2 - defaultFontSize
+                    color: transparent
+                    Image {
+                        anchors.fill: parent
+                        source: "qrc:/res/IncompleteCalibration.png"
                     }
                 }
                 Rectangle {
-                    height: 1
-                    width: defaultFontSize * 2
-                    color: lightGray
-                    anchors.verticalCenter: parent.verticalCenter
+                    width: parent.width / 3 - defaultFontSize
+                    height: parent.height / 2 - defaultFontSize
+                    color: transparent
+                    Image {
+                        anchors.fill: parent
+                        source: "qrc:/res/IncompleteCalibration.png"
+                    }
                 }
                 Rectangle {
-                    height: parent.height
-                    width: height
-                    radius: height
-                    color: lightGray
-
-                    Text {
-                        text: "6"
-                        color: white
-                        font.pixelSize: defaultFontSize * 3
-                        anchors.centerIn: parent
+                    width: parent.width / 3 - defaultFontSize
+                    height: parent.height / 2 - defaultFontSize
+                    color: transparent
+                    Image {
+                        anchors.fill: parent
+                        source: "qrc:/res/IncompleteCalibration.png"
+                    }
+                }
+                Rectangle {
+                    width: parent.width / 3 - defaultFontSize
+                    height: parent.height / 2 - defaultFontSize
+                    color: transparent
+                    Image {
+                        anchors.fill: parent
+                        source: "qrc:/res/IncompleteCalibration.png"
+                    }
+                }
+                Rectangle {
+                    width: parent.width / 3 - defaultFontSize
+                    height: parent.height / 2 - defaultFontSize
+                    color: transparent
+                    Image {
+                        anchors.fill: parent
+                        source: "qrc:/res/IncompleteCalibration.png"
+                    }
+                }
+                Rectangle {
+                    width: parent.width / 3 - defaultFontSize
+                    height: parent.height / 2 - defaultFontSize
+                    color: transparent
+                    Image {
+                        anchors.fill: parent
+                        source: "qrc:/res/IncompleteCalibration.png"
                     }
                 }
             }
         }
-
-        Image {
-            source: "qrc:/res/DroneCenter.png"
-            anchors.centerIn: parent
-            width: parent.width / 2
-            height: parent.height / 2.5
-        }
-
-        Text {
-            text : "• Follow the instruction to place the drone and keep it still"
-            color: white
-            font.pixelSize: defaultFontSize * 2
-            anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: parent.bottom
-            anchors.bottomMargin: parent.height / 4.8
-        }
-
     }
+
+    // Start GyroScope Calibration
+    Rectangle {
+        id: startGyroScopeCalibrationPage
+        anchors.fill: parent
+        z: 4
+        color: black
+        visible: false
+        MouseArea {
+            anchors.fill: parent
+        }
+
+        Column {
+            anchors.fill: parent
+
+            Item {
+                width: 1
+                height: parent.height / 3
+            }
+
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width / 4
+                height: parent.height / 10
+                Text {
+                    text: "Start Calibration"
+                    font.pixelSize: defaultFontSize * 4
+                    anchors.centerIn: parent
+                    color: white
+                }
+                background: Rectangle {
+                    color: blue
+                }
+                onClicked: {
+                    gyroscopeCalibrationPage.visible = true
+                    parentQML.page3 = gyroscopeCalibrationPage
+                    parentQML.currentPageIndex = 3
+                }
+            }
+
+            Item {
+                width: 1
+                height:hItemDelegate / 3
+            }
+
+            Text {
+                text: "For Gyroscope calibration you will need to place your vehicle on a surface"
+                color: white
+                font.pixelSize: defaultFontSize * 3
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Item {
+                width: 1
+                height: defaultFontSize
+            }
+            Text {
+                text: "and leave it still."
+                color: white
+                font.pixelSize: defaultFontSize * 3
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Item {
+                width: 1
+                height:hItemDelegate / 3
+            }
+
+            Text {
+                color: white
+                font.pixelSize: defaultFontSize * 3
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Click Ok to Start Calibration"
+            }
+        }
+    }
+
+    //Gyroscope Calibration Page
+    Rectangle {
+        id: gyroscopeCalibrationPage
+        anchors.fill: parent
+        z: 4
+        color: black
+        visible: false
+        MouseArea {
+            anchors.fill: parent
+        }
+
+        Column {
+            anchors.fill: parent
+
+            Item {
+                width: 1
+                height: hItemDelegate / 3
+            }
+
+            Text {
+                color: white
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: defaultFontSize * 3
+                text: "Place your vehicle into one of the Incomplete orientations shown below and hold it still"
+            }
+
+            Item {
+                width: 1
+                height: hItemDelegate / 3
+            }
+
+            Image {
+                source: "qrc:/res/IncompleteCalibration.png"
+                width: parent.width / 2.4
+                height: width
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+        }
+    }
+
+    // Start Accelerometer Calibration
+    Rectangle {
+        id: startAccelerometerCalibrationPage
+        anchors.fill: parent
+        z: 4
+        color: black
+        visible: false
+        MouseArea {
+            anchors.fill: parent
+        }
+
+        Column {
+            anchors.fill: parent
+
+            Item {
+                width: 1
+                height: parent.height / 3
+            }
+
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width / 4
+                height: parent.height / 10
+                Text {
+                    text: "Start Calibration"
+                    font.pixelSize: defaultFontSize * 4
+                    anchors.centerIn: parent
+                    color: white
+                }
+                background: Rectangle {
+                    color: blue
+                }
+                onClicked: {
+                    accelerometerCalibrationPage.visible = true
+                    parentQML.page3 = accelerometerCalibrationPage
+                    parentQML.currentPageIndex = 3
+                }
+            }
+
+            Item {
+                width: 1
+                height:hItemDelegate / 3
+            }
+
+            Text {
+                text: "For Accelerometer calibration you will need to place your vehicle on all six sides\non a perfectly level surface and hold it still in eash orientation for a few seconds"
+                color: white
+                font.pixelSize: defaultFontSize * 3
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Item {
+                width: 1
+                height:hItemDelegate / 3
+            }
+
+            Text {
+                color: white
+                font.pixelSize: defaultFontSize * 3
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Click Ok to Start Calibration"
+            }
+        }
+    }
+
+    // Accelerometer Calibration Page
+    Rectangle {
+        id: accelerometerCalibrationPage
+        anchors.fill: parent
+        z: 4
+        color: black
+        visible: false
+        MouseArea {
+            anchors.fill: parent
+        }
+
+        Column {
+            anchors.fill: parent
+
+            Item {
+                width: 1
+                height: hItemDelegate / 3
+            }
+
+            Text {
+                color: white
+                anchors.horizontalCenter: parent.horizontalCenter
+                font.pixelSize: defaultFontSize * 3
+                text: "Place your vehicle into one of the Incomplete orientations shown below and hold it still"
+            }
+
+            Item {
+                width: 1
+                height: hItemDelegate / 3
+            }
+
+            Grid {
+                width: parent.width / 1.2
+                height: parent.height / 1.5
+                spacing: defaultFontSize
+                columns: 3
+                rows: 2
+                anchors.horizontalCenter: parent.horizontalCenter
+
+                Rectangle {
+                    width: parent.width / 3 - defaultFontSize
+                    height: parent.height / 2 - defaultFontSize
+                    color: transparent
+                    Image {
+                        anchors.fill: parent
+                        source: "qrc:/res/IncompleteCalibration.png"
+                    }
+                }
+                Rectangle {
+                    width: parent.width / 3 - defaultFontSize
+                    height: parent.height / 2 - defaultFontSize
+                    color: transparent
+                    Image {
+                        anchors.fill: parent
+                        source: "qrc:/res/IncompleteCalibration.png"
+                    }
+                }
+                Rectangle {
+                    width: parent.width / 3 - defaultFontSize
+                    height: parent.height / 2 - defaultFontSize
+                    color: transparent
+                    Image {
+                        anchors.fill: parent
+                        source: "qrc:/res/IncompleteCalibration.png"
+                    }
+                }
+                Rectangle {
+                    width: parent.width / 3 - defaultFontSize
+                    height: parent.height / 2 - defaultFontSize
+                    color: transparent
+                    Image {
+                        anchors.fill: parent
+                        source: "qrc:/res/IncompleteCalibration.png"
+                    }
+                }
+                Rectangle {
+                    width: parent.width / 3 - defaultFontSize
+                    height: parent.height / 2 - defaultFontSize
+                    color: transparent
+                    Image {
+                        anchors.fill: parent
+                        source: "qrc:/res/IncompleteCalibration.png"
+                    }
+                }
+                Rectangle {
+                    width: parent.width / 3 - defaultFontSize
+                    height: parent.height / 2 - defaultFontSize
+                    color: transparent
+                    Image {
+                        anchors.fill: parent
+                        source: "qrc:/res/IncompleteCalibration.png"
+                    }
+                }
+            }
+        }
+    }
+
+    // Start Level Horizon Calibration
+    Rectangle {
+        id: startLevelHorizonCalibrationPage
+        anchors.fill: parent
+        z: 4
+        color: black
+        visible: false
+        MouseArea {
+            anchors.fill: parent
+        }
+
+        Column {
+            anchors.fill: parent
+
+            Item {
+                width: 1
+                height: parent.height / 3
+            }
+
+            Button {
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width / 4
+                height: parent.height / 10
+                Text {
+                    text: "Start Calibration"
+                    font.pixelSize: defaultFontSize * 4
+                    anchors.centerIn: parent
+                    color: white
+                }
+                background: Rectangle {
+                    color: blue
+                }
+                onClicked: {
+                    levelHorizonCalibrationPage.visible = true
+                    parentQML.page3 = levelHorizonCalibrationPage
+                    parentQML.currentPageIndex = 3
+                }
+            }
+
+            Item {
+                width: 1
+                height: hItemDelegate / 3
+            }
+
+            Text {
+                text: "To level the horizon you need to place the vehicle in its level flight position"
+                color: white
+                font.pixelSize: defaultFontSize * 3
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Item {
+                width: 1
+                height: defaultFontSize
+            }
+            Text {
+                text: "and leave it still."
+                color: white
+                font.pixelSize: defaultFontSize * 3
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+
+            Item {
+                width: 1
+                height:hItemDelegate / 3
+            }
+
+            Text {
+                color: white
+                font.pixelSize: defaultFontSize * 3
+                anchors.horizontalCenter: parent.horizontalCenter
+                text: "Click Ok to Start Calibration"
+            }
+        }
+    }
+
+    //Level Horizon Calibration Page
+    Rectangle {
+        id: levelHorizonCalibrationPage
+        anchors.fill: parent
+        z: 4
+        visible: false
+        color: black
+        MouseArea {
+            anchors.fill: parent
+        }
+
+        Column {
+            anchors.fill: parent
+
+            Item {
+                width: 1
+                height: hItemDelegate / 3
+            }
+
+            Text {
+                text: "Start the individual calibration steps by clicking one of the buttons to the left"
+                color: white
+                font.pixelSize: defaultFontSize * 3
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+            Item {
+                width: 1
+                height: hItemDelegate / 5
+            }
+
+            Text {
+                text: "[cal] calibration started: 2 level\n[cal] progress &it;0&gt;\n[cal] progress &it;20&gt;\n[cal] progress &it;40&gt;\n[cal] progress &it;60&gt;\n[cal] progress &it;80&gt;\n[cal] progress &it;100&gt;\n[cal] progress &it;100&gt;\n[cal] calibration done: level"
+                color: white
+                font.pixelSize: defaultFontSize * 3
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+        }
+    }
+
 
     //Advanced Settings
     Rectangle {
@@ -879,9 +1323,13 @@ Rectangle {
                         width: parent.width
                         height: hItemDelegate
 
+                        property string noviceModeTitle: qsTr("Novice Mode")
+                        property string noviceModeDescription: qsTr("When Enabled, the maximum altitude, distance and speed")
+                        property string noviceModeDescription2: qsTr("will be limited. Intelligent Flight Modes will be disabled.")
+
                         Text {
                             anchors.left: parent.left
-                            text: "Novice Mode\n\nWhen Enabled, the maximum altitude, distance and speed\nwill be limited. Intelligent Flight Modes will be disabled."
+                            text: parent.noviceModeTitle + "\n\n" + parent.noviceModeDescription + "\n" + parent.noviceModeDescription2
                             font.pixelSize: defaultFontSize * 3
                             anchors.verticalCenter: parent.verticalCenter
                             color: white
@@ -914,13 +1362,15 @@ Rectangle {
                                     console.log("noviceModecontrol checked")
                                     indoorDelegate.visible = false
                                     indoorSeparator.visible = false
-                                    flickAble.contentHeight = flickAble.contentHeight - (indoorDelegate.height + indoorSeparator.height)
+                                    speedMode.visible = false
+                                    flickAble.contentHeight = flickAble.contentHeight - (indoorDelegate.height + indoorSeparator.height + speedMode.height)
                                 }
                                 else {
                                     console.log("noviceModecontrol unchecked")
                                     indoorDelegate.visible = true
                                     indoorSeparator.visible = true
-                                    flickAble.contentHeight = flickAble.contentHeight + (indoorDelegate.height + indoorSeparator.height)
+                                    speedMode.visible = true
+                                    flickAble.contentHeight = flickAble.contentHeight + (indoorDelegate.height + indoorSeparator.height + speedMode.height)
 
                                     openNovicePopup();
                                 }
@@ -1021,116 +1471,49 @@ Rectangle {
                         orientation: Qt.Horizontal
                     }
 
-                    //Speed Mode & Limit
+
+                    // Speed Mode
                     ItemDelegate {
                         width: parent.width
-                        height: hItemDelegate
+                        height: hItemDelegate / 3
+                        id: speedMode
+                        Text {
+                            anchors.left: parent.left
+                            color: white
+                            text: "Speed Mode"
+                            font.pixelSize: defaultFontSize * 3
+                            anchors.verticalCenter: parent.verticalCenter
+                        }
 
-                        Column {
-                            anchors.fill: parent
-                            // Speed Mode
-                            ItemDelegate {
-                                width: parent.width
-                                height: parent.height / 2
-                                id: itemdele
+                        ListView {
+                            orientation: Qt.Horizontal
+                            model: ["Standard", "Ludicrous"]
+                            anchors.left: parent.left
+                            anchors.leftMargin:root.width / 1.37
+                            width: root.width / 4.48
+                            height: parent.height / 2.16
+                            id: listView
+                            anchors.verticalCenter: parent.verticalCenter
+                            interactive: false
+                            highlightFollowsCurrentItem: false
+
+                            delegate: Rectangle {
+                                width: listView.width / 2
+                                height: listView.height
+                                color: ListView.isCurrentItem ? blue : lightGray
+
                                 Text {
-                                    anchors.left: parent.left
+                                    anchors.centerIn: parent
+                                    text: modelData
+                                    font.pixelSize: 20
                                     color: white
-                                    text: "Speed Mode"
-                                    font.pixelSize: defaultFontSize * 3
-                                    anchors.verticalCenter: parent.verticalCenter
                                 }
 
-                                ListView {
-                                    orientation: Qt.Horizontal
-                                    model: ["Standard", "Ludicrous"]
-                                    anchors.left: parent.left
-                                    anchors.leftMargin:root.width / 1.37
-                                    width: root.width / 4.48
-                                    height: parent.height / 2.16
-                                    id: listView
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    interactive: false
-                                    highlightFollowsCurrentItem: false
-
-                                    delegate: Rectangle {
-                                        width: listView.width / 2
-                                        height: listView.height
-                                        color: ListView.isCurrentItem ? blue : lightGray
-
-                                        Text {
-                                            anchors.centerIn: parent
-                                            text: modelData
-                                            font.pixelSize: 20
-                                            color: white
-                                        }
-
-                                        MouseArea {
-                                            anchors.fill: parent
-                                            onClicked: {
-                                                listView.currentIndex = index
-                                            }
-                                        }
+                                MouseArea {
+                                    anchors.fill: parent
+                                    onClicked: {
+                                        listView.currentIndex = index
                                     }
-                                }
-
-                                background: Rectangle {
-                                    color: transparent
-                                }
-                            }
-                            //Speed Limit
-                            ItemDelegate {
-                                width: parent.width
-                                height: parent.height / 2
-
-                                Text {
-                                    anchors.left: parent.left
-                                    font.pixelSize: defaultFontSize * 3
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    text: "<font color='white'>Speed Limit</font> <font color='red'>(Obstacle avoidance off)</font>"
-                                }
-
-                                ComboBox {
-                                    anchors.right: parent.right
-                                    anchors.verticalCenter: parent.verticalCenter
-                                    id: customComboBox
-                                    width: root.width / 7.2
-                                    height: parent.height / 1.8
-                                    model: ["18km/h", "36km/h"]
-
-                                    // 텍스트와 색상 스타일을 지정
-                                    contentItem: Text {
-                                        text: customComboBox.currentText
-                                        color: blue // 텍스트 색상
-                                        font.pixelSize: defaultFontSize * 3
-                                        verticalAlignment: Text.AlignVCenter
-                                        horizontalAlignment: Text.AlignLeft
-                                        padding: defaultFontSize
-                                    }
-
-                                    // 오른쪽의 화살표 표시를 커스텀
-                                    indicator: Item {
-                                        anchors.fill: parent
-                                        anchors.right: parent.right
-                                        width: parent.height / 3
-                                        height: parent.height / 3
-                                        anchors.margins: defaultFontSize
-                                        Image {
-                                            source: "qrc:/res/ales/waypoint/DownDir.svg"  // 원하는 화살표 이미지로 변경
-                                            anchors.right: parent.right
-                                            anchors.verticalCenter: parent.verticalCenter
-
-                                        }
-                                    }
-
-                                    background: Rectangle {
-                                        color: transparent  // 배경 색상 지정
-                                        border.color: lightGray
-                                        radius: 5
-                                    }
-                                }
-                                background: Rectangle {
-                                    color: transparent
                                 }
                             }
                         }
@@ -1139,8 +1522,65 @@ Rectangle {
                             color: transparent
                         }
                     }
-                    ToolSeparator {
+                    //Speed Limit
+                    ItemDelegate {
                         width: parent.width
+                        height: hItemDelegate / 3
+
+                        Text {
+                            anchors.left: parent.left
+                            font.pixelSize: defaultFontSize * 3
+                            anchors.verticalCenter: parent.verticalCenter
+                            text: "<font color='white'>Speed Limit</font> <font color='red'>(Obstacle avoidance off)</font>"
+                        }
+
+                        ComboBox {
+                            anchors.right: parent.right
+                            anchors.verticalCenter: parent.verticalCenter
+                            id: customComboBox
+                            width: root.width / 7.2
+                            height: parent.height / 1.8
+                            model: ["18km/h", "36km/h"]
+
+                            // 텍스트와 색상 스타일을 지정
+                            contentItem: Text {
+                                text: customComboBox.currentText
+                                color: blue // 텍스트 색상
+                                font.pixelSize: defaultFontSize * 3
+                                verticalAlignment: Text.AlignVCenter
+                                horizontalAlignment: Text.AlignLeft
+                                padding: defaultFontSize
+                            }
+
+                            // 오른쪽의 화살표 표시를 커스텀
+                            indicator: Item {
+                                anchors.fill: parent
+                                anchors.right: parent.right
+                                width: parent.height / 3
+                                height: parent.height / 3
+                                anchors.margins: defaultFontSize
+                                Image {
+                                    source: "qrc:/res/ales/waypoint/DownDir.svg"  // 원하는 화살표 이미지로 변경
+                                    anchors.right: parent.right
+                                    anchors.verticalCenter: parent.verticalCenter
+
+                                }
+                            }
+
+                            background: Rectangle {
+                                color: transparent  // 배경 색상 지정
+                                border.color: lightGray
+                                radius: 5
+                            }
+                        }
+                        background: Rectangle {
+                            color: transparent
+                        }
+                    }
+
+
+                ToolSeparator {
+                    width: parent.width
                         height: hToolSeparator
                         orientation: Qt.Horizontal
                     }
