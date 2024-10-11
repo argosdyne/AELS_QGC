@@ -33,7 +33,8 @@ Rectangle {
     //Size Property
     property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
     z: 3
-    property var parentQML : null    
+    property var parentQML : null
+
 
     //Restore "Do Not Show Again" Page
     Rectangle {
@@ -145,25 +146,48 @@ Rectangle {
     }
 
     // Select Language
+    ListModel {
+        id: languageModel
+        ListElement { language: qsTr("System"); localeValue: 0 }
+        ListElement { language: qsTr("English"); localeValue: 31 }
+        ListElement { language: qsTr("한국어 (Korean)"); localeValue: 66 }
+    }
+
     Rectangle {
         id: selectLanguagepage
         width: parent.width
         height: parent.height
         z: 4
-        color: transparent
         clip: true
+        color: black
         visible: false
+        MouseArea {
+            anchors.fill: parent
+        }
 
         ListView {
             id: listView
-            width: selectLanguagepage.width
+            width: parent.width
             height: selectLanguagepage.height
             clip: true
             boundsBehavior: Flickable.StopAtBounds
+            model: languageModel
 
-            // 모델에 텍스트만 추가
-            model: ["English\n\nEnglish","简体中文\n\nSimplified Chinese","繁體中文\n\nTraditional Chinese","日本語\n\nJapanese",
-                "italiano\n\nItalian","한국어\n\nKorean","ไทย\n\nThai","Español\n\nSpanish"]
+            // 초기화 시 현재 언어를 기준으로 currentIndex 설정
+            Component.onCompleted: {
+                // model이 정의되었는지 확인
+                if (model && model.count > 0) {
+                    var currentLocaleValue = QGroundControl.settingsManager.appSettings.qLocaleLanguage.rawValue;
+                    for (var i = 0; i < model.count; i++) {
+                        if (model.get(i).localeValue === currentLocaleValue) {
+                            listView.currentIndex = i;
+                            break;
+                        }
+                    }
+                } else {
+                    console.error("Model is not defined or empty.");
+                }
+            }
 
             delegate: Rectangle {
                 width: selectLanguagepage.width
@@ -175,25 +199,23 @@ Rectangle {
                     anchors.fill: parent
                     anchors.margins: defaultFontSize
 
-                    // 텍스트 표시
                     Item {
                         width: parent.width / 14.4
                         height: 1
                     }
 
                     Text {
-                        text: modelData  // 텍스트는 model의 데이터만 사용
+                        text: language  // 이제는 모델의 language 속성에 접근 가능
                         font.pixelSize: defaultFontSize * 2
                         color: white
                         anchors.verticalCenter: parent.verticalCenter
                         width: parent.width / 1.2
                     }
 
-                    // 공통 이미지 표시 (선택된 아이템에서만 보이게 설정)
                     Image {
-                        source: "qrc:/res/Done.svg"  // 공통 이미지 경로
-                        visible: listView.currentIndex == index  // 선택된 아이템에서만 보이게 설정
-                        width: selectLanguagepage.height / 12  // 이미지 크기 조정
+                        source: "qrc:/res/Done.svg"
+                        visible: listView.currentIndex == index
+                        width: selectLanguagepage.height / 12
                         height: selectLanguagepage.height / 12
                         anchors.verticalCenter: parent.verticalCenter
                     }
@@ -202,7 +224,12 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        listView.currentIndex = index  // 아이템 선택 시 currentIndex 업데이트
+                        listView.currentIndex = index
+                        console.log("Selected Language:", language);
+
+                        QGroundControl.settingsManager.appSettings.qLocaleLanguage.rawValue = localeValue;
+
+                        console.log("Set Locale Value:", localeValue);
                     }
                 }
             }
@@ -1223,7 +1250,7 @@ Rectangle {
             Text {
                 anchors.left: parent.left
                 color: white
-                text: "Select Language"
+                text: qsTr("Select Language")
                 font.pixelSize: defaultFontSize * 3.3
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.leftMargin: parent.width / 24

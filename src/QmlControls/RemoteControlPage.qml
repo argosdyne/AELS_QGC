@@ -5,11 +5,14 @@ import QtQuick.Dialogs  1.3
 import QtQuick.Window 2.0
 
 import QGroundControl                       1.0
-import QGroundControl.Controls              1.0
-import QGroundControl.Palette               1.0
-import QGroundControl.MultiVehicleManager   1.0
-import QGroundControl.ScreenTools           1.0
 import QGroundControl.Controllers           1.0
+import QGroundControl.Controls              1.0
+import QGroundControl.FactControls          1.0
+import QGroundControl.FactSystem            1.0
+import QGroundControl.Palette               1.0
+import QGroundControl.ScreenTools           1.0
+import QGroundControl.SettingsManager       1.0
+import QGroundControl.MultiVehicleManager   1.0
 import QtGraphicalEffects                   1.12
 
 Rectangle {
@@ -30,6 +33,8 @@ Rectangle {
     property int defaultFontSize: Qt.platform.os === "android" ? ScreenTools.smallFontPointSize : ScreenTools.mediumFontPointSize
     z: 3
     property var parentQML : null
+
+    property var  _ntripSource: QGroundControl.corePlugin.codevRTCMManager.rtcmSource
 
 
     //Remote Control Calibration Page
@@ -71,44 +76,22 @@ Rectangle {
         Column {
             anchors.centerIn: parent
             spacing: defaultFontSize
-            Row {
-                spacing: 5
 
-                Text {
-                    text: "With the remote control powered off, long press"
-                    color: white
-                    font.pixelSize: defaultFontSize * 3
-                }
-
-                Image {
-                    source: "qrc:/res/StartButton.svg"  // 첫 번째 아이콘 이미지 경로
-                    width: parent.width / 24
-                    height: parent.width / 36
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-
-                Text {
-                    text: "and"
-                    color: white
-                    font.pixelSize: defaultFontSize * 3
-                }
-
-                Image {
-                    source: "qrc:/res/SimultaneouslyButton.svg"  // 두 번째 아이콘 이미지 경로
-                    width: parent.width / 24
-                    height: width
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-            }
             Text {
-                text: "simultaneously on the remote control to enter the calibration page"
+                text: "Before calibrating you should zero all your trims and subtrims."
+                color: white
+                font.pixelSize: defaultFontSize * 3
+            }
+
+            Text {
+                text: "Click \"Start Calibration\" to start Calibration"
                 color: white
                 font.pixelSize: defaultFontSize * 3
             }
         }
     }
 
-    //Start Calibrating
+    //Remote Control Calibration Page -> Start Calibrating
     Rectangle {
         id: startCalibrationPage
         anchors.fill: parent
@@ -119,58 +102,603 @@ Rectangle {
             anchors.fill: parent
         }
         Column {
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.fill: parent
 
             Item {
                 width: 1
-                height: parent.width / 4.8
+                height: parent.height / 30
             }
 
-            Text {
-                color: white
-                font.pixelSize: defaultFontSize * 3.5
-                text: "Calibrating Remote Control..."
+            ListView {
+                orientation: Qt.Horizontal
+                model: ["Mode 1", "Mode 2"]
+                width: root.width / 4.48
+                height: parent.height / 15
+                id: listView
                 anchors.horizontalCenter: parent.horizontalCenter
+                interactive: false
+                highlightFollowsCurrentItem: false
+
+                delegate: Rectangle {
+                    width: listView.width / 2
+                    height: listView.height
+                    color: ListView.isCurrentItem ? blue : lightGray
+
+                    Text {
+                        anchors.centerIn: parent
+                        text: modelData
+                        font.pixelSize: 20
+                        color: white
+                    }
+
+                    MouseArea {
+                        anchors.fill: parent
+                        onClicked: {
+                            listView.currentIndex = index
+                        }
+                    }
+                }
             }
 
             Item {
                 width: 1
-                height: parent.width / 14.4
+                height: parent.height / 30
             }
 
+            //Attitude Controls
             Text {
-                color: lightGray
+                text: "Attitude Controls"
+                color: white
                 font.pixelSize: defaultFontSize * 3
-                text: "Finish Calibration referring to the remote control panel"
+                anchors.left: parent.left
+                anchors.leftMargin: parent.width / 20
             }
 
             Item {
                 width: 1
-                height: parent.width / 9.6
+                height: parent.height / 30
             }
 
             Row {
                 width: parent.width
-                spacing: 5
-                Text {
-                    color: lightGray
-                    font.pixelSize: defaultFontSize * 3
-                    text: "Press"
-                }
-
-                Image {
-                    anchors.verticalCenter: parent.verticalCenter
-                    source: "qrc:/res/DISP.svg"
-                    width: parent.width / 24
-                    height: width
+                Item {
+                    width: parent.width / 7.2
+                    height: 1
                 }
 
                 Text {
-                    color: lightGray
+                    width: parent.width / 12
+                    text: "Roll"
+                    color: white
                     font.pixelSize: defaultFontSize * 3
-                    text: "button on the remote control to cancel calibration"
+                }
+
+                Item {
+                    width: parent.width / 18
+                    height: 1
+                }
+
+                Slider {
+                    orientation: Qt.Horizontal
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2
                 }
             }
+
+            Item {
+                width: 1
+                height: defaultFontSize
+            }
+
+            Row {
+                width: parent.width
+                Item {
+                    width: parent.width / 7.2
+                    height: 1
+                }
+                Text {
+                    width: parent.width / 12
+                    text: "Pitch"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+                Item {
+                    width: parent.width / 18
+                    height: 1
+                }
+
+                Slider {
+                    orientation: Qt.Horizontal
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2
+                }
+
+            }
+
+            Item {
+                width: 1
+                height: defaultFontSize
+            }
+
+            Row {
+                width: parent.width
+                Item {
+                    width: parent.width / 7.2
+                    height: 1
+                }
+
+                Text {
+                    width: parent.width / 12
+                    text: "Yaw"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+
+                Item {
+                    width: parent.width / 18
+                    height: 1
+                }
+                Slider {
+                    orientation: Qt.Horizontal
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2
+                }
+            }
+
+            Item {
+                width: 1
+                height: defaultFontSize
+            }
+
+            Row {
+                width: parent.width
+                Item {
+                    width: parent.width / 7.2
+                    height: 1
+                }
+                Text {
+                    width: parent.width / 12
+                    text: "Throttle"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+                Item {
+                    width: parent.width / 18
+                    height: 1
+                }
+
+                Slider {
+                    orientation: Qt.Horizontal
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2
+                }
+            }
+
+            Item {
+                width: 1
+                height: parent.height / 18
+            }
+
+            //Channel Monitor
+            Text {
+                text: "Channel Monitor"
+                color: white
+                font.pixelSize: defaultFontSize * 3
+                anchors.left: parent.left
+                anchors.leftMargin: parent.width / 20
+            }
+
+            Item {
+                width: 1
+                height: parent.height / 30
+            }
+
+            Row {
+                width: parent.width
+                Item {
+                    width: parent.width / 9.6
+                    height: 1
+                }
+
+                Text {
+                    width: parent.width / 48
+                    text: "1"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+
+                Slider {
+                    orientation: Qt.Horizontal
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2.88
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+
+                Text {
+                    width: parent.width / 48
+                    text: "2"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+
+                Slider {
+                    orientation: Qt.Horizontal
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2.88
+                }
+            }
+
+            Row {
+                width: parent.width
+                Item {
+                    width: parent.width / 9.6
+                    height: 1
+                }
+                Text {
+                    width: parent.width / 48
+                    text: "3"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+                Slider {
+                    orientation: Qt.Horizontal
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2.88
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+
+                Text {
+                    width: parent.width / 48
+                    text: "4"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+
+                Slider {
+                    orientation: Qt.Horizontal
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2.88
+                }
+            }
+
+            Row {
+                width: parent.width
+                Item {
+                    width: parent.width / 9.6
+                    height: 1
+                }
+                Text {
+                    width: parent.width / 48
+                    text: "5"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+
+                Slider {
+                    orientation: Qt.Horizontal
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2.88
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+                Text {
+                    width: parent.width / 48
+                    text: "6"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+                Slider {
+                    orientation: Qt.Horizontal
+
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2.88
+                }
+            }
+
+            Row {
+                width: parent.width
+                Item {
+                    width: parent.width / 9.6
+                    height: 1
+                }
+                Text {
+                    width: parent.width / 48
+                    text: "7"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+
+                Slider {
+                    orientation: Qt.Horizontal
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2.88
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+                Text {
+                    width: parent.width / 48
+                    text: "8"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+                Slider {
+                    orientation: Qt.Horizontal
+
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2.88
+                }
+            }
+
+            Row {
+                width: parent.width
+                Item {
+                    width: parent.width / 9.6
+                    height: 1
+                }
+                Text {
+                    width: parent.width / 48
+                    text: "9"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+
+                Slider {
+                    orientation: Qt.Horizontal
+
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2.88
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+
+                Text {
+                    width: parent.width / 48
+                    text: "10"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+
+
+                Slider {
+                    orientation: Qt.Horizontal
+
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2.88
+                }
+            }
+
+            Row {
+                width: parent.width
+                Item {
+                    width: parent.width / 9.6
+                    height: 1
+                }
+                Text {
+                    width: parent.width / 48
+                    text: "11"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+
+                Slider {
+                    orientation: Qt.Horizontal
+
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2.88
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+                Text {
+                    width: parent.width / 48
+                    text: "12"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+
+                Slider {
+                    orientation: Qt.Horizontal
+
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2.88
+                }
+            }
+
+            Row {
+                width: parent.width
+                Item {
+                    width: parent.width / 9.6
+                    height: 1
+                }
+                Text {
+                    width: parent.width / 48
+                    text: "13"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+
+                Slider {
+                    orientation: Qt.Horizontal
+
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2.88
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+                Text {
+                    width: parent.width / 48
+                    text: "14"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+                Slider {
+                    orientation: Qt.Horizontal
+
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2.88
+                }
+            }
+
+            Row {
+                width: parent.width
+                Item {
+                    width: parent.width / 9.6
+                    height: 1
+                }
+                Text {
+                    width: parent.width / 48
+                    text: "15"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+                Slider {
+                    orientation: Qt.Horizontal
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2.88
+
+                }
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+                Text {
+                    width: parent.width / 48
+                    text: "16"
+                    color: white
+                    font.pixelSize: defaultFontSize * 3
+                }
+
+                Item {
+                    width: parent.width / 48
+                    height: 1
+                }
+                Slider {
+                    orientation: Qt.Horizontal
+
+                    value: 50
+                    from: 0
+                    to: 100
+                    width: parent.width / 2.88
+                }
+            }
+
         }
     }
 
@@ -184,17 +712,16 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
         }
-        Grid {
-            anchors.fill: parent
-            columns: 2
-            rows: 2
-            id: rootGrid
-            property int selectedMode: 0  // 현재 선택된 모드를 추적 (0: Mode1, 1: Mode2, 2: Mode3)
+        Row {
+            width: parent.width
+            height: parent.height / 3
+            property int selectedMode: 0
+            id: rootGrid            
 
             // Mode 1 Button
             Button {
                 width: parent.width / 2
-                height: parent.height / 3
+                height: parent.height
                 background: Rectangle {
                     color: transparent
                 }
@@ -206,8 +733,8 @@ Rectangle {
                         text: "Mode 1"
                         font.pixelSize: defaultFontSize * 4
                         color: rootGrid.selectedMode == 0 ? blue : white  // Mode 1이 선택되면 텍스트 색상 변경
-                        anchors.left: mode1Image.left
-                        anchors.leftMargin: parent.width / 14.4
+                        anchors.left: parent.left
+                        anchors.leftMargin: parent.width / 72
                         id: mode1Text
                     }
                     Item {
@@ -229,10 +756,17 @@ Rectangle {
                 }
             }
 
+            Rectangle {
+                width: 1
+                height: parent.height * 1.1
+                color: white
+                id: middleLine
+            }
+
             // Mode 2 Button
             Button {
                 width: parent.width / 2
-                height: parent.height / 3
+                height: parent.height
                 background: Rectangle {
                     color: transparent
                 }
@@ -244,8 +778,8 @@ Rectangle {
                         text: "Mode 2"
                         font.pixelSize: defaultFontSize * 4
                         color: rootGrid.selectedMode == 1 ? blue : white  // Mode 2이 선택되면 텍스트 색상 변경
-                        anchors.left: mode2Image.left
-                        anchors.leftMargin: parent.width / 14.4
+                        anchors.left: parent.left
+                        anchors.leftMargin: parent.width / 72
                     }
 
                     Image {
@@ -263,36 +797,12 @@ Rectangle {
                 }
             }
 
-            // Mode 3 Button
-            Button {
-                width: parent.width / 2
-                height: parent.height / 3
-                background: Rectangle {
-                    color: transparent
-                }
-
-                contentItem: Column {
-                    anchors.centerIn: parent
-
-                    Text {
-                        text: "Mode 3"
-                        font.pixelSize: defaultFontSize * 4
-                        color: rootGrid.selectedMode == 2 ? blue : white  // Mode 3이 선택되면 텍스트 색상 변경
-                        anchors.left: mode3Image.left
-                        anchors.leftMargin: parent.width / 14.4
-                    }
-                    Image {
-                        id: mode3Image
-                        source: rootGrid.selectedMode == 2 ? "qrc:/res/Mode3On.png" : "qrc:/res/Mode3Off.png"  // Mode 3이 선택되면 이미지 변경
-                        width: parent.width / 1.5
-                        height: parent.height * 1.1
-                        anchors.horizontalCenter: parent.horizontalCenter
-                    }
-                }
-
-                onClicked: {
-                    rootGrid.selectedMode = 2  // Mode 3을 선택
-                }
+            Rectangle {
+                width: parent.width
+                height: 1
+                color: white
+                anchors.top: parent.top
+                anchors.topMargin: rootGrid.height * 1.1
             }
         }
     }
@@ -312,29 +822,35 @@ Rectangle {
 
             Image {
                 source: "qrc:/res/DroneDetails.png"
-                anchors.horizontalCenter: parent.horizontalCenter
-                width: parent.width
+                anchors.horizontalCenter: parent.horizontalCenter                
                 height: parent.height / 1.5
+                width: height
             }
 
-            Row {
+//            Row {
+//                anchors.horizontalCenter: parent.horizontalCenter
+//                Text {
+//                    text: "When the remote control is off, Press the power button "
+//                    color: white
+//                    font.pixelSize: defaultFontSize * 3
+//                }
+//                Image {
+//                    source: "qrc:/res/StartButton.svg"
+//                    width: parent.width / 20
+//                    height: width / 2
+//                    anchors.verticalCenter: parent.verticalCenter
+//                }
+//                Text {
+//                    text: " 6 times"
+//                    color: white
+//                    font.pixelSize: defaultFontSize * 3
+//                }
+//            }
+            Text {
                 anchors.horizontalCenter: parent.horizontalCenter
-                Text {
-                    text: "When the remote control is off, Press the power button "
-                    color: white
-                    font.pixelSize: defaultFontSize * 3
-                }
-                Image {
-                    source: "qrc:/res/StartButton.svg"
-                    width: parent.width / 20
-                    height: width / 2
-                    anchors.verticalCenter: parent.verticalCenter
-                }
-                Text {
-                    text: " 6 times"
-                    color: white
-                    font.pixelSize: defaultFontSize * 3
-                }
+                text: "1. Press the power button on the top of the drone briefly to turn on the drone.\n\n2. When the drone is powered on, a green light will turn on."
+                color: white
+                font.pixelSize: defaultFontSize * 3
             }
         }
     }
@@ -600,16 +1116,16 @@ Rectangle {
                 }
 
                 ComboBox {
-                    anchors.verticalCenter: parent.verticalCenter
                     id: rtcmMaxHzComboBox
                     width: root.width / 7.2
                     height: root.height / 22.5
-                    model: ["4Hz", "5Hz", "10Hz", "20Hz", "50Hz"]
+                    model:["4Hz", "5Hz", "10Hz", "20Hz", "50Hz"]
 
-                    // 텍스트와 색상 스타일을 지정
+                    // contentItem: ComboBox에서 보여줄 값
                     contentItem: Text {
+                        // currentIndex의 model 데이터에 접근하여 text 속성을 가져옴
                         text: rtcmMaxHzComboBox.currentText
-                        color: blue // 텍스트 색상
+                        color: blue
                         font.pixelSize: defaultFontSize * 3
                         verticalAlignment: Text.AlignVCenter
                         horizontalAlignment: Text.AlignLeft
@@ -619,24 +1135,65 @@ Rectangle {
                     // 오른쪽의 화살표 표시를 커스텀
                     indicator: Item {
                         anchors.fill: parent
-                        anchors.right: parent.right
-                        width: parent.height / 3
-                        height: parent.height / 3
-                        anchors.margins: defaultFontSize
                         Image {
-                            source: "qrc:/res/ales/waypoint/DownDir.svg"  // 원하는 화살표 이미지로 변경
+                            source: "qrc:/res/ales/waypoint/DownDir.svg"
                             anchors.right: parent.right
                             anchors.verticalCenter: parent.verticalCenter
+                        }
+                    }
 
+                    // 아이템 선택 시 실제 내제된 값에 접근
+                    onCurrentIndexChanged: {
+                        var selectedValue = 250;
+
+                        switch(currentIndex) {
+                        case 0:
+                            selectedValue = 250
+                            break;
+                        case 1:
+                            selectedValue = 200
+                            break;
+                        case 2:
+                            selectedValue = 100
+                            break;
+                        case 3:
+                            selectedValue = 50
+                            break;
+                        case 4:
+                            selectedValue = 20
+                            break;
+                        default:
+                            selectedValue = 250
+                            break;
+                        }
+
+                        if(_ntripSource !== null && _ntripSource !== undefined){
+                            if(_ntripSource.sendMaxRTCMHz !== null && _ntripSource.sendMaxRTCMHz !== undefined) {
+                                _ntripSource.sendMaxRTCMHz.rawValue = selectedValue;
+                                console.log("NTRIP sendMaxRTCMHz : ", _ntripSource.sendMaxRTCMHz.rawValue);
+                            }
+                            else {
+                                console.log("Error _ntripSource.sendMaxRTCMHz is null or undefined");
+                            }
+                        }
+                        else {
+                            console.log("Error : _ntripSource is null or undefined");
                         }
                     }
 
                     background: Rectangle {
-                        color: transparent  // 배경 색상 지정
+                        color: transparent
                         border.color: lightGray
                         radius: 5
                     }
                 }
+
+//                FactComboBox {
+//                    fact : _ntripSource ? _ntripSource.sendMaxRTCMHz : null
+//                    indexModel: false
+//                    width: root.width / 7.2
+//                    height: root.height / 22.5
+//                }
             }
 
             Item {
@@ -686,6 +1243,21 @@ Rectangle {
                         color: transparent
                         border.color: lightGray
                     }
+
+                    onTextChanged: {
+                        if(_ntripSource !== null && _ntripSource !== undefined){
+                            if(_ntripSource.host !== null && _ntripSource.host !== undefined) {
+                                _ntripSource.host.rawValue = text;
+                                console.log("NTRIP Host : ", _ntripSource.host.rawValue);
+                            }
+                            else {
+                                console.log("Error _ntripSource.host is null or undefined");
+                            }
+                        }
+                        else {
+                            console.log("Error : _ntripSource is null or undefined");
+                        }
+                    }
                 }
             }
 
@@ -723,6 +1295,21 @@ Rectangle {
                         color: transparent
                         border.color: lightGray
                     }
+
+                    onTextChanged: {
+                        if(_ntripSource !== null && _ntripSource !== undefined){
+                            if(_ntripSource.port !== null && _ntripSource.port !== undefined) {
+                                _ntripSource.port.rawValue = text;
+                                console.log("NTRIP port : ", _ntripSource.port.rawValue);
+                            }
+                            else {
+                                console.log("Error _ntripSource.port is null or undefined");
+                            }
+                        }
+                        else {
+                            console.log("Error : _ntripSource is null or undefined");
+                        }
+                    }
                 }
             }
             Item {
@@ -757,6 +1344,21 @@ Rectangle {
                     background: Rectangle {
                         color: transparent
                         border.color: lightGray
+                    }
+
+                    onTextChanged: {
+                        if(_ntripSource !== null && _ntripSource !== undefined){
+                            if(_ntripSource.mountpoint !== null && _ntripSource.mountpoint !== undefined) {
+                                _ntripSource.mountpoint.rawValue = text;
+                                console.log("NTRIP mountpoint : ", _ntripSource.mountpoint.rawValue);
+                            }
+                            else {
+                                console.log("Error _ntripSource.mountpoint is null or undefined");
+                            }
+                        }
+                        else {
+                            console.log("Error : _ntripSource is null or undefined");
+                        }
                     }
                 }
             }
@@ -793,6 +1395,20 @@ Rectangle {
                         color: transparent
                         border.color: lightGray
                     }
+                    onTextChanged: {
+                        if(_ntripSource !== null && _ntripSource !== undefined){
+                            if(_ntripSource.user !== null && _ntripSource.user !== undefined) {
+                                _ntripSource.user.rawValue = text;
+                                console.log("NTRIP user : ", _ntripSource.user.rawValue);
+                            }
+                            else {
+                                console.log("Error _ntripSource.user is null or undefined");
+                            }
+                        }
+                        else {
+                            console.log("Error : _ntripSource is null or undefined");
+                        }
+                    }
                 }
             }
             Item {
@@ -828,6 +1444,21 @@ Rectangle {
                         color: transparent
                         border.color: lightGray
                     }
+
+                    onTextChanged: {
+                        if(_ntripSource !== null && _ntripSource !== undefined){
+                            if(_ntripSource.passwd !== null && _ntripSource.passwd !== undefined) {
+                                _ntripSource.passwd.rawValue = text;
+                                console.log("NTRIP passwd : ", _ntripSource.passwd.rawValue);
+                            }
+                            else {
+                                console.log("Error _ntripSource.passwd is null or undefined");
+                            }
+                        }
+                        else {
+                            console.log("Error : _ntripSource is null or undefined");
+                        }
+                    }
                 }
             }
 
@@ -843,7 +1474,8 @@ Rectangle {
                 Text {
                     color: white
                     font.pixelSize: defaultFontSize * 3.5
-                    text: "Log in"
+                    //text: _ntripSource.isLogIn ? qsTr("Log out") : qsTr("Log in")
+                    text: _ntripSource && _ntripSource.isLogIn ? qsTr("Log out") : qsTr("Log in")
                     anchors.centerIn: parent
                 }
                 background: Rectangle {
@@ -851,7 +1483,22 @@ Rectangle {
                 }
 
                 onClicked: {
-                    console.log( "log in btn Click")
+                    onTextChanged: {
+                        if(_ntripSource !== null && _ntripSource !== undefined){
+                            if(_ntripSource.isLogIn !== null && _ntripSource.isLogIn !== undefined) {
+                                if(!_ntripSource.isLogIn)
+                                    _ntripSource.logIn()
+                                else _ntripSource.logOut()
+                                console.log("NTRIP isLogIn : ", _ntripSource.isLogIn.rawValue);
+                            }
+                            else {
+                                console.log("Error _ntripSource.isLogIn is null or undefined");
+                            }
+                        }
+                        else {
+                            console.log("Error : _ntripSource is null or undefined");
+                        }
+                    }
                 }
             }
         }
@@ -1033,6 +1680,7 @@ Rectangle {
 
         // RTCM
         ItemDelegate {
+            visible: false
             width: parent.width
             height: hItemDelegate
 
@@ -1064,6 +1712,8 @@ Rectangle {
                     parentQML.page1 = rtcmPage
                     parentQML.mainTitle = parentQML.settingTitle
                     parentQML.settingTitle = "RTCM"
+
+                    QGroundControl.corePlugin.codevSettings.rtcmSource.rawValue = 1
                 }
             }
         }
@@ -1071,6 +1721,7 @@ Rectangle {
             width: parent.width
             height: hToolSeparator
             orientation: Qt.Horizontal
+            visible: false
         }
     }
 }

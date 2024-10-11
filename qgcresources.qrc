@@ -175,6 +175,8 @@
 	    <file alias="AviatorBack.png">resources/AviatorBack.png</file>
 	    <file alias="ImageTransmissionGraph.png">resources/ImageTransmissionGraph.png</file>
 	    <file alias="ArgosLogo.png">resources/ArgosLogo.png</file>
+		<file alias="CompleteCalibration.png">resources/CompleteCalibration.png</file>
+		<file alias="IncompleteCalibration.png">resources/IncompleteCalibration.png</file>
     </qresource>
     <qresource prefix="/res/firmware">
         <file alias="3drradio.png">resources/firmware/3drradio.png</file>

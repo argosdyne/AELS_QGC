@@ -30,7 +30,7 @@ Rectangle {
     implicitWidth: Screen.width
     implicitHeight: Screen.height
 
-    property alias listViewModel: mymodel
+    //property alias listViewModel: mymodel
     property alias listView: listView
     property var parentQML: null    
 
@@ -63,10 +63,22 @@ Rectangle {
         anchors.fill: parent
     }
 
+//    ListModel {
+//        id: mymodel
+//    }
+
     ListModel {
         id: mymodel
+        ListElement { images: "qrc:/res/FlightControl.png"; texts: qsTr("Flight Control") }
+        ListElement { images: "qrc:/res/VisualNavigation.svg"; texts: qsTr("Visual Navigation") }
+        ListElement { images: "qrc:/res/RemoteControl.svg"; texts: qsTr("Remote Control") }
+        ListElement { images: "qrc:/res/ImageTransmission.svg"; texts: qsTr("Image Transmission") }
+        ListElement { images: "qrc:/res/DroneBattery.svg"; texts: qsTr("Drone Battery") }
+        ListElement { images: "qrc:/res/Gimbal.svg"; texts: qsTr("Gimbal") }
+        ListElement { images: "qrc:/res/Live.svg"; texts: qsTr("Live") }
+        ListElement { images: "qrc:/res/Security.svg"; texts: qsTr("Security") }
+        ListElement { images: "qrc:/res/General.svg"; texts: qsTr("General") }
     }
-
 
     //Warning Popup Loader
     Loader {
@@ -78,7 +90,7 @@ Rectangle {
                 width = item.width
                 height = item.height
                 noviceModeUncheckedLoader.item.isWarning = true
-                noviceModeUncheckedLoader.item.innerText = "Faster flying and response will\nbe available after closing Novice\n Mode. Pay attention to your\nsafety."
+                noviceModeUncheckedLoader.item.innerText = qsTr("Faster flying and response will be available after closing Novice Mode. Pay attention to your safety.")
             }
         }
     }
@@ -115,7 +127,7 @@ Rectangle {
                 width = item.width
                 height = item.height
                 ledIndicatorsLoader.item.isWarning = true
-                ledIndicatorsLoader.item.innerText = "Turning off the indication lights\nmight violate your local law\nunless you obtain an exepmtion,\nstill contuinue?"
+                ledIndicatorsLoader.item.innerText = qsTr("Turning off the indication lights might violate your local law unless you obtain an exepmtion, still contuinue?")
             }
         }
     }
@@ -147,7 +159,7 @@ Rectangle {
                 width = item.width
                 height = item.height
                 visualObstacleAvoidanceLoader.item.isWarning = true
-                visualObstacleAvoidanceLoader.item.innerText = "The drone will not hover or slow\ndown automatically when detecting\nobstacles with Visual Obstacle\nAvoidance disabled. Are you sure to\ndisable Visual Obstacle Avoidance?"
+                visualObstacleAvoidanceLoader.item.innerText = qsTr("The drone will not hover or slow down automatically when detecting obstacles with Visual Obstacle Avoidance disabled. Are you sure to disable Visual Obstacle Avoidance?")
             }
         }
     }
@@ -178,7 +190,7 @@ Rectangle {
                 width = item.width
                 height = item.height
                 downwardVisionLoader.item.isWarning = true
-                downwardVisionLoader.item.innerText = "If Downward Vision Positioning is\ndisabled, the drone will be unable to\nhover stably at low altitude indoors\nand use the landing protection\nfunction."
+                downwardVisionLoader.item.innerText = qsTr("If Downward Vision Positioning is disabled, the drone will be unable to hover stably at low altitude indoors and use the landing protection function.")
             }
         }
     }
@@ -243,7 +255,7 @@ Rectangle {
                 color: transparent
 
                 Text {
-                    text: "Setting"
+                    text: qsTr("Setting")
                     anchors.centerIn: parent
                     color: fontColorWhite
                     font.pixelSize: defaultFontSize * 4
@@ -365,7 +377,7 @@ Rectangle {
                             text : texts
                             font.pixelSize: defaultFontSize * 4
                             color: fontColorWhite
-                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.verticalCenter: parent.verticalCenter                            
                         }
 
                         MouseArea {
@@ -383,8 +395,8 @@ Rectangle {
             StackLayout {
                 id: stackLayout
 
-                width: parent.width - sideBar.width
-                height: parent.height
+                implicitWidth: parent.width - sideBar.width
+                implicitHeight:  parent.height
 
                 // flight Control
                 Item {
@@ -401,8 +413,8 @@ Rectangle {
                     }
                     onVisibleChanged: {
                         if (visible) {
-                            mainTitle = "Flight Control"
-                            settingTitle = "Flight Control"
+                            mainTitle = qsTr("Flight Control")
+                            settingTitle = qsTr("Flight Control")
 
                             handleCloseAllPages()
                         }
@@ -423,8 +435,8 @@ Rectangle {
                     }
                     onVisibleChanged: {
                         if (visible) {
-                            mainTitle = "Visual Navigation"
-                            settingTitle = "Visual Navigation"
+                            mainTitle = qsTr("Visual Navigation")
+                            settingTitle = qsTr("Visual Navigation")
 
                             handleCloseAllPages()
                         }
@@ -444,8 +456,8 @@ Rectangle {
                     }
                     onVisibleChanged: {
                         if (visible) {
-                            mainTitle = "Remote Control"
-                            settingTitle = "Remote Control"
+                            mainTitle = qsTr("Remote Control")
+                            settingTitle = qsTr("Remote Control")
 
                             handleCloseAllPages()
                         }
@@ -467,8 +479,8 @@ Rectangle {
 
                     onVisibleChanged: {
                         if (visible) {
-                            mainTitle = "Image Transmission"
-                            settingTitle = "Image Transmission"
+                            mainTitle = qsTr("Image Transmission")
+                            settingTitle = qsTr("Image Transmission")
 
                             handleCloseAllPages()
                         }
@@ -490,8 +502,8 @@ Rectangle {
 
                     onVisibleChanged: {
                         if(visible){
-                            mainTitle = "Drone Battery"
-                            settingTitle = "Drone Battery"
+                            mainTitle = qsTr("Drone Battery")
+                            settingTitle = qsTr("Drone Battery")
 
                             handleCloseAllPages()
                         }
@@ -513,8 +525,8 @@ Rectangle {
 
                     onVisibleChanged: {
                         if(visible){
-                            mainTitle = "Gimbal"
-                            settingTitle = "Gimbal"
+                            mainTitle = qsTr("Gimbal")
+                            settingTitle = qsTr("Gimbal")
 
                             handleCloseAllPages()
                         }
@@ -536,8 +548,8 @@ Rectangle {
 
                     onVisibleChanged: {
                         if(visible) {
-                            mainTitle = "Live"
-                            settingTitle = "Live"
+                            mainTitle = qsTr("Live")
+                            settingTitle = qsTr("Live")
 
                             handleCloseAllPages()
                         }
@@ -559,8 +571,8 @@ Rectangle {
 
                     onVisibleChanged: {
                         if(visible){
-                            mainTitle = "Security"
-                            settingTitle = "Security"
+                            mainTitle = qsTr("Security")
+                            settingTitle = qsTr("Security")
 
                             handleCloseAllPages()
                         }
@@ -570,8 +582,8 @@ Rectangle {
                 //General Page
                 Item {
                     visible : stackLayout.currentIndex == 8
-                    width: parent.width * 0.7
-                    height: parent.height
+                    implicitWidth: parent.width * 0.7
+                    implicitHeight: parent.height
 
                     GeneralPage{
                         id: generalPage
@@ -582,8 +594,8 @@ Rectangle {
 
                     onVisibleChanged: {
                         if(visible) {
-                            mainTitle = "General"
-                            settingTitle = "General"
+                            mainTitle = qsTr("General")
+                            settingTitle = qsTr("General")
 
                             handleCloseAllPages()
                         }

@@ -72,7 +72,7 @@ Rectangle {
                     id: downwardVisioncontrol
                     anchors.right: parent.right
                     anchors.top: parent.top
-                    checked: true
+                    checked: false
                     indicator: Rectangle {
                         implicitWidth: defaultFontSize * 6
                         implicitHeight: defaultFontSize * 3
@@ -90,12 +90,22 @@ Rectangle {
                             border.color: black
                         }
                     }
-
                     onCheckedChanged:
                     {
                         if(!downwardVisioncontrol.checked){
                             openDownwardVisionPopup();
                             parentQML.currentVisualControl = "openDownward"
+
+                            landingProtection.visible = false
+                            accurateLanding.visible = false
+                            landingProtectionSeparator.visible = false
+                            accurateLandingSeparator.visible = false
+                        }
+                        else {
+                            landingProtection.visible = true
+                            accurateLanding.visible = true
+                            landingProtectionSeparator.visible = true
+                            accurateLandingSeparator.visible = true
                         }
                     }
                 }
@@ -113,6 +123,8 @@ Rectangle {
             ItemDelegate {
                 width: parent.width
                 height: parent.height / 4.5
+                id: landingProtection
+                visible : downwardVisioncontrol.checked ? true : false
 
                 Column {
                     anchors.fill: parent
@@ -191,7 +203,7 @@ Rectangle {
                             height: 1
                         }
                         Text {
-                            text: "When enabled, landing protection allows the drone to detect\nground conditions as it lands."
+                            text: " when enabled, a real-time obstacle detection radar map will\n be displayed on the flight screen."
                             color: white
                             font.pixelSize: defaultFontSize * 3
                         }
@@ -208,12 +220,16 @@ Rectangle {
                 width: parent.width
                 height: hToolSeparator
                 orientation: Qt.Horizontal
+                id: landingProtectionSeparator
+                visible : downwardVisioncontrol.checked ? true : false
             }        
 
             //Accurate Landing
             ItemDelegate {
                 width: parent.width
                 height: parent.height / 4.5
+                id: accurateLanding
+                visible : downwardVisioncontrol.checked ? true : false
 
                 Column {
                     anchors.fill: parent
@@ -308,6 +324,8 @@ Rectangle {
                 width: parent.width
                 height: hToolSeparator
                 orientation: Qt.Horizontal
+                id: accurateLandingSeparator
+                visible : downwardVisioncontrol.checked ? true : false
             }
         }
     }
@@ -371,7 +389,7 @@ Rectangle {
                             }
                             onCheckedChanged: {
                                 if(visualObstaclecontrol.checked){
-                                    openVisualObstaclePopup();
+                                    //openVisualObstaclePopup();
 
                                     avoidanceSwitch.visible = true
                                     flickAble.contentHeight = flickAble.contentHeight + avoidanceSwitch.height
@@ -402,7 +420,7 @@ Rectangle {
                         }
 
                         Text {
-                            text: "when the drone detects an obstacle, it will hover automatically.\n(When visual obstacle avoidance system works, the maximum\nflight speed is limited 36km/h)"
+                            text: "   when the drone detects an obstacle, it will hover automatically.\n   (When visual obstacle avoidance system works, the maximum\n   flight speed is limited 36km/h)"
                             color: white
                             font.pixelSize: defaultFontSize * 3
                             anchors.left: parent.left
@@ -423,15 +441,14 @@ Rectangle {
                             source: "qrc:/res/VisualNavigationLeft.svg"
                             width: parent.width / 22.5
                             height: width
-                            anchors.left: parent.left
-                            anchors.verticalCenter: parent.verticalCenter
+                            anchors.left: parent.left                            
                             anchors.leftMargin: parent.width / 72
                         }
 
                         Text{
                             color: white
                             font.pixelSize: defaultFontSize * 3
-                            text:"Note:\n   Omnidirectional obstacle sensing directions include front,\n   back, up,\n•  down, left, right. Howerver, there might exists some blind\n   spots in the four diagonal directions. When manually flying,\n   please pay attention to the surrounding environment and\n   APP tips to ensure safety.\n\n   Please do not fly in an environment with insufficient light,\n•  complex area with small objects (such as small branches,\n   wires, nets), moving objects, transparent surfaces (e.g.\n   windows) or reflective surfaces (e.g. mirrors)\n\n   When following a car or other vehicles, please drive on off-\n•  road or closed routes. Never use on public roads."
+                            text:"   Note:\n   Omnidirectional obstacle sensing directions include front,\n   back, up,\n•  down, left, right. Howerver, there might exists some blind\n   spots in the four diagonal directions. When manually flying,\n   please pay attention to the surrounding environment and\n   APP tips to ensure safety.\n\n   Please do not fly in an environment with insufficient light,\n•  complex area with small objects (such as small branches,\n   wires, nets), moving objects, transparent surfaces (e.g.\n   windows) or reflective surfaces (e.g. mirrors)\n\n   When following a car or other vehicles, please drive on off-\n•  road or closed routes. Never use on public roads."
                             anchors.left: parent.left
                             anchors.verticalCenter: parent.verticalCenter
                             anchors.leftMargin: parent.width / 16
