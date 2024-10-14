@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
 <TS version="2.1" language="ko" sourcelanguage="en">
   <context>
@@ -7550,6 +7550,155 @@ Click Ok to start the auto-tuning process.
       <translation>%1 버전</translation>
     </message>
   </context>
+
+  <context>
+    <name>GeneralPage</name>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/GeneralPage.qml" line="1347"/>
+      <source>Select Language</source>
+      <translation>언어 선택</translation>
+    </message>
+  </context>
+
+
+  <context>
+    <name>SystemSettingPage</name>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/SystemSettingPage.qml" line="64"/>
+      <source>Flight Control</source>
+      <translation>비행 제어</translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/SystemSettingPage.qml" line="64"/>
+      <source>Visual Navigation</source>
+      <translation>비주얼 네비게이션</translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/SystemSettingPage.qml" line="64"/>
+      <source>Remote Control</source>
+      <translation>조종기</translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/SystemSettingPage.qml" line="64"/>
+      <source>Image Transmission</source>
+      <translation>이미지 전송</translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/SystemSettingPage.qml" line="64"/>
+      <source>Drone Battery</source>
+      <translation>항공기 배터리</translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/SystemSettingPage.qml" line="64"/>
+      <source>Gimbal</source>
+      <translation>짐벌</translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/SystemSettingPage.qml" line="64"/>
+      <source>Live</source>
+      <translation>라이브</translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/SystemSettingPage.qml" line="64"/>
+      <source>Security</source>
+      <translation>보안</translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/SystemSettingPage.qml" line="64"/>
+      <source>General</source>
+      <translation>일반사항</translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/SystemSettingPage.qml" line="64"/>
+      <source>Setting</source>
+      <translation>설정</translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/SystemSettingPage.qml" line="64"/>
+      <source>Faster flying and response will be available after closing Novice Mode. Pay attention to your safety.</source>
+      <translation>초보자 모드를 종료하면 더 빠른 비행과 반응 속도를 사용할 수 있습니다. 안전에 유의하세요.</translation>
+    </message>
+    <message>
+        <location filename="qrc:/qml/QGroundControl/Controls/SystemSettingPage.qml" line="64"/>
+        <source>Turning off the indication lights might violate your local law unless you obtain an exepmtion, still contuinue?</source>
+        <translation>표시등을 끄는 것은 면허를 취득하지 않은 경우 현지 법률을 위반할 수 있습니다. 계속 진행하시겠습니까?</translation>
+    </message>
+    <message>
+        <location filename="qrc:/qml/QGroundControl/Controls/SystemSettingPage.qml" line="64"/>
+        <source>The drone will not hover or slow down automatically when detecting obstacles with Visual Obstacle Avoidance disabled. Are you sure to disable Visual Obstacle Avoidance?</source>
+        <translation>시각적 장애물 회피 기능이 비활성화되면 드론이 장애물을 감지할 때 자동으로 정지하거나 느려지지 않습니다. 시각적 장애물 회피 기능을 비활성화하시겠습니까?</translation>
+    </message>
+    <message>
+        <location filename="qrc:/qml/QGroundControl/Controls/SystemSettingPage.qml" line="64"/>
+        <source>If Downward Vision Positioning is disabled, the drone will be unable to hover stably at low altitude indoors and use the landing protection function.</source>
+        <translation>하향 시각 위치 결정 기능이 비활성화되면 드론은 실내 저고도에서 안정적으로 정지할 수 없으며 착륙 보호 기능을 사용할 수 없습니다.</translation>
+    </message>
+  </context>
+
+  <context>
+    <name>FlightControlPage</name>
+    <message>
+        <location filename="qrc:/qml/QGroundControl/Controls/FlightControlPage.qml" line="1347"/>
+        <source>Novice Mode</source>
+        <translation>초보자 모드</translation>
+    </message>
+    <message>
+        <location filename="qrc:/qml/QGroundControl/Controls/FlightControlPage.qml" line="1348"/>
+        <source>When Enabled, the maximum altitude, distance and speed</source>
+        <translation>활성화되면 최대 고도, 거리 및 속도가</translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/FlightControlPage.qml" line="1347"/>
+      <source>will be limited. Intelligent Flight Modes will be disabled.</source>
+      <translation>제한됩니다. 지능형 비행 모드가 비활성화됩니다.</translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/FlightControlPage.qml" line="1347"/>
+      <source></source>
+      <translation></translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/FlightControlPage.qml" line="1347"/>
+      <source></source>
+      <translation></translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/FlightControlPage.qml" line="1347"/>
+      <source></source>
+      <translation></translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/FlightControlPage.qml" line="1347"/>
+      <source></source>
+      <translation></translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/FlightControlPage.qml" line="1347"/>
+      <source></source>
+      <translation></translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/FlightControlPage.qml" line="1347"/>
+      <source></source>
+      <translation></translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/FlightControlPage.qml" line="1347"/>
+      <source></source>
+      <translation></translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/FlightControlPage.qml" line="1347"/>
+      <source></source>
+      <translation></translation>
+    </message>
+    <message>
+      <location filename="qrc:/qml/QGroundControl/Controls/FlightControlPage.qml" line="1347"/>
+      <source></source>
+      <translation></translation>
+    </message>
+  </context>
+
   <context>
     <name>GeoFenceController</name>
     <message>

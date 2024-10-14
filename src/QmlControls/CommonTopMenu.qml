@@ -53,15 +53,6 @@ Rectangle {
             if(item){
                 width = item.width
                 height = item.height
-                item.listViewModel.append({'images': "qrc:/res/FlightControl.png", 'texts': "Flight Control"})
-                item.listViewModel.append({'images': "qrc:/res/VisualNavigation.svg", 'texts': "Visual Navigation"})
-                item.listViewModel.append({'images': "qrc:/res/RemoteControl.svg", 'texts': "Remote Control"})
-                item.listViewModel.append({'images': "qrc:/res/ImageTransmission.svg", 'texts': "Image\nTransmission"})
-                item.listViewModel.append({'images': "qrc:/res/DroneBattery.svg", 'texts': "Drone Battery"})
-                item.listViewModel.append({'images': "qrc:/res/Gimbal.svg", 'texts': "Gimbal"})
-                item.listViewModel.append({'images': "qrc:/res/Live.svg", 'texts': "Live"})
-                item.listViewModel.append({'images': "qrc:/res/Security.svg", 'texts': "Security"})
-                item.listViewModel.append({'images': "qrc:/res/General.svg", 'texts': "General"})
                 item.parentQML = root
 
                 systemSetting.item.gimbalPage.adjustGimbalClicked.connect(handleAdjustGimbalClicked)

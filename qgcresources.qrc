@@ -164,7 +164,9 @@
 		<file alias="PortraitOn.svg">resources/PortraitOn.svg</file>
 		<file alias="PortraitOff.svg">resources/PortraitOff.svg</file>		
 		<file alias="Done.svg">resources/Done.svg</file>
-		
+		<file alias ="InfoWhite.svg">resources/InfoWhite.svg</file>
+
+		<file alias="SavedMissions.png">resources/SavedMissions.png</file>
 		<file alias="Mode1On.png">resources/Mode1On.png</file>
 		<file alias="Mode1Off.png">resources/Mode1Off.png</file>
 		<file alias="Mode2On.png">resources/Mode2On.png</file>
@@ -175,6 +177,8 @@
 	    <file alias="AviatorBack.png">resources/AviatorBack.png</file>
 	    <file alias="ImageTransmissionGraph.png">resources/ImageTransmissionGraph.png</file>
 	    <file alias="ArgosLogo.png">resources/ArgosLogo.png</file>
+		<file alias="CompleteCalibration.png">resources/CompleteCalibration.png</file>
+		<file alias="IncompleteCalibration.png">resources/IncompleteCalibration.png</file>
     </qresource>
     <qresource prefix="/res/firmware">
         <file alias="3drradio.png">resources/firmware/3drradio.png</file>
