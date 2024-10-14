@@ -372,6 +372,8 @@
 		<file alias="QGroundControl/Controls/LivePage.qml">src/QmlControls/LivePage.qml</file>
 		<file alias="QGroundControl/Controls/SecurityPage.qml">src/QmlControls/SecurityPage.qml</file>
 		<file alias="QGroundControl/Controls/GeneralPage.qml">src/QmlControls/GeneralPage.qml</file>
+		<file alias="QGroundControl/Controls/SavedMissions.qml">/src/QmlControls/SavedMissions.qml</file>
+		<file alias="QGroundControl/Controls/DeletePopUp.qml">/src/QmlControls/DeletePopUp.qml</file>
 		
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
