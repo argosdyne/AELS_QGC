@@ -3,9 +3,9 @@ message("Adding Custom Plugin")
 #-- Version control
 #   Major and minor versions are defined here (manually)
 
-CUSTOM_QGC_VER_MAJOR = 1
+CUSTOM_QGC_VER_MAJOR = 0
 CUSTOM_QGC_VER_MINOR = 0
-CUSTOM_QGC_VER_FIRST_BUILD = 1
+CUSTOM_QGC_VER_FIRST_BUILD = 0
 
 # Build number is automatic
 # Uses the current branch. This way it works on any branch including build-server's PR branches
@@ -37,19 +37,19 @@ CONFIG  += QGC_DISABLE_APM_PLUGIN_FACTORY
 DEFINES += CUSTOMHEADER=\"\\\"CustomPlugin.h\\\"\"
 DEFINES += CUSTOMCLASS=CustomPlugin
 
-TARGET   = AlesQGroundControl
-DEFINES += QGC_APPLICATION_NAME='"\\\"Ales QGC\\\""'
+TARGET   = CustomQGroundControl
+DEFINES += QGC_APPLICATION_NAME='"\\\"Custom QGroundControl\\\""'
 
 DEFINES += QGC_ORG_NAME=\"\\\"argosdyne.org\\\"\"
 DEFINES += QGC_ORG_DOMAIN=\"\\\"org.argosdyne\\\"\"
 
-QGC_APP_NAME        = "Ales QGC"
-QGC_BINARY_NAME     = "Ales QGC"
-QGC_ORG_NAME        = "Agosdyne"
-QGC_ORG_DOMAIN      = "org.Agosdyne"
-QGC_ANDROID_PACKAGE = "org.Agosdyne.alesqgc"
-QGC_APP_DESCRIPTION = "Ales QGroundControl"
-QGC_APP_COPYRIGHT   = "Copyright (C) 2023 Ales QGroundControl Development Team. All rights reserved."
+QGC_APP_NAME        = "Custom QGroundControl"
+QGC_BINARY_NAME     = "CustomQGroundControl"
+QGC_ORG_NAME        = "Custom"
+QGC_ORG_DOMAIN      = "org.custom"
+QGC_ANDROID_PACKAGE = "org.custom.qgroundcontrol"
+QGC_APP_DESCRIPTION = "Custom QGroundControl"
+QGC_APP_COPYRIGHT   = "Copyright (C) 2020 QGroundControl Development Team. All rights reserved."
 
 # Our own, custom resources
 RESOURCES += \
@@ -70,7 +70,8 @@ SOURCES += \
     $$PWD/src/SiYi/SiYiManager.cc \
     $$PWD/src/SiYi/SiYiTcpClient.cc \
     $$PWD/src/SiYi/SiYiTransmitter.cc \
-    $$PWD/src/codevsettings.cpp
+    $$PWD/src/codevsettings.cpp \ 
+    $$PWD/src/AVIATOR/AVIATORInterface.cpp     
 
 HEADERS += \
     $$PWD/src/CustomPlugin.h \
@@ -84,12 +85,14 @@ HEADERS += \
     $$PWD/src/SiYi/SiYiTcpClient.h \
     $$PWD/src/SiYi/SiYiTransmitter.h \
     $$PWD/src/codevsettings.h \
-    $$PWD/src/lockedqueue.h
+    $$PWD/src/lockedqueue.h \
+    $$PWD/src/AVIATOR/AVIATORInterface.h
 
 INCLUDEPATH += \
     $$PWD/src \
     $$PWD/src/SiYi/ \
     $$PWD/src/RTCM/ \
+    $$PWD/src/AVIATOR \
 
 #-------------------------------------------------------------------------------------
 # Custom Firmware/AutoPilot Plugin

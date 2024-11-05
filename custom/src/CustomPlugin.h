@@ -18,6 +18,8 @@
 #include "SiYiManager.h"
 #include <QTranslator>
 #include "codevsettings.h"
+#include "AVIATORInterface.h"
+#include <QLoggingCategory>
 
 class CustomOptions;
 class CustomPlugin;
@@ -59,6 +61,9 @@ public:
     Q_PROPERTY(CodevRTCMManager* codevRTCMManager READ codevRTCMManager CONSTANT)
     Q_PROPERTY(SiYiManager* siyiManager READ siyiManager CONSTANT)
 
+    Q_PROPERTY(AVIATORInterface* aviatorInterface READ aviatorInterface CONSTANT)
+    AVIATORInterface* aviatorInterface(){ return _aviatorInterface; }
+
 
     CustomPlugin(QGCApplication* app, QGCToolbox *toolbox);
     ~CustomPlugin();
@@ -81,8 +86,12 @@ public:
     // Overrides from QGCTool
     void                    setToolbox                      (QGCToolbox* toolbox);
 
+signals:
+    void rcChannelValuesChanged(const quint16* channels, int count);
+
 private slots:
     void _advancedChanged(bool advanced);
+    void _handleRCChannelValues(const quint16* channels, int count);
 
 private:
     void _addSettingsEntry(const QString& title, const char* qmlFile, const char* iconFile = nullptr);
@@ -91,6 +100,7 @@ private:
     SiYiManager* _siyiManager = nullptr;
     CodevSettings*      _codevSettings = nullptr;
     CodevRTCMManager*   _codevRTCMManager = nullptr;
+    AVIATORInterface* _aviatorInterface{nullptr};
 
     CustomOptions*  _options = nullptr;
     QVariantList    _customSettingsList; // Not to be mixed up with QGCCorePlugin implementation

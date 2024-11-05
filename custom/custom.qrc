@@ -110,6 +110,7 @@
         <file alias="NTRIPRTCM.SettingsGroup.json">src/RTCM/NTRIPRTCM.SettingsGroup.json</file>
         <file alias="RTCMBase.SettingsGroup.json">src/RTCM/RTCMBase.SettingsGroup.json</file>
         <file alias="SerialPortRTCM.SettingsGroup.json">src/RTCM/SerialPortRTCM.SettingsGroup.json</file>
+		<file alias="AVIATORFact.json">src/AVIATOR/AVIATORFact.json</file>
     </qresource>
     <qresource prefix="/RTCM">
         <file alias="NTRIPClient.qml">src/RTCM/NTRIPClient.qml</file>

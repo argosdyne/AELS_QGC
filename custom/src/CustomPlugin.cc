@@ -14,7 +14,7 @@
 #include <QDateTime>
 #include "QGCSettings.h"
 #include "MAVLinkLogManager.h"
-
+#include <QString>
 #include "CustomPlugin.h"
 
 #include "MultiVehicleManager.h"
@@ -79,6 +79,12 @@ CustomPlugin::CustomPlugin(QGCApplication *app, QGCToolbox* toolbox)
     _siyiManager = new SiYiManager(app,toolbox);
     _codevRTCMManager = new CodevRTCMManager(app, toolbox);
     _showAdvancedUI = false;
+
+    _aviatorInterface = new AVIATORInterface();
+#if defined (Q_OS_ANDROID)
+    connect(_aviatorInterface, &AVIATORInterface::rcChannelValuesChanged, this, &CustomPlugin::_handleRCChannelValues);
+#endif
+
 }
 
 CustomPlugin::~CustomPlugin()
@@ -87,6 +93,8 @@ CustomPlugin::~CustomPlugin()
 
 void CustomPlugin::setToolbox(QGCToolbox* toolbox)
 {
+
+
     QGCCorePlugin::setToolbox(toolbox);
 
     _siyiManager->setToolbox(toolbox);
@@ -97,7 +105,20 @@ void CustomPlugin::setToolbox(QGCToolbox* toolbox)
 
     // Allows us to be notified when the user goes in/out out advanced mode
     connect(qgcApp()->toolbox()->corePlugin(), &QGCCorePlugin::showAdvancedUIChanged, this, &CustomPlugin::_advancedChanged);
+
+
+
 }
+
+void CustomPlugin::_handleRCChannelValues(const quint16* channels, int count)
+{
+    static quint16 inlChannels[18];
+    memcpy(inlChannels, channels, 18 * 2);
+
+    emit rcChannelValuesChanged(inlChannels, count);
+
+}
+
 
 void CustomPlugin::_advancedChanged(bool changed)
 {
