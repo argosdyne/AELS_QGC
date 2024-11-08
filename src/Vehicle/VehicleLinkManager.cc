@@ -355,6 +355,17 @@ bool VehicleLinkManager::containsLink(LinkInterface* link)
     return _containsLinkIndex(link) != -1;
 }
 
+int VehicleLinkManager::isCommLostLink(LinkInterface* link)
+{
+    int linkIndex = _containsLinkIndex(link);
+    if (linkIndex == -1) {
+        return -1;
+    } else {
+        return _rgLinkInfo[linkIndex].commLost ? 0 : 1;
+    }
+}
+
+
 QString VehicleLinkManager::primaryLinkName() const
 {
     if (!_primaryLink.expired()) {

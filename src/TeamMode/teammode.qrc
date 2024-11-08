@@ -1,0 +1,9 @@
+<RCC>
+    <qresource prefix="/qmlimages">
+        <file alias="teammode.svg">teammode.svg</file>
+        <file alias="connected.svg">connected.svg</file>
+    </qresource>
+    <qresource prefix="/toolbar">
+        <file alias="TeamModeIndicator.qml">TeamModeIndicator.qml</file>
+    </qresource>
+</RCC>

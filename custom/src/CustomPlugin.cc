@@ -25,7 +25,12 @@
 #include "QGCPalette.h"
 #include "CodevRTCMManager.h"
 
+#include "CustomSettings.h"
+#include "HttpService.h"
+
 QGC_LOGGING_CATEGORY(CustomLog, "CustomLog")
+
+static const char *kSlaveMode = "SlaveMode";
 
 CustomFlyViewOptions::CustomFlyViewOptions(CustomOptions* options, QObject* parent)
     : QGCFlyViewOptions(options, parent)
@@ -58,6 +63,31 @@ QGCFlyViewOptions* CustomOptions::flyViewOptions(void)
     return _flyViewOptions;
 }
 
+bool CustomOptions::showSensorCalibrationGyro() const
+{
+    return qgcApp()->toolbox()->corePlugin()->showAdvancedUI();
+}
+
+bool CustomOptions::showSensorCalibrationAccel() const
+{
+    return qgcApp()->toolbox()->corePlugin()->showAdvancedUI();
+}
+
+bool CustomOptions::showSensorCalibrationLevel() const
+{
+    return qgcApp()->toolbox()->corePlugin()->showAdvancedUI();
+}
+
+bool CustomOptions::showSensorCalibrationAirspeed() const
+{
+    return qgcApp()->toolbox()->corePlugin()->showAdvancedUI();
+}
+
+bool CustomOptions::sensorsHaveFixedOrientation() const
+{
+    return true;
+}
+
 // Firmware upgrade page is only shown in Advanced Mode.
 bool CustomOptions::showFirmwareUpgrade() const
 {
@@ -72,18 +102,19 @@ bool CustomOptions::wifiReliableForCalibration(void) const
     return true;
 }
 
+QUrl CustomOptions::preFlightChecklistUrl() const
+{
+    return QUrl::fromUserInput("qrc:/qml/CustomPreFlightCheckList.qml");
+}
+
 CustomPlugin::CustomPlugin(QGCApplication *app, QGCToolbox* toolbox)
     : QGCCorePlugin(app, toolbox)
+    , _dynamicRepcManager(new DynamicRepcManager(app, toolbox))
 {
     _options = new CustomOptions(this, this);
     _siyiManager = new SiYiManager(app,toolbox);
     _codevRTCMManager = new CodevRTCMManager(app, toolbox);
     _showAdvancedUI = false;
-
-    _aviatorInterface = new AVIATORInterface();
-#if defined (Q_OS_ANDROID)
-    connect(_aviatorInterface, &AVIATORInterface::rcChannelValuesChanged, this, &CustomPlugin::_handleRCChannelValues);
-#endif
 
 }
 
@@ -91,39 +122,107 @@ CustomPlugin::~CustomPlugin()
 {
 }
 
+bool CustomPlugin::hasFrpc() const
+{
+#if defined (Q_OS_WIN)
+    static QString exeName = "frpc.exe";
+#else
+    static QString exeName = "frpc";
+#endif
+#if defined (Q_OS_ANDROID)
+    static QString path = "/system/bin";
+#else
+    static QString path = "";
+#endif
+    static QString url = QDir(path).filePath(exeName);
+    static bool hf = QFileInfo::exists(url);
+    return hf;
+}
+
+void CustomPlugin::setSlaveMode(bool mode)
+{
+    if(_slaveMode != mode) {
+        _slaveMode = mode;
+        QSettings settings;
+        settings.setValue(kSlaveMode, _slaveMode);
+        emit slaveModeChanged(_slaveMode);
+    }
+}
+
+QString CustomPlugin::iconURL() const
+{
+    QString url = QDir(_toolbox->settingsManager()->appSettings()->savePath()->rawValueString()).filePath("icon.png");
+    bool hf = QFileInfo::exists(url);
+    return hf ? url : "";
+}
+
 void CustomPlugin::setToolbox(QGCToolbox* toolbox)
 {
-
-
     QGCCorePlugin::setToolbox(toolbox);
-
+ _dynamicRepcManager->setToolbox(toolbox);
     _siyiManager->setToolbox(toolbox);
     if(_codevSettings == nullptr) {
         _codevSettings = new CodevSettings(this);
     }
     _codevRTCMManager->setToolbox(toolbox);
 
+    _settings = new CustomSettings(this);
+
+    QSettings settings;
+    _slaveMode = settings.value(kSlaveMode, false).toBool();
+
     // Allows us to be notified when the user goes in/out out advanced mode
     connect(qgcApp()->toolbox()->corePlugin(), &QGCCorePlugin::showAdvancedUIChanged, this, &CustomPlugin::_advancedChanged);
 
+    _aviatorInterface = new AVIATORInterface();
+#if defined (Q_OS_ANDROID)
+    connect(_aviatorInterface, &AVIATORInterface::rcChannelValuesChanged, this, &CustomPlugin::_handleRCChannelValues);
+#endif
 
+#if defined(CUSTOM_NPU)
+    _httpService = new HttpService(nullptr);
+    connect(_httpService, &HttpService::pushPlanFilePath, this, &CustomPlugin::requestCreatePlan);
+#endif
 
+    connect(ThridRCFactory::instance(), &ThridRCFactory::rcChannelValuesChanged, this, &CustomPlugin::_handleRCChannelValues, Qt::UniqueConnection);
+    ThridRCFactory::instance()->refreshInterface();
+    qgcApp()->installNativeEventFilter(ThridRCFactory::instance());
 }
 
 void CustomPlugin::_handleRCChannelValues(const quint16* channels, int count)
 {
     static quint16 inlChannels[18];
     memcpy(inlChannels, channels, 18 * 2);
+    if(!_slaveMode && _qmlInterface) {
+        _qmlInterface->teamModeRouter()->mergeSlaveChannels(inlChannels);
+    }
 
     emit rcChannelValuesChanged(inlChannels, count);
 
 }
 
+void CustomPlugin::setCoachMode(const bool &coachMode)
+{
+    if(coachMode == _coachMode) return;
+    _coachMode = coachMode;
+    emit coachModeChanged(_coachMode);
+}
+
 
 void CustomPlugin::_advancedChanged(bool changed)
 {
+    QVariantList oldlist = _customSettingsList;
+    _customSettingsList.clear();
+    emit settingsPagesChanged();
     // Firmware Upgrade page is only show in Advanced mode
+    emit _options->showSensorCalibrationGyroChanged(changed);
+    emit _options->showSensorCalibrationAccelChanged(changed);
+    emit _options->showSensorCalibrationLevelChanged(changed);
+    emit _options->showSensorCalibrationAirspeedChanged(changed);
     emit _options->showFirmwareUpgradeChanged(changed);
+    foreach(QVariant item, oldlist) {
+        item.value<QObject*>()->deleteLater();
+    }
 }
 
 //-----------------------------------------------------------------------------
@@ -146,9 +245,16 @@ CustomPlugin::settingsPages()
         _addSettingsEntry(tr("General"),     "qrc:/qml/GeneralSettings.qml",     "qrc:/res/gear-white.svg");
         _addSettingsEntry(tr("Comm Links"),  "qrc:/qml/LinkSettings.qml",        "qrc:/res/waves.svg");
         _addSettingsEntry(tr("Offline Maps"),"qrc:/qml/OfflineMap.qml",          "qrc:/res/waves.svg");
-        _addSettingsEntry(tr("MAVLink"),     "qrc:/qml/MavlinkSettings.qml",     "qrc:/res/waves.svg");
+        if(_showAdvancedUI) {
+            _addSettingsEntry(tr("MAVLink"),     "qrc:/qml/MavlinkSettings.qml",     "qrc:/res/waves.svg");
+        }
         _addSettingsEntry(tr("Console"),     "qrc:/qml/QGroundControl/Controls/AppMessages.qml");
-        _addSettingsEntry(tr("RTCM"), "qrc:/custom/RTCMSettings.qml");
+        _addSettingsEntry(tr("RTCM"),        "qrc:/qml/RTCMSettings.qml");
+        _addSettingsEntry(tr("Enpulse"),       "qrc:/qml/ARSettings.qml");
+//      if(hasFrpc()) _addSettingsEntry(tr("LTELink"),     "qrc:/qml/LTESettings.qml");
+#if defined(QGC_GST_TAISYNC_ENABLED)
+        _addSettingsEntry(tr("Cyberlink"),    "qrc:/qml/TaisyncSettings.qml");
+#endif
 #if defined(QT_DEBUG)
         //-- These are always present on Debug builds
         _addSettingsEntry(tr("Mock Link"),   "qrc:/qml/MockLink.qml");
@@ -196,6 +302,33 @@ bool CustomPlugin::adjustSettingMetaData(const QString& settingsGroup, FactMetaD
         } else if (metaData.name() == AppSettings::offlineEditingVehicleClassName) {
             metaData.setRawDefaultValue(QGCMAVLink::VehicleClassMultiRotor);
             return false;
+        } else if (metaData.name() == AppSettings::indoorPaletteName) {
+            metaData.setRawDefaultValue(1);
+            return true;
+        } else if (metaData.name() == AppSettings::telemetrySaveName) {
+            metaData.setRawDefaultValue(true);
+            return true;
+        } else if (metaData.name() == AppSettings::useChecklistName) {
+            metaData.setRawDefaultValue(true);
+            return true;
+        }
+    } else if (settingsGroup == CustomSettings::settingsGroup) {
+        if (metaData.name() == CustomSettings::is3DMapName) {
+            if(has3DMap()) {
+                metaData.setRawDefaultValue(true);
+                return true;
+            } else {
+                metaData.setRawDefaultValue(false);
+                return false;
+            }
+        }
+    } else if (settingsGroup == VideoSettings::settingsGroup) {
+        if (metaData.name() == VideoSettings::rtspTimeoutName) {
+            metaData.setRawDefaultValue(3);
+            return false;
+        } else if (metaData.name() == VideoSettings::lowLatencyModeName) {
+            metaData.setRawDefaultValue(true);
+            return true;
         }
     }
 
@@ -398,5 +531,51 @@ QQmlApplicationEngine* CustomPlugin::createQmlApplicationEngine(QObject* parent)
 {
     QQmlApplicationEngine* qmlEngine = QGCCorePlugin::createQmlApplicationEngine(parent);
     qmlEngine->addImportPath("qrc:/Custom/Widgets");
+
+    if (!qgcApp()) {
+        qDebug() << "qgcApp() is nullptr";
+    }
+    else {
+        qDebug() << "qgcApp no null";
+    }
+
+    if (!qgcApp()->toolbox()) {
+        qDebug() << "qgcApp()->toolbox() is nullptr";
+    }
+    else {
+        qDebug() << "toolbox no null";
+    }
+
+
+    _qmlInterface = new CustomQmlInterface(qgcApp(), qgcApp()->toolbox());
+    qmlEngine->rootContext()->setContextProperty("CustomQmlInterface", _qmlInterface);
+    connect(ThridRCFactory::instance(), &ThridRCFactory::buttonPressedChanged, _qmlInterface, &CustomQmlInterface::handleCustomButtonFunction);
+    if(_aviatorInterface) {
+        connect(_aviatorInterface, &AVIATORInterface::buttonPressed, _qmlInterface, &CustomQmlInterface::handleCustomButtonFunction);
+        if(_qmlInterface->teamModeRouter()) {
+            connect(_qmlInterface->teamModeRouter(), &TeamModeRouter::overrideRCChannelBuffer, _aviatorInterface, &AVIATORInterface::write);
+        }
+    }
+
+
+
+
     return qmlEngine;
+}
+
+void CustomPlugin::showMessage(const QString& message, SystemMessage::SystemMessageType type)
+{
+    if(_qmlInterface) {
+        _qmlInterface->showMessage(message, type);
+    }
+}
+
+VideoReceiver* CustomPlugin::createVideoReceiver(QObject* parent)
+{
+#if defined(QGC_GST_STREAMING)
+    return new CustomVideoReceiver(nullptr);
+#else
+    Q_UNUSED(parent)
+    return nullptr;
+#endif
 }

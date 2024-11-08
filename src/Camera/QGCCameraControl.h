@@ -48,6 +48,10 @@ public:
 
     bool    update          (const mavlink_video_stream_status_t* vs);
 
+    void get_stream_info(mavlink_video_stream_information_t& info) {
+        memcpy(&info, &_streamInfo, sizeof(mavlink_video_stream_information_t));
+    }
+
 signals:
     void    infoChanged     ();
 

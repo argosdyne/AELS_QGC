@@ -1,11 +1,7 @@
 #ifndef SERIALPORTRTCMSOURCE_H
 #define SERIALPORTRTCMSOURCE_H
 #include "RTCMBase.h"
-#ifdef __android__
-#include "qserialport.h"
-#else
 #include <QSerialPort>
-#endif
 #include <QTimer>
 #include "QGCLoggingCategory.h"
 Q_DECLARE_LOGGING_CATEGORY(SerialPortRTCMSourceLog)

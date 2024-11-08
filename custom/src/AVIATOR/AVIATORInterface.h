@@ -1,9 +1,5 @@
 #pragma once
-#ifdef __android__
-#include "qserialport.h"
-#else
 #include <QSerialPort>
-#endif
 #include <QObject>
 #include <QLoggingCategory>
 #include <mavlink.h>

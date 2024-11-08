@@ -66,6 +66,7 @@ public:
     Q_INVOKABLE bool                endConfigurationEditing     (LinkConfiguration* config, LinkConfiguration* editedConfig);
     Q_INVOKABLE bool                endCreateConfiguration      (LinkConfiguration* config);
     Q_INVOKABLE void                removeConfiguration         (LinkConfiguration* config);
+    Q_INVOKABLE void                manualRefreshSerialPorts    ();
 
     // Called to signal app shutdown. Disconnects all links while turning off auto-connect.
     Q_INVOKABLE void shutdown(void);

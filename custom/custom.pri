@@ -71,7 +71,15 @@ SOURCES += \
     $$PWD/src/SiYi/SiYiTcpClient.cc \
     $$PWD/src/SiYi/SiYiTransmitter.cc \
     $$PWD/src/codevsettings.cpp \ 
-    $$PWD/src/AVIATOR/AVIATORInterface.cpp     
+    $$PWD/src/AVIATOR/AVIATORInterface.cpp \
+    $$PWD/src/thridRC/FortInterface.cpp \ 
+    $$PWD/src/thridRC/T30Interface.cpp \ 
+    $$PWD/src/thridRC/ThridRCFactory.cpp \ 
+    $$PWD/src/CustomQmlInterface.cc \
+    $$PWD/src/ARLink/ARConnection.cpp \
+    $$PWD/src/ARLink/ARManager.cpp \
+    $$PWD/src/CustomSettings.cc
+
 
 HEADERS += \
     $$PWD/src/CustomPlugin.h \
@@ -86,13 +94,23 @@ HEADERS += \
     $$PWD/src/SiYi/SiYiTransmitter.h \
     $$PWD/src/codevsettings.h \
     $$PWD/src/lockedqueue.h \
-    $$PWD/src/AVIATOR/AVIATORInterface.h
+    $$PWD/src/AVIATOR/AVIATORInterface.h \
+    $$PWD/src/thridRC/FortInterface.h \
+    $$PWD/src/thridRC/T30Interface.h \
+    $$PWD/src/thridRC/ThridRCFactory.h \
+    $$PWD/src/CustomQmlInterface.h \
+    $$PWD/src/ARLink/ARConnection.h \
+    $$PWD/src/ARLink/ARManager.h \
+    $$PWD/src/CustomSettings.h
+
 
 INCLUDEPATH += \
     $$PWD/src \
     $$PWD/src/SiYi/ \
     $$PWD/src/RTCM/ \
     $$PWD/src/AVIATOR \
+    $$PWD/src/thridRC \
+    $$PWD/src/ARLink \
 
 #-------------------------------------------------------------------------------------
 # Custom Firmware/AutoPilot Plugin
@@ -106,10 +124,11 @@ HEADERS+= \
     $$PWD/src/AutoPilotPlugin/CustomAutoPilotPlugin.h \
     $$PWD/src/FirmwarePlugin/CustomFirmwarePlugin.h \
     $$PWD/src/FirmwarePlugin/CustomFirmwarePluginFactory.h \
+    
 
 SOURCES += \
     $$PWD/src/AutoPilotPlugin/CustomAutoPilotPlugin.cc \
     $$PWD/src/FirmwarePlugin/CustomFirmwarePlugin.cc \
     $$PWD/src/FirmwarePlugin/CustomFirmwarePluginFactory.cc \
-
+    
 

@@ -115,6 +115,12 @@ SOURCES += \
 INCLUDEPATH += \
         libs/libevents \
         libs/libevents/libs/cpp/parse
+
+HEADERS+= \
+        libs/cpp-httplib/httplib.h
+INCLUDEPATH += \
+        libs/cpp-httplib
+
 #
 # [REQUIRED] shapelib library
 INCLUDEPATH += libs/shapelib

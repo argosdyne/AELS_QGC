@@ -12,12 +12,14 @@ import QGroundControl.Palette               1.0
 import QGroundControl.ScreenTools           1.0
 import QGroundControl.SettingsManager       1.0
 
+import CustomQmlInterface                   1.0
+
 Column {
     id: root
     clip: true
 
     property real _margins: ScreenTools.defaultFontPixelHeight * 0.5
-    property var  _ntripSource: QGroundControl.corePlugin.codevRTCMManager.rtcmSource
+    property var  _ntripSource: CustomQmlInterface.codevRTCMManager.rtcmSource
 
     QGCPalette { id: gcPal; colorGroupEnabled: enabled }
 
@@ -44,11 +46,8 @@ Column {
                 }
             }
             Component.onCompleted: {
-                // In android, only one serial port can be connected at a time so in link manager they don't check serial port periodically.
-                // TODO THANH: check if we need this one
-                // QGroundControl.linkManager.manualRefreshSerialPorts()
-
-                rtcmPort.model.append({text:"/dev/ttysWK0"})
+                QGroundControl.linkManager.manualRefreshSerialPorts()
+                if(ScreenTools.isAndroid) rtcmPort.model.append({text:"/dev/ttysWK0"})
                 var serialPorts = QGroundControl.linkManager.serialPorts
                 for (var i in serialPorts) {
                     rtcmPort.model.append({text:serialPorts[i]})
@@ -56,15 +55,17 @@ Column {
                 var index = rtcmPort.find(_ntripSource.port.valueString);
                 if(index < 0 && _ntripSource.port.valueString.length !== 0) {
                     rtcmPort.model.append({text:_ntripSource.port.valueString})
-                    index = serialPorts.length
+                    index = rtcmPort.count - 1
                 }
                 if (serialPorts.length === 0 && _ntripSource.port.valueString.length === 0) {
                     rtcmPort.model.append({text: "Serial <none available>"})
                 }
                 if(index < 0) {
                     rtcmPort.currentIndex = 0
-                    _ntripSource.port.value = textAt(rtcmPort.currentIndex);
+                } else {
+                    rtcmPort.currentIndex = index
                 }
+                _ntripSource.port.value = textAt(rtcmPort.currentIndex);
             }
         }
         QGCLabel {

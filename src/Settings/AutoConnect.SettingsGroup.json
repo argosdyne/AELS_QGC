@@ -4,6 +4,13 @@
     "QGC.MetaData.Facts":
 [
 {
+    "name":             "disableConnectSerial",
+    "shortDesc":        "Disable any serial device.",
+    "longDesc":         "If this option is enabled GroundControl will not connect to any device on serial. Include Pixhawk, SiKRadio, PX4Flow, RTKGPS and LibrePilot.",
+    "type":             "bool",
+    "default":          false
+},
+{
     "name":             "autoConnectUDP",
     "shortDesc": "Automatically open a connection over UDP",
     "longDesc":  "If this option is enabled GroundControl will automatically connect to a vehicle which is detected on a UDP communication link.",
@@ -69,8 +76,8 @@
 {
     "name":             "udpListenPort",
     "shortDesc": "UDP port for autoconnect",
-    "type":             "uint32",
-    "default":     14550
+    "type":             "string",
+    "default":     "14550,14520"
 },
 {
     "name":             "udpTargetHostIP",

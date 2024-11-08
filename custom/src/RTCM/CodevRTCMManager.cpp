@@ -6,6 +6,7 @@
 #include "CustomPlugin.h"
 #include "VehicleLinkManager.h"
 
+
 CodevRTCMManager::CodevRTCMManager(QGCApplication *app, QGCToolbox *toolbox)
     : QGCTool(app, toolbox)
 {

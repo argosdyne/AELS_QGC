@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/qml">
+        <file alias="LTESettings.qml">LTESettings.qml</file>
+    </qresource>
+    <qresource prefix="/json">
+        <file alias="LTE.SettingsGroup.json">LTE.SettingsGroup.json</file>
+    </qresource>
+    <qresource prefix="/toolbar">
+        <file alias="LTELinkIndicator.qml">LTELinkIndicator.qml</file>
+    </qresource>
+    <qresource prefix="/qmlimages">
+        <file alias="lte.svg">lte.svg</file>
+    </qresource>
+</RCC>

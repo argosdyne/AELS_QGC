@@ -70,6 +70,11 @@ if(COMPILE_QML)
     )
 endif()
 
+option(FORCE_QSERIALPORT "Force Use <QSerialPort>" ON)
+if(FORCE_QSERIALPORT)
+    add_definitions(-DFORCE_QSERIALPORT)
+endif()
+
 #=============================================================================
 # Debug QML
 #

@@ -264,6 +264,9 @@ QT += \
 
 AndroidBuild || iOSBuild {
     # Android and iOS don't unclude these
+    QT += \
+        serialport \
+        remoteobjects \
 } else {
     QT += \
         serialport \
@@ -417,6 +420,11 @@ INCLUDEPATH += \
     src/ui/px4_configuration \
     src/ui/toolbar \
     src/ui/uas \
+    src/TeamMode \
+    src/LTE \
+    src/mDNS \
+    src/Repc \
+    src/HttpService \
 
 contains (DEFINES, QGC_ENABLE_PAIRING) {
     INCLUDEPATH += \
@@ -748,6 +756,14 @@ HEADERS += \
     src/uas/UASMessageHandler.h \
     src/AnalyzeView/GeoTagController.h \
     src/AnalyzeView/ExifParser.h \
+    src/TeamMode/TeamModeLink.h \
+    src/TeamMode/TeamModeRouter.h \
+    src/LTE/LTEManager.h \
+    src/LTE/LTESettings.h \
+    src/mDNS/mDNSManager.h \
+    src/Repc/DynamicRepcManager.h \
+    src/HttpService/HttpService.h \
+
 
 contains (DEFINES, QGC_ENABLE_PAIRING) {
     HEADERS += \
@@ -999,6 +1015,14 @@ SOURCES += \
     src/uas/UASMessageHandler.cc \
     src/AnalyzeView/GeoTagController.cc \
     src/AnalyzeView/ExifParser.cc \
+    src/TeamMode/TeamModeLink.cpp \
+    src/TeamMode/TeamModeRouter.cpp \
+    src/LTE/LTEManager.cpp \
+    src/LTE/LTESettings.cpp \
+    src/mDNS/mDNSManager.cpp \
+    src/Repc/DynamicRepcManager.cpp \
+    src/HttpService/HttpService.cpp \
+
 
 contains (DEFINES, QGC_ENABLE_PAIRING) {
     SOURCES += \

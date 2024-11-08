@@ -2,7 +2,7 @@
 #include "QGCLoggingCategory.h"
 #include <QQmlEngine>
 #include <QString>
-//#include "CustomQmlInterface.h"
+#include "CustomQmlInterface.h"
 
 QGC_LOGGING_CATEGORY(AVIATORInterfaceLog, "AVIATORInterfaceLog")
 
@@ -29,6 +29,7 @@ AVIATORInterface::AVIATORInterface(QObject* parent)
     qmlRegisterUncreatableType<AVIATORInterface>("CustomQmlInterface", 1, 0, "AVIATORInterface", "Reference only");
 
     qCDebug(AVIATORInterfaceLog) << "AVIATORInterface가 초기화되었습니다.";
+    qInfo() << "AVIATORInterface가 초기화되었습니다";
 
     _addFact(&_batteryVoltageFact, _batteryVoltageFactName);
     _addFact(&_batteryRemainingFact, _batteryRemainingFactName);
@@ -190,7 +191,7 @@ void AVIATORInterface::_handle_mavlink_rc_channels(const mavlink_message_t& mess
     if(f1 != _f1Pressed) {
         _f1Pressed = f1;
         qCDebug(AVIATORInterfaceLog) << "F1 버튼 상태 변경: " << (_f1Pressed ? "눌림" : "해제됨");
-        //emit buttonPressed(CustomQmlInterface::CUSTOM_FUNCTION_GIMBAL_RESET, _f1Pressed);
+        emit buttonPressed(CustomQmlInterface::CUSTOM_FUNCTION_GIMBAL_RESET, _f1Pressed);
         qCDebug(AVIATORInterfaceLog) << "GIMBAL RESET 명령 전송: " << _f1Pressed;
     }
 
@@ -198,9 +199,9 @@ void AVIATORInterface::_handle_mavlink_rc_channels(const mavlink_message_t& mess
     if(f2 != _f2Pressed) {
         _f2Pressed = f2;
         qCDebug(AVIATORInterfaceLog) << "F2 버튼 상태 변경: " << (_f2Pressed ? "눌림" : "해제됨");
-        //emit buttonPressed(CustomQmlInterface::CUSTOM_FUNCTION_COACH_WAYPOINT, _f2Pressed); //ButtonType_F2
+        emit buttonPressed(CustomQmlInterface::CUSTOM_FUNCTION_COACH_WAYPOINT, _f2Pressed); //ButtonType_F2
         qCDebug(AVIATORInterfaceLog) << "COACH WAYPOINT 명령 전송: " << _f2Pressed;
-        //emit buttonPressed(CustomQmlInterface::CUSTOM_FUNCTION_THERMAL_ZOOM, _f2Pressed);
+        emit buttonPressed(CustomQmlInterface::CUSTOM_FUNCTION_THERMAL_ZOOM, _f2Pressed);
         qCDebug(AVIATORInterfaceLog) << "THERMAL ZOOM 명령 전송: " << _f2Pressed;
     }
 
@@ -210,7 +211,7 @@ void AVIATORInterface::_handle_mavlink_rc_channels(const mavlink_message_t& mess
         f3Count++;
     } else {
         if(f3Count > 0 && f3Count < 50) { // 1s
-            //emit buttonPressed(CustomQmlInterface::CUSTOM_FUNCTION_IR_SWITCH, true);
+            emit buttonPressed(CustomQmlInterface::CUSTOM_FUNCTION_IR_SWITCH, true);
             qCDebug(AVIATORInterfaceLog) << "IR SWITCH 명령 전송 (1초 이내): true";
         }
         f3Count = 0;
@@ -220,7 +221,7 @@ void AVIATORInterface::_handle_mavlink_rc_channels(const mavlink_message_t& mess
     if(f3Pressed != _f3Pressed) {
         _f3Pressed = f3Pressed;
         qCDebug(AVIATORInterfaceLog) << "F3 버튼 상태 변경: " << (_f3Pressed ? "길게 눌림 (5초 이상)" : "해제됨");
-        //emit buttonPressed(CustomQmlInterface::CUSTOM_FUNCTION_START_MISSION, _f3Pressed);
+        emit buttonPressed(CustomQmlInterface::CUSTOM_FUNCTION_START_MISSION, _f3Pressed);
         qCDebug(AVIATORInterfaceLog) << "START MISSION 명령 전송: " << _f3Pressed;
     }
 

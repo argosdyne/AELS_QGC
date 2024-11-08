@@ -1,4 +1,4 @@
-include($$PWD/libs/qtandroidserialport/src/qtandroidserialport.pri)
+#include($$PWD/libs/qtandroidserialport/src/qtandroidserialport.pri)
 message("Adding Serial Java Classes")
 QT += androidextras
 

@@ -6,7 +6,7 @@
  * COPYING.md in the root of the source code directory.
  *
  ****************************************************************************/
-
+#include <iostream>
 #include <QList>
 #include <QApplication>
 #include <QDebug>
@@ -24,6 +24,7 @@
 #include "TCPLink.h"
 #include "SettingsManager.h"
 #include "LogReplayLink.h"
+#include "TeamModeLink.h"
 #ifdef QGC_ENABLE_BLUETOOTH
 #include "BluetoothLink.h"
 #endif
@@ -46,7 +47,7 @@
 QGC_LOGGING_CATEGORY(LinkManagerLog, "LinkManagerLog")
 QGC_LOGGING_CATEGORY(LinkManagerVerboseLog, "LinkManagerVerboseLog")
 
-const char* LinkManager::_defaultUDPLinkName =       "UDP Link (AutoConnect)";
+const char* LinkManager::_defaultUDPLinkName =       "UDP Link (AutoConnect) %1";
 const char* LinkManager::_mavlinkForwardingLinkName =       "MAVLink Forwarding Link";
 
 const int LinkManager::_autoconnectUpdateTimerMSecs =   1000;
@@ -138,6 +139,9 @@ bool LinkManager::createConnectedLink(SharedLinkConfigurationPtr& config, bool i
         link = std::make_shared<MockLink>(config);
         break;
 #endif
+    case LinkConfiguration::TypeTeamMode:
+        link = std::make_shared<TeamModeLink>(config);
+        break;
     case LinkConfiguration::TypeLast:
         break;
     }
@@ -323,6 +327,8 @@ void LinkManager::loadLinkConfigurationList()
 #endif
                             case LinkConfiguration::TypeLast:
                                 break;
+                            default:
+                                break;
                             }
                             if(link) {
                                 //-- Have the instance load its own values
@@ -368,29 +374,75 @@ bool LinkManager::_portAlreadyConnected(const QString& portName)
 }
 #endif
 
+// void LinkManager::_addUDPAutoConnectLink(void)
+// {
+//     if (_autoConnectSettings->autoConnectUDP()->rawValue().toBool()) {
+//         QStringList ports = _autoConnectSettings->udpListenPort()->rawValue().toString().split(',');
+//         foreach(QString port, ports) {
+//             bool foundUDP = false;
+
+//             for (int i = 0; i < _rgLinks.count(); i++) {
+//                 SharedLinkConfigurationPtr linkConfig = _rgLinks[i]->linkConfiguration();
+//                 if (linkConfig->type() == LinkConfiguration::TypeUdp && linkConfig->name() == QString(_defaultUDPLinkName).arg(port)) {
+//                     foundUDP = true;
+//                     break;
+//                 }
+//             }
+
+//             if (!foundUDP) {
+//                 qCDebug(LinkManagerLog) << "New auto-connect UDP port added";
+//                 //-- Default UDPConfiguration is set up for autoconnect
+//                 UDPConfiguration* udpConfig = new UDPConfiguration(QString(_defaultUDPLinkName).arg(port));
+//                 udpConfig->setDynamic(true);
+//                 udpConfig->setLocalPort(port.toUShort());
+//                 SharedLinkConfigurationPtr config = addConfiguration(udpConfig);
+//                 createConnectedLink(config);
+//             }
+//         }
+//     }
+// }
+
 void LinkManager::_addUDPAutoConnectLink(void)
 {
     if (_autoConnectSettings->autoConnectUDP()->rawValue().toBool()) {
-        bool foundUDP = false;
+        QStringList ports = _autoConnectSettings->udpListenPort()->rawValue().toString().split(',');
 
-        for (int i = 0; i < _rgLinks.count(); i++) {
-            SharedLinkConfigurationPtr linkConfig = _rgLinks[i]->linkConfiguration();
-            if (linkConfig->type() == LinkConfiguration::TypeUdp && linkConfig->name() == _defaultUDPLinkName) {
-                foundUDP = true;
-                break;
+        foreach(QString port, ports) {
+            bool foundUDP = false;
+
+            // 포트 문자열의 유효성 검사
+            bool ok;
+            ushort portNumber = port.toUShort(&ok);
+            if (!ok || portNumber == 0) { // 유효하지 않으면 continue
+                qCWarning(LinkManagerLog) << "Invalid UDP port specified:" << port;
+                continue;
             }
-        }
 
-        if (!foundUDP) {
-            qCDebug(LinkManagerLog) << "New auto-connect UDP port added";
-            //-- Default UDPConfiguration is set up for autoconnect
-            UDPConfiguration* udpConfig = new UDPConfiguration(_defaultUDPLinkName);
-            udpConfig->setDynamic(true);
-            SharedLinkConfigurationPtr config = addConfiguration(udpConfig);
-            createConnectedLink(config);
+            for (int i = 0; i < _rgLinks.count(); i++) {
+                SharedLinkConfigurationPtr linkConfig = _rgLinks[i]->linkConfiguration();
+                if (linkConfig->type() == LinkConfiguration::TypeUdp &&
+                    linkConfig->name() == QString(_defaultUDPLinkName).arg(port)) {
+                    foundUDP = true;
+                    break;
+                }
+            }
+
+            if (!foundUDP) {
+                qCDebug(LinkManagerLog) << "New auto-connect UDP port added:" << portNumber;
+
+                // Default UDPConfiguration setup
+                UDPConfiguration* udpConfig = new UDPConfiguration(QString(_defaultUDPLinkName).arg(port));
+                udpConfig->setDynamic(true);
+                udpConfig->setLocalPort(portNumber);
+
+                // 포트 추가와 연결 생성
+                SharedLinkConfigurationPtr config = addConfiguration(udpConfig);
+                createConnectedLink(config);
+            }
         }
     }
 }
+
 
 void LinkManager::_addMAVLinkForwardingLink(void)
 {
@@ -499,7 +551,7 @@ void LinkManager::_updateAutoConnectLinks(void)
 
     _addUDPAutoConnectLink();
     _addMAVLinkForwardingLink();
-    _addZeroConfAutoConnectLink();
+    //_addZeroConfAutoConnectLink();
 
 #ifndef __mobile__
 #ifndef NO_SERIAL_LINK
@@ -528,19 +580,28 @@ void LinkManager::_updateAutoConnectLinks(void)
 #ifndef NO_SERIAL_LINK
     QStringList                 currentPorts;
     QList<QGCSerialPortInfo>    portList;
-#ifdef __android__
-    // Android builds only support a single serial connection. Repeatedly calling availablePorts after that one serial
-    // port is connected leaks file handles due to a bug somewhere in android serial code. In order to work around that
-    // bug after we connect the first serial port we stop probing for additional ports.
-    if (!_isSerialPortConnected()) {
+
+    if(!_autoConnectSettings->disableConnectSerial()->rawValue().toBool()) {
+    #ifdef __android__
+        // Android builds only support a single serial connection. Repeatedly calling availablePorts after that one serial
+        // port is connected leaks file handles due to a bug somewhere in android serial code. In order to work around that
+        // bug after we connect the first serial port we stop probing for additional ports.
+        if (!_isSerialPortConnected()) {
+            SerialConfiguration *serialConfig = new SerialConfiguration(tr("115200 on /dev/ttyS4 (AutoConnect)"));
+            serialConfig->setBaud(115200);
+            serialConfig->setDynamic(true);
+            serialConfig->setPortName("/dev/ttyS4");
+            SharedLinkConfigurationPtr sharedConfig(serialConfig);
+            createConnectedLink(sharedConfig, false);
+            portList = QGCSerialPortInfo::availablePorts();
+        }
+        else {
+            qCDebug(LinkManagerLog) << "Skipping serial port list";
+        }
+    #else
         portList = QGCSerialPortInfo::availablePorts();
+    #endif
     }
-    else {
-        qDebug() << "Skipping serial port list";
-    }
-#else
-    portList = QGCSerialPortInfo::availablePorts();
-#endif
 
     // Iterate Comm Ports
     for (const QGCSerialPortInfo& portInfo: portList) {
@@ -698,6 +759,11 @@ QStringList LinkManager::linkTypeStrings(void) const
         }
     }
     return list;
+}
+
+void LinkManager::manualRefreshSerialPorts()
+{
+    _updateSerialPorts();
 }
 
 void LinkManager::_updateSerialPorts()

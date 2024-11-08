@@ -57,6 +57,7 @@ public:
         TypeMock,       ///< Mock Link for Unitesting
 #endif
         TypeLogReplay,
+        TypeTeamMode,
         TypeLast        // Last type value (type >= TypeLast == invalid)
     };
     Q_ENUM(LinkType)

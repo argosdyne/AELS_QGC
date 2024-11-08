@@ -284,6 +284,9 @@
         <file alias="VibrationPage.qml">src/AnalyzeView/VibrationPage.qml</file>
         <file alias="VirtualJoystick.qml">src/FlightDisplay/VirtualJoystick.qml</file>
         <file alias="VTOLLandingPatternEditor.qml">src/PlanView/VTOLLandingPatternEditor.qml</file>
+		<file alias="LTELinkIndicator.qml">src/LTE/LTELinkIndicator.qml</file>
+		<file alias="LTESettings.qml">src/LTE/LTESettings.qml</file>
+		<file alias="TeamModeIndicator.qml">src/TeamMode/TeamModeIndicator.qml</file>
     </qresource>
     <qresource prefix="/FirstRunPromptDialogs">
         <file alias="UnitsFirstRunPrompt.qml">src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>

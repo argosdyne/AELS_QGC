@@ -131,6 +131,8 @@ LinkConfiguration* LinkConfiguration::duplicateSettings(LinkConfiguration* sourc
 #endif
         case TypeLast:
             break;
+        default:
+            break;
     }
     return dupe;
 }
@@ -143,6 +145,12 @@ void LinkConfiguration::setName(const QString name)
 
 void LinkConfiguration::setLink(SharedLinkInterfacePtr link)
 {
+    if(_link.lock().get()) {
+        disconnect(_link.lock().get(), &LinkInterface::destroyed, this, &LinkConfiguration::linkChanged);
+    }
     _link = link;
+    if(_link.lock().get()) {
+        connect(_link.lock().get(), &LinkInterface::destroyed, this, &LinkConfiguration::linkChanged);
+    }
     emit linkChanged();
 }

@@ -25,6 +25,7 @@ public:
 
     DEFINE_SETTING_NAME_GROUP()
 
+    DEFINE_SETTINGFACT(disableConnectSerial)
     DEFINE_SETTINGFACT(autoConnectUDP)
     DEFINE_SETTINGFACT(autoConnectPixhawk)
     DEFINE_SETTINGFACT(autoConnectSiKRadio)
