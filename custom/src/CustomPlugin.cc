@@ -128,6 +128,7 @@ CustomPlugin::settingsPages()
         _addSettingsEntry(tr("MAVLink"),     "qrc:/qml/MavlinkSettings.qml",     "qrc:/res/waves.svg");
         _addSettingsEntry(tr("Console"),     "qrc:/qml/QGroundControl/Controls/AppMessages.qml");
         _addSettingsEntry(tr("RTCM"), "qrc:/custom/RTCMSettings.qml");
+        _addSettingsEntry(tr("Enpulse"), "qrc:/qml/ARSettings.qml");
 #if defined(QT_DEBUG)
         //-- These are always present on Debug builds
         _addSettingsEntry(tr("Mock Link"),   "qrc:/qml/MockLink.qml");
@@ -377,5 +378,7 @@ QQmlApplicationEngine* CustomPlugin::createQmlApplicationEngine(QObject* parent)
 {
     QQmlApplicationEngine* qmlEngine = QGCCorePlugin::createQmlApplicationEngine(parent);
     qmlEngine->addImportPath("qrc:/Custom/Widgets");
+    _qmlInterface = new CustomQmlInterface(qgcApp(), qgcApp()->toolbox());
+    qmlEngine->rootContext()->setContextProperty("CustomQmlInterface", _qmlInterface);
     return qmlEngine;
 }
