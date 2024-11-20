@@ -15,36 +15,16 @@
 #include "CustomAutoPilotPlugin.h"
 
 //-----------------------------------------------------------------------------
-CustomFirmwarePlugin::CustomFirmwarePlugin() : ArduCopterFirmwarePlugin()
+CustomFirmwarePlugin::CustomFirmwarePlugin()
 {
-    // THANH: TODO Disable some redundant mode
-    setSupportedModes({
-        APMCopterMode(APMCopterMode::STABILIZE,     true),
-            APMCopterMode(APMCopterMode::ACRO,          true),
-            APMCopterMode(APMCopterMode::ALT_HOLD,      true),
-            APMCopterMode(APMCopterMode::AUTO,          true),
-            APMCopterMode(APMCopterMode::GUIDED,        true),
-            APMCopterMode(APMCopterMode::LOITER,        true),
-            APMCopterMode(APMCopterMode::RTL,           true),
-            APMCopterMode(APMCopterMode::CIRCLE,        true),
-            APMCopterMode(APMCopterMode::LAND,          true),
-            APMCopterMode(APMCopterMode::DRIFT,         true),
-            APMCopterMode(APMCopterMode::SPORT,         true),
-            APMCopterMode(APMCopterMode::FLIP,          true),
-            APMCopterMode(APMCopterMode::AUTOTUNE,      true),
-            APMCopterMode(APMCopterMode::POS_HOLD,      true),
-            APMCopterMode(APMCopterMode::BRAKE,         true),
-            APMCopterMode(APMCopterMode::THROW,         true),
-            APMCopterMode(APMCopterMode::AVOID_ADSB,    true),
-            APMCopterMode(APMCopterMode::GUIDED_NOGPS,  true),
-            APMCopterMode(APMCopterMode::SMART_RTL,     true),
-            APMCopterMode(APMCopterMode::FLOWHOLD,      true),
-#if 0
-    // Follow me not ready for Stable
-        APMCopterMode(APMCopterMode::FOLLOW,        true),
-#endif
-            APMCopterMode(APMCopterMode::ZIGZAG,        true),
-    });
+    for (int i = 0; i < _flightModeInfoList.count(); i++) {
+        FlightModeInfo_t& info = _flightModeInfoList[i];
+        //-- Narrow the flight mode options to only these
+        if (info.name != _holdFlightMode && info.name != _rtlFlightMode && info.name != _missionFlightMode) {
+            // No other flight modes can be set
+            info.canBeSet = false;
+        }
+    }
 }
 
 //-----------------------------------------------------------------------------

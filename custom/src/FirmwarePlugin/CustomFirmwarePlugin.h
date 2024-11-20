@@ -14,11 +14,11 @@
 #pragma once
 
 #include "FirmwarePlugin.h"
-#include "ArduCopterFirmwarePlugin.h"
+#include "PX4FirmwarePlugin.h"
 
 class CustomCameraManager;
 
-class CustomFirmwarePlugin : public ArduCopterFirmwarePlugin
+class CustomFirmwarePlugin : public PX4FirmwarePlugin
 {
     Q_OBJECT
 public:

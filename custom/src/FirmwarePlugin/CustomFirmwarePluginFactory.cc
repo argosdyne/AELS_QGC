@@ -25,7 +25,7 @@ CustomFirmwarePluginFactory::CustomFirmwarePluginFactory()
 QList<QGCMAVLink::FirmwareClass_t> CustomFirmwarePluginFactory::supportedFirmwareClasses() const
 {
     QList<QGCMAVLink::FirmwareClass_t> firmwareClasses;
-    firmwareClasses.append(QGCMAVLink::FirmwareClassArduPilot);
+    firmwareClasses.append(QGCMAVLink::FirmwareClassPX4);
     return firmwareClasses;
 }
 
@@ -38,7 +38,8 @@ QList<QGCMAVLink::VehicleClass_t> CustomFirmwarePluginFactory::supportedVehicleC
 
 FirmwarePlugin* CustomFirmwarePluginFactory::firmwarePluginForAutopilot(MAV_AUTOPILOT autopilotType, MAV_TYPE /*vehicleType*/)
 {
-    if (autopilotType == MAV_AUTOPILOT_ARDUPILOTMEGA) {
+    qDebug() << "firmwarPluginForAutoPilot: Type = " << autopilotType;
+    if (autopilotType == MAV_AUTOPILOT_PX4) {
         if (!_pluginInstance) {
             _pluginInstance = new CustomFirmwarePlugin;
         }
