@@ -121,6 +121,7 @@ public slots:
      * @see ::SystemMessage::SystemMessageType
      */
     void showMessage(const QString& message, SystemMessage::SystemMessageType type = SystemMessage::Info);
+    void handleCustomButtonFunction(int type, bool pressed);
 
 private slots:
 

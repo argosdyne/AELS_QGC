@@ -12,7 +12,7 @@
 #include <QSettings>
 #include <QMutexLocker>
 
-#ifdef __android__
+#if defined(__android__) && !defined(FORCE_QSERIALPORT)
 #include "qserialport.h"
 #else
 #include <QSerialPort>

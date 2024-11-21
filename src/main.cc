@@ -184,7 +184,7 @@ jint JNI_OnLoad(JavaVM* vm, void* reserved)
     gst_amc_jni_set_java_vm(vm);
 #endif
 
- #if !defined(NO_SERIAL_LINK)
+ #if !defined(NO_SERIAL_LINK) && !defined(FORCE_QSERIALPORT)
     QSerialPort::setNativeMethods();
  #endif
 

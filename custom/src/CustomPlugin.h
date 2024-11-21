@@ -16,6 +16,7 @@
 #include "QGCLoggingCategory.h"
 #include "SettingsManager.h"
 #include "CustomQmlInterface.h"
+#include "AVIATORInterface.h"
 #include "SiYiManager.h"
 #include <QTranslator>
 #include "codevsettings.h"
@@ -61,6 +62,10 @@ public:
     Q_PROPERTY(SiYiManager* siyiManager READ siyiManager CONSTANT)
 
 
+    bool coachMode() { return _coachMode; }
+    void setCoachMode(const bool& coachMode);
+
+
     CustomPlugin(QGCApplication* app, QGCToolbox *toolbox);
     ~CustomPlugin();
 
@@ -82,8 +87,13 @@ public:
     // Overrides from QGCTool
     void                    setToolbox                      (QGCToolbox* toolbox);
 
+signals:
+    void rcChannelValuesChanged(const quint16* channels, int count);
+
 private slots:
     void _advancedChanged(bool advanced);
+    void _handleRCChannelValues(const quint16* channels, int count);
+
 
 private:
     void _addSettingsEntry(const QString& title, const char* qmlFile, const char* iconFile = nullptr);
@@ -97,4 +107,6 @@ private:
     QVariantList    _customSettingsList; // Not to be mixed up with QGCCorePlugin implementation
 
     CustomQmlInterface* _qmlInterface{nullptr};
+    AVIATORInterface* _aviatorInterface{nullptr};
+    bool _coachMode{false};
 };

@@ -97,6 +97,18 @@ void CustomPlugin::setToolbox(QGCToolbox* toolbox)
 
     // Allows us to be notified when the user goes in/out out advanced mode
     connect(qgcApp()->toolbox()->corePlugin(), &QGCCorePlugin::showAdvancedUIChanged, this, &CustomPlugin::_advancedChanged);
+
+    _aviatorInterface = new AVIATORInterface();
+#if defined (Q_OS_ANDROID)
+    connect(_aviatorInterface, &AVIATORInterface::rcChannelValuesChanged, this, &CustomPlugin::_handleRCChannelValues);
+#endif
+}
+
+void CustomPlugin::_handleRCChannelValues(const quint16* channels, int count)
+{
+    static quint16 inlChannels[18];
+    memcpy(inlChannels, channels, 18 * 2);
+    emit rcChannelValuesChanged(inlChannels, count);
 }
 
 void CustomPlugin::_advancedChanged(bool changed)
@@ -380,5 +392,10 @@ QQmlApplicationEngine* CustomPlugin::createQmlApplicationEngine(QObject* parent)
     qmlEngine->addImportPath("qrc:/Custom/Widgets");
     _qmlInterface = new CustomQmlInterface(qgcApp(), qgcApp()->toolbox());
     qmlEngine->rootContext()->setContextProperty("CustomQmlInterface", _qmlInterface);
+
+    if(_aviatorInterface) {
+        qDebug() << "Connect with handleCustomButtonFunc";
+        connect(_aviatorInterface, &AVIATORInterface::buttonPressed, _qmlInterface, &CustomQmlInterface::handleCustomButtonFunction);        
+    }
     return qmlEngine;
 }

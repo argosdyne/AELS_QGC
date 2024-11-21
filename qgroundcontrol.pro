@@ -264,6 +264,8 @@ QT += \
 
 AndroidBuild || iOSBuild {
     # Android and iOS don't unclude these
+    QT += \
+        serialport \
 } else {
     QT += \
         serialport \
@@ -272,6 +274,11 @@ AndroidBuild || iOSBuild {
 contains(DEFINES, QGC_ENABLE_BLUETOOTH) {
 QT += \
     bluetooth \
+}
+
+# FORCE_QSERIALPORT 변수를 환경에 따라 설정
+CONFIG(debug, debug|release) {
+    DEFINES += FORCE_QSERIALPORT
 }
 
 contains(DEFINES, QGC_ENABLE_QTNFC) {
@@ -1495,6 +1502,16 @@ AndroidBuild {
     }
 }
 
+android: {
+    # FORCE_QSERIALPORT가 true인 경우 Qt SerialPort를 링크    
+    greaterThan(QT_MAJOR_VERSION, 5): CONFIG += qtserialport
+    !FORCE_QSERIALPORT {
+        LIBS += -$$PWD/libs/qtandroidserialport/src/qtandroidserialport.pri
+    }   
+} else {
+    # Android가 아닌 경우    
+    greaterThan(QT_MAJOR_VERSION, 5): CONFIG += qtserialport
+}
 #-------------------------------------------------------------------------------------
 #
 # Localization

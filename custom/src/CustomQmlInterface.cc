@@ -34,11 +34,8 @@ void CustomQmlInterface::setToolbox(QGCToolbox* toolbox)
     connect(qgcApp(), &QGCApplication::teamModeConnectionChanged, _teamModeRouter, &TeamModeRouter::p2pConnectStateChanged);
     connect(qgcApp(), &QGCApplication::teamModeDeviceListChanged, _teamModeRouter, &TeamModeRouter::newP2PDevices);
     connect(qgcApp(), &QGCApplication::teamModeConnectionChanged, this, &CustomQmlInterface::_p2pConnectionStateChanged);
-#endif    
+#endif
 
-    // _actionSound.setSource(QUrl::fromUserInput("qrc:/audio/action.wav"));
-    // _actionSound.setLoopCount(1);
-    // _actionSound.setVolume(1.0);
 }
 
 void CustomQmlInterface::playActionSound()
@@ -47,8 +44,6 @@ void CustomQmlInterface::playActionSound()
     _actionSound.setLoopCount(1);
     _actionSound.play();
 }
-
-
 
 
 void CustomQmlInterface::showMessage(const QString& message, SystemMessage::SystemMessageType type)
@@ -64,7 +59,36 @@ void CustomQmlInterface::showMessage(const QString& message, SystemMessage::Syst
     _refreshSystemMessageUI(true);
 }
 
-
+void CustomQmlInterface::handleCustomButtonFunction(int type, bool pressed)
+{
+    qDebug() << "handleCustomButtonFunction : type = " << type;
+    if(type == CUSTOM_FUNCTION_COACH_WAYPOINT) {
+        if(_plugin->coachMode()) emit coachWaypointTigger(pressed);
+    } else if(type == CUSTOM_FUNCTION_THERMAL_ZOOM) {
+        emit thermalZoomTigger(pressed);
+    } else if(type == CUSTOM_FUNCTION_IR_SWITCH) {
+        emit irSwitchTigger(pressed);
+    } else if(type == CUSTOM_FUNCTION_GIMBAL_RESET) {
+        emit gimbalResetTigger(pressed);
+    } else if(type == CUSTOM_FUNCTION_AIRCRAFT_RTL) {
+        if(pressed) {
+            Vehicle* vehicle = _toolbox->multiVehicleManager()->activeVehicle();
+            if(vehicle) {
+                vehicle->guidedModeRTL(false);
+            }
+        }
+    } else if(type == CUSTOM_FUNCTION_START_MISSION) {
+        qDebug() << "CUSTOM_FUNCTION_START_MISSION";
+        if(pressed) {
+            qDebug() << "CUSTOM_FUNCTION_START_MISSION pressed";
+            Vehicle* vehicle = _toolbox->multiVehicleManager()->activeVehicle();
+            if(vehicle) {
+                qDebug() << "startMission";
+                vehicle->startMission();
+            }
+        }
+    }
+}
 
 void CustomQmlInterface::_refreshSystemMessageUI(bool from)
 {

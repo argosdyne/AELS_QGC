@@ -1,4 +1,4 @@
-include($$PWD/libs/qtandroidserialport/src/qtandroidserialport.pri)
+#include($$PWD/libs/qtandroidserialport/src/qtandroidserialport.pri)
 message("Adding Serial Java Classes")
 QT += androidextras
 
@@ -73,6 +73,7 @@ exists($$ANDROID_PACKAGE_CUSTOM_SOURCE_DIR) {
         #           $$QMAKE_STREAM_EDITOR -i \"s/android-min-sdk-version\\\": \\\".*\\\"/android-min-sdk-version\\\": \\\"28\\\"/\" $$ANDROID_PACKAGE_SETTING_FILE
     }
 }
+
 
 exists($$PWD/custom/android/AndroidManifest.xml) {
     OTHER_FILES += \
