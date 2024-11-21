@@ -173,6 +173,7 @@ Rectangle {
     //-------------------------------------------------------------------------
     //-- Branding Logo
     Image {
+        anchors.rightMargin:    arLinkIndicator.item.width + ScreenTools.defaultFontPixelHeight
         id: brandingLogo
         anchors.right:          parent.right
         anchors.top:            parent.top
@@ -224,6 +225,18 @@ Rectangle {
             }
         }
     }
+
+    //Add ARLink Indicator
+    Loader {
+        id:                 arLinkIndicator
+        anchors.right:      parent.right
+        anchors.top:        parent.top
+        anchors.bottom:     parent.bottom
+        anchors.margins:    ScreenTools.defaultFontPixelHeight * 0.66
+        source:             "qrc:/toolbar/ARLinkIndicator.qml"
+    }
+
+
     Column {
         id:siyiDeviceInfo
         anchors.right: brandingLogo.source ? brandingLogo.left : parent.right

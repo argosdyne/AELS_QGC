@@ -8,3 +8,5 @@ CustomQuickButton       1.0     CustomQuickButton.qml
 CustomSignalStrength    1.0     CustomSignalStrength.qml
 CustomToolBarButton     1.0     CustomToolBarButton.qml
 CustomVehicleButton     1.0     CustomVehicleButton.qml
+CustomDelayButton       1.0  CustomDelayButton.qml
+CustomBusyIndicator     1.0  CustomBusyIndicator.qml

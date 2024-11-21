@@ -43,6 +43,7 @@
         <file alias="void.png">res/Images/void.png</file>
         <file alias="yes.svg">res/Images/yes.svg</file>
         <file alias="CustomAppIconOutdoor.png">res/Images/argoBrandLogoBlack.png</file>
+        <file alias="png/aircraftBindTip.png">res/Images/aircraftBindTip.png</file>
     </qresource>
     <qresource prefix="/qmlimages">
         <file alias="PaperPlane.svg">res/Images/CustomVehicleIcon.svg</file>
@@ -57,6 +58,8 @@
         <file alias="Custom/Widgets/CustomToolBarButton.qml">res/Custom/Widgets/CustomToolBarButton.qml</file>
         <file alias="Custom/Widgets/CustomVehicleButton.qml">res/Custom/Widgets/CustomVehicleButton.qml</file>
         <file alias="Custom/Widgets/qmldir">res/Custom/Widgets/qmldir</file>
+        <file alias="Custom/Widgets/CustomDelayButton.qml">res/Custom/Widgets/CustomDelayButton.qml</file>
+        <file alias="Custom/Widgets/CustomBusyIndicator.qml">res/Custom/Widgets/CustomBusyIndicator.qml</file>
     </qresource>
     <qresource prefix="/qml">
         <file alias="QGroundControl/FlightDisplay/FlyViewCustomLayer.qml">res/CustomFlyViewOverlay.qml</file>
@@ -119,5 +122,6 @@
     </qresource>
     <qresource prefix="/toolbar">
         <file alias="GPSIndicator.qml">CustomGPSIndicator.qml</file>
+        <file alias="ARLinkIndicator.qml">src/ARLink/ARLinkIndicator.qml</file>
     </qresource>
 </RCC>
