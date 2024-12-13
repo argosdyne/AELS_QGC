@@ -434,7 +434,7 @@ contains (DEFINES, QGC_ENABLE_PAIRING) {
 # Plugin API
 #
 
-HEADERS += \
+HEADERS += \    
     src/QmlControls/QmlUnitsConversion.h \
     src/Vehicle/VehicleEscStatusFactGroup.h \
     src/api/QGCCorePlugin.h \
@@ -448,7 +448,7 @@ contains (DEFINES, QGC_ENABLE_PAIRING) {
         src/PairingManager/aes.h
 }
 
-SOURCES += \
+SOURCES += \    
     src/Vehicle/VehicleEscStatusFactGroup.cc \
     src/api/QGCCorePlugin.cc \
     src/api/QGCOptions.cc \
@@ -755,6 +755,7 @@ HEADERS += \
     src/uas/UASMessageHandler.h \
     src/AnalyzeView/GeoTagController.h \
     src/AnalyzeView/ExifParser.h \
+    src/MissionManager/FlightZoneManager.h \
 
 contains (DEFINES, QGC_ENABLE_PAIRING) {
     HEADERS += \
@@ -1006,6 +1007,7 @@ SOURCES += \
     src/uas/UASMessageHandler.cc \
     src/AnalyzeView/GeoTagController.cc \
     src/AnalyzeView/ExifParser.cc \
+    src/MissionManager/FlightZoneManager.cpp \
 
 contains (DEFINES, QGC_ENABLE_PAIRING) {
     SOURCES += \

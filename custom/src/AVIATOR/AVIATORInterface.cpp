@@ -1,4 +1,4 @@
-#include "AVIATORInterface.h"
+﻿#include "AVIATORInterface.h"
 #include "QGCLoggingCategory.h"
 #include <QQmlEngine>
 #include <QString>
@@ -179,6 +179,7 @@ void AVIATORInterface::_handle_mavlink_rc_channels(const mavlink_message_t& mess
 
     emit rcChannelValuesChanged(_rawChannels, channels.chancount);
 
+#if defined (Q_OS_ANDROID)
     bool f1 = channels.chan15_raw == 2000;
     bool f2 = channels.chan14_raw == 2000;
     bool f3 = channels.chan16_raw == 2000;
@@ -313,7 +314,7 @@ void AVIATORInterface::_handle_mavlink_rc_channels(const mavlink_message_t& mess
         _cn18Pressed = cn18;
         qCDebug(AVIATORInterfaceLog) << "cn18 버튼 상태 변경: " << (_cn18Pressed ? "눌림" : "해제됨");
     }
-
+#endif
 
 }
 void AVIATORInterface::_handle_mavlink_param_value(const mavlink_message_t& message)

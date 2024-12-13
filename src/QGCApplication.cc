@@ -102,6 +102,7 @@
 #include "QGCMAVLink.h"
 #include "VehicleLinkManager.h"
 #include "Autotune.h"
+#include "FlightZoneManager.h"
 
 #if defined(QGC_ENABLE_PAIRING)
 #include "PairingManager.h"
@@ -466,7 +467,7 @@ void QGCApplication::_initCommon()
 
     qmlRegisterUncreatableType<MissionController>       (kQGCControllers,                   1, 0, "MissionController",          kRefOnly);
     qmlRegisterUncreatableType<GeoFenceController>      (kQGCControllers,                   1, 0, "GeoFenceController",         kRefOnly);
-    qmlRegisterUncreatableType<RallyPointController>    (kQGCControllers,                   1, 0, "RallyPointController",       kRefOnly);
+    qmlRegisterUncreatableType<RallyPointController>    (kQGCControllers,                   1, 0, "RallyPointController",       kRefOnly);    
 
     qmlRegisterUncreatableType<MissionItem>         (kQGroundControl,                       1, 0, "MissionItem",                kRefOnly);
     qmlRegisterUncreatableType<VisualMissionItem>   (kQGroundControl,                       1, 0, "VisualMissionItem",          kRefOnly);
@@ -511,6 +512,8 @@ void QGCApplication::_initCommon()
     qmlRegisterType<SyslinkComponentController>     (kQGCControllers,                       1, 0, "SyslinkComponentController");
     qmlRegisterType<EditPositionDialogController>   (kQGCControllers,                       1, 0, "EditPositionDialogController");
     qmlRegisterType<RCToParamDialogController>      (kQGCControllers,                       1, 0, "RCToParamDialogController");
+
+    qmlRegisterType<FlightZoneManager>              (kQGCControllers,                       1, 0, "FlightZoneManager");
 
     qmlRegisterType<TerrainProfile>                 ("QGroundControl.Controls",             1, 0, "TerrainProfile");
     qmlRegisterType<ToolStripAction>                ("QGroundControl.Controls",             1, 0, "ToolStripAction");

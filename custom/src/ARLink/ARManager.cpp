@@ -1,4 +1,4 @@
-#include "ARManager.h"
+﻿#include "ARManager.h"
 #include "JsonHelper.h"
 #include <QQmlEngine>
 #include <QJsonDocument>

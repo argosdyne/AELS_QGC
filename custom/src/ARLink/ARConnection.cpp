@@ -1,4 +1,4 @@
-#include "ARConnection.h"
+﻿#include "ARConnection.h"
 #include <QNetworkProxy>
 #include <QtConcurrent>
 
@@ -54,8 +54,15 @@ void ARConnection::sendPayload(quint16 cmd, quint8* paylod, quint16 length)
 {
     if(!_isOpened) return;
     QByteArray data(length + 8, 0);
+#ifdef Q_OS_WIN64
+
+#pragma warning( disable : 4309 )
+#endif
     data[0] = AR_PREAMBLE1;
     data[1] = AR_PREAMBLE2;
+#ifdef Q_OS_WIN64
+#pragma warning( default : 4309 )
+#endif
     data[2] = static_cast<quint8>(cmd & 0xff);
     data[3] = static_cast<quint8>((cmd >> 8) & 0xff);
     data[4] = static_cast<quint8>(length & 0xff);
@@ -76,8 +83,14 @@ void ARConnection::sendPayloadToRemote(quint16 cmd, quint8* paylod, quint16 leng
 {
     if(_workFutrueWatcher.isRunning() || !_isConnected) return;
     QByteArray data(length + 8, 0);
+    #ifdef Q_OS_WIN64
+    #pragma warning( disable : 4309 )
+     #endif
     data[0] = AR_PREAMBLE1;
     data[1] = AR_PREAMBLE2;
+    #ifdef Q_OS_WIN64
+    #pragma warning( default : 4309 )
+     #endif
     data[2] = static_cast<quint8>(cmd & 0xff);
     data[3] = static_cast<quint8>((cmd >> 8) & 0xff);
     data[4] = static_cast<quint8>(length & 0xff);
@@ -297,7 +310,7 @@ void ARConnection::_enable()
 void ARConnection::_asyncConnect()
 {
     if(!_isOpened) {
-        qInfo() << "_asyncConnect" << _targetIP << _targetPort;
+        //qInfo() << "_asyncConnect" << _targetIP << _targetPort;
         connectToHost(QHostAddress(_targetIP), _targetPort);
     }
 }

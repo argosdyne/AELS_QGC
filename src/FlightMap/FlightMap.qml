@@ -22,6 +22,9 @@ import QGroundControl.MultiVehicleManager   1.0
 import QGroundControl.Vehicle               1.0
 import QGroundControl.QGCPositionManager    1.0
 
+import QGroundControl.Controllers           1.0
+import QGroundControl.FlightDisplay         1.0
+
 Map {
     id: _map
 
@@ -47,7 +50,7 @@ Map {
 
     property var    _activeVehicle:             QGroundControl.multiVehicleManager.activeVehicle
     property var    _activeVehicleCoordinate:   _activeVehicle ? _activeVehicle.coordinate : QtPositioning.coordinate()
-
+  
     function setVisibleRegion(region) {
         // TODO: Is this still necessary with Qt 5.11?
         // This works around a bug on Qt where if you set a visibleRegion and then the user moves or zooms the map
@@ -138,5 +141,13 @@ Map {
                 angle:          isNaN(gcsHeading) ? 0 : gcsHeading
             }
         }
+    }  
+
+    FlightZoneManagerGeoFenceMapVisuals {
+        map: _map
+        //planView: false
+        myGeoFenceController:   _flightzoneManager
+        homePosition:           _activeVehicle && _activeVehicle.homePosition.isValid ? _activeVehicle.homePosition :  QtPositioning.coordinate()
     }
+        
 } // Map

@@ -29,15 +29,17 @@ Item {
     property bool   planView:               false   ///< true: visuals showing in plan view
     property var    homePosition
 
-    property var    _breachReturnPointComponent
-    property var    _breachReturnDragComponent
+    //property var    _breachReturnPointComponent
+    //property var    _breachReturnDragComponent
     property var    _paramCircleFenceComponent
     property var    _polygons:                  myGeoFenceController.polygons
     property var    _circles:                   myGeoFenceController.circles
-    property color  _borderColor:               "orange"
+    //property color  _borderColor:               "orange"
+    property color _borderColor:                "Red"
     property int    _borderWidthInclusion:      2
     property int    _borderWidthExclusion:      0
-    property color  _interiorColorExclusion:    "orange"
+    //property color  _interiorColorExclusion:    "orange"
+    property color _interiorColorExclusion:     "blue"
     property color  _interiorColorInclusion:    "transparent"
     property real   _interiorOpacityExclusion:  0.2 * opacity
     property real   _interiorOpacityInclusion:  1 * opacity
@@ -76,16 +78,19 @@ Item {
     }
 
     Component.onCompleted: {
-        _breachReturnPointComponent = breachReturnPointComponent.createObject(map)
-        map.addMapItem(_breachReturnPointComponent)
-        _breachReturnDragComponent = breachReturnDragComponent.createObject(map, { "itemIndicator": _breachReturnPointComponent })
+        //_breachReturnPointComponent = breachReturnPointComponent.createObject(map)
+        //map.addMapItem(_breachReturnPointComponent)
+        //_breachReturnDragComponent = breachReturnDragComponent.createObject(map, { "itemIndicator": _breachReturnPointComponent })
         _paramCircleFenceComponent = paramCircleFenceComponent.createObject(map)
         map.addMapItem(_paramCircleFenceComponent)
+
+        console.log("GeoFenceMapVisuals Component.onCompleted");
+
     }
 
     Component.onDestruction: {
-        _breachReturnPointComponent.destroy()
-        _breachReturnDragComponent.destroy()
+        //_breachReturnPointComponent.destroy()
+        //_breachReturnDragComponent.destroy()
         _paramCircleFenceComponent.destroy()
     }
 
@@ -96,15 +101,21 @@ Item {
     Instantiator {
         model: _polygons
 
+        //Set All of polygons properties
         delegate : QGCMapPolygonVisuals {            
             parent:             _root
             mapControl:         map
             mapPolygon:         object
             borderWidth:        object.inclusion ? _borderWidthInclusion : _borderWidthExclusion
-            borderColor:        _borderColor
-            interiorColor:      object.inclusion ? _interiorColorInclusion : _interiorColorExclusion
-            interiorOpacity:    object.inclusion ? _interiorOpacityInclusion : _interiorOpacityExclusion
+            borderColor:        object.colorInclusion
+            interiorColor:      object.colorInclusion
+            interiorOpacity:    0.5//object.inclusion ? _interiorOpacityInclusion : _interiorOpacityExclusion
             interactive:        _root.interactive && mapPolygon && mapPolygon.interactive            
+
+            Component.onCompleted: {
+                console.log("QGCMapPolygonVisuals object inclusion = ", object.inclusion);
+                console.log("QGCMapPolygonVisuals = ", object.colorInclusion);
+            }
         }
     }
 
@@ -136,40 +147,9 @@ Item {
             radius:         _radius
             visible:        homePosition.isValid && _radius > 0
 
-            property real _radius: myGeoFenceController.paramCircularFence
+            property real _radius: 5//myGeoFenceController.paramCircularFence
 
             on_RadiusChanged: console.log("_radius", _radius, homePosition.isValid, homePosition)
-        }
-    }
-
-    Component {
-        id: breachReturnDragComponent
-
-        MissionItemIndicatorDrag {
-            mapControl:     map
-            itemCoordinate: myGeoFenceController.breachReturnPoint
-            visible:        _root.interactive
-
-            onItemCoordinateChanged: myGeoFenceController.breachReturnPoint = itemCoordinate
-        }
-    }
-
-
-    // Breach return point
-    Component {
-        id: breachReturnPointComponent
-
-        MapQuickItem {
-            anchorPoint.x:  sourceItem.anchorPointX
-            anchorPoint.y:  sourceItem.anchorPointY
-            z:              QGroundControl.zOrderMapItems
-            coordinate:     myGeoFenceController.breachReturnPoint
-            opacity:        _root.opacity
-
-            sourceItem: MissionItemIndexLabel {
-                label:      qsTr("B", "Breach Return Point item indicator")
-                checked:    true
-            }
         }
     }
 }

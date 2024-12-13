@@ -57,7 +57,7 @@ FlightMap {
     property bool   _disableVehicleTracking:    false
     property bool   _keepVehicleCentered:       pipMode ? true : false
     property bool   _saveZoomLevelSetting:      true
-
+    
     function updateAirspace(reset) {
         if(_airspaceEnabled) {
             var coordinateNW = _root.toCoordinate(Qt.point(0,0), false /* clipToViewPort */)
@@ -590,6 +590,5 @@ FlightMap {
         visible:            !ScreenTools.isTinyScreen && QGroundControl.corePlugin.options.flyView.showMapScale && mapControl.pipState.state === mapControl.pipState.windowState
 
         property real centerInset: visible ? parent.height - y : 0
-    }
-
+    }        
 }

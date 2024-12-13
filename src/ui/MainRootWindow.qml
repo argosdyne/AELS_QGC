@@ -20,6 +20,8 @@ import QGroundControl.ScreenTools   1.0
 import QGroundControl.FlightDisplay 1.0
 import QGroundControl.FlightMap     1.0
 
+import QGroundControl.Controllers           1.0
+
 /// @brief Native QML top level window
 /// All properties defined here are visible to all QML pages.
 ApplicationWindow {
@@ -482,7 +484,16 @@ ApplicationWindow {
     PlanView {
         id:             planView
         anchors.fill:   parent
-        visible:        false
+        visible:        false        
+    }
+
+    //Draw Geoawareness Lines
+    FlightZoneManager {
+        id: _flightzoneManager
+
+        Component.onCompleted: {
+            _flightzoneManager._init()
+        }
     }
 
     Drawer {
