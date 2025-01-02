@@ -18,6 +18,7 @@ class FlightZoneManager : public QObject
 public:
     FlightZoneManager();
 
+    void testPolyhedronDistance();
 
     Q_PROPERTY(QmlObjectListModel*  polygons                READ polygons                                           CONSTANT)
     Q_PROPERTY(QmlObjectListModel*  circles                 READ circles                                            CONSTANT)

@@ -22,6 +22,23 @@
 #include "SettingsManager.h"
 #include "AppSettings.h"
 
+#include <CGAL/Simple_cartesian.h>
+#include <CGAL/Polyhedron_3.h>
+#include <CGAL/AABB_tree.h>
+#include <CGAL/AABB_traits.h>
+#include <CGAL/AABB_face_graph_triangle_primitive.h>
+#include <iostream>
+#include <fstream>
+#include <cmath>
+#include <QDir>
+
+typedef CGAL::Simple_cartesian<double> Kernel;
+typedef Kernel::Point_3 Point_3;
+typedef CGAL::Polyhedron_3<Kernel> Polyhedron;
+typedef CGAL::AABB_face_graph_triangle_primitive<Polyhedron> Primitive;
+typedef CGAL::AABB_traits<Kernel, Primitive> AABB_traits;
+typedef CGAL::AABB_tree<AABB_traits> AABB_tree;
+
 FlightZoneManager::FlightZoneManager()
 {
     // qInfo() << "FlightZoneManager Start";
@@ -29,9 +46,49 @@ FlightZoneManager::FlightZoneManager()
     //
     connect(&_timer, &QTimer::timeout, this, &FlightZoneManager::updatePolygonVisibility);
     _timer.start(1000);
+    testPolyhedronDistance();
 }
 
+void FlightZoneManager::testPolyhedronDistance() {
+    // Load polyhedron data from an OFF file
+    Polyhedron P;
+    //    std::ifstream input("circle.off");
+    qDebug() << "Current Working Directory:" << QDir::currentPath();
+    std::ifstream input("D:/models/28_AlesQGC/6_enpulse/AELS_QGC/circle.off");
+    if (!input) {
+        qDebug() << "Unable to open file! Please check the file path.";
+        return;
+    }
+    qDebug() << "OFF file opened successfully!";
 
+    // Read the polyhedron
+    input >> P;
+    if (input.fail()) {
+        qDebug() << "Error reading the polyhedron from the file!";
+        return;
+    }
+    qDebug() << "Polyhedron loaded successfully!";
+
+    // Validate the polyhedron
+    if (!P.is_valid()) {
+        qDebug() << "Error: The polyhedron is not valid!";
+        return;
+    }
+
+    // Build AABB tree
+    AABB_tree tree(faces(P).first, faces(P).second, P);
+    tree.accelerate_distance_queries();
+    qDebug() << "AABB tree built successfully!";
+
+    // Query point
+    Point_3 query(8.5, 10, 0.2);
+    qDebug() << "Query point:" << query.x() << query.y() << query.z();
+
+    // Calculate distance
+    double distance = std::sqrt(tree.squared_distance(query));
+    qDebug() << "Shortest distance from point (" << query.x() << "," << query.y() << "," << query.z()
+             << ") to the polyhedron is:" << distance;
+}
 
 QString getExternalStoragePath() {
     // Get the directory for storing external files.

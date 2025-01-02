@@ -1061,6 +1061,15 @@ INCLUDEPATH += \
     src/AutoPilotPlugins/Common \
     src/FirmwarePlugin \
     src/VehicleSetup \
+    src/CGAL/include
+
+LIBS += -L$$PWD/src/CGAL/lib/mpfr.lib \
+    -L$$PWD/src/CGAL/lib/gmp.lib \
+    -L$$PWD/src/CGAL/lib/zlib.lib \
+    -L$$PWD/src/CGAL/lib/GLU32.lib \
+    -L$$PWD/src/CGAL/lib/glew32.lib \
+    -L$$PWD/src/CGAL/lib/OpenGL32.lib
+
 
 HEADERS+= \
     src/AutoPilotPlugins/AutoPilotPlugin.h \
