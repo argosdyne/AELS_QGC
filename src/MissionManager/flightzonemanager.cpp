@@ -49,30 +49,41 @@ FlightZoneManager::FlightZoneManager()
     testPolyhedronDistance();
 }
 
+// Function to convert latitude, longitude, altitude to Cartesian coordinates
+Point_3 latLonAltToCartesian(double lat, double lon, double alt) {
+    // Earth's radius in meters
+    const double R = 6371000.0;
+
+    // Convert latitude and longitude from degrees to radians
+    double latRad = lat * M_PI / 180.0;
+    double lonRad = lon * M_PI / 180.0;
+
+    // Cartesian coordinates
+    double x = (R + alt) * std::cos(latRad) * std::cos(lonRad);
+    double y = (R + alt) * std::cos(latRad) * std::sin(lonRad);
+    double z = (R + alt) * std::sin(latRad);
+
+    return Point_3(x, y, z);
+}
+
 void FlightZoneManager::testPolyhedronDistance() {
-    // Load polyhedron data from an OFF file
+
+    // Define vertices (arbitrary number)
+    std::vector<Point_3> vertices;
+    //vertices.push_back(latLonAltToCartesian(37.347564, 126.719884, 20.0));
+    vertices.push_back(latLonAltToCartesian(37.347914, 126.719012, 20.0));
+    //vertices.push_back(latLonAltToCartesian(37.347162, 126.719104, 20.0));
+    vertices.push_back(latLonAltToCartesian(37.347546, 126.718293, 20.0));
+    vertices.push_back(latLonAltToCartesian(37.348000, 126.718500, 20.0));
+    vertices.push_back(latLonAltToCartesian(37.347800, 126.719200, 20.0));
+    // Add more vertices as needed...
+
+    // Create the polyhedron (e.g., a triangular prism)
     Polyhedron P;
-    //    std::ifstream input("circle.off");
-    qDebug() << "Current Working Directory:" << QDir::currentPath();
-    std::ifstream input("D:/models/28_AlesQGC/6_enpulse/AELS_QGC/circle.off");
-    if (!input) {
-        qDebug() << "Unable to open file! Please check the file path.";
-        return;
-    }
-    qDebug() << "OFF file opened successfully!";
 
-    // Read the polyhedron
-    input >> P;
-    if (input.fail()) {
-        qDebug() << "Error reading the polyhedron from the file!";
-        return;
-    }
-    qDebug() << "Polyhedron loaded successfully!";
-
-    // Validate the polyhedron
-    if (!P.is_valid()) {
-        qDebug() << "Error: The polyhedron is not valid!";
-        return;
+    // Connect base vertices (e.g., a quadrilateral base with triangles)
+    for (size_t i = 0; i < vertices.size() - 2; ++i) {
+        P.make_triangle(vertices[0], vertices[i + 1], vertices[i + 2]);  // base triangle faces
     }
 
     // Build AABB tree
@@ -81,13 +92,22 @@ void FlightZoneManager::testPolyhedronDistance() {
     qDebug() << "AABB tree built successfully!";
 
     // Query point
-    Point_3 query(8.5, 10, 0.2);
-    qDebug() << "Query point:" << query.x() << query.y() << query.z();
+    //Lat, lng, Alt
+    //Point_3에서 사용하는 값들은 위경고도값이 아닌 x,y,z느낌으로 바꿔줘야되는 듯함
 
-    // Calculate distance
-    double distance = std::sqrt(tree.squared_distance(query));
-    qDebug() << "Shortest distance from point (" << query.x() << "," << query.y() << "," << query.z()
-             << ") to the polyhedron is:" << distance;
+    // Drone's position (lat/lon/alt) for example
+    double droneLat = 37.346608;  // Drone's latitude
+    double droneLon = 126.720336; // Drone's longitude
+    double droneAlt = 20.0;  // Drone's altitude
+
+    // Convert drone's position to Cartesian coordinates
+    Point_3 dronePosition = latLonAltToCartesian(droneLat, droneLon, droneAlt);
+    std::cout << "Drone position in Cartesian coordinates: "
+              << droneLat << ", " << droneLon << ", " << droneAlt << std::endl;
+
+    // Query the distance between the drone's position and the polyhedron
+    double distance = std::sqrt(tree.squared_distance(dronePosition)); // distance in meters
+    std::cout << "Shortest distance from the drone to the polyhedron is: " << distance << " meters" << std::endl;
 }
 
 QString getExternalStoragePath() {

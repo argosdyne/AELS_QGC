@@ -1,4 +1,4 @@
-/*
+﻿/*
  skipping coefficients for N=17
  three-parameter generator
  

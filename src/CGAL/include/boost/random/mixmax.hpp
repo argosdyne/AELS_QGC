@@ -1,4 +1,4 @@
-/* boost random/mixmax.hpp header file
+﻿/* boost random/mixmax.hpp header file
  *
  * Copyright Kostas Savvidis 2008-2019
  *
