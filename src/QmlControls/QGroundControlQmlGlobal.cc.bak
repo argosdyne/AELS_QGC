@@ -35,7 +35,7 @@ QGroundControlQmlGlobal::QGroundControlQmlGlobal(QGCApplication* app, QGCToolbox
     settings.beginGroup(_flightMapPositionSettingsGroup);
     _coord.setLatitude(settings.value(_flightMapPositionLatitudeSettingsKey,    _coord.latitude()).toDouble());
     _coord.setLongitude(settings.value(_flightMapPositionLongitudeSettingsKey,  _coord.longitude()).toDouble());
-    _zoom = settings.value(_flightMapZoomSettingsKey, _zoom).toDouble();  
+    _zoom = settings.value(_flightMapZoomSettingsKey, _zoom).toDouble();
 }
 
 QGroundControlQmlGlobal::~QGroundControlQmlGlobal()

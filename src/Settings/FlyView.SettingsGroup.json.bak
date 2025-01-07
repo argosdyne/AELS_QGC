@@ -66,28 +66,6 @@
     "units":            "m",
     "default":     1000,
     "min":              1
-},
-{
-    "name": "alarmDistance",
-    "shortDesc": "GeoAwareness alarm distance",
-    "type": "double",
-    "units": "m",
-    "default": 10,
-    "min": 1
-},
-{
-    "name": "dataType",
-    "shortDesc": "Select GeoAwareness data type",
-    "type": "uint32",
-    "enumStrings": "USB,Online",
-    "default": 0,
-    "enumValues": "0,1"
-},
-{
-    "name": "filePath",
-    "shortDesc": "GeoAwareness file Path",
-    "type": "string",
-    "default": "Default"
 }
 ]
 }

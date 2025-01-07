@@ -232,7 +232,7 @@ public:
 #endif
 
     // Overrides from QGCTool
-    virtual void setToolbox(QGCToolbox* toolbox);    
+    virtual void setToolbox(QGCToolbox* toolbox);
 
 signals:
     void isMultiplexingEnabledChanged   (bool enabled);

@@ -26,14 +26,11 @@ Item {
 
     function openForLoad() {
         _openForLoad = true
-
-
-        androidFileDialog.open()
-        // if (_mobileDlg && folder.length !== 0) {
-        //     mainWindow.showComponentDialog(mobileFileOpenDialog, title, mainWindow.showDialogDefaultWidth, StandardButton.Cancel)
-        // } else {
-        //     fullFileDialog.open()
-        // }
+        if (_mobileDlg && folder.length !== 0) {
+            mainWindow.showComponentDialog(mobileFileOpenDialog, title, mainWindow.showDialogDefaultWidth, StandardButton.Cancel)
+        } else {
+            fullFileDialog.open()
+        }
     }
 
     function openForSave() {
@@ -107,41 +104,6 @@ Item {
             }
         }
         onRejected: _root.rejected()
-    }
-
-    //안드로이드용
-    FileDialog {
-            id: androidFileDialog
-            title:  _root.title
-            folder: Qt.platform.os === "android" ? "/storage/emulated/0/" : "file:///"
-            nameFilters: _root.nameFilters ? _root.nameFilters : []
-            selectExisting: true
-            selectMultiple: false
-            selectFolder: false
-
-            // 파일 선택 완료 시 호출
-            onAccepted: {
-                if (_openForLoad) {
-                    _root.acceptedForLoad(controller.urlToLocalFile(fileUrl))
-                } else {
-                    _root.acceptedForSave(controller.urlToLocalFile(fileUrl))
-                }
-            }
-
-            // 파일 선택 취소 시 호출
-            onRejected: {
-                console.log("File selection cancelled.")
-                _root.rejected()
-            }
-        }
-
-    // content:// URI를 파일 경로로 변환 (모의 변환)
-    function convertContentUriToPath(contentUri) {
-        if (contentUri.startsWith("content://")) {
-            // 간단한 변환 시뮬레이션 (실제 변환은 네이티브 필요)
-            return contentUri.replace("content://com.android.providers.downloads.documents/document/", "/storage/emulated/0/Download/")
-        }
-        return contentUri
     }
 
     Component {

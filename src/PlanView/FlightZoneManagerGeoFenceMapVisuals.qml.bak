@@ -100,8 +100,6 @@ Item {
     // Hence Qt folks are going to care. In order to workaround you have to parent the item to _root Item instead.
     Instantiator {
         model: _polygons
-        asynchronous : true
-
 
         //Set All of polygons properties
         delegate : QGCMapPolygonVisuals {            
@@ -123,7 +121,6 @@ Item {
 
     Instantiator {
         model: _circles
-        asynchronous : true
 
         delegate : QGCMapCircleVisuals {
             parent:             _root

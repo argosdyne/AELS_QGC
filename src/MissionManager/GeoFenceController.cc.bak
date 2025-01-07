@@ -73,7 +73,7 @@ void GeoFenceController::start(bool flyView)
     qCDebug(GeoFenceControllerLog) << "start flyView" << flyView;
 
     _managerVehicleChanged(_masterController->managerVehicle());
-    connect(_masterController, &PlanMasterController::managerVehicleChanged, this, &GeoFenceController::_managerVehicleChanged);    
+    connect(_masterController, &PlanMasterController::managerVehicleChanged, this, &GeoFenceController::_managerVehicleChanged);
 
     PlanElementController::start(flyView);
     _init();

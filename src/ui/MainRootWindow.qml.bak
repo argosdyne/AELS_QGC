@@ -491,7 +491,8 @@ ApplicationWindow {
     FlightZoneManager {
         id: _flightzoneManager
 
-        Component.onCompleted: {            
+        Component.onCompleted: {
+            _flightzoneManager._init()
         }
     }
 
