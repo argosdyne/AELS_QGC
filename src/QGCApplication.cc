@@ -744,6 +744,38 @@ void QGCApplication::showCriticalVehicleMessage(const QString& message)
     }
 }
 
+void QGCApplication::closeCriticalVehicleMessage() {
+    QObject* rootQmlObject = _rootQmlObject();
+    if(rootQmlObject){
+        QVariant varReturn;
+        QMetaObject::invokeMethod(_rootQmlObject(), "closeCriticalVehicleMessage");
+    }
+}
+
+void QGCApplication::showGeoAwarenessAlertMessage(const QString& message, const qint64& index){
+    QObject* rootQmlObject = _rootQmlObject();
+    if(rootQmlObject){
+        QVariant varReturn;
+        QVariant varMessage = QVariant::fromValue(message);
+        QVariant varIndex = QVariant::fromValue(index);
+        QMetaObject::invokeMethod(_rootQmlObject(), "showGeoAwarenessAlertMessage", Q_RETURN_ARG(QVariant, varReturn), Q_ARG(QVariant, varMessage), Q_ARG(QVariant, varIndex));
+    } else if( runningUnitTests()){
+        qDebug() << "QGCApplication showGeoWarenessAlertMessage unittest" << message;
+    } else {
+        qWarning() << "show GeoAwareness Alert Message Error";
+    }
+}
+
+void QGCApplication::closeGeoAwarenessAlertMessage(const qint64& index) {
+    QObject* rootQmlObject = _rootQmlObject();
+    if(rootQmlObject){
+        QVariant varReturn;
+        QVariant varIndex = QVariant::fromValue(index);
+        QMetaObject::invokeMethod(_rootQmlObject(), "closeGeoAwarenessAlertMessage", Q_RETURN_ARG(QVariant, varReturn),Q_ARG(QVariant, varIndex));
+    }
+}
+
+
 void QGCApplication::showAppMessage(const QString& message, const QString& title)
 {
     QString dialogTitle = title.isEmpty() ? applicationName() : title;

@@ -111,7 +111,7 @@ Item {
             borderWidth:        object.inclusion ? _borderWidthInclusion : _borderWidthExclusion
             borderColor:        object.colorInclusion
             interiorColor:      object.colorInclusion
-            interiorOpacity:    0.5//object.inclusion ? _interiorOpacityInclusion : _interiorOpacityExclusion
+            interiorOpacity:    object.strokeOpacity //0.5//object.inclusion ? _interiorOpacityInclusion : _interiorOpacityExclusion
             interactive:        _root.interactive && mapPolygon && mapPolygon.interactive            
 
             Component.onCompleted: {

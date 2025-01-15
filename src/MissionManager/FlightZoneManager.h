@@ -3,15 +3,16 @@
 
 #include <QObject>
 #include "GeoFenceManager.h"
-#include "Vehicle.h"
+//#include "Vehicle.h"
 #include <QSet>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QJsonDocument>
 #include "SettingsManager.h"
 #include "QGroundControlQmlGlobal.h"
-
-
+//#include "MultiVehicleManager.h"
+#include "PositionManager.h"
+#include "ADSBVehicle.h"
 
 class GeoFenceManager;
 
@@ -44,30 +45,30 @@ public:
     void removeAll();
     // Test
 
-    void fetchGeoJsonData();
+
     void processJsonFile(QJsonDocument jsonDoc);
     void fetchGeoJsonDataForRegion(double n, double e, double s, double w);
-    void fetchGeoJsonForCzechRepublic();
-    void test();
-    void getOnlineGeoJsonData();
-    void fetchGeoJsonDataForRegion();
-    void calculateCornerCoordinates(double centerLat, double centerLon, double zoomLevel, double width, double height);
-    void processPolygons(const QmlObjectListModel& polygons);
 
+    void getOnlineGeoJsonData();    
+    void calculateCornerCoordinates(double centerLat, double centerLon, double zoomLevel, double width, double height);
+
+    void checkDistanceDroneAndGeoAwareness();
 signals:
-    void textChanged();
+
 
 
 private slots:
     //Test
     void onReplyFinished(QNetworkReply *reply);
+    void getDroneLocation();
 
 
 public slots:
 
 
 private:
-    Vehicle*            _managerVehicle =               nullptr;
+    //Vehicle*            _managerVehicle; //=               nullptr;
+    ADSBVehicle* adsbVehicle;
     GeoFenceManager*    _geoFenceManager =              nullptr;
     bool                _dirty =                        false;
     QmlObjectListModel  _polygons;
@@ -77,10 +78,13 @@ private:
     QSet<int> _addedPolygonIndices;
 
 
+    //Timer
 
     QTimer _timer;
 
     QTimer _zoomTimer;
+
+    QTimer _distanceTimer;
 
     //Test
     QNetworkAccessManager *manager;
@@ -92,6 +96,9 @@ private:
     QMetaObject::Connection connection;
     //TEst
     double zoomLevel;
+
+    //MultiVehicleManager* multiVehicleManager;
+    QGCPositionManager* qgcpositionManager;
 };
 
 class FlightValidTime {
@@ -115,5 +122,22 @@ public:
         return this->name == other.name;
     }
 };
+
+class NoFlyZone {
+public:
+    QGeoCoordinate coordinate;
+    double altitudeFloor; //bottom of no fly zone
+    double altitudeCeiling; // top of no fly zone
+
+    NoFlyZone(const QGeoCoordinate& coord, double floor, double ceiling)
+        : coordinate(coord), altitudeFloor(floor), altitudeCeiling(ceiling) {}
+
+    bool operator==(const NoFlyZone& other) const {
+        return coordinate == other.coordinate &&
+               altitudeFloor == other.altitudeFloor &&
+               altitudeCeiling == other.altitudeCeiling;
+    }
+};
+
 
 #endif // FLIGHTZONEMANAGER_H
