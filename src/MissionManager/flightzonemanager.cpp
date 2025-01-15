@@ -189,65 +189,62 @@ void FlightZoneManager::testPolyhedronDistance() {
 
 void FlightZoneManager::checkDistanceDroneAndGeoAwareness(){
 
-    if(allNoFlyZones.count() > 0) {
-        for(int i = 0; i < allNoFlyZones.count(); i++) {
-            qInfo() << "Group : " << i + 1;
-            for(const NoFlyZone& zone: allNoFlyZones[i]){
-                qInfo() << "  Coordinate:" << zone.coordinate.latitude() << zone.coordinate.longitude()
-                << "Altitude Range:" << zone.altitudeFloor << "-" << zone.altitudeCeiling;
-
-            }
-        }
-    }
-
-#if false
-    //Get setting distance
+#if true
     double alarmDistance = _settingsManager->flyViewSettings()->alarmDistance()->rawValue().toDouble();
-    if(_polygons.count() > 0){
-        for(int i = 0; i < _polygons.count(); i++){
-            std::vector<Point_3> vertices;
-            Polyhedron P;
-            qInfo() << "_polygons current number : " << i;
-            QGCFencePolygon* polygon = qobject_cast<QGCFencePolygon*>(_polygons.get(i));
+    MultiVehicleManager* manager = qgcApp()->toolbox()->multiVehicleManager();
+    if(manager){
+        if(manager->activeVehicle()){
+            if(allNoFlyZones.count() > 0) {
+                for(int i = 0; i < allNoFlyZones.count(); i++) {
+                    qInfo() << "Group : " << i + 1;
+                    std::vector<Point_3> baseVertices; // Bottom
+                    std::vector<Point_3> topVertices; //Top
+                    Polyhedron P;
 
-            if(polygon){
-                qInfo() << "QGCFencePolygon's member variable : " << polygon->path();
+                    for(const NoFlyZone& zone: allNoFlyZones[i]){
+                        qInfo() << "  Coordinate:" << zone.coordinate.latitude() << zone.coordinate.longitude()
+                        << "Altitude Range:" << zone.altitudeFloor << "-" << zone.altitudeCeiling;
+                        double lat = zone.coordinate.latitude();
+                        double lon = zone.coordinate.longitude();
+                        double floor = zone.altitudeFloor;
+                        double ceiling = zone.altitudeCeiling;
 
-                for(const QVariant& path: polygon->path()){
-                    QGeoCoordinate coordinate  = path.value<QGeoCoordinate>();
-                    qInfo() << "Latitude:" << coordinate.latitude() << "Longitude:" << coordinate.longitude() << "Altitude:" << coordinate.altitude();                    
-
-                    vertices.push_back(latLonAltToCartesian(coordinate.latitude(), coordinate.longitude(), coordinate.altitude()));
-                    // 여기서 내가 따로 만든 리스트의 위치 정보와 비교를 하게 해야할듯함.
-                    for(const NoFlyZone& zone : noFlyZones) {
-                        if(zone.coordinate.latitude() == coordinate.latitude() && zone.coordinate.longitude() == coordinate.longitude()){
-                            qInfo() << "Same lat&lon floor : " << zone.altitudeFloor << " , " << "Same lat&lon ceiling : " << zone.altitudeCeiling;
+                        if(floor == 0 && ceiling == 0) {
+                            floor = 0;
+                            ceiling = 100000;
                         }
+
+                        baseVertices.push_back(latLonAltToCartesian(lat,lon,floor));
+
+                        topVertices.push_back(latLonAltToCartesian(lat,lon,ceiling));
                     }
-                }
-            }
 
-            if(vertices.size() > 0) {
+                    if(baseVertices.size() > 0 && topVertices.size() > 0) {
+                        // Create bottom face (base polygon)
+                        for (size_t i = 0; i < baseVertices.size() - 2; ++i) {
+                            P.make_triangle(baseVertices[0], baseVertices[i + 1], baseVertices[i + 2]);
+                        }
 
-                // Connect base vertices (e.g., a quadrilateral base with triangles)
-                for (size_t i = 0; i < vertices.size() - 2; ++i) {
-                    P.make_triangle(vertices[0], vertices[i + 1], vertices[i + 2]);  // base triangle faces
-                }
+                        // Create top face (top polygon)
+                        for (size_t i = 0; i < topVertices.size() - 2; ++i) {
+                            P.make_triangle(topVertices[0], topVertices[i + 1], topVertices[i + 2]);
+                        }
 
-                // Build AABB tree
-                AABB_tree tree(faces(P).first, faces(P).second, P);
-                tree.accelerate_distance_queries();
+                        // Create side faces (connect base and top vertices)
+                        for (size_t i = 0; i < baseVertices.size(); ++i) {
+                            size_t next = (i + 1) % baseVertices.size(); // Wrap around to the first vertex
+                            P.make_triangle(baseVertices[i], baseVertices[next], topVertices[i]); // Side triangle 1
+                            P.make_triangle(baseVertices[next], topVertices[next], topVertices[i]); // Side triangle 2
+                        }
 
-                // Drone's position (lat/lon/alt) for example
-                double droneLat = 37.346608;  // Drone's latitude
-                double droneLon = 126.720336; // Drone's longitude
-                double droneAlt = 20.0;  // Drone's altitude
+                        AABB_tree tree(faces(P).first, faces(P).second, P);
+                        tree.accelerate_distance_queries();
 
+                        // Drone's position (lat/lon/alt) for example
+                        double droneLat = 0.0;  // Drone's latitude
+                        double droneLon = 0.0; // Drone's longitude
+                        double droneAlt = 0.0;  // Drone's altitude
 
-                MultiVehicleManager* manager = qgcApp()->toolbox()->multiVehicleManager();
-                if(manager){
-//                    qInfo() << "manager is not null";
-                    if(manager->activeVehicle()){
                         droneLat = manager->activeVehicle()->latitude();
                         droneLon = manager->activeVehicle()->longitude();
                         droneAlt = manager->activeVehicle()->altitudeAMSL()->rawValue().toDouble();
@@ -258,43 +255,33 @@ void FlightZoneManager::checkDistanceDroneAndGeoAwareness(){
                             droneLon = 0.0;
                             droneAlt = 0.0;
                         }
+
+                        // 등록한 드론의 위치를 가져와야함
+
+                        // Convert drone's position to Cartesian coordinates
+                        Point_3 dronePosition = latLonAltToCartesian(droneLat, droneLon, droneAlt);
+
+                        // Query the distance between the drone's position and the polyhedron
+                        double distance = std::sqrt(tree.squared_distance(dronePosition)); // distance in meters
+                        std::cout << "Shortest distance from the drone to the polyhedron is: " << distance << " meters" << std::endl;
+
+                        if(distance <= alarmDistance) // 지정한 거리값 안에 들어오면 알람을 띄워야됨
+                        {
+                            qInfo() << "Inside Index = " << i;
+                            QString msg = tr("The distance between the aircraft and GeoAwareness is close. Distance : %1M").arg(distance);
+                            //qgcApp()->showAppMessage(msg);
+                            qgcApp()->showGeoAwarenessAlertMessage(msg, i);
+                        }
+                        else {
+                            qInfo() << "FlightZoneManager Close AlertMessage Popup Index = " << i;
+                            qgcApp()->closeGeoAwarenessAlertMessage(i);
+                        }
                     }
-                }
-
-                // 등록한 드론의 위치를 가져와야함
-
-                // Convert drone's position to Cartesian coordinates
-                Point_3 dronePosition = latLonAltToCartesian(droneLat, droneLon, droneAlt);
-
-                // Query the distance between the drone's position and the polyhedron
-                double distance = std::sqrt(tree.squared_distance(dronePosition)); // distance in meters
-                std::cout << "Shortest distance from the drone to the polyhedron is: " << distance << " meters" << std::endl;
-
-
-                // 그런데 지금 코드는 완전 꼭짓점과 꼭짓점의 거리만 비교하는게 아닌가?
-                // 면의 거리도 비교를 해야할꺼 같음.
-                if(distance <= alarmDistance) // 지정한 거리값 안에 들어오면 알람을 띄워야됨
-                {
-                    qInfo() << "Inside Index = " << i;
-                    QString msg = tr("The distance between the aircraft and GeoAwareness is close. Distance : %1M").arg(distance);
-                    //qgcApp()->showAppMessage(msg);
-                    qgcApp()->showGeoAwarenessAlertMessage(msg, i);
-
-
-                    //UI를 보여줄 조건도 필요함
-                    //조건이 떴을때 딱 한번만 실행시키는지?
-                }
-                else {
-                    // 창닫기
-                    // UI를 지울 때 관계 없는 인덱스가 지워버리는데 이거는 어떻게 해야할지?
-                    qInfo() << "FlightZoneManager Close AlertMessage Popup Index = " << i;
-                    qgcApp()->closeGeoAwarenessAlertMessage(i);
                 }
             }
         }
     }
 #endif
-
 }
 
 
