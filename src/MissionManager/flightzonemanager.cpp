@@ -343,13 +343,16 @@ void FlightZoneManager::removeAll(void)
 }
 
 void FlightZoneManager::updateGeoAwareness(){
-    if(_polygons.count() > 0) {
-        removeAll();
-        qInfo() << "updateGeoAwareness";
-        _init();
+    QString dataType = _settingsManager->flyViewSettings()->dataType()->rawValueString();
+    // Only for online
+    if(dataType == "1"){
+        if(_polygons.count() > 0) {
+            removeAll();
+            qInfo() << "updateGeoAwareness";
+            _init();
+        }
     }
 }
-
 void FlightZoneManager::checkCurrentZoomValue() {
 
     double zoom = qGroundControlQmlGlobal->flightMapZoom();
@@ -438,35 +441,41 @@ void FlightZoneManager::updatePolygonVisibility() {
     // 현재 시간
     QDateTime currentTime = QDateTime::currentDateTime();
 
-    for(int i = 0; i < validTimeList.size(); ++i){
-        auto& timeData = validTimeList[i];
+    QString dataType = _settingsManager->flyViewSettings()->dataType()->rawValueString();
 
-        QDateTime validFrom = timeData.validFrom;
-        QDateTime validTo = timeData.validTo;
-        //qInfo() << timeData.polygonid;
-        //qInfo() << "currentTime : " << currentTime <<"validFrom : " << validFrom << "validTo : " << validTo;
+    //USB일때만 동작하도록.
+    if(dataType == "0"){
+        for(int i = 0; i < validTimeList.size(); ++i){
+            auto& timeData = validTimeList[i];
 
-        // 유효기간을 넘었으면 Polygon 삭제
-        // 아직 보여주는 시간이 안되었어도 Polygon 삭제
-        if(currentTime > validTo) {
-            qInfo() << "Delete Index : " << i;
-            deletePolygon(i);
-            validTimeList.removeAt(i);
-            --i;
-            timeData.isCreated = false;
-            continue;
-        }
+            QDateTime validFrom = timeData.validFrom;
+            QDateTime validTo = timeData.validTo;
+            //qInfo() << timeData.polygonid;
+            //qInfo() << "currentTime : " << currentTime <<"validFrom : " << validFrom << "validTo : " << validTo;
 
-        //현재 시간이 validFrom에 해당하면 생성
-        if (!timeData.isCreated && currentTime >= validFrom && currentTime <= validTo) {
-            qInfo() << "Create Polygon for ID: " << timeData.polygonid;
-            qInfo() << "시간 지남 index : " << i ;
-            //Delete All
-            removeAll();
-            // AddNew
-            processJsonFile(getFilePath());
+            // 유효기간을 넘었으면 Polygon 삭제
+            // 아직 보여주는 시간이 안되었어도 Polygon 삭제
+            if(currentTime > validTo) {
+                qInfo() << "Delete Index : " << i;
+                deletePolygon(i);
+                validTimeList.removeAt(i);
+                --i;
+                timeData.isCreated = false;
+                qInfo() << "After Delete Polygon count: " << _polygons.count();
+                continue;
+            }
 
-            timeData.isCreated = true; // 생성 완료 상태 설정
+            //현재 시간이 validFrom에 해당하면 생성
+            if (!timeData.isCreated && currentTime >= validFrom && currentTime <= validTo) {
+                qInfo() << "Create Polygon for ID: " << timeData.polygonid;
+                qInfo() << "시간 지남 index : " << i ;
+                //Delete All
+                removeAll();
+                // AddNew
+                processJsonFile(getFilePath());
+
+                timeData.isCreated = true; // 생성 완료 상태 설정
+            }
         }
     }
 }
@@ -542,62 +551,60 @@ void FlightZoneManager::processJsonFile(const QString& filePath) {
 
                 QGeoCoordinate coordinate(lat, lon);
 
+                if(validFrom != "" && validTo != ""){
+                    polygon->appendVertex(coordinate);
+                    noFlyZone.append(NoFlyZone(QGeoCoordinate(lat, lon), altitudeFloor, altitudeCeiling));
 
-                polygon->appendVertex(coordinate);
-                noFlyZone.append(NoFlyZone(QGeoCoordinate(lat, lon), altitudeFloor, altitudeCeiling));
-
-                qInfo() << "polygon count = " << polygon->count();
+                    qInfo() << "polygon count = " << polygon->count();
+                }
             }
         }
 
+        if(validFrom != "" && validTo != "") {
 
-        // Set polygon color based on zone type
-        if (zoneType == "Excluded") {
-            polygon->setcolorInclusion("red");
-        } else if (zoneType == "Restricted") {
-            polygon->setcolorInclusion("yellow");
-        } else if(zoneType == "Facilitated"){
-            polygon->setcolorInclusion("green");
-        } else {
-            polygon->setcolorInclusion("blue"); // Default color
+
+
+            // Set polygon color based on zone type
+            if (zoneType == "Excluded") {
+                polygon->setcolorInclusion("red");
+            } else if (zoneType == "Restricted") {
+                polygon->setcolorInclusion("yellow");
+            } else if(zoneType == "Facilitated"){
+                polygon->setcolorInclusion("green");
+            } else {
+                polygon->setcolorInclusion("blue"); // Default color
+            }
+
+            polygon->setstrokeOpacity(0.5);
+
+            // validFrom 시간과 현재 시간을 비교
+            if (currentTime < validFromDateTime) {
+                qInfo() << "Polygon is not yet valid. Skipping. validFromDateTime : " << validFromDateTime << "," << validToDateTime;
+                validTimeList.append(FlightValidTime(polygonid, validFromDateTime, validToDateTime, false));
+                continue; // 유효하지 않으면 건너뛴다.
+            }
+            else {
+                qInfo() << "Polygon valid. Skipping. validToDateTime" << validFromDateTime << "," << validToDateTime;
+                validTimeList.append(FlightValidTime(polygonid, validFromDateTime, validToDateTime, true));
+            }
+            // if(currentTime > validToDateTime) // 현재시간이 목표시간을 넘으면 표시를 해줄 이유가 없으므로.
+            // {
+            //     qInfo() << "Polygon is not yet valid. Skipping.";
+            //     continue;
+            // }
+
+
+            // Add the completed polygon to the polygons list
+            if(!_polygons.contains(polygon)){
+                _polygons.append(polygon);
+            }
+
+            if(!allNoFlyZones.contains(noFlyZone)){
+                allNoFlyZones.append(noFlyZone);
+            }
         }
-
-        polygon->setstrokeOpacity(0.5);
-
-
-        //usb도 파일을 일정주기로 업데이트하는거로? -> 온라인하고 통일하는게 좋을듯함.
-
-        // validFrom 시간과 현재 시간을 비교
-        // if (currentTime > validToDateTime) {
-        //     qInfo() << "Polygon is not yet valid. Skipping.";
-        //     validTimeList.append(FlightValidTime(polygonid, validFromDateTime, validToDateTime, false));
-        //     continue; // 유효하지 않으면 건너뛴다.
-        // }
-        // else {
-        //     qInfo() << "Polygon valid. Skipping.";
-        //     validTimeList.append(FlightValidTime(polygonid, validFromDateTime, validToDateTime, true));
-        // }
-        if(currentTime > validToDateTime) // 현재시간이 목표시간을 넘으면 표시를 해줄 이유가 없으므로.
-        {
-            qInfo() << "Polygon is not yet valid. Skipping.";
-            continue;
-        }
-
-
-        // Add the completed polygon to the polygons list
-        if(!_polygons.contains(polygon)){
-            _polygons.append(polygon);
-        }
-
-        if(!allNoFlyZones.contains(noFlyZone)){
-            allNoFlyZones.append(noFlyZone);
-        }
-
-
 
         qInfo() << "allNoFlyZones Count = " <<allNoFlyZones.count();
-
-
 
 
         qInfo() << "_polygons Count = " << _polygons.count();
@@ -610,7 +617,6 @@ void FlightZoneManager::processJsonFile(const QString& filePath) {
         //각 polygon마다 고유한 ID가 있는듯함. Index 번호로
         // 그렇다면 고유한 ID로 비교해서
         qInfo() << "polygon ID : " << polygonid;
-
 
     }
     qInfo() << "validTimeList Count" << validTimeList.count();
