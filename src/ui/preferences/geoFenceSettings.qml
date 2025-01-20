@@ -115,6 +115,7 @@ Rectangle {
                                 id: filePathTextField
                                 Layout.fillWidth:   true
                                 readOnly:           true
+                                visible:            true
                                 fact:   _flyViewSettings.filePath
                             }
                             QGCButton {
@@ -140,7 +141,7 @@ Rectangle {
                                                 filePathTextField.text = plainPath
                                         }
                                         else {
-                                            filePathTextField.text = fileUrl
+                                            filePathTextField.text = fileUrl.toString()
                                         }
                                     }
                                     // 파일 선택 취소 시 호출

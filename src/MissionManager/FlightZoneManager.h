@@ -53,14 +53,15 @@ public:
     void calculateCornerCoordinates(double centerLat, double centerLon, double zoomLevel, double width, double height);
 
     void checkDistanceDroneAndGeoAwareness();
+
+    void updateGeoAwareness();
 signals:
 
 
 
 private slots:
     //Test
-    void onReplyFinished(QNetworkReply *reply);
-    void getDroneLocation();
+    void onReplyFinished(QNetworkReply *reply);    
 
 
 public slots:
@@ -85,6 +86,8 @@ private:
     QTimer _zoomTimer;
 
     QTimer _distanceTimer;
+
+    QTimer _updateTimer;
 
     //Test
     QNetworkAccessManager *manager;

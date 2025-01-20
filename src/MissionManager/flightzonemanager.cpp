@@ -71,25 +71,13 @@ FlightZoneManager::FlightZoneManager() : manager(new QNetworkAccessManager(this)
     connect(&_distanceTimer, &QTimer::timeout, this, &FlightZoneManager::checkDistanceDroneAndGeoAwareness);
     _distanceTimer.start(1000);
 
+    //Update GeoAwareness
+    connect(&_updateTimer, &QTimer::timeout, this, &FlightZoneManager::updateGeoAwareness);
+    constexpr int dayInterval = 24 * 60 * 60 * 1000;
+    _updateTimer.start(dayInterval);
 
     _toolbox = qgcApp()->toolbox();
     _settingsManager = _toolbox->settingsManager();
-
-    if(_toolbox) {
-        qInfo()<< "_toolbox is not null";
-    }
-    else {
-        qInfo() << "_toolbox is null";
-    }
-
-    if(_settingsManager) {
-        qInfo() << "_settingsManager is not null";
-    }
-    else {
-        qInfo() << "_settingsManager is null";
-    }
-
-
 
     geoCoordinate = qGroundControlQmlGlobal->flightMapPosition();
 
@@ -106,7 +94,7 @@ void FlightZoneManager::onReplyFinished(QNetworkReply *reply)
 
         QJsonDocument jsonDoc = QJsonDocument::fromJson(responseData);
         if(!jsonDoc.isNull()){
-            qInfo() << "GeoJson Data" << jsonDoc.toJson(QJsonDocument::Indented);
+            //qInfo() << "GeoJson Data" << jsonDoc.toJson(QJsonDocument::Indented);
             processJsonFile(jsonDoc);
         } else {
             qInfo() << "Failed to parse GeoJson";
@@ -182,9 +170,6 @@ void FlightZoneManager::testPolyhedronDistance() {
     double distance = std::sqrt(tree.squared_distance(dronePosition)); // distance in meters
     std::cout << "Shortest distance from the drone to the polyhedron is: " << distance << " meters" << std::endl;
 
-
-    // QString msg = tr("The distance between the aircraft and GeoAwareness is close. ");
-    // qgcApp()->showAppMessage(msg);
 }
 
 void FlightZoneManager::checkDistanceDroneAndGeoAwareness(){
@@ -202,8 +187,8 @@ void FlightZoneManager::checkDistanceDroneAndGeoAwareness(){
                     Polyhedron P;
 
                     for(const NoFlyZone& zone: allNoFlyZones[i]){
-                        qInfo() << "  Coordinate:" << zone.coordinate.latitude() << zone.coordinate.longitude()
-                        << "Altitude Range:" << zone.altitudeFloor << "-" << zone.altitudeCeiling;
+                        // qInfo() << "  Coordinate:" << zone.coordinate.latitude() << zone.coordinate.longitude()
+                        // << "Altitude Range:" << zone.altitudeFloor << "-" << zone.altitudeCeiling;
                         double lat = zone.coordinate.latitude();
                         double lon = zone.coordinate.longitude();
                         double floor = zone.altitudeFloor;
@@ -267,13 +252,13 @@ void FlightZoneManager::checkDistanceDroneAndGeoAwareness(){
 
                         if(distance <= alarmDistance) // 지정한 거리값 안에 들어오면 알람을 띄워야됨
                         {
-                            qInfo() << "Inside Index = " << i;
+                            //qInfo() << "Inside Index = " << i;
                             QString msg = tr("The distance between the aircraft and GeoAwareness is close. Distance : %1M").arg(distance);
                             //qgcApp()->showAppMessage(msg);
                             qgcApp()->showGeoAwarenessAlertMessage(msg, i);
                         }
                         else {
-                            qInfo() << "FlightZoneManager Close AlertMessage Popup Index = " << i;
+                            //qInfo() << "FlightZoneManager Close AlertMessage Popup Index = " << i;
                             qgcApp()->closeGeoAwarenessAlertMessage(i);
                         }
                     }
@@ -353,6 +338,16 @@ void FlightZoneManager::removeAll(void)
     _polygons.clearAndDeleteContents();
     _circles.clearAndDeleteContents();
     geoJsonNameList.clear();
+    validTimeList.clear();
+    allNoFlyZones.clear();
+}
+
+void FlightZoneManager::updateGeoAwareness(){
+    if(_polygons.count() > 0) {
+        removeAll();
+        qInfo() << "updateGeoAwareness";
+        _init();
+    }
 }
 
 void FlightZoneManager::checkCurrentZoomValue() {
@@ -364,7 +359,7 @@ void FlightZoneManager::checkCurrentZoomValue() {
     QString dataType = _settingsManager->flyViewSettings()->dataType()->rawValueString();
     //  가운데 좌표, zoom값
 
-    qInfo() << "lat : " << mapCoord.latitude() << "lon : " << mapCoord.longitude();
+    //qInfo() << "lat : " << mapCoord.latitude() << "lon : " << mapCoord.longitude();
 
     //dataType으로 비교를 해서 USB는 줌결과 상관없이 그냥 불러오게?
     //0 = USB, 1 = Online
@@ -381,7 +376,7 @@ void FlightZoneManager::checkCurrentZoomValue() {
     }
     else {
         if(zoom >= 12)  { // 테스트용으로 8 원래는 13
-            //qInfo() << "FlightMap zoom Over 12: " << qGroundControlQmlGlobal->flightMapZoom();
+            qInfo() << "FlightMap zoom Over 12: " << qGroundControlQmlGlobal->flightMapZoom();
             // 메소드를 한번만 실행시켜야됨
             // 없으면 생성. 있으면 생성 안해야됨. 조건은 추가 필요.
             if(_polygons.count() == 0) { // 이미 생성되어 있음
@@ -394,28 +389,29 @@ void FlightZoneManager::checkCurrentZoomValue() {
             // 여기서 화면 이동시 조건도 추가 필요함
             if(qGroundControlQmlGlobal->flightMapPosition() != geoCoordinate) // 위치가 바뀌면
             {
-                // 위치 새로고침 후 생성
-                //removeAll();
-                QGeoCoordinate flightmapPos = qGroundControlQmlGlobal->flightMapPosition();
-                QGeoCoordinate geoCoord = geoCoordinate;
-                qInfo() << "flightmapPos = " << flightmapPos.latitude() << "," << flightmapPos.longitude();
-                qInfo() << "geoCoord = " << geoCoordinate.latitude() << "," << geoCoordinate.longitude();
-                //드론의 로딩이 다 끝나면 불러와야할듯함
-                geoCoordinate = qGroundControlQmlGlobal->flightMapPosition();
-                _init();
+                // if(_polygons.count() > 0){                // 위치 새로고침 후 생성
+                //     //removeAll();
+                //     QGeoCoordinate flightmapPos = qGroundControlQmlGlobal->flightMapPosition();
+                //     QGeoCoordinate geoCoord = geoCoordinate;
+                //     // qInfo() << "flightmapPos = " << flightmapPos.latitude() << "," << flightmapPos.longitude();
+                //     // qInfo() << "geoCoord = " << geoCoordinate.latitude() << "," << geoCoordinate.longitude();
+                //     //드론의 로딩이 다 끝나면 불러와야할듯함
+                //     geoCoordinate = qGroundControlQmlGlobal->flightMapPosition();
+                //     _init();
+                // }
+                // 아니면 이렇게 하지말고 불러오는 범위를 좀만 늘리는식? 생각해보면 나라 전체나, 도 전체를 가져와봤자 비행은 다 못함. 내가 보고 있는 화면 근방으로 해서 보여주는식으로 하는게 좋을듯함. 범위만 좀 늘려서
             }
-
         }
-        else {
-            //qInfo() << "FlightMap zoom less 12: " << qGroundControlQmlGlobal->flightMapZoom();
+        else if(zoom < 11){
+            qInfo() << "FlightMap zoom less 10: " << qGroundControlQmlGlobal->flightMapZoom();
             // 생성된거 전부 삭제
-            //removeAll();
+            removeAll();
         }
     }
 
-    //드론 정보 가져오는 부분 테스트
+//드론 정보 가져오는 부분 테스트
 
-    // 이거는 qgc를 킨 위치인듯함
+// 이거는 qgc를 킨 위치인듯함
 #if false
     if(qgcpositionManager) {
         qInfo() << "qgcpositionManager is not null";
@@ -497,7 +493,7 @@ void FlightZoneManager::processJsonFile(const QString& filePath) {
     QJsonObject root = doc.object();
     QJsonArray features = root.value("features").toArray();
 
-    qInfo() << "features count" << features.count();
+    //qInfo() << "features count" << features.count();
     validTimeList.clear();
     QDateTime currentTime = QDateTime::currentDateTime(); // 현재 시간
 
@@ -521,8 +517,8 @@ void FlightZoneManager::processJsonFile(const QString& filePath) {
         double altitudeFloor = properties.value("altitudeFloor").toDouble();
         double altitudeCeiling = properties.value("altitudeCeiling").toDouble();
 
-        qInfo() << "altitudeFloor = " << altitudeFloor;
-        qInfo() << "altitudeCeiling = " << altitudeCeiling;
+        // qInfo() << "altitudeFloor = " << altitudeFloor;
+        // qInfo() << "altitudeCeiling = " << altitudeCeiling;
 
         QDateTime validFromDateTime = QDateTime::fromString(validFrom, "yyyy-MM-dd HH:mm:ss");
         QDateTime validToDateTime = QDateTime::fromString(validTo, "yyyy-MM-dd HH:mm:ss");
@@ -583,7 +579,7 @@ void FlightZoneManager::processJsonFile(const QString& filePath) {
         // }
         if(currentTime > validToDateTime) // 현재시간이 목표시간을 넘으면 표시를 해줄 이유가 없으므로.
         {
-             qInfo() << "Polygon is not yet valid. Skipping.";
+            qInfo() << "Polygon is not yet valid. Skipping.";
             continue;
         }
 
@@ -626,7 +622,7 @@ void FlightZoneManager::processJsonFile(QJsonDocument jsonDoc) {
     QJsonObject root = jsonDoc.object();
     QJsonArray features = root.value("features").toArray();
 
-    qInfo() << "features count:" << features.count();
+    //qInfo() << "features count:" << features.count();
     validTimeList.clear();
 
     QDateTime currentTime = QDateTime::currentDateTime();
@@ -717,26 +713,27 @@ void FlightZoneManager::processJsonFile(QJsonDocument jsonDoc) {
                     //     //qInfo() << "Properties JSON:" << QString(QJsonDocument(properties).toJson(QJsonDocument::Compact));
                     // }
 
-                    if(currentTime < validTo){
-                        if(geoJsonNameList.count() == 0) // 아무것도 없으면 추가해야함. 추가할때는 중복체크해서
+                    if (currentTime < validTo) {
+                        if (geoJsonNameList.count() == 0) // 아무것도 없으면 추가해야함. 추가할때는 중복체크해서
                         {
                             qInfo() << "geoJsonNameList count = 0";
-                            geoJsonNameList.append(GeoJsonNameList(name));
+                            geoJsonNameList.append(name);
                         }
 
-                        if(!geoJsonNameList.contains(GeoJsonNameList(name))) //객체가 없으면
+                        if (!geoJsonNameList.contains(name)) //객체가 없으면
                         {
                             geoJsonNameList.append(GeoJsonNameList(name));
 
                             qInfo() << "geoJsonNameList Count : " << geoJsonNameList.count();
 
                         }
-                        //현재 날짜가 validTo를 넘으면 결국에는 유효기간이 지난거니까 그 부분은 리스트에 안넣도록 한다.
-                        polygon->appendVertex(coordinate);
+                        else {
+                            //현재 날짜가 validTo를 넘으면 결국에는 유효기간이 지난거니까 그 부분은 리스트에 안넣도록 한다.
+                            polygon->appendVertex(coordinate);
 
-                        noFlyZone.append(NoFlyZone(QGeoCoordinate(lat, lon), floorMeters, ceilingMeters));
+                            noFlyZone.append(NoFlyZone(QGeoCoordinate(lat, lon), floorMeters, ceilingMeters));
+                        }
                     }
-
 
                 }
             }
@@ -750,65 +747,69 @@ void FlightZoneManager::processJsonFile(QJsonDocument jsonDoc) {
                 if(!allNoFlyZones.contains(noFlyZone)){
                     allNoFlyZones.append(noFlyZone);
                 }
+                // Add to polygon list
+                if(currentTime < validTo){
 
 
 
-                qInfo() << "allNoFlyZones Count = " <<allNoFlyZones.count();
+
+                    qInfo() << "allNoFlyZones Count = " <<allNoFlyZones.count();
 
 
-                qInfo() << "Polygon added with ID:" << polygonid;
-                qInfo() << "Current polygon count:" << _polygons.count();
-            }
-        }
-        // Point 처리
-        else if (geometryType == "Point") {
-            QJsonArray coordinates = geometry.value("coordinates").toArray();
-            if (coordinates.isEmpty()) continue;
-
-            for (const QJsonValue& ring : coordinates) {
-                if (!ring.isArray()) continue;
-
-                QJsonArray points = ring.toArray();
-                for (const QJsonValue& point : points) {
-                    if (!point.isArray()) continue;
-
-                    QJsonArray latLon = point.toArray();
-                    if (latLon.size() < 2) continue;
-
-                    double lon = latLon[0].toDouble();
-                    double lat = latLon[1].toDouble();
-
-                    QGeoCoordinate coordinate(lat, lon);
-                    //qInfo()<<"geometryType Point = "<< lat << ", " << lon;
-                    //polygon->appendVertex(coordinate);
+                    qInfo() << "Polygon added with ID:" << polygonid;
+                    qInfo() << "Current polygon count:" << _polygons.count();
                 }
             }
+            // Point 처리
+            else if (geometryType == "Point") {
+                QJsonArray coordinates = geometry.value("coordinates").toArray();
+                if (coordinates.isEmpty()) continue;
+
+                for (const QJsonValue& ring : coordinates) {
+                    if (!ring.isArray()) continue;
+
+                    QJsonArray points = ring.toArray();
+                    for (const QJsonValue& point : points) {
+                        if (!point.isArray()) continue;
+
+                        QJsonArray latLon = point.toArray();
+                        if (latLon.size() < 2) continue;
+
+                        double lon = latLon[0].toDouble();
+                        double lat = latLon[1].toDouble();
+
+                        QGeoCoordinate coordinate(lat, lon);
+                        //qInfo()<<"geometryType Point = "<< lat << ", " << lon;
+                        //polygon->appendVertex(coordinate);
+                    }
+                }
+            }
+
+            //if(category != "airspace" && geometryType != "Point" ) {
+            if(geometryType != "Point") {
+                qInfo() << "geometryType: " << geometryType;
+                qInfo() << "Feature ID:" << polygonid;
+                qInfo() << "Name:" << name;
+                qInfo() << "Category:" << category;
+
+                qInfo() << "operationFrom" << operationalFrom;
+                qInfo() << "operationTo" << operationalTo;
+                qInfo() << "strokeColor" << strokeColor;
+                qInfo() << "strokeOpacity" << strokeOpacity;
+
+                qInfo() << "altitudeCeiling : " << ceilingMeters;
+                qInfo() << "altitudeFloor : " << floorMeters;
+
+                polygon->setcolorInclusion(strokeColor);
+                polygon->setstrokeOpacity(strokeOpacity.toDouble());
+
+                //중복 대비. list에도 이름을 넣는다. 만약 이름이 똑같으면 그거는 list에 안넣는거로 한다.
+            }
+
         }
 
-        //if(category != "airspace" && geometryType != "Point" ) {
-        if(geometryType != "Point") {
-            qInfo() << "geometryType: " << geometryType;
-            qInfo() << "Feature ID:" << polygonid;
-            qInfo() << "Name:" << name;
-            qInfo() << "Category:" << category;
-
-            qInfo() << "operationFrom" << operationalFrom;
-            qInfo() << "operationTo" << operationalTo;
-            qInfo() << "strokeColor" << strokeColor;
-            qInfo() << "strokeOpacity" << strokeOpacity;
-
-            qInfo() << "altitudeCeiling : " << ceilingMeters;
-            qInfo() << "altitudeFloor : " << floorMeters;
-
-            polygon->setcolorInclusion(strokeColor);
-            polygon->setstrokeOpacity(strokeOpacity.toDouble());
-
-            //중복 대비. list에도 이름을 넣는다. 만약 이름이 똑같으면 그거는 list에 안넣는거로 한다.
-        }
-
+        qInfo() << "Processing complete. Total polygons:" << _polygons.count();
     }
-
-    qInfo() << "Processing complete. Total polygons:" << _polygons.count();
 }
 
 void FlightZoneManager::_init(void){
@@ -884,6 +885,3 @@ void FlightZoneManager::getOnlineGeoJsonData() {
     calculateCornerCoordinates(mapCoord.latitude(), mapCoord.longitude(), zoom, rootWindowWidth, rootWindowHeight);
 }
 
-void FlightZoneManager::getDroneLocation() {
-
-}

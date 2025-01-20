@@ -3,7 +3,7 @@ name: Windows Release
 on:
   push:
     branches:
-      - 'fix_flickering'
+      - 'ALESQGC_Add_Enpulse&Aviator'
     tags:
       - 'v*'
     
