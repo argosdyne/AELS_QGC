@@ -6,6 +6,7 @@ on:
     branches:
       - 'master'
       - 'Stable*'
+      - 'Argos_Stable4.4'
     tags:
       - 'v*'
     paths-ignore:
