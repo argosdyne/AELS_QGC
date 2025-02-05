@@ -38,6 +38,7 @@ QList<QGCMAVLink::VehicleClass_t> CustomFirmwarePluginFactory::supportedVehicleC
 
 FirmwarePlugin* CustomFirmwarePluginFactory::firmwarePluginForAutopilot(MAV_AUTOPILOT autopilotType, MAV_TYPE /*vehicleType*/)
 {
+    qDebug() << "firmwarPluginForAutoPilot: Type = " << autopilotType;
     if (autopilotType == MAV_AUTOPILOT_PX4) {
         if (!_pluginInstance) {
             _pluginInstance = new CustomFirmwarePlugin;

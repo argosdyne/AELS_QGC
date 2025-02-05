@@ -15,6 +15,9 @@
 #include "QGCApplication.h"
 #include "QGCCorePlugin.h"
 
+
+
+
 CustomAutoPilotPlugin::CustomAutoPilotPlugin(Vehicle* vehicle, QObject* parent)
     : PX4AutoPilotPlugin(vehicle, parent)
 {
@@ -40,11 +43,9 @@ const QVariantList& CustomAutoPilotPlugin::vehicleComponents()
                     _airframeComponent = new AirframeComponent(_vehicle, this);
                     _airframeComponent->setupTriggerSignals();
                     _components.append(QVariant::fromValue(reinterpret_cast<VehicleComponent*>(_airframeComponent)));
-
                     _sensorsComponent = new SensorsComponent(_vehicle, this);
                     _sensorsComponent->setupTriggerSignals();
                     _components.append(QVariant::fromValue(reinterpret_cast<VehicleComponent*>(_sensorsComponent)));
-
                     _radioComponent = new PX4RadioComponent(_vehicle, this);
                     _radioComponent->setupTriggerSignals();
                     _components.append(QVariant::fromValue(reinterpret_cast<VehicleComponent*>(_radioComponent)));

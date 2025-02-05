@@ -12,7 +12,7 @@
 #include <QSettings>
 #include <QMutexLocker>
 
-#ifdef __android__
+#if defined(__android__) && !defined(FORCE_QSERIALPORT)
 #include "qserialport.h"
 #else
 #include <QSerialPort>
@@ -177,12 +177,15 @@ bool SerialLink::_hardwareConnect(QSerialPort::SerialPortError& error, QString& 
 
     _port = new QSerialPort(_serialConfig->portName(), this);
 
-#ifdef Q_OS_ANDROID
-    QObject::connect(_port, SIGNAL(&QSerialPort::error), this, SLOT(&SerialLink::linkError));
-#else
-    QObject::connect(_port, &QSerialPort::errorOccurred, this, &SerialLink::linkError);
-#endif
+    QObject::connect(_port, static_cast<void (QSerialPort::*)(QSerialPort::SerialPortError)>(&QSerialPort::error), this, &SerialLink::linkError);
     QObject::connect(_port, &QIODevice::readyRead, this, &SerialLink::_readBytes);
+
+// #ifdef Q_OS_ANDROID
+//     QObject::connect(_port, SIGNAL(&QSerialPort::error), this, SLOT(&SerialLink::linkError));
+// #else
+//     QObject::connect(_port, &QSerialPort::errorOccurred, this, &SerialLink::linkError);
+// #endif
+//     QObject::connect(_port, &QIODevice::readyRead, this, &SerialLink::_readBytes);
 
     // After the bootloader times out, it still can take a second or so for the Pixhawk USB driver to come up and make
     // the port available for open. So we retry a few times to wait for it.

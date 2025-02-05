@@ -49,8 +49,8 @@ Item {
     property real   _margins:               ScreenTools.defaultFontPixelWidth / 2
     property var    _guidedController:      guidedActionsController
     property var    _guidedActionList:      guidedActionList
-    property var    _guidedValueSlider:     guidedValueSlider
-    property var    _widgetLayer:           widgetLayer
+    //property var    _guidedValueSlider:     guidedValueSlider
+    //property var    _widgetLayer:           widgetLayer
     property real   _toolsMargin:           ScreenTools.defaultFontPixelWidth * 0.75
     property rect   _centerViewport:        Qt.rect(0, 0, width, height)
     property real   _rightPanelWidth:       ScreenTools.defaultFontPixelWidth * 30
@@ -73,27 +73,27 @@ Item {
         bottomEdgeLeftInset:    _pipOverlay.visible ? parent.height - _pipOverlay.y : 0
     }
 
-    FlyViewWidgetLayer {
-        id:                     widgetLayer
-        anchors.top:            parent.top
-        anchors.bottom:         parent.bottom
-        anchors.left:           parent.left
-        anchors.right:          guidedValueSlider.visible ? guidedValueSlider.left : parent.right
-        z:                      _fullItemZorder + 1
-        parentToolInsets:       _toolInsets
-        mapControl:             _mapControl
-        visible:                !QGroundControl.videoManager.fullScreen
-    }
+    // FlyViewWidgetLayer {
+    //     id:                     widgetLayer
+    //     anchors.top:            parent.top
+    //     anchors.bottom:         parent.bottom
+    //     anchors.left:           parent.left
+    //     anchors.right:          guidedValueSlider.visible ? guidedValueSlider.left : parent.right
+    //     z:                      _fullItemZorder + 1
+    //     parentToolInsets:       _toolInsets
+    //     mapControl:             _mapControl
+    //     visible:                !QGroundControl.videoManager.fullScreen
+    // }
 
 
-    FlyViewCustomLayer {
-        id:                 customOverlay
-        anchors.fill:       widgetLayer
-        z:                  _fullItemZorder + 2
-        parentToolInsets:   widgetLayer.totalToolInsets
-        mapControl:         _mapControl
-        visible:            !QGroundControl.videoManager.fullScreen
-    }
+    // FlyViewCustomLayer {
+    //     id:                 customOverlay
+    //     anchors.fill:       widgetLayer
+    //     z:                  _fullItemZorder + 2
+    //     parentToolInsets:   widgetLayer.totalToolInsets
+    //     mapControl:         _mapControl
+    //     visible:            !QGroundControl.videoManager.fullScreen
+    // }
 
     // Development tool for visualizing the insets for a paticular layer, enable if needed
     /*
@@ -109,12 +109,12 @@ Item {
         insetsToView:           customOverlay.totalToolInsets
     }*/
 
-    GuidedActionsController {
-        id:                 guidedActionsController
-        missionController:  _missionController
-        actionList:         _guidedActionList
-        guidedValueSlider:     _guidedValueSlider
-    }
+    // GuidedActionsController {
+    //     id:                 guidedActionsController
+    //     missionController:  _missionController
+    //     actionList:         _guidedActionList
+    //     guidedValueSlider:     _guidedValueSlider
+    // }
 
     /*GuidedActionConfirm {
         id:                         guidedActionConfirm
@@ -136,18 +136,18 @@ Item {
     }
 
     //-- Guided value slider (e.g. altitude)
-    GuidedValueSlider {
-        id:                 guidedValueSlider
-        anchors.margins:    _toolsMargin
-        anchors.right:      parent.right
-        anchors.top:        parent.top
-        anchors.bottom:     parent.bottom
-        z:                  QGroundControl.zOrderTopMost
-        radius:             ScreenTools.defaultFontPixelWidth / 2
-        width:              ScreenTools.defaultFontPixelWidth * 10
-        color:              qgcPal.window
-        visible:            false
-    }
+    // GuidedValueSlider {
+    //     id:                 guidedValueSlider
+    //     anchors.margins:    _toolsMargin
+    //     anchors.right:      parent.right
+    //     anchors.top:        parent.top
+    //     anchors.bottom:     parent.bottom
+    //     z:                  QGroundControl.zOrderTopMost
+    //     radius:             ScreenTools.defaultFontPixelWidth / 2
+    //     width:              ScreenTools.defaultFontPixelWidth * 10
+    //     color:              qgcPal.window
+    //     visible:            false
+    // }
 
     FlyViewMap {
         id:                     mapControl

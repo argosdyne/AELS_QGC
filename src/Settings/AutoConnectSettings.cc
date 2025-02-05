@@ -17,7 +17,7 @@ DECLARE_SETTINGGROUP(AutoConnect, "LinkManager")
 {
     qmlRegisterUncreatableType<AutoConnectSettings>("QGroundControl.SettingsManager", 1, 0, "AutoConnectSettings", "Reference only"); \
 }
-
+DECLARE_SETTINGSFACT(AutoConnectSettings, disableConnectSerial)
 DECLARE_SETTINGSFACT(AutoConnectSettings, autoConnectUDP)
 DECLARE_SETTINGSFACT(AutoConnectSettings, udpListenPort)
 DECLARE_SETTINGSFACT(AutoConnectSettings, udpTargetHostIP)

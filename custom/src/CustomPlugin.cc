@@ -23,6 +23,7 @@
 #include "AppMessages.h"
 #include "QmlComponentInfo.h"
 #include "QGCPalette.h"
+#include "CodevRTCMManager.h"
 
 QGC_LOGGING_CATEGORY(CustomLog, "CustomLog")
 
@@ -75,6 +76,8 @@ CustomPlugin::CustomPlugin(QGCApplication *app, QGCToolbox* toolbox)
     : QGCCorePlugin(app, toolbox)
 {
     _options = new CustomOptions(this, this);
+    _siyiManager = new SiYiManager(app,toolbox);
+    _codevRTCMManager = new CodevRTCMManager(app, toolbox);
     _showAdvancedUI = false;
 }
 
@@ -86,8 +89,26 @@ void CustomPlugin::setToolbox(QGCToolbox* toolbox)
 {
     QGCCorePlugin::setToolbox(toolbox);
 
+    _siyiManager->setToolbox(toolbox);
+    if(_codevSettings == nullptr) {
+        _codevSettings = new CodevSettings(this);
+    }
+    _codevRTCMManager->setToolbox(toolbox);
+
     // Allows us to be notified when the user goes in/out out advanced mode
     connect(qgcApp()->toolbox()->corePlugin(), &QGCCorePlugin::showAdvancedUIChanged, this, &CustomPlugin::_advancedChanged);
+
+    _aviatorInterface = new AVIATORInterface();
+#if defined (Q_OS_ANDROID)
+    connect(_aviatorInterface, &AVIATORInterface::rcChannelValuesChanged, this, &CustomPlugin::_handleRCChannelValues);
+#endif
+}
+
+void CustomPlugin::_handleRCChannelValues(const quint16* channels, int count)
+{
+    static quint16 inlChannels[18];
+    memcpy(inlChannels, channels, 18 * 2);
+    emit rcChannelValuesChanged(inlChannels, count);
 }
 
 void CustomPlugin::_advancedChanged(bool changed)
@@ -118,6 +139,9 @@ CustomPlugin::settingsPages()
         _addSettingsEntry(tr("Offline Maps"),"qrc:/qml/OfflineMap.qml",          "qrc:/res/waves.svg");
         _addSettingsEntry(tr("MAVLink"),     "qrc:/qml/MavlinkSettings.qml",     "qrc:/res/waves.svg");
         _addSettingsEntry(tr("Console"),     "qrc:/qml/QGroundControl/Controls/AppMessages.qml");
+        _addSettingsEntry(tr("RTCM"), "qrc:/custom/RTCMSettings.qml");
+        _addSettingsEntry(tr("Enpulse"), "qrc:/qml/ARSettings.qml");
+        _addSettingsEntry(tr("GeoFence"), "qrc:/qml/geoFenceSettings.qml");
 #if defined(QT_DEBUG)
         //-- These are always present on Debug builds
         _addSettingsEntry(tr("Mock Link"),   "qrc:/qml/MockLink.qml");
@@ -138,7 +162,7 @@ QString CustomPlugin::brandImageIndoor(void) const
 
 QString CustomPlugin::brandImageOutdoor(void) const
 {
-    return QStringLiteral("/custom/img/CustomAppIcon.png");
+    return QStringLiteral("/custom/img/CustomAppIconOutdoor.png");
 }
 
 bool CustomPlugin::overrideSettingsGroupVisibility(QString name)
@@ -367,5 +391,12 @@ QQmlApplicationEngine* CustomPlugin::createQmlApplicationEngine(QObject* parent)
 {
     QQmlApplicationEngine* qmlEngine = QGCCorePlugin::createQmlApplicationEngine(parent);
     qmlEngine->addImportPath("qrc:/Custom/Widgets");
+    _qmlInterface = new CustomQmlInterface(qgcApp(), qgcApp()->toolbox());
+    qmlEngine->rootContext()->setContextProperty("CustomQmlInterface", _qmlInterface);
+
+    if(_aviatorInterface) {
+        qDebug() << "Connect with handleCustomButtonFunc";
+        connect(_aviatorInterface, &AVIATORInterface::buttonPressed, _qmlInterface, &CustomQmlInterface::handleCustomButtonFunction);        
+    }
     return qmlEngine;
 }

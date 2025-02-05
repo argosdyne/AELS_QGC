@@ -41,6 +41,7 @@ const QVariantList& CustomFirmwarePlugin::toolIndicators(const Vehicle* vehicle)
         _toolIndicatorList = FirmwarePlugin::toolIndicators(vehicle);
         // Then specifically remove the RC RSSI indicator.
         _toolIndicatorList.removeOne(QVariant::fromValue(QUrl::fromUserInput("qrc:/toolbar/RCRSSIIndicator.qml")));
+        // THANH: TODO: Remove some unused tool and add some custom tool here
     }
     return _toolIndicatorList;
 }

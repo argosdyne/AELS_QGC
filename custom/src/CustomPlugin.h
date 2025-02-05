@@ -15,12 +15,17 @@
 #include "QGCOptions.h"
 #include "QGCLoggingCategory.h"
 #include "SettingsManager.h"
-
+#include "CustomQmlInterface.h"
+#include "AVIATORInterface.h"
+#include "SiYiManager.h"
 #include <QTranslator>
+#include "codevsettings.h"
 
 class CustomOptions;
 class CustomPlugin;
 class CustomSettings;
+class SiYiManager;
+class CodevRTCMManager;
 
 Q_DECLARE_LOGGING_CATEGORY(CustomLog)
 
@@ -52,6 +57,15 @@ class CustomPlugin : public QGCCorePlugin
 {
     Q_OBJECT
 public:
+    Q_PROPERTY(CodevSettings* codevSettings READ codevSettings CONSTANT)
+    Q_PROPERTY(CodevRTCMManager* codevRTCMManager READ codevRTCMManager CONSTANT)
+    Q_PROPERTY(SiYiManager* siyiManager READ siyiManager CONSTANT)
+
+
+    bool coachMode() { return _coachMode; }
+    void setCoachMode(const bool& coachMode);
+
+
     CustomPlugin(QGCApplication* app, QGCToolbox *toolbox);
     ~CustomPlugin();
 
@@ -65,16 +79,34 @@ public:
     void                    paletteOverride                 (QString colorName, QGCPalette::PaletteColorInfo_t& colorInfo) final;
     QQmlApplicationEngine*  createQmlApplicationEngine      (QObject* parent) final;
 
+
+    SiYiManager* siyiManager(){return _siyiManager;};
+    CodevSettings* codevSettings() { return _codevSettings; }
+    CodevRTCMManager* codevRTCMManager() { return _codevRTCMManager; }
+
     // Overrides from QGCTool
     void                    setToolbox                      (QGCToolbox* toolbox);
 
+signals:
+    void rcChannelValuesChanged(const quint16* channels, int count);
+
 private slots:
     void _advancedChanged(bool advanced);
+    void _handleRCChannelValues(const quint16* channels, int count);
+
 
 private:
     void _addSettingsEntry(const QString& title, const char* qmlFile, const char* iconFile = nullptr);
 
 private:
+    SiYiManager* _siyiManager = nullptr;
+    CodevSettings*      _codevSettings = nullptr;
+    CodevRTCMManager*   _codevRTCMManager = nullptr;
+
     CustomOptions*  _options = nullptr;
     QVariantList    _customSettingsList; // Not to be mixed up with QGCCorePlugin implementation
+
+    CustomQmlInterface* _qmlInterface{nullptr};
+    AVIATORInterface* _aviatorInterface{nullptr};
+    bool _coachMode{false};
 };

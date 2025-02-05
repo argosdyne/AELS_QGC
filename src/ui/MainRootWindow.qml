@@ -371,19 +371,26 @@ ApplicationWindow {
                                 anchors.fill:       parent
 
                                 onClicked: {
-                                    if (mouse.modifiers & Qt.ControlModifier) {
-                                        QGroundControl.corePlugin.showTouchAreas = !QGroundControl.corePlugin.showTouchAreas
-                                        showTouchAreasNotification.open()
-                                    } else if (ScreenTools.isMobile || mouse.modifiers & Qt.ShiftModifier) {
+                                    if (ScreenTools.isMobile){
                                         if(!QGroundControl.corePlugin.showAdvancedUI) {
                                             advancedModeOnConfirmation.open()
                                         } else {
                                             advancedModeOffConfirmation.open()
                                         }
                                     }
+                                    else {
+                                        if (mouse.modifiers & Qt.ControlModifier) {
+                                            QGroundControl.corePlugin.showTouchAreas = !QGroundControl.corePlugin.showTouchAreas
+                                        } else if (mouse.modifiers & Qt.ShiftModifier) {
+                                            if(!QGroundControl.corePlugin.showAdvancedUI) {
+                                                advancedModeConfirmation.open()
+                                            } else {
+                                                QGroundControl.corePlugin.showAdvancedUI = false
+                                            }
+                                        }
+                                    }
                                 }
-
-                                // This allows you to change this on mobile
+                                    // This allows you to change this on mobile
                                 onPressAndHold: {
                                     QGroundControl.corePlugin.showTouchAreas = !QGroundControl.corePlugin.showTouchAreas
                                     showTouchAreasNotification.open()
