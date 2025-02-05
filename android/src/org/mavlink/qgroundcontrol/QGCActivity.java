@@ -38,7 +38,6 @@ import java.util.concurrent.Executors;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.io.IOException;
-import java.lang.reflect.Method;
 
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -59,8 +58,6 @@ import android.app.PendingIntent;
 import android.view.WindowManager;
 import android.os.Bundle;
 import android.bluetooth.BluetoothDevice;
-import android.os.storage.StorageManager;
-import android.os.storage.StorageVolume;
 
 import com.hoho.android.usbserial.driver.*;
 import org.qtproject.qt5.android.bindings.QtActivity;
@@ -225,11 +222,7 @@ public class QGCActivity extends QtActivity
         _instance.registerReceiver(_instance._usbReceiver, filter);
 
         // Create intent for usb permission request
-        int intentFlags = 0;
-        if (android.os.Build.VERSION.SDK_INT >= 23) {
-            intentFlags = PendingIntent.FLAG_IMMUTABLE;
-        }
-        _usbPermissionIntent = PendingIntent.getBroadcast(_instance, 0, new Intent(ACTION_USB_PERMISSION), intentFlags);
+        _usbPermissionIntent = PendingIntent.getBroadcast(_instance, 0, new Intent(ACTION_USB_PERMISSION), 0);
 
 	// Workaround for QTBUG-73138
 	if (_wifiMulticastLock == null)
@@ -768,35 +761,6 @@ public class QGCActivity extends QtActivity
                 }
             }
         }).start();
-    }
-
-    public static String getSDCardPath() {
-        StorageManager storageManager = (StorageManager)_instance.getSystemService(Activity.STORAGE_SERVICE);
-        List<StorageVolume> volumes = storageManager.getStorageVolumes();
-        Method mMethodGetPath;
-        String path = "";
-        for (StorageVolume vol : volumes) {
-            try {
-                mMethodGetPath = vol.getClass().getMethod("getPath");
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-                continue;
-            }
-            try {
-                path = (String) mMethodGetPath.invoke(vol);
-            } catch (Exception e) {
-                e.printStackTrace();
-                continue;
-            }
-
-            if (vol.isRemovable() == true) {
-                Log.i(TAG, "removable sd card mounted " + path);
-                return path;
-            } else {
-                Log.i(TAG, "storage mounted " + path);
-            }
-        }
-        return "";
     }
 }
 
