@@ -276,9 +276,16 @@ QT += \
 
 AndroidBuild || iOSBuild {
     # Android and iOS don't unclude these
+    QT += \
+           serialport \
+           network \
 } else {
     QT += \
         serialport \
+}
+
+CONFIG(debug, debug|release) {
+    DEFINES += FORCE_QSERIALPORT
 }
 
 contains(DEFINES, QGC_ENABLE_BLUETOOTH) {
@@ -813,7 +820,8 @@ contains (DEFINES, QGC_ENABLE_PAIRING) {
     }
 }
 
-!contains(DEFINES, NO_SERIAL_LINK) {
+
+!NoSerialBuild {
 HEADERS += \
     src/comm/QGCSerialPortInfo.h \
     src/comm/SerialLink.h \
@@ -1051,7 +1059,8 @@ SOURCES += \
     src/comm/MockLinkMissionItemHandler.cc \
 }
 
-!contains(DEFINES, NO_SERIAL_LINK) {
+
+!NoSerialBuild {
 SOURCES += \
     src/comm/QGCSerialPortInfo.cc \
     src/comm/SerialLink.cc \
@@ -1114,7 +1123,7 @@ HEADERS+= \
     src/FirmwarePlugin/FirmwarePluginManager.h \
     src/VehicleSetup/VehicleComponent.h \
 
-!MobileBuild { !contains(DEFINES, NO_SERIAL_LINK) {
+!MobileBuild { !NoSerialBuild {
     HEADERS += \
         src/VehicleSetup/Bootloader.h \
         src/VehicleSetup/FirmwareImage.h \
@@ -1136,7 +1145,7 @@ SOURCES += \
     src/FirmwarePlugin/FirmwarePluginManager.cc \
     src/VehicleSetup/VehicleComponent.cc \
 
-!MobileBuild { !contains(DEFINES, NO_SERIAL_LINK) {
+!MobileBuild { !NoSerialBuild {
     SOURCES += \
         src/VehicleSetup/Bootloader.cc \
         src/VehicleSetup/FirmwareImage.cc \
@@ -1421,6 +1430,15 @@ AndroidBuild {
     } else {
         include(android.pri)
     }
+}
+
+android: {
+    greaterThan(QT_MAJOR_VERSION, 5): CONFIG += qtserialport
+    !FORCE_QSERIALPORT {
+        LIBS += -$$PWD/libs/qtandroidserialport/src/qtandroidserialport.pri
+    }
+} else {
+    greaterThan(QT_MAJOR_VERSION, 5): CONFIG += qtserialport
 }
 
 #-------------------------------------------------------------------------------------

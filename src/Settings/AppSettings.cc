@@ -100,24 +100,26 @@ DECLARE_SETTINGGROUP(App, "")
         QDir rootDir = QDir(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation));
         savePathFact->setRawValue(rootDir.absolutePath());
     #else
-        QString rootDirPath;
-        #ifdef __android__
-        if (androidSaveToSDCard()->rawValue().toBool()) {
-                rootDirPath = AndroidInterface::getSDCardPath();
-            qDebug() << "AndroidInterface::getSDCardPath();" << rootDirPath;
-                if (rootDirPath.isEmpty() || !QDir(rootDirPath).exists()) {
-                    rootDirPath.clear();
-                    qgcApp()->showAppMessage(tr("Save to SD card specified for application data. But no SD card present. Using internal storage."));
-                } else if (!QFileInfo(rootDirPath).isWritable()) {
-                    rootDirPath.clear();
-                    qgcApp()->showAppMessage(tr("Save to SD card specified for application data. But SD card is write protected. Using internal storage."));
-                }
-            }
-        #endif
-        if (rootDirPath.isEmpty()) {
-            rootDirPath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
-        }
-        savePathFact->setRawValue(QDir(rootDirPath).filePath(appName));
+        // QString rootDirPath;
+        // #ifdef __android__
+        // if (androidSaveToSDCard()->rawValue().toBool()) {
+        //         rootDirPath = AndroidInterface::getSDCardPath();
+        //     qDebug() << "AndroidInterface::getSDCardPath();" << rootDirPath;
+        //         if (rootDirPath.isEmpty() || !QDir(rootDirPath).exists()) {
+        //             rootDirPath.clear();
+        //             qgcApp()->showAppMessage(tr("Save to SD card specified for application data. But no SD card present. Using internal storage."));
+        //         } else if (!QFileInfo(rootDirPath).isWritable()) {
+        //             rootDirPath.clear();
+        //             qgcApp()->showAppMessage(tr("Save to SD card specified for application data. But SD card is write protected. Using internal storage."));
+        //         }
+        //     }
+        // #endif
+        // if (rootDirPath.isEmpty()) {
+        //     rootDirPath = QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation);
+        // }
+        // savePathFact->setRawValue(QDir(rootDirPath).filePath(appName));
+        QDir rootDir = QDir(QStandardPaths::writableLocation(QStandardPaths::GenericDataLocation));
+        savePathFact->setRawValue(rootDir.filePath(appName));
     #endif
     savePathFact->setVisible(false);
 #else

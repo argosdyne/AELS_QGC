@@ -804,21 +804,21 @@ void Vehicle::_mavlinkMessageReceived(LinkInterface* link, mavlink_message_t mes
         }
     }
         break;
-#ifdef DAILY_BUILD // Disable use of development/WIP MAVLink messages for release builds
-        case MAVLINK_MSG_ID_AVAILABLE_MODES_MONITOR:
-    {
-        // Avoid duplicate requests during initial connection setup
-        if (!_initialConnectStateMachine || !_initialConnectStateMachine->active()) {
-            mavlink_available_modes_monitor_t availableModesMonitor;
-            mavlink_msg_available_modes_monitor_decode(&message, &availableModesMonitor);
-            _standardModes->availableModesMonitorReceived(availableModesMonitor.seq);
-        }
-        break;
-    }
-    case MAVLINK_MSG_ID_CURRENT_MODE:
-        _handleCurrentMode(message);
-        break;
-#endif // DAILY_BUILD
+// #ifdef DAILY_BUILD // Disable use of development/WIP MAVLink messages for release builds
+//         case MAVLINK_MSG_ID_AVAILABLE_MODES_MONITOR:
+//     {
+//         // Avoid duplicate requests during initial connection setup
+//         if (!_initialConnectStateMachine || !_initialConnectStateMachine->active()) {
+//             mavlink_available_modes_monitor_t availableModesMonitor;
+//             mavlink_msg_available_modes_monitor_decode(&message, &availableModesMonitor);
+//             _standardModes->availableModesMonitorReceived(availableModesMonitor.seq);
+//         }
+//         break;
+//     }
+//     case MAVLINK_MSG_ID_CURRENT_MODE:
+//         _handleCurrentMode(message);
+//         break;
+// #endif // DAILY_BUILD
 
         // Following are ArduPilot dialect messages
 #if !defined(NO_ARDUPILOT_DIALECT)
@@ -1799,16 +1799,16 @@ void Vehicle::_handleHeartbeat(mavlink_message_t& message)
 
 void Vehicle::_handleCurrentMode(mavlink_message_t& message)
 {
-    mavlink_current_mode_t currentMode;
-    mavlink_msg_current_mode_decode(&message, &currentMode);
-    if (currentMode.intended_custom_mode != 0) { // 0 == unknown/not supplied
-        _has_custom_mode_user_intention = true;
-        bool changed = _custom_mode_user_intention != currentMode.intended_custom_mode;
-        _custom_mode_user_intention = currentMode.intended_custom_mode;
-        if (changed) {
-            emit flightModeChanged(flightMode());
-        }
-    }
+    // mavlink_current_mode_t currentMode;
+    // mavlink_msg_current_mode_decode(&message, &currentMode);
+    // if (currentMode.intended_custom_mode != 0) { // 0 == unknown/not supplied
+    //     _has_custom_mode_user_intention = true;
+    //     bool changed = _custom_mode_user_intention != currentMode.intended_custom_mode;
+    //     _custom_mode_user_intention = currentMode.intended_custom_mode;
+    //     if (changed) {
+    //         emit flightModeChanged(flightMode());
+    //     }
+    // }
 }
 
 void Vehicle::_handleRadioStatus(mavlink_message_t& message)
