@@ -27,6 +27,8 @@ public:
 
     Q_PROPERTY(QColor colorInclusion READ colorInclusion WRITE setcolorInclusion NOTIFY colorInclusionChanged)
 
+    Q_PROPERTY(double strokeOpacity READ strokeOpacity WRITE setstrokeOpacity NOTIFY strokeOpcaityChanged)
+
     /// Saves the QGCFencePolygon to the json object.
     ///     @param json Json object to save to
     void saveToJson(QJsonObject& json);
@@ -45,9 +47,13 @@ public:
     void setcolorInclusion(QColor colorInclusion);
     QColor colorInclusion (void) const {return _colorInclusion;}
 
+    void setstrokeOpacity(double opacity);
+    double strokeOpacity (void) const {return _strokeOpacity;}
+
 signals:
     void inclusionChanged   (bool inclusion);
     void colorInclusionChanged ();
+    void strokeOpcaityChanged();
 
 private slots:
     void _setDirty(void);
@@ -58,6 +64,8 @@ private:
     bool _inclusion;
 
     QColor _colorInclusion;
+
+    double _strokeOpacity;
 
     static const int _jsonCurrentVersion = 1;
 

@@ -32,7 +32,7 @@ Rectangle {
     anchors.fill:       parent
     anchors.margins:    ScreenTools.defaultFontPixelWidth
 
-    property Fact _savePath:                            QGroundControl.settingsManager.appSettings.savePath    
+    property Fact _savePath:                            QGroundControl.settingsManager.appSettings.savePath
 
     property real   _comboFieldWidth:           ScreenTools.defaultFontPixelWidth * 30
     property real   _valueFieldWidth:           ScreenTools.defaultFontPixelWidth * 10
@@ -100,7 +100,7 @@ Rectangle {
                                     id:         videoDecodeLabel
                                     text:       qsTr("Select GeoAwareness data type")
                                     visible:    geoDataType.visible
-                                }                             
+                                }
                                 FactComboBox {
                                     id:                     geoDataType
                                     Layout.preferredWidth:  _comboFieldWidth
@@ -151,7 +151,7 @@ Rectangle {
                                 }
                             }
                         }
-                    }                                        
+                    }
                 }
             }
     }

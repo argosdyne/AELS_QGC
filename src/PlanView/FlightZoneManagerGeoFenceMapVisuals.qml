@@ -104,7 +104,7 @@ Item {
 
 
         //Set All of polygons properties
-        delegate : QGCMapPolygonVisuals {            
+        delegate : QGCMapPolygonVisuals {
             parent:             _root
             mapControl:         map
             mapPolygon:         object
@@ -112,7 +112,7 @@ Item {
             borderColor:        object.colorInclusion
             interiorColor:      object.colorInclusion
             interiorOpacity:    object.strokeOpacity //0.5//object.inclusion ? _interiorOpacityInclusion : _interiorOpacityExclusion
-            interactive:        _root.interactive && mapPolygon && mapPolygon.interactive            
+            interactive:        _root.interactive && mapPolygon && mapPolygon.interactive
 
             Component.onCompleted: {
                 console.log("QGCMapPolygonVisuals object inclusion = ", object.inclusion);

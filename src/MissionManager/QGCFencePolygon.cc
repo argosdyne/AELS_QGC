@@ -31,6 +31,7 @@ void QGCFencePolygon::_init(void)
     connect(this, &QGCFencePolygon::inclusionChanged, this, &QGCFencePolygon::_setDirty);
     //Test
     connect(this, &QGCFencePolygon::colorInclusionChanged, this, &QGCFencePolygon::_setDirty);
+    connect(this, &QGCFencePolygon::strokeOpcaityChanged, this, &QGCFencePolygon::_setDirty);
 }
 
 const QGCFencePolygon& QGCFencePolygon::operator=(const QGCFencePolygon& other)
@@ -94,5 +95,12 @@ void QGCFencePolygon::setcolorInclusion(QColor colorinclusion) {
         _colorInclusion = colorinclusion;
         qInfo() << "Color Inclusion value = " << colorinclusion;
         emit colorInclusionChanged();
+    }
+}
+void QGCFencePolygon::setstrokeOpacity(double opacity) {
+    if(opacity != _strokeOpacity){
+        _strokeOpacity = opacity;
+        qInfo() << "Stroke Opacity value = "<< opacity;
+        emit strokeOpcaityChanged();
     }
 }

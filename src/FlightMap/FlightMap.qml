@@ -22,6 +22,9 @@ import QGroundControl.MultiVehicleManager   1.0
 import QGroundControl.Vehicle               1.0
 import QGroundControl.QGCPositionManager    1.0
 
+import QGroundControl.Controllers           1.0
+import QGroundControl.FlightDisplay         1.0
+
 Map {
     id: _map
 
@@ -142,4 +145,10 @@ Map {
             }
         }
     }
+    FlightZoneManagerGeoFenceMapVisuals {
+            map: _map
+            //planView: false
+            myGeoFenceController:   _flightzoneManager
+            homePosition:           _activeVehicle && _activeVehicle.homePosition.isValid ? _activeVehicle.homePosition :  QtPositioning.coordinate()
+        }
 } // Map
