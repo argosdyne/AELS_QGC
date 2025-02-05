@@ -52,6 +52,8 @@
 		<file alias="XDeleteBlack.svg">../resources/XDeleteBlack.svg</file>
 		<file alias="waypoint.svg">../resources/waypoint.svg</file>
 		<file>../resources/icons/qgroundcontrol.ico</file>
+		<file alias="Gripper.svg">../resources/Gripper.svg</file>
+		<file alias="NoVideoBackground.jpg">../resources/NoVideoBackground.jpg</file>
 	</qresource>
 	<qresource prefix="/res/firmware">
 		<file alias="3drradio.png">../resources/firmware/3drradio.png</file>
