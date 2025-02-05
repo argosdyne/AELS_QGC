@@ -8,7 +8,12 @@
 ################################################################################
 
 QMAKE_PROJECT_DEPTH = 0 # undocumented qmake flag to force absolute paths in makefiles
+QMAKE_CXXFLAGS += /WX-
+QMAKE_CXXFLAGS -= /W4
+QMAKE_CXXFLAGS += /W3
 QMAKE_CXXFLAGS += /std:c++20
+QMAKE_CXXFLAGS += /wd5051
+QMAKE_CXXFLAGS += /Wv:18
 # These are disabled until proven correct
 DEFINES += QGC_GST_TAISYNC_DISABLED
 DEFINES += QGC_GST_MICROHARD_DISABLED
