@@ -91,7 +91,7 @@
     "shortDesc": "GeoAwareness alarm distance",
     "type": "double",
     "units": "m",
-    "default": 10,
+    "default": 40,
     "min": 1
 },
 {

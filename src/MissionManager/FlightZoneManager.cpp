@@ -218,21 +218,21 @@ bool checkPointInsidePolyhedron(const Polyhedron& polyhedron, const Point_3& poi
     //10 ~ 11M 정도의 오차가 있는 듯함. 이 오차를 줄여야됨
     bool ret = false;
     try {
-        qInfo() << "CheckPointInsidePolyhedron";
+        //qInfo() << "CheckPointInsidePolyhedron";
 
         // Polyhedron의 정점이 있는지 확인
-        if (polyhedron.size_of_vertices() == 0) {
-            qInfo() << "Polyhedron has no vertices!";
-        } else {
-            qInfo() << "Polyhedron vertices:";
-            for (auto v = polyhedron.vertices_begin(); v != polyhedron.vertices_end(); ++v) {
-                const Point_3& vertex = v->point();
-                qInfo() << "Vertex:" << vertex.x() << vertex.y() << vertex.z();
-            }
-        }
+        // if (polyhedron.size_of_vertices() == 0) {
+        //     qInfo() << "Polyhedron has no vertices!";
+        // } else {
+        //     qInfo() << "Polyhedron vertices:";
+        //     for (auto v = polyhedron.vertices_begin(); v != polyhedron.vertices_end(); ++v) {
+        //         const Point_3& vertex = v->point();
+        //         qInfo() << "Vertex:" << vertex.x() << vertex.y() << vertex.z();
+        //     }
+        // }
 
         // Point의 좌표 출력
-        qInfo() << "Point to check:" << point.x() << point.y() << point.z();
+        //qInfo() << "Point to check:" << point.x() << point.y() << point.z();
 
         Point_inside inside(polyhedron);
         if (inside(point) == CGAL::ON_BOUNDED_SIDE) {
