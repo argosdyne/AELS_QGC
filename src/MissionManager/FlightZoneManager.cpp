@@ -237,10 +237,10 @@ bool checkPointInsidePolyhedron(const Polyhedron& polyhedron, const Point_3& poi
         Point_inside inside(polyhedron);
         if (inside(point) == CGAL::ON_BOUNDED_SIDE) {
             ret = true;
-            qInfo() << "The point is inside the polyhedron.";
+           // qInfo() << "The point is inside the polyhedron.";
         } else {
             ret = false;
-            qInfo() << "The point is outside the polyhedron.";
+            //qInfo() << "The point is outside the polyhedron.";
         }
         return ret;
     }
@@ -463,7 +463,7 @@ void FlightZoneManager::checkDistanceDroneAndGeoAwareness(){
             if(manager->activeVehicle()){
                 if(allNoFlyZones.count() > 0) {
                     for(int i = 0; i < allNoFlyZones.count(); i++) {
-                        qInfo() << "Group : " << i + 1;
+                        //qInfo() << "Group : " << i + 1;
                         std::vector<Point_3> vertices;
                         std::vector<Point_3> baseVertices; // Bottom
                         std::vector<Point_3> topVertices; //Top
