@@ -60,6 +60,7 @@ QMAKE_CXXFLAGS += /W3
 QMAKE_CXXFLAGS += /std:c++20
 QMAKE_CXXFLAGS += /wd5051
 QMAKE_CXXFLAGS += /Wv:18
+QMAKE_CXXFLAGS += -wd4309
 }
 # Our own, custom resources
 RESOURCES += \

@@ -458,6 +458,7 @@ void FlightZoneManager::checkDistanceDroneAndGeoAwareness(){
 #if true
     try {
         double alarmDistance = _settingsManager->flyViewSettings()->alarmDistance()->rawValue().toDouble();
+        qInfo() << "AlarmDistance : " << alarmDistance;
         MultiVehicleManager* manager = qgcApp()->toolbox()->multiVehicleManager();
         if(manager){
             if(manager->activeVehicle()){
@@ -528,7 +529,9 @@ void FlightZoneManager::checkDistanceDroneAndGeoAwareness(){
 
                             droneLat = manager->activeVehicle()->latitude();
                             droneLon = manager->activeVehicle()->longitude();
-                            droneAlt = manager->activeVehicle()->altitudeAMSL()->rawValue().toDouble();
+                            //droneAlt = manager->activeVehicle()->altitudeAMSL()->rawValue().toDouble();
+
+                            droneAlt = manager->activeVehicle()->altitudeRelative()->rawValue().toDouble();
 
                             if (std::isnan(droneLat) || std::isnan(droneLon) || std::isnan(droneAlt)) {
                                 qWarning() << "Received NaN for vehicle position. Using default values.";
@@ -537,7 +540,7 @@ void FlightZoneManager::checkDistanceDroneAndGeoAwareness(){
                                 droneAlt = 0.0;
                             }
 
-                            // 등록한 드론의 위치를 가져와야함
+                            // 등록한 드론의 위치를 가져와야함                          
 
                             // Convert drone's position to Cartesian coordinates
                             Point_3 dronePosition = latLonAltToCartesian(droneLat, droneLon, droneAlt);
@@ -558,7 +561,7 @@ void FlightZoneManager::checkDistanceDroneAndGeoAwareness(){
                                 if(distance <= alarmDistance) // 지정한 거리값 안에 들어오면 알람을 띄워야됨
                                 {
                                     //qInfo() << "Inside Index = " << i;
-                                    QString msg = tr("The distance between the aircraft and GeoAwareness is close. Distance : %1M").arg(distance);
+                                    QString msg = tr("The distance between the aircraft and GeoAwareness is close. Group: %1 , Distance : %2M").arg(i).arg(distance);
                                     //qgcApp()->showAppMessage(msg);
                                     qgcApp()->showGeoAwarenessAlertMessage(msg, i);
                                 }

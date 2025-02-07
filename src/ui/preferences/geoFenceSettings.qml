@@ -89,6 +89,16 @@ Rectangle {
                                     visible:                true
                                     fact:                    _flyViewSettings.alarmDistance
                                 }
+
+                                //Alarm value must over than 40
+                                Connections {
+                                    target: alarmDistance
+                                    function onEditingFinished() {
+                                        if (alarmDistance.fact.value < 40) {
+                                            alarmDistance.fact.value = 40;
+                                        }
+                                    }
+                                }
                             }
 
                             GridLayout {
