@@ -665,24 +665,24 @@ ApplicationWindow {
        property string _geoAwarenessAlertMessage: ""
        property var _geoAwarenessAlertIndex: []
        function showGeoAwarenessAlertMessage(message, index) {
-           console.log("Popup status show:", index);
+           //console.log("Popup status show:", index);
            if(geoAwarenessMessagePopup.visible || QGroundControl.videoManager.fullScreen){
                console.log("showGeoAwarenessAlertMessage = ", message);
                addMessageToQueue(message, index);
-               console.log("_geoAwarenessAlertQueue length : ", _geoAwarenessAlertQueue.length );
+               //console.log("_geoAwarenessAlertQueue length : ", _geoAwarenessAlertQueue.length );
            } else {
-               console.log("showGeoAwarenessAlertMessage else = ", message);
+               //console.log("showGeoAwarenessAlertMessage else = ", message);
                _geoAwarenessAlertMessage = message
                _geoAwarenessAlertIndex.push(index); // Add index to queue
                geoAwarenessMessagePopup.open()
            }
        }
        function closeGeoAwarenessAlertMessage(index) {
-           console.log("Popup status close:", index);
+           //console.log("Popup status close:", index);
            const indexPos = _geoAwarenessAlertIndex.indexOf(index);
            if (indexPos !== -1) {
                // Remove specific index and corresponding message
-               console.log("Closing popup for index:", index);
+               //console.log("Closing popup for index:", index);
                _geoAwarenessAlertIndex.splice(indexPos, 1); // Remove index
                _geoAwarenessAlertQueue.splice(indexPos, 1); // Remove corresponding message
                if (_geoAwarenessAlertIndex.length === 0) {
@@ -693,7 +693,7 @@ ApplicationWindow {
                    updateAlertMessage();
                }
            } else {
-               console.log("Index not found in queue:", index);
+               //console.log("Index not found in queue:", index);
            }
        }
        // Queue update
@@ -750,6 +750,10 @@ ApplicationWindow {
                boundsBehavior:     Flickable.StopAtBounds
                pixelAligned:       true
                clip:               true
+
+               onContentHeightChanged: {
+                   contentY = contentHeight - height;
+               }
                TextEdit {
                    id:             geoAwarenessMessageText
                    width:          criticalVehicleMessagePopup.width - criticalVehicleMessageClose.width - (ScreenTools.defaultFontPixelHeight * 2)
@@ -760,6 +764,11 @@ ApplicationWindow {
                    font.family:    ScreenTools.demiboldFontFamily
                    wrapMode:       TextEdit.WordWrap
                    color:          qgcPal.alertText
+
+                   // 텍스트가 변경될 때 Flickable의 위치를 업데이트
+                   onTextChanged: {
+                       geoAwarenessMessageFlick.contentY = geoAwarenessMessageFlick.contentHeight - geoAwarenessMessageFlick.height;
+                   }
                }
            }
            QGCColoredImage {
