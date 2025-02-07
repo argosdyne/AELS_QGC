@@ -13,12 +13,12 @@
 QGC_LOGGING_CATEGORY(StandardModesLog, "StandardModesLog")
 
 
-// static void requestMessageResultHandler(void* resultHandlerData, MAV_RESULT result,
-//                                         Vehicle::RequestMessageResultHandlerFailureCode_t failureCode, const mavlink_message_t &message)
-// {
-//     StandardModes* standardModes = static_cast<StandardModes*>(resultHandlerData);
-//     standardModes->gotMessage(result, message);
-// }
+static void requestMessageResultHandler(void* resultHandlerData, MAV_RESULT result,
+                                        Vehicle::RequestMessageResultHandlerFailureCode_t failureCode, const mavlink_message_t &message)
+{
+    StandardModes* standardModes = static_cast<StandardModes*>(resultHandlerData);
+    standardModes->gotMessage(result, message);
+}
 
 StandardModes::StandardModes(QObject *parent, Vehicle *vehicle)
         : QObject(parent), _vehicle(vehicle)
@@ -35,61 +35,61 @@ void StandardModes::gotMessage(MAV_RESULT result, const mavlink_message_t &messa
     }
 
     if (result == MAV_RESULT_ACCEPTED) {
-        // mavlink_available_modes_t availableModes;
-        // mavlink_msg_available_modes_decode(&message, &availableModes);
-        // bool cannotBeSet = availableModes.properties & MAV_MODE_PROPERTY_NOT_USER_SELECTABLE;
-        // bool advanced = availableModes.properties & MAV_MODE_PROPERTY_ADVANCED;
-        // availableModes.mode_name[sizeof(availableModes.mode_name)-1] = '\0';
-        // QString name = availableModes.mode_name;
-        // switch (availableModes.standard_mode) {
-        //     case MAV_STANDARD_MODE_POSITION_HOLD:
-        //         name = "Position";
-        //         break;
-        //     case MAV_STANDARD_MODE_ORBIT:
-        //         name = "Orbit";
-        //         break;
-        //     case MAV_STANDARD_MODE_CRUISE:
-        //         name = "Cruise";
-        //         break;
-        //     case MAV_STANDARD_MODE_ALTITUDE_HOLD:
-        //         name = "Altitude";
-        //         break;
-        //     case MAV_STANDARD_MODE_RETURN_HOME:
-        //         name = "Return";
-        //         break;
-        //     case MAV_STANDARD_MODE_SAFE_RECOVERY:
-        //         name = "Safe Recovery";
-        //         break;
-        //     case MAV_STANDARD_MODE_MISSION:
-        //         name = "Mission";
-        //         break;
-        //     case MAV_STANDARD_MODE_LAND:
-        //         name = "Land";
-        //         break;
-        //     case MAV_STANDARD_MODE_TAKEOFF:
-        //         name = "Takeoff";
-        //         break;
-        // }
+        mavlink_available_modes_t availableModes;
+        mavlink_msg_available_modes_decode(&message, &availableModes);
+        bool cannotBeSet = availableModes.properties & MAV_MODE_PROPERTY_NOT_USER_SELECTABLE;
+        bool advanced = availableModes.properties & MAV_MODE_PROPERTY_ADVANCED;
+        availableModes.mode_name[sizeof(availableModes.mode_name)-1] = '\0';
+        QString name = availableModes.mode_name;
+        switch (availableModes.standard_mode) {
+            case MAV_STANDARD_MODE_POSITION_HOLD:
+                name = "Position";
+                break;
+            case MAV_STANDARD_MODE_ORBIT:
+                name = "Orbit";
+                break;
+            case MAV_STANDARD_MODE_CRUISE:
+                name = "Cruise";
+                break;
+            case MAV_STANDARD_MODE_ALTITUDE_HOLD:
+                name = "Altitude";
+                break;
+            case MAV_STANDARD_MODE_RETURN_HOME:
+                name = "Return";
+                break;
+            case MAV_STANDARD_MODE_SAFE_RECOVERY:
+                name = "Safe Recovery";
+                break;
+            case MAV_STANDARD_MODE_MISSION:
+                name = "Mission";
+                break;
+            case MAV_STANDARD_MODE_LAND:
+                name = "Land";
+                break;
+            case MAV_STANDARD_MODE_TAKEOFF:
+                name = "Takeoff";
+                break;
+        }
 
-        // if (name == "Takeoff" || name == "VTOL Takeoff" || name == "Orbit" || name == "Land" || name == "Return") { // These are exposed in the UI as separate buttons
-        //     cannotBeSet = true;
-        // }
+        if (name == "Takeoff" || name == "VTOL Takeoff" || name == "Orbit" || name == "Land" || name == "Return") { // These are exposed in the UI as separate buttons
+            cannotBeSet = true;
+        }
 
-        // qCDebug(StandardModesLog) << "Got mode:" << name << ", idx:" << availableModes.mode_index << ", custom_mode" << availableModes.custom_mode;
+        qCDebug(StandardModesLog) << "Got mode:" << name << ", idx:" << availableModes.mode_index << ", custom_mode" << availableModes.custom_mode;
 
-        // _nextModes[availableModes.custom_mode] = Mode{name, availableModes.standard_mode, advanced, cannotBeSet};
+        _nextModes[availableModes.custom_mode] = Mode{name, availableModes.standard_mode, advanced, cannotBeSet};
 
-        // if (availableModes.mode_index >= availableModes.number_modes) { // We are done
-        //     qCDebug(StandardModesLog) << "Completed, num modes:" << _nextModes.size();
-        //     _modes = _nextModes;
-        //     ensureUniqueModeNames();
-        //     _hasModes = true;
-        //     emit modesUpdated();
-        //     emit requestCompleted();
+        if (availableModes.mode_index >= availableModes.number_modes) { // We are done
+            qCDebug(StandardModesLog) << "Completed, num modes:" << _nextModes.size();
+            _modes = _nextModes;
+            ensureUniqueModeNames();
+            _hasModes = true;
+            emit modesUpdated();
+            emit requestCompleted();
 
-        // } else {
-        //     requestMode(availableModes.mode_index + 1);
-        // }
+        } else {
+            requestMode(availableModes.mode_index + 1);
+        }
 
     } else {
         qCDebug(StandardModesLog) << "Failed to retrieve available modes" << result;
@@ -134,11 +134,11 @@ void StandardModes::request()
 void StandardModes::requestMode(int modeIndex)
 {
     _requestActive = true;
-    // _vehicle->requestMessage(
-    //         requestMessageResultHandler,
-    //         this,
-    //         MAV_COMP_ID_AUTOPILOT1,
-    //         MAVLINK_MSG_ID_AVAILABLE_MODES, modeIndex);
+    _vehicle->requestMessage(
+            requestMessageResultHandler,
+            this,
+            MAV_COMP_ID_AUTOPILOT1,
+            MAVLINK_MSG_ID_AVAILABLE_MODES, modeIndex);
 }
 
 void StandardModes::availableModesMonitorReceived(uint8_t seq)

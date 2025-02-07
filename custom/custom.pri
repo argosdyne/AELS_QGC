@@ -25,13 +25,13 @@ DEFINES += APP_VERSION_STR=\"\\\"$$CUSTOM_QGC_VERSION\\\"\"
 message(Custom QGC Version: $${CUSTOM_QGC_VERSION})
 
 # # Build a single flight stack by disabling APM support
-MAVLINK_CONF = ardupilotmega
+#MAVLINK_CONF = ardupilotmega
 # CONFIG  += QGC_DISABLE_APM_MAVLINK # THANH: Check
 #CONFIG  += QGC_DISABLE_PX4_PLUGIN QGC_DISABLE_PX4_PLUGIN_FACTORY
 CONFIG  += QGC_DISABLE_PX4_PLUGIN_FACTORY
 
 # We implement our own PX4 plugin factory
-# CONFIG  += QGC_DISABLE_PX4_PLUGIN
+CONFIG  += QGC_DISABLE_PX4_PLUGIN
 
 # Branding
 
@@ -52,6 +52,15 @@ QGC_ANDROID_PACKAGE = "org.Agosdyne.alesqgc"
 QGC_APP_DESCRIPTION = "Ales QGroundControl"
 QGC_APP_COPYRIGHT   = "Copyright (C) 2023 Ales QGroundControl Development Team. All rights reserved."
 
+
+WindowsBuild {
+QMAKE_CXXFLAGS += /WX-
+QMAKE_CXXFLAGS -= /W4
+QMAKE_CXXFLAGS += /W3
+QMAKE_CXXFLAGS += /std:c++20
+QMAKE_CXXFLAGS += /wd5051
+QMAKE_CXXFLAGS += /Wv:18
+}
 # Our own, custom resources
 RESOURCES += \
     $$PWD/custom.qrc
@@ -110,14 +119,14 @@ INCLUDEPATH += \
     $$PWD/src/AutoPilotPlugin
     $$PWD/src/FirmwarePlugin/APM/
 
-HEADERS+= \
-    $$PWD/src/AutoPilotPlugin/CustomAutoPilotPlugin.h \
-    $$PWD/src/FirmwarePlugin/CustomFirmwarePlugin.h \
-    $$PWD/src/FirmwarePlugin/CustomFirmwarePluginFactory.h \
+# HEADERS+= \
+#     $$PWD/src/AutoPilotPlugin/CustomAutoPilotPlugin.h \
+#     $$PWD/src/FirmwarePlugin/CustomFirmwarePlugin.h \
+#     $$PWD/src/FirmwarePlugin/CustomFirmwarePluginFactory.h \
 
-SOURCES += \
-    $$PWD/src/AutoPilotPlugin/CustomAutoPilotPlugin.cc \
-    $$PWD/src/FirmwarePlugin/CustomFirmwarePlugin.cc \
-    $$PWD/src/FirmwarePlugin/CustomFirmwarePluginFactory.cc \
+# SOURCES += \
+#     $$PWD/src/AutoPilotPlugin/CustomAutoPilotPlugin.cc \
+#     $$PWD/src/FirmwarePlugin/CustomFirmwarePlugin.cc \
+#     $$PWD/src/FirmwarePlugin/CustomFirmwarePluginFactory.cc \
 
 

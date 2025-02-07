@@ -16,6 +16,9 @@
 		<file alias="ROIIndicator.qml">../src/ui/toolbar/ROIIndicator.qml</file>
 		<file alias="TelemetryRSSIIndicator.qml">../src/ui/toolbar/TelemetryRSSIIndicator.qml</file>
 		<file alias="VTOLModeIndicator.qml">../src/ui/toolbar/VTOLModeIndicator.qml</file>
+		<file alias="GimbalIndicator.qml">../src/ui/toolbar/GimbalIndicator.qml</file>
+		<file alias="APMSupportForwardingIndicator.qml">../src/ui/toolbar/APMSupportForwardingIndicator.qml</file>
+		<file alias="RemoteIDIndicator.qml">../src/ui/toolbar/RemoteIDIndicator.qml</file>
 			</qresource>
 	<qresource prefix="/checklists">
 		<file alias="DefaultChecklist.qml">../src/FlightDisplay/DefaultChecklist.qml</file>
@@ -293,7 +296,9 @@
 		<file alias="QGroundControl/FlightDisplay/GuidedActionGripper.qml">../src/FlightDisplay/GuidedActionGripper.qml</file>
 		<file alias="QGroundControl/FlightDisplay/GripperMenu.qml">../src/FlightDisplay/GripperMenu.qml</file>
 		<file alias="QGroundControl/Controls/QGCColumnButton.qml">../src/QmlControls/QGCColumnButton.qml</file>
-		
+		<file alias="QGroundControl/FlightDisplay/FlyViewVideo.qml">../src/FlightDisplay/FlyViewVideo.qml</file>
+		<file alias="QGroundControl/FlightDisplay/OnScreenGimbalController.qml">../src/FlightDisplay/OnScreenGimbalController.qml</file>
+
 	</qresource>
 	<qresource prefix="/FirstRunPromptDialogs">
 		<file alias="UnitsFirstRunPrompt.qml">../src/FirstRunPromptDialogs/UnitsFirstRunPrompt.qml</file>
