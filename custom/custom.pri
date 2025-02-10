@@ -76,6 +76,7 @@ SOURCES += \
     $$PWD/src/ARLink/ARManager.cpp \
     $$PWD/src/CustomQmlInterface.cc \
     $$PWD/src/AVIATOR/AVIATORInterface.cpp \
+    $$PWD/src/MissionManager/FlightZoneManager.cpp \
 
 HEADERS += \
     $$PWD/src/CustomPlugin.h \
@@ -94,6 +95,7 @@ HEADERS += \
     $$PWD/src/ARLink/ARManager.h \
     $$PWD/src/CustomQmlInterface.h \
     $$PWD/src/AVIATOR/AVIATORInterface.h \
+    $$PWD/src/MissionManager/FlightZoneManager.h \
 
 INCLUDEPATH += \
     $$PWD/src \
@@ -101,6 +103,7 @@ INCLUDEPATH += \
     $$PWD/src/RTCM/ \
     $$PWD/src/ARLink/ \
     $$PWD/src/AVIATOR/ \
+    $$PWD/src/MissionManager \
 
 #-------------------------------------------------------------------------------------
 # Custom Firmware/AutoPilot Plugin
