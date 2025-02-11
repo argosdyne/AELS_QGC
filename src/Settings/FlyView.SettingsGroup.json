@@ -107,6 +107,12 @@
     "shortDesc": "GeoAwareness file Path",
     "type": "string",
     "default": "Default"
+},
+{
+    "name": "onlinePath",
+    "shortDesc": "GeoAwareness online file path",
+    "type": "string",
+    "default": "Default"
 }
 ]
 }

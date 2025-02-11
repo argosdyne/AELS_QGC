@@ -586,8 +586,10 @@ void FlightZoneManager::checkDistanceDroneAndGeoAwareness(){
 
 void FlightZoneManager::fetchGeoJsonDataForRegion(double n, double e, double s, double w)
 {
+    QString onlineUrl = _settingsManager->flyViewSettings()->onlinePath()->rawValueString();
+    qInfo() << "online Url : " << onlineUrl;
     QString url = "https://api.altitudeangel.com/v2/mapdata/geojson";
-    QUrl fullUrl(url);
+    QUrl fullUrl(onlineUrl);
 
     QUrlQuery query;
     query.addQueryItem("n", QString::number(n)); // 북쪽 위도
@@ -598,8 +600,8 @@ void FlightZoneManager::fetchGeoJsonDataForRegion(double n, double e, double s, 
 
     QNetworkRequest request(fullUrl);
 
-    // Add headers
-    request.setRawHeader("Authorization", "X-AA-ApiKey S_QjUlIuo3mYvFzlHR4K8iyYAVPuPBwaKHHCq2780");
+    // Add headers    
+    request.setRawHeader("Authorization", "X-AA-ApiKey pJGT9n0ZQJxr3uqO4bz_4uAS2yx-hZzQkBbYopSv0");
     request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 
     // Send GET request
@@ -689,7 +691,7 @@ void FlightZoneManager::checkCurrentZoomValue() {
         }
     }
     else {
-        if(zoom >= 12)  { // 테스트용으로 8 원래는 13
+        if(zoom >= 14)  { // 테스트용으로 8 원래는 13
             qInfo() << "FlightMap zoom Over 12: " << qGroundControlQmlGlobal->flightMapZoom();
             // 메소드를 한번만 실행시켜야됨
             // 없으면 생성. 있으면 생성 안해야됨. 조건은 추가 필요.
@@ -770,6 +772,7 @@ void FlightZoneManager::updatePolygonVisibility() {
                 qInfo() << "Delete Index : " << i;
                 deletePolygon(i);
                 validTimeList.removeAt(i);
+                allNoFlyZones.removeAt(i);
                 --i;
                 timeData.isCreated = false;
                 qInfo() << "After Delete Polygon count: " << _polygons.count();

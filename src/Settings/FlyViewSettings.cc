@@ -33,4 +33,5 @@ DECLARE_SETTINGSFACT(FlyViewSettings, customActionDefinitions)
 DECLARE_SETTINGSFACT(FlyViewSettings, alarmDistance)
 DECLARE_SETTINGSFACT(FlyViewSettings, dataType)
 DECLARE_SETTINGSFACT(FlyViewSettings, filePath)
+DECLARE_SETTINGSFACT(FlyViewSettings, onlinePath)
 

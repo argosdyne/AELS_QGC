@@ -119,16 +119,17 @@ Rectangle {
                                     indexModel:             false
                                 }
                             }
-                            QGCLabel { text: qsTr("Application Load/Save Path") }
+                            QGCLabel { text: qsTr("Application Load/Save Path"); visible: geoDataType.currentIndex === 0}
 
                             FactTextField {
                                 id: filePathTextField
                                 Layout.fillWidth:   true
                                 readOnly:           true
-                                visible:            true
+                                visible:            geoDataType.currentIndex === 0
                                 fact:   _flyViewSettings.filePath
                             }
                             QGCButton {
+                                visible:    geoDataType.currentIndex === 0
                                 text:       qsTr("Browse")
                                 onClicked:  androidFileDialog.open()
                                 FileDialog {
@@ -159,6 +160,16 @@ Rectangle {
                                         console.log("File selection cancelled.")
                                     }
                                 }
+                            }
+                            QGCLabel {
+                                text:       qsTr("Get Online GeoAwareness ")
+                                visible:            geoDataType.currentIndex === 1
+                            }
+                            FactTextField {
+                                id:                     onlinePath
+                                Layout.fillWidth:   true
+                                visible:            geoDataType.currentIndex === 1
+                                fact:               _flyViewSettings.onlinePath
                             }
                         }
                     }

@@ -35,4 +35,5 @@ public:
     DEFINE_SETTINGFACT(alarmDistance)
     DEFINE_SETTINGFACT(dataType)
     DEFINE_SETTINGFACT(filePath)
+    DEFINE_SETTINGFACT(onlinePath)
 };
