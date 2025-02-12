@@ -58,7 +58,7 @@ PATH:
 
 
 1. In QgroundControl folder, create build folder
-2. Inside build folder, opem cmd
+2. Inside build folder, open cmd
 
 Codes to build
    
