@@ -30,7 +30,10 @@ https://jdk.java.net/java-se-ri/11-MR2
 ![image](https://github.com/user-attachments/assets/1fc465f9-ab9c-4ff5-a98d-ad0cbc02bd50)
 
 
-Android Studio: SDK Manager sdk and ndk installation
+In Android Studio: SDK Manager sdk and ndk installation
+
+Customize -> Configure -> Languages & Frameworks -> Android SDK
+
 - SDK: Android 9.0 Pie
 - NDK: 21.3.6528147 and 25.1.8937393
 
