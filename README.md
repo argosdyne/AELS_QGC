@@ -18,3 +18,49 @@ Key Links:
 * [Discussion/Support](https://docs.qgroundcontrol.com/en/Support/Support.html)
 * [Contributing](https://dev.qgroundcontrol.com/en/contribute/)
 * [License](https://github.com/mavlink/qgroundcontrol/blob/master/COPYING.md)
+
+Android apk build with command prompt (cmd):
+
+- In QgroundControl folder, create build folder
+- Inside build folder, opem cmd
+
+Jdk install
+
+https://jdk.java.net/java-se-ri/11-MR2
+
+![image](https://github.com/user-attachments/assets/1fc465f9-ab9c-4ff5-a98d-ad0cbc02bd50)
+
+
+Android Studio: SDK Manager sdk and ndk installation
+- SDK: Android 9.0 Pie
+- NDK: 21.3.6528147 and 25.1.8937393
+
+additional package: Android SDK Command line Tools
+
+![image](https://github.com/user-attachments/assets/14a41daf-a2a1-451f-bbca-e0a6acd4d560)
+
+![image](https://github.com/user-attachments/assets/ea5dfc27-cca7-4183-bbec-fe7da70c5dd9)
+
+Setups in environment variables:
+
+JAVA_HOME
+- D:\Programs\Java\jdk-11.0.0.1
+
+ANDROID_NDK_ROOT
+- D:\Programs\Android\SDK\ndk\21.3.6528147
+
+ANDROID_SDK_ROOT
+- D:\Programs\Android\SDK
+
+PATH:
+- D:\Programs\Java\jdk-11.0.0.1\bin
+- D:\Programs\Qt\5.15.2\android\bin
+- D:\Programs\Qt\Tools\QtCreator\bin\jom
+
+
+Codes to build
+   
+    qmake.exe ../qgroundcontrol.pro -spec android-clang "CONFIG+=debug" "CONFIG+=qml_debug" ANDROID_ABIS="arm64-v8a"
+
+    D:\Programs\Android\SDK\ndk\21.3.6528147\prebuilt\windows-x86_64\bin\make.exe -j8
+    D:\Programs\Android\SDK\ndk\21.3.6528147\prebuilt\windows-x86_64\bin\make.exe apk
