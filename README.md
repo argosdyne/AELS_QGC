@@ -66,3 +66,27 @@ Codes to build
 
     D:\Programs\Android\SDK\ndk\21.3.6528147\prebuilt\windows-x86_64\bin\make.exe -j8
     D:\Programs\Android\SDK\ndk\21.3.6528147\prebuilt\windows-x86_64\bin\make.exe apk
+
+
+QTCreator to build
+
+environment variables is same as Codes build environment.
+
+- Android
+Edit -> Preferences
+
+![image](https://github.com/user-attachments/assets/bfc7984c-7996-4458-b533-9316d0bf7420)
+
+Devices -> Android
+
+![image](https://github.com/user-attachments/assets/9f6b8d0a-2112-4db6-806c-b24a0dafaa3f)
+
+- Window
+
+Edit -> Preferences -> Kits -> Compilers
+
+![image](https://github.com/user-attachments/assets/1eb0f695-5290-449e-ad70-80dcb3aeddc1)
+
+![image](https://github.com/user-attachments/assets/dbbad4d0-734f-410e-bb57-70ded306728f)
+
+
