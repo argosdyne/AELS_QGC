@@ -21,8 +21,7 @@ Key Links:
 
 Android apk build with command prompt (cmd):
 
-- In QgroundControl folder, create build folder
-- Inside build folder, opem cmd
+Initial setups for build:
 
 Jdk install
 
@@ -57,6 +56,9 @@ PATH:
 - D:\Programs\Qt\5.15.2\android\bin
 - D:\Programs\Qt\Tools\QtCreator\bin\jom
 
+
+1. In QgroundControl folder, create build folder
+2. Inside build folder, opem cmd
 
 Codes to build
    
