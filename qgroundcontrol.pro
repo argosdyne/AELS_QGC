@@ -268,7 +268,8 @@ QT += \
     widgets \
     xml \
     texttospeech \
-    core-private
+    core-private \
+    mqtt
 
 # Multimedia only used if QVC is enabled
 !contains (DEFINES, QGC_DISABLE_UVC) {

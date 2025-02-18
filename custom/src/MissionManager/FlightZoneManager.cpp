@@ -41,9 +41,10 @@
 #include <CGAL/Delaunay_triangulation_3.h>
 
 
-
-
-
+#include <QMqttClient>
+#include <QMqttSubscription>
+#include <QMqttMessage>
+#include <QtConcurrent>
 
 typedef CGAL::Simple_cartesian<double> Kernel;
 typedef Kernel::Point_3 Point_3;
@@ -101,6 +102,61 @@ FlightZoneManager::FlightZoneManager() : manager(new QNetworkAccessManager(this)
 
     qInfo() << "init flightmapPos = " << qGroundControlQmlGlobal->flightMapPosition().latitude() << "," << qGroundControlQmlGlobal->flightMapPosition().longitude();
     qInfo() << "init geoCoord = " << geoCoordinate.latitude() << "," << geoCoordinate.longitude();
+
+    mqttConnectTest();
+}
+
+
+void FlightZoneManager::mqttConnectTest(){
+    auto mqttClient = new QMqttClient(this);
+    mqttClient->setHostname("220.88.56.100");
+    mqttClient->setPort(1883);
+    mqttClient->connectToHost();
+
+    QString notiTopic = QString("default/%1/upNoti").arg("sttSim-02");
+
+    QString respTopic = QString("default/%1/upResp/%2").arg("uavRos1").arg("16777619");
+
+    // 연결 후 구독
+    connect(mqttClient, &QMqttClient::connected, this, [mqttClient, notiTopic]() {
+        auto subscription = mqttClient->subscribe(QMqttTopicFilter(notiTopic)); // 모든 하위 토픽 구독
+        if (!subscription)
+            qDebug() << "MQTT Subscription failed!";
+    });
+
+    // 메시지 수신 핸들러
+    connect(mqttClient, &QMqttClient::messageReceived, this, [](const QByteArray &message, const QMqttTopicName &topic) {
+        QString logMessage = QString("%1 Topic: %2, Payload: %3")
+        .arg(QDateTime::currentDateTime().toString("yyyy-MM-dd hh:mm:ss"))
+            .arg(topic.name())
+            .arg(QString::fromUtf8(message));
+        qInfo() << logMessage;
+
+
+        // JSON 파싱
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(message);
+        if (jsonDoc.isObject()) {
+            QJsonObject jsonObj = jsonDoc.object();
+
+            // DataFlowItem에 데이터 저장
+            DataFlowItem dataItem;
+            dataItem.DeviceID = QUuid::createUuid();
+            dataItem.Telemetry.info = jsonObj.value("info").toString();
+            dataItem.Telemetry.aux0 = jsonObj.value("aux0").toString();
+
+            //auto e = dataItem.Telemetry;
+
+
+            // 데이터 확인
+            qDebug() << "Telemetry Info:" << dataItem.Telemetry.info;
+            qDebug() << "Telemetry Aux0:" << dataItem.Telemetry.aux0;
+        } else {
+            qWarning() << "Invalid JSON format!";
+        }
+
+    });
+
+
 
 }
 

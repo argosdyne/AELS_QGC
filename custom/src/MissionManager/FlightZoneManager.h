@@ -55,6 +55,8 @@ public:
     void checkDistanceDroneAndGeoAwareness();
 
     void updateGeoAwareness();
+
+    void mqttConnectTest();
 signals:
 
 
@@ -141,6 +143,20 @@ public:
                altitudeCeiling == other.altitudeCeiling;
     }
 };
+
+class UAVStatusInfo_Args {
+public:
+    QString info;
+    QString aux0;
+};
+
+class DataFlowItem {
+public:
+    QUuid DeviceID;
+    UAVStatusInfo_Args Telemetry;
+};
+
+
 
 
 #endif // FLIGHTZONEMANAGER_H
