@@ -12,7 +12,7 @@
 #include <QSettings>
 #include <QMutexLocker>
 
-#ifdef __android__
+#if defined(__android__) && !defined(FORCE_QSERIALPORT)
 #include "qserialport.h"
 #else
 #include <QSerialPort>
@@ -176,6 +176,9 @@ bool SerialLink::_hardwareConnect(QSerialPort::SerialPortError& error, QString& 
     }
 
     _port = new QSerialPort(_serialConfig->portName(), this);
+
+    QObject::connect(_port, static_cast<void (QSerialPort::*)(QSerialPort::SerialPortError)>(&QSerialPort::error), this, &SerialLink::linkError);
+    QObject::connect(_port, &QIODevice::readyRead, this, &SerialLink::_readBytes);
 
 #ifdef Q_OS_ANDROID
     QObject::connect(_port, SIGNAL(&QSerialPort::error), this, SLOT(&SerialLink::linkError));

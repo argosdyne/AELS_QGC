@@ -106,7 +106,7 @@
 #include "CustomAction.h"
 #include "CustomActionManager.h"
 #include "GimbalController.h"
-
+#include "FlightZoneManager.h"
 #if defined(QGC_ENABLE_PAIRING)
 #include "PairingManager.h"
 #endif
@@ -483,6 +483,7 @@ void QGCApplication::_initCommon()
     qmlRegisterUncreatableType<LogReplayLink>       (kQGroundControl,                       1, 0, "LogReplayLink",              kRefOnly);
     qmlRegisterUncreatableType<InstrumentValueData> (kQGroundControl,                       1, 0, "InstrumentValueData",        kRefOnly);
     qmlRegisterType<LogReplayLinkController>        (kQGroundControl,                       1, 0, "LogReplayLinkController");
+    qmlRegisterType<FlightZoneManager>              (kQGCControllers,                       1, 0, "FlightZoneManager");
 #if !defined(QGC_DISABLE_MAVLINK_INSPECTOR)
     qmlRegisterUncreatableType<MAVLinkChartController> (kQGroundControl,                    1, 0, "MAVLinkChart",               kRefOnly);
 #endif
@@ -746,6 +747,37 @@ void QGCApplication::showCriticalVehicleMessage(const QString& message)
         qDebug() << "QGCApplication::showCriticalVehicleMessage unittest" << message;
     } else {
         qWarning() << "Internal error";
+    }
+}
+
+void QGCApplication::closeCriticalVehicleMessage() {
+    QObject* rootQmlObject = _rootQmlObject();
+    if(rootQmlObject){
+        QVariant varReturn;
+        QMetaObject::invokeMethod(_rootQmlObject(), "closeCriticalVehicleMessage");
+    }
+}
+
+void QGCApplication::showGeoAwarenessAlertMessage(const QString& message, const qint64& index){
+    QObject* rootQmlObject = _rootQmlObject();
+    if(rootQmlObject){
+        QVariant varReturn;
+        QVariant varMessage = QVariant::fromValue(message);
+        QVariant varIndex = QVariant::fromValue(index);
+        QMetaObject::invokeMethod(_rootQmlObject(), "showGeoAwarenessAlertMessage", Q_RETURN_ARG(QVariant, varReturn), Q_ARG(QVariant, varMessage), Q_ARG(QVariant, varIndex));
+    } else if( runningUnitTests()){
+        qDebug() << "QGCApplication showGeoWarenessAlertMessage unittest" << message;
+    } else {
+        qWarning() << "show GeoAwareness Alert Message Error";
+    }
+}
+
+void QGCApplication::closeGeoAwarenessAlertMessage(const qint64& index) {
+    QObject* rootQmlObject = _rootQmlObject();
+    if(rootQmlObject){
+        QVariant varReturn;
+        QVariant varIndex = QVariant::fromValue(index);
+        QMetaObject::invokeMethod(_rootQmlObject(), "closeGeoAwarenessAlertMessage", Q_RETURN_ARG(QVariant, varReturn),Q_ARG(QVariant, varIndex));
     }
 }
 

@@ -19,6 +19,7 @@ import QGroundControl.Controls      1.0
 import QGroundControl.ScreenTools   1.0
 import QGroundControl.FlightDisplay 1.0
 import QGroundControl.FlightMap     1.0
+import QGroundControl.Controllers           1.0
 
 /// @brief Native QML top level window
 /// All properties defined here are visible to all QML pages.
@@ -371,19 +372,26 @@ ApplicationWindow {
                                 anchors.fill:       parent
 
                                 onClicked: {
-                                    if (mouse.modifiers & Qt.ControlModifier) {
-                                        QGroundControl.corePlugin.showTouchAreas = !QGroundControl.corePlugin.showTouchAreas
-                                        showTouchAreasNotification.open()
-                                    } else if (ScreenTools.isMobile || mouse.modifiers & Qt.ShiftModifier) {
+                                    if (ScreenTools.isMobile){
                                         if(!QGroundControl.corePlugin.showAdvancedUI) {
                                             advancedModeOnConfirmation.open()
                                         } else {
                                             advancedModeOffConfirmation.open()
                                         }
                                     }
+                                    else {
+                                        if (mouse.modifiers & Qt.ControlModifier) {
+                                            QGroundControl.corePlugin.showTouchAreas = !QGroundControl.corePlugin.showTouchAreas
+                                        } else if (mouse.modifiers & Qt.ShiftModifier) {
+                                            if(!QGroundControl.corePlugin.showAdvancedUI) {
+                                                advancedModeConfirmation.open()
+                                            } else {
+                                                QGroundControl.corePlugin.showAdvancedUI = false
+                                            }
+                                        }
+                                    }
                                 }
-
-                                // This allows you to change this on mobile
+                                    // This allows you to change this on mobile
                                 onPressAndHold: {
                                     QGroundControl.corePlugin.showTouchAreas = !QGroundControl.corePlugin.showTouchAreas
                                     showTouchAreasNotification.open()
@@ -436,6 +444,14 @@ ApplicationWindow {
         anchors.fill:   parent
         visible:        false
     }
+
+    FlightZoneManager {
+            id: _flightzoneManager
+
+            Component.onCompleted: {
+
+            }
+        }
 
     Drawer {
         id:             toolDrawer
@@ -548,6 +564,12 @@ ApplicationWindow {
         }
     }
 
+    function closeCriticalVehicleMessage(){
+        if(criticalVehicleMessagePopup.visible){
+            criticalVehicleMessagePopup.close();
+        }
+    }
+
     Popup {
         id:                 criticalVehicleMessagePopup
         y:                  ScreenTools.defaultFontPixelHeight
@@ -636,6 +658,157 @@ ApplicationWindow {
             }
         }
     }
+
+    //------------------------------------------------------------------------
+       //-- GeoAwareness Alert Popup
+       property var _geoAwarenessAlertQueue: []
+       property string _geoAwarenessAlertMessage: ""
+       property var _geoAwarenessAlertIndex: []
+       function showGeoAwarenessAlertMessage(message, index) {
+           //console.log("Popup status show:", index);
+           if(geoAwarenessMessagePopup.visible || QGroundControl.videoManager.fullScreen){
+               console.log("showGeoAwarenessAlertMessage = ", message);
+               addMessageToQueue(message, index);
+               //console.log("_geoAwarenessAlertQueue length : ", _geoAwarenessAlertQueue.length );
+           } else {
+               //console.log("showGeoAwarenessAlertMessage else = ", message);
+               _geoAwarenessAlertMessage = message
+               _geoAwarenessAlertIndex.push(index); // Add index to queue
+               geoAwarenessMessagePopup.open()
+           }
+       }
+       function closeGeoAwarenessAlertMessage(index) {
+           //console.log("Popup status close:", index);
+           const indexPos = _geoAwarenessAlertIndex.indexOf(index);
+           if (indexPos !== -1) {
+               // Remove specific index and corresponding message
+               //console.log("Closing popup for index:", index);
+               _geoAwarenessAlertIndex.splice(indexPos, 1); // Remove index
+               _geoAwarenessAlertQueue.splice(indexPos, 1); // Remove corresponding message
+               if (_geoAwarenessAlertIndex.length === 0) {
+                   // If no more messages, close popup
+                   geoAwarenessMessagePopup.close();
+               } else {
+                   // Update displayed message
+                   updateAlertMessage();
+               }
+           } else {
+               //console.log("Index not found in queue:", index);
+           }
+       }
+       // Queue update
+       function addMessageToQueue(message, index) {
+           // Check for duplicates
+           if (_geoAwarenessAlertQueue.indexOf(message) === -1) {
+               console.log("Adding message to queue:", message);
+               _geoAwarenessAlertQueue.push(message);
+               _geoAwarenessAlertIndex.push(index); // Add index to queue
+               updateAlertMessage(); // Update the displayed message
+           } else {
+               console.log("Duplicate message ignored:", message);
+           }
+       }
+       // Message update
+       function updateAlertMessage() {
+           _geoAwarenessAlertMessage = ""; // Init
+           for (var i = 0; i < _geoAwarenessAlertQueue.length; i++) {
+               var text = _geoAwarenessAlertQueue[i];
+               if (i) _geoAwarenessAlertMessage += "<br>";
+               _geoAwarenessAlertMessage += text;
+           }
+           geoAwarenessMessageText.text = _geoAwarenessAlertMessage;
+       }
+       Popup {
+           id: geoAwarenessMessagePopup
+           y: ScreenTools.defaultFontPixelHeight
+           x: Math.round((mainWindow.width - width) * 0.5)
+           width: mainWindow.width * 0.55
+           height: ScreenTools.defaultFontPixelHeight * 6
+           modal: false
+           focus: true
+           closePolicy: Popup.CloseOnEscape
+           background: Rectangle {
+               anchors.fill: parent
+               color: "red"
+               radius: ScreenTools.defaultFontPixelHeight * 0.5
+               border.color: qgcPal.alertBorder
+               border.width: 2
+           }
+           onOpened: {
+               geoAwarenessMessageText.text = mainWindow._geoAwarenessAlertMessage
+           }
+           onClosed: {
+               mainWindow._geoAwarenessAlertQueue = []
+               mainWindow._geoAwarenessAlertMessage = ""
+           }
+           Flickable {
+               id:                 geoAwarenessMessageFlick
+               anchors.margins:    ScreenTools.defaultFontPixelHeight * 0.5
+               anchors.fill:       parent
+               contentHeight:      geoAwarenessMessageText.height
+               contentWidth:       geoAwarenessMessageText.width
+               boundsBehavior:     Flickable.StopAtBounds
+               pixelAligned:       true
+               clip:               true
+
+               onContentHeightChanged: {
+                   contentY = contentHeight - height;
+               }
+               TextEdit {
+                   id:             geoAwarenessMessageText
+                   width:          criticalVehicleMessagePopup.width - criticalVehicleMessageClose.width - (ScreenTools.defaultFontPixelHeight * 2)
+                   anchors.centerIn: parent
+                   readOnly:       true
+                   textFormat:     TextEdit.RichText
+                   font.pointSize: ScreenTools.defaultFontPointSize
+                   font.family:    ScreenTools.demiboldFontFamily
+                   wrapMode:       TextEdit.WordWrap
+                   color:          qgcPal.alertText
+
+                   // 텍스트가 변경될 때 Flickable의 위치를 업데이트
+                   onTextChanged: {
+                       geoAwarenessMessageFlick.contentY = geoAwarenessMessageFlick.contentHeight - geoAwarenessMessageFlick.height;
+                   }
+               }
+           }
+           QGCColoredImage {
+               id: geoAwarenessMessageClose
+               anchors.margins: ScreenTools.defaultFontPixelHeight * 0.5
+               anchors.top: parent.top
+               anchors.right: parent.right
+               width: ScreenTools.isMobile ? ScreenTools.defaultFontPixelHeight * 1.5 : ScreenTools.defaultFontPixelHeight
+               height: width
+               sourceSize.height: width
+               source: "/res/XDelete.svg"
+               fillMode: Image.PreserveAspectFit
+               color: qgcPal.alertText
+               MouseArea {
+                   anchors.fill: parent
+                   anchors.margins: -ScreenTools.defaultFontPixelHeight
+                   onClicked: {
+                       geoAwarenessMessagePopup.close()
+                   }
+               }
+           }
+           QGCColoredImage {
+               anchors.margins: ScreenTools.defaultFontPixelHeight * 0.5
+               anchors.bottom: parent.bottom
+               anchors.right: parent.right
+               width: ScreenTools.isMobile ? ScreenTools.defaultFontPixelHeight * 1.5 : ScreenTools.defaultFontPixelHeight
+               height: width
+               sourceSize.height: width
+               source: "/res/ArrowDown.svg"
+               fillMode: Image.PreserveAspectFit
+               visible: geoAwarenessMessageText.lineCount > 5
+               color: qgcPal.alertText
+               MouseArea {
+                   anchors.fill: parent
+                   onClicked: {
+                       geoAwarenessMessageFlick.flick(0,-500)
+                   }
+               }
+           }
+       }
 
     //-------------------------------------------------------------------------
     //-- Indicator Popups

@@ -106,14 +106,14 @@ Item {
     }
 
 
-    GuidedActionConfirm {
-        anchors.margins:            _toolsMargin
-        anchors.top:                parent.top
-        anchors.horizontalCenter:   parent.horizontalCenter
-        z:                          QGroundControl.zOrderTopMost
-        guidedController:           _guidedController
-        guidedValueSlider:          _guidedValueSlider
-    }
+    // GuidedActionConfirm {
+    //     anchors.margins:            _toolsMargin
+    //     anchors.top:                parent.top
+    //     anchors.horizontalCenter:   parent.horizontalCenter
+    //     z:                          QGroundControl.zOrderTopMost
+    //     guidedController:           _guidedController
+    //     guidedValueSlider:          _guidedValueSlider
+    // }
 
     FlyViewInstrumentPanel {
         id:                         instrumentPanel

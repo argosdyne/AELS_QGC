@@ -12,4 +12,5 @@ add_custom_target(UiPreferencesQml
 		SerialSettings.qml
 		TcpSettings.qml
 		UdpSettings.qml
+		geoFenceSettings.qml
 )

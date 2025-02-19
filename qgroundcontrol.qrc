@@ -19,6 +19,7 @@
         <file alias="VTOLModeIndicator.qml">src/ui/toolbar/VTOLModeIndicator.qml</file>
         <file alias="APMSupportForwardingIndicator.qml">src/ui/toolbar/APMSupportForwardingIndicator.qml</file>
         <file alias="GimbalIndicator.qml">src/ui/toolbar/GimbalIndicator.qml</file>
+		<file alias="MainToolBar.qml">src/ui/toolbar/MainToolBar.qml</file>
     </qresource>
     <qresource prefix="/checklists">
         <file alias="DefaultChecklist.qml">src/FlightDisplay/DefaultChecklist.qml</file>
@@ -111,8 +112,7 @@
         <file alias="QGroundControl/Controls/KMLOrSHPFileDialog.qml">src/QmlControls/KMLOrSHPFileDialog.qml</file>
         <file alias="QGroundControl/Controls/LogReplayStatusBar.qml">src/QmlControls/LogReplayStatusBar.qml</file>
         <file alias="QGroundControl/Controls/MainStatusIndicator.qml">src/ui/toolbar/MainStatusIndicator.qml</file>
-        <file alias="QGroundControl/Controls/FlightModeMenuIndicator.qml">src/ui/toolbar/FlightModeMenuIndicator.qml</file>
-        <file alias="QGroundControl/Controls/MainToolBar.qml">src/ui/toolbar/MainToolBar.qml</file>
+        <file alias="QGroundControl/Controls/FlightModeMenuIndicator.qml">src/ui/toolbar/FlightModeMenuIndicator.qml</file>        
         <file alias="QGroundControl/Controls/MainWindowSavedState.qml">src/QmlControls/MainWindowSavedState.qml</file>
         <file alias="QGroundControl/Controls/MAVLinkChart.qml">src/QmlControls/MAVLinkChart.qml</file>
         <file alias="QGroundControl/Controls/MAVLinkMessageButton.qml">src/QmlControls/MAVLinkMessageButton.qml</file>
@@ -305,8 +305,7 @@
         <file alias="CameraCalc.FactMetaData.json">src/MissionManager/CameraCalc.FactMetaData.json</file>
         <file alias="CameraSection.FactMetaData.json">src/MissionManager/CameraSection.FactMetaData.json</file>
         <file alias="CameraSpec.FactMetaData.json">src/MissionManager/CameraSpec.FactMetaData.json</file>
-        <file alias="CorridorScan.SettingsGroup.json">src/MissionManager/CorridorScan.SettingsGroup.json</file>
-        <file alias="RemoteID.SettingsGroup.json">src/Settings/RemoteID.SettingsGroup.json</file>
+        <file alias="CorridorScan.SettingsGroup.json">src/MissionManager/CorridorScan.SettingsGroup.json</file>        
         <file alias="EditPositionDialog.FactMetaData.json">src/QmlControls/EditPositionDialog.FactMetaData.json</file>
         <file alias="FirmwareUpgrade.SettingsGroup.json">src/Settings/FirmwareUpgrade.SettingsGroup.json</file>
         <file alias="FlightMap.SettingsGroup.json">src/Settings/FlightMap.SettingsGroup.json</file>
@@ -353,7 +352,10 @@
         <file alias="Vehicle/GimbalFact.json">src/Gimbal/GimbalFact.json</file>
         <file alias="Video.SettingsGroup.json">src/Settings/Video.SettingsGroup.json</file>
         <file alias="VTOLLandingPattern.FactMetaData.json">src/MissionManager/VTOLLandingPattern.FactMetaData.json</file>
-        <file alias="GimbalController.SettingsGroup.json">src/Settings/GimbalController.SettingsGroup.json</file>
+
+		<file alias="RemoteID.SettingsGroup.json">src/Settings/RemoteID.SettingsGroup.json</file>
+		<file alias="GimbalController.SettingsGroup.json">src/Settings/GimbalController.SettingsGroup.json</file>
+        
     </qresource>
     <qresource prefix="/MockLink">
         <file alias="APMArduSubMockLink.params">src/comm/APMArduSubMockLink.params</file>

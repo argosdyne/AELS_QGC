@@ -9,6 +9,17 @@
 
 QMAKE_PROJECT_DEPTH = 0 # undocumented qmake flag to force absolute paths in makefiles
 
+WindowsBuild {
+#QMAKE_CXXFLAGS += /W1
+QMAKE_CXXFLAGS += /WX-
+QMAKE_CXXFLAGS -= /W4
+QMAKE_CXXFLAGS += /W3
+QMAKE_CXXFLAGS += /std:c++20
+QMAKE_CXXFLAGS += /wd5051
+QMAKE_CXXFLAGS += /Wv:18
+QMAKE_CXXFLAGS += -wd4309
+}
+
 # These are disabled until proven correct
 DEFINES += QGC_GST_TAISYNC_DISABLED
 DEFINES += QGC_GST_MICROHARD_DISABLED
@@ -26,6 +37,7 @@ message(Qt version $$[QT_VERSION])
 }
 
 include(QGCCommon.pri)
+
 
 TARGET   = QGroundControl
 TEMPLATE = app
@@ -266,9 +278,16 @@ QT += \
 
 AndroidBuild || iOSBuild {
     # Android and iOS don't unclude these
+    QT += \
+           serialport \
+           network \
 } else {
     QT += \
         serialport \
+}
+
+CONFIG(debug, debug|release) {
+    DEFINES += FORCE_QSERIALPORT
 }
 
 contains(DEFINES, QGC_ENABLE_BLUETOOTH) {
@@ -802,7 +821,8 @@ contains (DEFINES, QGC_ENABLE_PAIRING) {
     }
 }
 
-!contains(DEFINES, NO_SERIAL_LINK) {
+
+!NoSerialBuild {
 HEADERS += \
     src/comm/QGCSerialPortInfo.h \
     src/comm/SerialLink.h \
@@ -1039,7 +1059,8 @@ SOURCES += \
     src/comm/MockLinkMissionItemHandler.cc \
 }
 
-!contains(DEFINES, NO_SERIAL_LINK) {
+
+!NoSerialBuild {
 SOURCES += \
     src/comm/QGCSerialPortInfo.cc \
     src/comm/SerialLink.cc \
@@ -1079,6 +1100,14 @@ INCLUDEPATH += \
     src/AutoPilotPlugins/Common \
     src/FirmwarePlugin \
     src/VehicleSetup \
+    src/CGAL/include
+
+LIBS += -L$$PWD/src/CGAL/lib/mpfr.lib \
+    -L$$PWD/src/CGAL/lib/gmp.lib \
+    -L$$PWD/src/CGAL/lib/zlib.lib \
+    -L$$PWD/src/CGAL/lib/GLU32.lib \
+    -L$$PWD/src/CGAL/lib/glew32.lib \
+    -L$$PWD/src/CGAL/lib/OpenGL32.lib
 
 HEADERS+= \
     src/AutoPilotPlugins/AutoPilotPlugin.h \
@@ -1094,7 +1123,7 @@ HEADERS+= \
     src/FirmwarePlugin/FirmwarePluginManager.h \
     src/VehicleSetup/VehicleComponent.h \
 
-!MobileBuild { !contains(DEFINES, NO_SERIAL_LINK) {
+!MobileBuild { !NoSerialBuild {
     HEADERS += \
         src/VehicleSetup/Bootloader.h \
         src/VehicleSetup/FirmwareImage.h \
@@ -1116,7 +1145,7 @@ SOURCES += \
     src/FirmwarePlugin/FirmwarePluginManager.cc \
     src/VehicleSetup/VehicleComponent.cc \
 
-!MobileBuild { !contains(DEFINES, NO_SERIAL_LINK) {
+!MobileBuild { !NoSerialBuild {
     SOURCES += \
         src/VehicleSetup/Bootloader.cc \
         src/VehicleSetup/FirmwareImage.cc \
@@ -1401,6 +1430,15 @@ AndroidBuild {
     } else {
         include(android.pri)
     }
+}
+
+android: {
+    greaterThan(QT_MAJOR_VERSION, 5): CONFIG += qtserialport
+    !FORCE_QSERIALPORT {
+        LIBS += -$$PWD/libs/qtandroidserialport/src/qtandroidserialport.pri
+    }
+} else {
+    greaterThan(QT_MAJOR_VERSION, 5): CONFIG += qtserialport
 }
 
 #-------------------------------------------------------------------------------------

@@ -32,4 +32,8 @@ public:
     DEFINE_SETTINGFACT(updateHomePosition)
     DEFINE_SETTINGFACT(enableCustomActions)
     DEFINE_SETTINGFACT(customActionDefinitions)
+    DEFINE_SETTINGFACT(alarmDistance)
+    DEFINE_SETTINGFACT(dataType)
+    DEFINE_SETTINGFACT(filePath)
+    DEFINE_SETTINGFACT(onlinePath)
 };

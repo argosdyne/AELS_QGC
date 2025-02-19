@@ -10,6 +10,7 @@
 #pragma once
 
 #include "QGCMapPolygon.h"
+#include <QColor>
 
 /// The QGCFencePolygon class provides a polygon used by GeoFence support.
 class QGCFencePolygon : public QGCMapPolygon
@@ -23,6 +24,10 @@ public:
     const QGCFencePolygon& operator=(const QGCFencePolygon& other);
 
     Q_PROPERTY(bool inclusion READ inclusion WRITE setInclusion NOTIFY inclusionChanged)
+
+    Q_PROPERTY(QColor colorInclusion READ colorInclusion WRITE setcolorInclusion NOTIFY colorInclusionChanged)
+
+    Q_PROPERTY(double strokeOpacity READ strokeOpacity WRITE setstrokeOpacity NOTIFY strokeOpcaityChanged)
 
     /// Saves the QGCFencePolygon to the json object.
     ///     @param json Json object to save to
@@ -39,9 +44,16 @@ public:
 
     bool inclusion      (void) const { return _inclusion; }
     void setInclusion   (bool inclusion);
+    void setcolorInclusion(QColor colorInclusion);
+    QColor colorInclusion (void) const {return _colorInclusion;}
+
+    void setstrokeOpacity(double opacity);
+    double strokeOpacity (void) const {return _strokeOpacity;}
 
 signals:
     void inclusionChanged   (bool inclusion);
+    void colorInclusionChanged ();
+    void strokeOpcaityChanged();
 
 private slots:
     void _setDirty(void);
@@ -50,6 +62,10 @@ private:
     void _init(void);
 
     bool _inclusion;
+
+    QColor _colorInclusion;
+
+    double _strokeOpacity;
 
     static const int _jsonCurrentVersion = 1;
 

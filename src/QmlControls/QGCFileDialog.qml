@@ -26,11 +26,14 @@ Item {
 
     function openForLoad() {
         _openForLoad = true
-        if (_mobileDlg && folder.length !== 0) {
-            mobileFileOpenDialogComponent.createObject(mainWindow).open()
-        } else {
-            fullFileDialog.open()
-        }
+
+
+        androidFileDialog.open()
+        // if (_mobileDlg && folder.length !== 0) {
+        //     mainWindow.showComponentDialog(mobileFileOpenDialog, title, mainWindow.showDialogDefaultWidth, StandardButton.Cancel)
+        // } else {
+        //     fullFileDialog.open()
+        // }
     }
 
     function openForSave() {
@@ -104,6 +107,38 @@ Item {
             }
         }
         onRejected: _root.rejected()
+    }
+
+    // Only android
+    FileDialog {
+        id: androidFileDialog
+        title:  _root.title
+        folder: Qt.platform.os === "android" ? "/storage/emulated/0/" : "file:///"
+        nameFilters: _root.nameFilters ? _root.nameFilters : []
+        selectExisting: true
+        selectMultiple: false
+        selectFolder: false
+        // call if file select complete
+        onAccepted: {
+            if (_openForLoad) {
+                _root.acceptedForLoad(controller.urlToLocalFile(fileUrl))
+            } else {
+                _root.acceptedForSave(controller.urlToLocalFile(fileUrl))
+            }
+        }
+        // call if file call cancel
+        onRejected: {
+            console.log("File selection cancelled.")
+            _root.rejected()
+        }
+    }
+    // content:// Change URI to file path (test)
+    function convertContentUriToPath(contentUri) {
+        if (contentUri.startsWith("content://")) {
+            // Simple convert simulation (real convert need native url)
+            return contentUri.replace("content://com.android.providers.downloads.documents/document/", "/storage/emulated/0/Download/")
+        }
+        return contentUri
     }
 
     Component {
